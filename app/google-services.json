@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "519408254546",
+    "project_id": "freshyzoappmodule",
+    "storage_bucket": "freshyzoappmodule.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519408254546:android:1ea7b0961aae732ae9a98b",
+        "android_client_info": {
+          "package_name": "com.example.freshyzoappmodule"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB9e2tu5vUVSANA_ZJsIrrNdHdFwWitO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

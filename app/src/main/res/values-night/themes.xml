@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.SimpleApiCalling" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/black</item>
+
+        <!-- White icons -->
+        <item name="android:windowLightStatusBar">false</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/home_"
+            android:title="Home" />
+        <item
+        android:id="@+id/notification"
+        android:icon="@drawable/notification_"
+        android:title="Notification" />
+
+        <item
+            android:id="@+id/wallet"
+            android:icon="@drawable/wallet"
+            android:title="wallet" />
+
+        <item
+            android:id="@+id/account"
+            android:icon="@drawable/user"
+            android:title="Account" />
+    <item
+        android:id="@+id/cart"
+        android:icon="@drawable/trolleycart"
+        android:title="cart" />
+
+
+
+
+
+</menu>

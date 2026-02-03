@@ -1,0 +1,15 @@
+<resources>
+
+    <style name="Base.Theme.SimpleApiCalling" parent="Theme.Material3.Light.NoActionBar">
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/black</item>
+
+        <!-- White icons on black bar -->
+        <item name="android:windowLightStatusBar">false</item>
+
+    </style>
+
+    <style name="Theme.SimpleApiCalling" parent="Base.Theme.SimpleApiCalling" />
+
+</resources>
