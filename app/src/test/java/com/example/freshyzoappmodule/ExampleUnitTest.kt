@@ -1,4 +1,4 @@
-package com.example.simpleapicalling
+package com.example.freshyzoappmodule
 
 import org.junit.Test
 

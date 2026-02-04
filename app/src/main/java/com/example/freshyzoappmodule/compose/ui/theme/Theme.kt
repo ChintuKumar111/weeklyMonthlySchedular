@@ -1,6 +1,5 @@
-package com.example.simpleapicalling.compose.ui.theme
+package com.example.freshyzoappmodule.compose.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

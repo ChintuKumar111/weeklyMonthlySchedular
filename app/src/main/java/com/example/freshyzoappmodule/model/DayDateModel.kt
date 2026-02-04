@@ -1,4 +1,4 @@
-package com.example.simpleapicalling.model
+package com.example.freshyzoappmodule.model
 
 data class DayDateModel(
     val day: String,

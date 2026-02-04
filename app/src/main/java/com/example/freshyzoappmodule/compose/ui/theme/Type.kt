@@ -1,4 +1,4 @@
-package com.example.simpleapicalling.compose.ui.theme
+package com.example.freshyzoappmodule.compose.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

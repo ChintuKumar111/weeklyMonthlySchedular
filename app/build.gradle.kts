@@ -41,6 +41,10 @@ android {
 
 dependencies {
 
+    // analytics
+
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
     // Android Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

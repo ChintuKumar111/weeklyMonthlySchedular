@@ -1,4 +1,4 @@
-package com.example.simpleapicalling.Notification
+package com.example.freshyzoappmodule.Notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -14,6 +14,11 @@ import com.example.freshyzoappmodule.R
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import org.json.JSONArray
+import org.json.JSONObject
+import android.content.BroadcastReceiver
+import android.content.IntentFilter
+import com.example.freshyzoappmodule.NotificationActivity
 
 class MyFirebaseService : FirebaseMessagingService() {
 
@@ -36,7 +41,13 @@ class MyFirebaseService : FirebaseMessagingService() {
         super.onMessageReceived(message)
         
         Log.d("FCM_MESSAGE", "From: ${message.from}")
-        
+
+        val title = message.notification?.title ?: "New Notification"
+        val body = message.notification?.body ?: ""
+        saveNotification(title, body)
+
+        notifyNotificationScreen() // 🔥 THIS LINE
+
         // Handle Notification Payload
         message.notification?.let {
             Log.d("FCM_MESSAGE", "Message Body: ${it.body}")
@@ -57,7 +68,7 @@ class MyFirebaseService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val intent = Intent(this, NotificationActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
         
@@ -83,4 +94,26 @@ class MyFirebaseService : FirebaseMessagingService() {
 
         notificationManager.notify(System.currentTimeMillis().toInt(), notificationBuilder.build())
     }
+
+    private fun saveNotification(title: String, message: String) {
+        val prefs = getSharedPreferences("notifications", MODE_PRIVATE)
+
+        val oldData = prefs.getString("list", "[]")
+        val jsonArray = JSONArray(oldData)
+
+        val jsonObject = JSONObject()
+        jsonObject.put("title", title)
+        jsonObject.put("message", message)
+        jsonObject.put("time", System.currentTimeMillis())
+
+        jsonArray.put(jsonObject)
+
+        prefs.edit().putString("list", jsonArray.toString()).apply()
+    }
+
+    private fun notifyNotificationScreen() {
+        val intent = Intent("NEW_NOTIFICATION_RECEIVED")
+        sendBroadcast(intent)
+    }
+
 }
