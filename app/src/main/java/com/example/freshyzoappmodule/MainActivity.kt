@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
@@ -64,15 +65,7 @@ class MainActivity : AppCompatActivity() {
         DayDateModel("1", 0, false),
         DayDateModel("2", 0, false),
         DayDateModel("3", 0, false),
-        DayDateModel("4", 0, false),
-        DayDateModel("5", 0, false),
-        DayDateModel("6", 0, false),
-        DayDateModel("7", 0, false),
-        DayDateModel("8", 0, false),
-        DayDateModel("9", 0, false),
-        DayDateModel("10", 0, false),
-        DayDateModel("11", 0, false),
-        DayDateModel("12", 0, false)
+
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,12 +125,15 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnMonthQuantity.setOnClickListener { showMonthQuantityDialog() }
         binding.edtWeeklyStartDate.setOnClickListener { showDatePicker(binding.edtWeeklyStartDate, true, isMonthly = false) }
-        binding.edtWeeklyEndDate.setOnClickListener { showDatePicker(binding.edtWeeklyEndDate, false, isMonthly = false) }
+
+
+       binding.edtWeeklyEndDate.setOnClickListener { showDatePicker(binding.edtWeeklyEndDate, false, isMonthly = false) }
+
         binding.edtMonthlyStartDate.setOnClickListener { showDatePicker(binding.edtMonthlyStartDate, true, isMonthly = true) }
         binding.edtMonthlyEndDate.setOnClickListener { showDatePicker(binding.edtMonthlyEndDate, false, isMonthly = true) }
         binding.btnSubscribe.setOnClickListener {
             if (binding.edtWeeklyStartDate.text.toString().isEmpty() &&
-                binding.edtWeeklyEndDate.text.toString().isEmpty() &&
+            binding.edtWeeklyEndDate.text.toString().isEmpty() &&
                 binding.edtMonthlyStartDate.text.toString().isEmpty() &&
                 binding.edtMonthlyEndDate.text.toString().isEmpty()
             ) {
@@ -158,6 +154,7 @@ class MainActivity : AppCompatActivity() {
         binding.edtWeeklyStartDate.visibility = View.VISIBLE
         binding.edtWeeklyEndDate.visibility = View.VISIBLE
         binding.edtMonthlyStartDate.visibility = View.GONE
+
         binding.edtMonthlyEndDate.visibility = View.GONE
         binding.txtTotalPrice.text = "₹$weeklyTotalPrice"
         binding.txtTotalPayablePrice.text = "₹$weeklyTotalPrice"
@@ -169,7 +166,20 @@ class MainActivity : AppCompatActivity() {
         binding.edtWeeklyStartDate.visibility = View.GONE
         binding.edtWeeklyEndDate.visibility = View.GONE
         binding.edtMonthlyStartDate.visibility = View.VISIBLE
-        binding.edtMonthlyEndDate.visibility = View.VISIBLE
+        binding.edtMonthlyEndDate.visibility = View.GONE
+
+        // Default selection for Monthly tab
+        selectedMonths = 1
+        monthQuantity = 1
+        binding.txtSelectedMonth.text = "1 Month"
+        binding.txtMonthQuantity.text = "Qty: 1"
+
+        monthList.forEachIndexed { index, model ->
+            model.isSelected = (index == 0)
+        }
+
+        calculateMonthlyTotal()
+
         binding.txtTotalPrice.text = "₹$monthlyTotalPrice"
         binding.txtTotalPayablePrice.text = "₹$monthlyTotalPrice"
         binding.edtMonthlyEndDate.isEnabled = false
@@ -225,6 +235,8 @@ class MainActivity : AppCompatActivity() {
         val input = EditText(this).apply {
             inputType = InputType.TYPE_CLASS_NUMBER
             hint = "Enter Quantity"
+            setTextColor(Color.BLACK)
+            setHintTextColor(Color.GRAY)
         }
         AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
             .setTitle("Enter Quantity").setView(input)
@@ -246,17 +258,56 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showMonthDialog() {
-        val months = monthList.map { it.day }.toTypedArray()
+        val options = arrayOf("1 Month", "2 Month", "3 Month", "More")
         AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
             .setTitle("Select Month")
-            .setItems(months) { _, which ->
-                selectedMonths = months[which].toInt()
-                binding.txtSelectedMonth.text = "${months[which]} Month"
-                monthList.forEach { it.isSelected = false }
-                monthList[which].isSelected = true
-                calculateMonthlyTotal()
+            .setItems(options) { _, which ->
+                if (options[which] == "More") {
+                    showCustomMonthInput()
+                } else {
+                    updateMonthSelection(which + 1)
+                }
             }.show()
     }
+
+    private fun showCustomMonthInput() {
+        val input = EditText(this).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            hint = "Enter number of months"
+            setTextColor(Color.BLACK)
+            setHintTextColor(Color.GRAY)
+        }
+        AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
+            .setTitle("Enter Months").setView(input)
+            .setPositiveButton("OK") { _, _ ->
+                val months = input.text.toString().toIntOrNull()
+                if (months != null && months > 0) {
+                    updateMonthSelection(months)
+                } else toast("Enter valid number of months")
+            }.setNegativeButton("Cancel", null).show()
+    }
+
+    private fun updateMonthSelection(months: Int) {
+        selectedMonths = months
+        binding.txtSelectedMonth.text = if (months == 1) "1 Month" else "$months Months"
+
+        monthList.forEachIndexed { index, model ->
+            model.isSelected = (index + 1 == months)
+        }
+
+        calculateMonthlyTotal()
+
+        monthlyStartDate?.let { startCal ->
+            val endCal = startCal.clone() as Calendar
+            endCal.add(Calendar.DAY_OF_MONTH, selectedMonths * daysPerMonth)
+            binding.edtMonthlyEndDate.text = "%04d-%02d-%02d".format(
+                endCal.get(Calendar.YEAR),
+                endCal.get(Calendar.MONTH) + 1,
+                endCal.get(Calendar.DAY_OF_MONTH)
+            )
+        }
+    }
+
 
     private fun showMonthQuantityDialog() {
         val quantities = arrayOf("1", "2", "3", "4", "More")
@@ -277,6 +328,8 @@ class MainActivity : AppCompatActivity() {
         val input = EditText(this).apply {
             inputType = InputType.TYPE_CLASS_NUMBER
             hint = "Enter Quantity"
+            setTextColor(Color.BLACK)
+            setHintTextColor(Color.GRAY)
         }
         AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
             .setTitle("Enter Quantity").setView(input)
@@ -296,6 +349,7 @@ class MainActivity : AppCompatActivity() {
         binding.txtTotalPrice.text = "₹$monthlyTotalPrice"
         binding.txtTotalPayablePrice.text = "₹$monthlyTotalPrice"
     }
+
 
     private fun getDayOfWeekInt(day: String): Int = when (day) {
         "Sun" -> Calendar.SUNDAY; "Mon" -> Calendar.MONDAY; "Tue" -> Calendar.TUESDAY

@@ -398,6 +398,7 @@
                             android:background="@drawable/datestyle"
                             android:gravity="center"
                             android:hint="End Date"
+                            android:visibility="gone"
                             android:paddingStart="5dp"
                             android:textColor="@color/black"
                             android:textColorHint="@color/gray_900"

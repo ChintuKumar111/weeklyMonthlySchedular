@@ -13,6 +13,10 @@ open class BaseActivityy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         analytics = Firebase.analytics
+
+        FirebaseAnalytics.getInstance(this)
+            .setAnalyticsCollectionEnabled(true)
+
     }
 
     override fun onResume() {
