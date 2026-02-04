@@ -10,6 +10,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/notification"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_gravity=""
+        android:elevation="@dimen/_20sdp"
+        android:src="@drawable/notification__"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,20 +29,15 @@
         android:layout_height="wrap_content"
         android:elevation="@dimen/_10sdp"
         android:minHeight="@dimen/_45sdp"
-
+        android:background="@color/primary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/notification"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_gravity=""
-            android:src="@drawable/user"/>
+
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:elevation="@dimen/_18sdp"
@@ -39,10 +46,10 @@
 
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:padding="@dimen/_2sdp"
-                android:src="@drawable/baseline_arrow_back_ios_24"
+                android:src="@drawable/outline_arrow_back_24"
                 android:contentDescription="Back"/>
 
 
@@ -72,8 +79,9 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4">
@@ -81,7 +89,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/colorBackground"
+            android:background="@android:color/white"
             android:orientation="vertical"
             android:padding="@dimen/_8sdp">
 
@@ -144,6 +152,7 @@
                 android:layout_margin="5dp"
                 android:visibility="gone"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@android:color/white"
                 android:elevation="10dp"
                 app:cardCornerRadius="8dp">
 
@@ -151,7 +160,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@android:color/white"
                     android:orientation="vertical"
                     android:padding="10dp">
 
@@ -209,13 +218,14 @@
                 android:layout_margin="5dp"
                 android:visibility="visible"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@android:color/white"
                 android:elevation="10dp"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@android:color/white"
                     android:orientation="vertical"
                     android:padding="10dp">
 
@@ -271,9 +281,6 @@
                         android:orientation="horizontal">
 
 
-<!--                        // changing here -->
-
-
                         <LinearLayout
                             android:id="@+id/btnSelectMonth"
                             android:layout_width="@dimen/_70sdp"
@@ -326,13 +333,7 @@
                                 android:textColor="@color/black"
                                 />
                         </LinearLayout>
-
-<!--                        // changing here &ndash;&gt;-->
                     </LinearLayout>
-
-                    <!-- Select Days -->
-
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -342,13 +343,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="@android:color/white"
                 android:elevation="10dp"
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@android:color/white"
                     android:orientation="vertical"
                     android:padding="10dp">
 
@@ -441,8 +443,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_4sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
-                android:background="@color/white"
-                android:backgroundTint="@color/white"
+                app:cardBackgroundColor="@android:color/white"
                 android:elevation="@dimen/_10sdp"
                 app:cardCornerRadius="@dimen/_8sdp">
 
@@ -450,7 +451,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:background="@color/white"
+                    android:background="@android:color/white"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
 
@@ -563,11 +564,6 @@
                                 android:textSize="@dimen/_12sdp"
                                 android:textStyle="bold" />
                         </LinearLayout>
-
-<!--                        <View-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="1dp"-->
-<!--                            android:background="@color/gray_900"/>-->
 
                         <LinearLayout
                             android:layout_width="match_parent"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FFFFFFFF</color>
-    <color name="white">#FF121212</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 
     <!-- Backgrounds -->
     <color name="background">#FF121212</color>
@@ -26,7 +26,7 @@
     <color name="gray_600">#FFB0B0B0</color>
     <color name="gray_700">#FFD1D1D1</color>
     <color name="gray_800">#FFE1E1E1</color>
-    <color name="gray_900">#FFFFFFFF</color>
+    <color name="gray_900">#FF212121</color>
 
     <!-- Divider / Border -->
     <color name="divider">#FF383838</color>

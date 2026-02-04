@@ -1,5 +1,8 @@
 package com.example.freshyzoappmodule.compose
 
+// only for learning.................
+// not use in the project.................
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -36,6 +39,9 @@ import androidx.compose.ui.unit.sp
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.compose.ui.theme.FreshyzoappmoduleTheme
 
+
+// only for learning.................
+// not use in the project.................
 class ComposeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
