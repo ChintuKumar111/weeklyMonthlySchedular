@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.freshyzoappmodule.Activity.HomeActivity
 import com.example.freshyzoappmodule.Activity.NotificationActivity
 import com.example.freshyzoappmodule.R
+import com.example.freshyzoappmodule.cartpreview.freetrial.FreeTrialBottomSheet
 import com.example.freshyzoappmodule.databinding.ActivityBottomCartActivtyBinding
 
 
@@ -25,7 +26,6 @@ class BottomCartActivity : AppCompatActivity() {
         binding = ActivityBottomCartActivtyBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupInsets()
-
 
         binding.btnClose.setOnClickListener {
            hideCartBar()
@@ -46,6 +46,11 @@ class BottomCartActivity : AppCompatActivity() {
         binding.cartPreviewLayout.btnViewCart.setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
 
+        }
+
+        binding.animationFreeTrial.setOnClickListener {
+            val bottomSheet = FreeTrialBottomSheet()
+            bottomSheet.show(supportFragmentManager, "FreeTrialBottomSheet")
         }
     }
 
@@ -108,7 +113,6 @@ class BottomCartActivity : AppCompatActivity() {
     }
 
     private fun hideCartBar() {
-
         binding.floatingCartBar.animate()
             .translationY(binding.floatingCartBar.height.toFloat())
             .alpha(0f)
