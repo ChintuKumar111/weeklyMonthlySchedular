@@ -5,6 +5,10 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import com.example.freshyzoappmodule.databinding.ActivityHomeBinding
 
+
+// using for firebase analytics....... to monitor the event and  screen time in firebase console
+
+
 class HomeActivity : BaseActivityy() {
     lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {

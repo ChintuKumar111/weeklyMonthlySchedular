@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 binding.edtMonthlyStartDate.text.toString().isEmpty() &&
                 binding.edtMonthlyEndDate.text.toString().isEmpty()
             ) {
-                Toast.makeText(this, "Please select start and end date first", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please select  date first", Toast.LENGTH_LONG).show()
             }
         }
 
