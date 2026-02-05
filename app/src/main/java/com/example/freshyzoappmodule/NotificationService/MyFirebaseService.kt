@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.Notification
+package com.example.freshyzoappmodule.NotificationService
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,16 +9,13 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.freshyzoappmodule.MainActivity
 import com.example.freshyzoappmodule.R
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONArray
 import org.json.JSONObject
-import android.content.BroadcastReceiver
-import android.content.IntentFilter
-import com.example.freshyzoappmodule.NotificationActivity
+import com.example.freshyzoappmodule.Activity.NotificationActivity
 
 class MyFirebaseService : FirebaseMessagingService() {
 

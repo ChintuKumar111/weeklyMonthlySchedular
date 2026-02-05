@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule
+package com.example.freshyzoappmodule.Activity
 
 import android.Manifest
 import android.app.AlertDialog
@@ -24,6 +24,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.Adapter.DayQuantityAdapter
+import com.example.freshyzoappmodule.Activity.NotificationActivity
+import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.ActivityMainBinding
 import com.example.freshyzoappmodule.model.DayDateModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -362,30 +364,49 @@ class MainActivity : AppCompatActivity() {
         if (isStartDate && cal.get(Calendar.HOUR_OF_DAY) >= 9) cal.add(Calendar.DAY_OF_MONTH, 1)
         if (!isMonthly && !isStartDate && weeklyStartDate != null) cal.timeInMillis = weeklyStartDate!!.timeInMillis + (24 * 60 * 60 * 1000)
 
-        DatePickerDialog(this, android.R.style.Theme_Material_Light_Dialog_Alert, { _, year, month, dayOfMonth ->
-            val selectedCal = Calendar.getInstance().apply { set(year, month, dayOfMonth) }
-            if (!isMonthly && isStartDate) {
-                val allowedDays = dayList.filter { it.quantity > 0 }.map { getDayOfWeekInt(it.day) }
-                if (allowedDays.isNotEmpty() && selectedCal.get(Calendar.DAY_OF_WEEK) !in allowedDays) {
-                    while (selectedCal.get(Calendar.DAY_OF_WEEK) !in allowedDays) selectedCal.add(Calendar.DAY_OF_MONTH, 1)
-                    toast("Adjusted to nearest delivery day")
-                }
-            }
-            textView.text = "%04d-%02d-%02d".format(selectedCal.get(Calendar.YEAR), selectedCal.get(Calendar.MONTH) + 1, selectedCal.get(Calendar.DAY_OF_MONTH))
-            if (isMonthly) {
-                if (isStartDate) {
-                    monthlyStartDate = selectedCal
-                    if (selectedMonths > 0) {
-                        val endCal = selectedCal.clone() as Calendar
-                        endCal.add(Calendar.DAY_OF_MONTH, selectedMonths * daysPerMonth)
-                        binding.edtMonthlyEndDate.text = "%04d-%02d-%02d".format(endCal.get(Calendar.YEAR), endCal.get(Calendar.MONTH) + 1, endCal.get(Calendar.DAY_OF_MONTH))
+        DatePickerDialog(
+            this,
+            android.R.style.Theme_Material_Light_Dialog_Alert,
+            { _, year, month, dayOfMonth ->
+                val selectedCal = Calendar.getInstance().apply { set(year, month, dayOfMonth) }
+                if (!isMonthly && isStartDate) {
+                    val allowedDays =
+                        dayList.filter { it.quantity > 0 }.map { getDayOfWeekInt(it.day) }
+                    if (allowedDays.isNotEmpty() && selectedCal.get(Calendar.DAY_OF_WEEK) !in allowedDays) {
+                        while (selectedCal.get(Calendar.DAY_OF_WEEK) !in allowedDays) selectedCal.add(
+                            Calendar.DAY_OF_MONTH,
+                            1
+                        )
+                        toast("Adjusted to nearest delivery day")
                     }
                 }
-            } else if (isStartDate) {
-                weeklyStartDate = selectedCal
-                binding.edtWeeklyEndDate.text = ""
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).apply { datePicker.minDate = cal.timeInMillis }.show()
+                textView.text = "%04d-%02d-%02d".format(
+                    selectedCal.get(Calendar.YEAR),
+                    selectedCal.get(Calendar.MONTH) + 1,
+                    selectedCal.get(Calendar.DAY_OF_MONTH)
+                )
+                if (isMonthly) {
+                    if (isStartDate) {
+                        monthlyStartDate = selectedCal
+                        if (selectedMonths > 0) {
+                            val endCal = selectedCal.clone() as Calendar
+                            endCal.add(Calendar.DAY_OF_MONTH, selectedMonths * daysPerMonth)
+                            binding.edtMonthlyEndDate.text = "%04d-%02d-%02d".format(
+                                endCal.get(Calendar.YEAR),
+                                endCal.get(Calendar.MONTH) + 1,
+                                endCal.get(Calendar.DAY_OF_MONTH)
+                            )
+                        }
+                    }
+                } else if (isStartDate) {
+                    weeklyStartDate = selectedCal
+                    binding.edtWeeklyEndDate.text = ""
+                }
+            },
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        ).apply { datePicker.minDate = cal.timeInMillis }.show()
     }
 
     private fun toast(msg: String) { Toast.makeText(this, msg, Toast.LENGTH_SHORT).show() }

@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule
+package com.example.freshyzoappmodule.Activity
 
 import android.content.BroadcastReceiver
 import android.content.Context
