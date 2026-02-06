@@ -15,6 +15,7 @@
         android:layout_height="@dimen/_150sdp"
         android:background="@color/primary"
         android:elevation="@dimen/_20sdp"
+        android:visibility="gone"
         app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,17 +59,15 @@
         android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/buttonbg"
         android:padding="@dimen/_10sdp"
         android:text="close"
         android:textSize="@dimen/_10sdp"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.707" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:visibility="gone"
@@ -94,15 +93,15 @@
         android:layout_width="372dp"
         android:layout_height="91dp"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/animation_" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="14dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imgProductImage"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:src="@drawable/ghee"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Freshyzo Ghee"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/tvProductShortDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pure, digestible, healthy"
+            android:textSize="11sp"
+            android:textColor="#777777"
+            android:maxLines="2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvMrp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹50"
+                android:textSize="11sp"
+                android:textColor="#888888"/>
+
+            <TextView
+                android:id="@+id/tvSellingPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="₹45"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#2E7D32"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAddToCart"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="ADD TO CART"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="@drawable/buttonbg"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
