@@ -59,28 +59,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:clipToPadding="false"
+        android:paddingBottom="10dp"
         android:paddingStart="@dimen/_20sdp"
         android:paddingEnd="@dimen/_20sdp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+       >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSearch"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:layout_marginTop="@dimen/_10sdp" />
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/llNoMatch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -95,11 +96,11 @@
                 android:id="@+id/tvNoMatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NO MATCH FOUND"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textColor="@color/white"
+                android:text="NO MATCH FOUND"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <ProgressBar
@@ -107,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </FrameLayout>
 
