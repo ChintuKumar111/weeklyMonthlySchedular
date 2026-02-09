@@ -20,11 +20,13 @@ import com.example.freshyzoappmodule.data.model.PopularProductModel
 import com.example.freshyzoappmodule.data.model.ProductModel
 import com.example.freshyzoappmodule.ui.Adapter.PopularProductAdapter
 import com.example.freshyzoappmodule.ui.Adapter.ProductAdapter
+import com.example.freshyzoappmodule.ui.Adapter.RecentSearchAdapter
 import com.example.freshyzoappmodule.viewmodel.SearchViewModel
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
-    private lateinit var adapter: ProductAdapter
+    private lateinit var productAdapter: ProductAdapter
+    private lateinit var recentAdapter: RecentSearchAdapter
     private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,7 @@ class SearchActivity : AppCompatActivity() {
         setUpUI()
         setupTextSwitcher()
         setupPopularProducts()
+        setupRecentSearches()
         setupSearchProducts()
         
         loadInitialData()
@@ -48,18 +51,21 @@ class SearchActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.filteredList.observe(this) { list ->
-            adapter.updateList(list)
+            productAdapter.updateList(list)
             
-            // Toggle visibility of result list and No Match UI
-            if (binding.etSearch.text.toString().trim().isEmpty()) {
+            val query = binding.etSearch.text.toString().trim()
+            if (query.isEmpty()) {
                 binding.rvSearch.visibility = View.GONE
                 binding.llNoMatch.visibility = View.GONE
-            } else if (list.isEmpty() && !viewModel.isLoading.value!!) {
+                binding.llRecentSearch.visibility = if (viewModel.recentSearches.value?.isNotEmpty() == true) View.VISIBLE else View.GONE
+            } else if (list.isEmpty() && viewModel.isLoading.value == false) {
                 binding.rvSearch.visibility = View.GONE
                 binding.llNoMatch.visibility = View.VISIBLE
+                binding.llRecentSearch.visibility = View.GONE
             } else {
                 binding.rvSearch.visibility = if (list.isNotEmpty()) View.VISIBLE else View.GONE
                 binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility = View.GONE
             }
         }
 
@@ -68,6 +74,7 @@ class SearchActivity : AppCompatActivity() {
             if (isLoading) {
                 binding.rvSearch.visibility = View.GONE
                 binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility = View.GONE
             }
         }
 
@@ -80,15 +87,23 @@ class SearchActivity : AppCompatActivity() {
         }
         
         viewModel.showNoMatch.observe(this) { show ->
-            if (show && !binding.etSearch.text.toString().trim().isEmpty()) {
+            if (show && binding.etSearch.text.toString().trim().isNotEmpty()) {
                 binding.llNoMatch.visibility = View.VISIBLE
                 binding.rvSearch.visibility = View.GONE
             } else {
                 binding.llNoMatch.visibility = View.GONE
             }
         }
-    }
 
+        viewModel.recentSearches.observe(this) { list ->
+            recentAdapter.updateList(list)
+            if (binding.etSearch.text.toString().trim().isEmpty() && list.isNotEmpty()) {
+                binding.llRecentSearch.visibility = View.VISIBLE
+            } else {
+                binding.llRecentSearch.visibility = View.GONE
+            }
+        }
+    }
 
     private fun setupTextSwitcher() {
         binding.textSwitcher.setFactory {
@@ -107,10 +122,10 @@ class SearchActivity : AppCompatActivity() {
     private fun setupPopularProducts() {
         val products = listOf(
             PopularProductModel("Milk", R.drawable.milk),
-            PopularProductModel("Butter", R.drawable.ghee),
-            PopularProductModel("Paneer", R.drawable.paneer),
             PopularProductModel("dahi", R.drawable.dahi),
-            PopularProductModel("ghee", R.drawable.ghee)
+            PopularProductModel("Paneer", R.drawable.paneer),
+            PopularProductModel("ghee", R.drawable.ghee),
+            PopularProductModel("khowa", R.drawable.khowa)
         )
 
         binding.rvPopularProducts.layoutManager =
@@ -122,10 +137,25 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRecentSearches() {
+        recentAdapter = RecentSearchAdapter(emptyList(), 
+            onItemClick = { selectedText ->
+                binding.etSearch.setText(selectedText)
+                binding.etSearch.setSelection(selectedText.length)
+            },
+            onDeleteClick = { textToDelete ->
+                viewModel.deleteRecentSearch(textToDelete)
+            }
+        )
+        // Changed to HORIZONTAL layout manager
+        binding.rvRecentSearches.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvRecentSearches.adapter = recentAdapter
+    }
+
     private fun setupSearchProducts() {
-        adapter = ProductAdapter(emptyList())
+        productAdapter = ProductAdapter(emptyList())
         binding.rvSearch.layoutManager = GridLayoutManager(this, 2)
-        binding.rvSearch.adapter = adapter
+        binding.rvSearch.adapter = productAdapter
     }
 
     private fun loadInitialData() {

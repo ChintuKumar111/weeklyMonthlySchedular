@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/_3sdp"
+    android:padding="@dimen/_5sdp"
+    android:background="@drawable/recent_search"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/recent"
+        android:alpha="0.5" />
+
+    <TextView
+        android:id="@+id/tvRecentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        android:text="Recent Search" />
+
+    <ImageView
+        android:id="@+id/btnRemoveRecent"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/close"
+        android:padding="@dimen/_5sdp"
+        />
+
+</LinearLayout>

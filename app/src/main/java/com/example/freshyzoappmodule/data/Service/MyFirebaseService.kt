@@ -23,7 +23,6 @@ class MyFirebaseService : FirebaseMessagingService() {
         super.onNewToken(token)
         Log.d("FCM_TOKEN", "Token generated: $token")
 
-        // Automatically subscribe this device to the "all_users" topic
         FirebaseMessaging.getInstance().subscribeToTopic("all_users")
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -39,17 +38,14 @@ class MyFirebaseService : FirebaseMessagingService() {
         
         Log.d("FCM_MESSAGE", "From: ${message.from}")
 
-        val title = message.notification?.title ?: "New Notification"
-        val body = message.notification?.body ?: ""
+        // Check if message contains a notification payload.
+        val title = message.notification?.title ?: message.data["title"] ?: "New Notification"
+        val body = message.notification?.body ?: message.data["message"] ?: ""
+        
         saveNotification(title, body)
+        notifyNotificationScreen()
 
-        notifyNotificationScreen() // 🔥 THIS LINE
-
-        // Handle Notification Payload
-        message.notification?.let {
-            Log.d("FCM_MESSAGE", "Message Body: ${it.body}")
-            showNotification(it.title ?: "Notification", it.body ?: "")
-        }
+        showNotification(title, body)
     }
 
     private fun showNotification(title: String, message: String) {
@@ -71,14 +67,14 @@ class MyFirebaseService : FirebaseMessagingService() {
         
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        
-
-        val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.app_icon) // full color logo
-
-
+        val largeIcon = try {
+            BitmapFactory.decodeResource(resources, R.drawable.app_icon)
+        } catch (e: Exception) {
+            null
+        }
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.drawable.notification_)
@@ -94,23 +90,25 @@ class MyFirebaseService : FirebaseMessagingService() {
 
     private fun saveNotification(title: String, message: String) {
         val prefs = getSharedPreferences("notifications", MODE_PRIVATE)
-
-        val oldData = prefs.getString("list", "[]")
+        val oldData = prefs.getString("list", "[]") ?: "[]"
         val jsonArray = JSONArray(oldData)
 
-        val jsonObject = JSONObject()
-        jsonObject.put("title", title)
-        jsonObject.put("message", message)
-        jsonObject.put("time", System.currentTimeMillis())
+        val jsonObject = JSONObject().apply {
+            put("title", title)
+            put("message", message)
+            put("time", System.currentTimeMillis())
+        }
 
         jsonArray.put(jsonObject)
-
         prefs.edit().putString("list", jsonArray.toString()).apply()
+        Log.d("FCM_STORAGE", "Notification saved to SharedPreferences")
     }
 
     private fun notifyNotificationScreen() {
-        val intent = Intent("NEW_NOTIFICATION_RECEIVED")
+        val intent = Intent("com.example.freshyzoappmodule.NEW_NOTIFICATION")
+        // Set package name to ensure it's an explicit broadcast
+        intent.setPackage(packageName)
         sendBroadcast(intent)
+        Log.d("FCM_BROADCAST", "Broadcast sent for new notification")
     }
-
 }

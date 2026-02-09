@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.example.freshyzoappmodule.databinding.BottomSheetCartPreviewBinding
-import com.example.freshyzoappmodule.data.model.CartDataModel
+import com.example.freshyzoappmodule.data.model.CartStateModel
 
 class CartPreviewView @JvmOverloads constructor(
     context: Context,
@@ -29,16 +29,16 @@ class CartPreviewView @JvmOverloads constructor(
         viewCartClick = listener
     }
 
-    fun showCart(cartData: CartDataModel) {
+    fun showCart(cartData: CartStateModel) {
 
         // 🔥 Auto collapse when empty
-        if (cartData.itemCount <= 0) {
+        if (cartData.itemsCount <= 0) {
             hideCart()
             return
         }
 
         binding.tvAddedItemCount.text =
-            "${cartData.itemCount} items"
+            "${cartData.itemsCount} items"
 
         binding.tvItemAddedPrice.text =
             "₹${cartData.totalPrice}"

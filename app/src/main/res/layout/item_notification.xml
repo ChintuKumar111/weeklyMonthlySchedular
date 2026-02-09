@@ -16,13 +16,6 @@
         android:elevation="@dimen/_4sdp">
 
 
-        <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:src="@drawable/notification_"/>
 
 
 

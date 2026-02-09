@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.utils.helper
 
-import com.example.freshyzoappmodule.data.model.CartDataModel
+import com.example.freshyzoappmodule.data.model.CartStateModel
 
 class CartPreviewHelper(
     private val cartPreviewView: CartPreviewView
@@ -9,7 +9,7 @@ class CartPreviewHelper(
     fun onItemAdded(itemCount: Int, totalPrice: Double) {
 
         cartPreviewView.showCart(
-            CartDataModel(itemCount, totalPrice)
+            CartStateModel(itemCount, totalPrice)
         )
     }
 

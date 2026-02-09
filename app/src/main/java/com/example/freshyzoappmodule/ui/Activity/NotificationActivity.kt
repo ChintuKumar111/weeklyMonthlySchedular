@@ -5,22 +5,25 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.ui.Adapter.NotificationAdapter
 import com.example.freshyzoappmodule.databinding.ActivityNotificationBinding
-import com.example.freshyzoappmodule.data.model.NotificationModel
-import org.json.JSONArray
+import com.example.freshyzoappmodule.viewmodel.NotificationViewModel
 
 class NotificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNotificationBinding
     private lateinit var adapter: NotificationAdapter
+    private val viewModel: NotificationViewModel by viewModels()
 
     private val notificationReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            refreshNotifications()
+            Log.d("NOTIFICATION_UI", "Broadcast received, refreshing list")
+            viewModel.refreshNotifications()
         }
     }
 
@@ -30,55 +33,47 @@ class NotificationActivity : AppCompatActivity() {
         binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupUI()
+        observeViewModel()
+    }
+
+    private fun setupUI() {
         binding.rvNotifications.layoutManager = LinearLayoutManager(this)
         adapter = NotificationAdapter(emptyList())
         binding.rvNotifications.adapter = adapter
+        
+       // binding.btnBack.setOnClickListener { finish() }
+    }
+
+    private fun observeViewModel() {
+        viewModel.notifications.observe(this) { list ->
+            adapter.updateList(list)
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        val filter = IntentFilter("NEW_NOTIFICATION_RECEIVED")
-        // Specify RECEIVER_NOT_EXPORTED for apps targeting API 34+
+        // Action must match MyFirebaseService precisely
+        val filter = IntentFilter("com.example.freshyzoappmodule.NEW_NOTIFICATION")
         ContextCompat.registerReceiver(
             this,
             notificationReceiver,
             filter,
-            ContextCompat.RECEIVER_NOT_EXPORTED
+            ContextCompat.RECEIVER_EXPORTED // Changed to EXPORTED for cross-process app communication
         )
     }
 
     override fun onStop() {
         super.onStop()
-        unregisterReceiver(notificationReceiver)
+        try {
+            unregisterReceiver(notificationReceiver)
+        } catch (e: Exception) {
+            Log.e("NOTIFICATION_UI", "Error unregistering receiver", e)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        refreshNotifications()
-    }
-
-    private fun refreshNotifications() {
-        val list = loadNotifications().reversed()
-        adapter.updateList(list)
-    }
-
-    private fun loadNotifications(): List<NotificationModel> {
-        val prefs = getSharedPreferences("notifications", MODE_PRIVATE)
-        val json = prefs.getString("list", "[]") ?: "[]"
-        val jsonArray = JSONArray(json)
-
-        val list = mutableListOf<NotificationModel>()
-
-        for (i in 0 until jsonArray.length()) {
-            val obj = jsonArray.getJSONObject(i)
-            list.add(
-                NotificationModel(
-                    obj.getString("title"),
-                    obj.getString("message"),
-                    obj.getLong("time")
-                )
-            )
-        }
-        return list
+        viewModel.refreshNotifications()
     }
 }
