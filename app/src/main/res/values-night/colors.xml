@@ -1,36 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- For Dark Theme, Primary Text is White -->
+    <color name="text_primary">#FFFFFFFF</color>
 
-    <!-- Backgrounds -->
-    <color name="background">#FF121212</color>
-    <color name="background_light">#FF1E1E1E</color>
-    <color name="background_dark">#FF000000</color>
+    <!-- Background for dialogs and sheets in dark mode -->
+    <color name="dialog_background">#FF333333</color>
 
-    <!-- Text Colors -->
-    <color name="text_primary">#FFE1E1E1</color>
-    <color name="text_secondary">#FFB0B0B0</color>
-    <color name="text_hint">#FF757575</color>
-
-    <!-- Body -->
-    <color name="body">#FFE1E1E1</color>
-    <color name="body_light">#FFB0B0B0</color>
-
-    <!-- Gray Scale -->
-    <color name="gray_100">#FF1E1E1E</color>
-    <color name="gray_200">#FF2C2C2C</color>
-    <color name="gray_300">#FF383838</color>
-    <color name="gray_400">#FF484848</color>
-    <color name="gray_500">#FF757575</color>
-    <color name="gray_600">#FFB0B0B0</color>
-    <color name="gray_700">#FFD1D1D1</color>
-    <color name="gray_800">#FFE1E1E1</color>
-    <color name="gray_900">#FF212121</color>
-
-    <!-- Divider / Border -->
-    <color name="divider">#FF383838</color>
-    <color name="border">#FF484848</color>
-
-    <color name="semiPrimary">#FF2C2C2C</color>
+    <!-- Define other colors for dark mode as needed -->
 </resources>

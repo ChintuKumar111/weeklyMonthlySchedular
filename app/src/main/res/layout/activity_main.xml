@@ -8,20 +8,7 @@
     android:background="@color/primary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
-
-    <ImageView
-        android:id="@+id/notification"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_gravity=""
-        android:elevation="@dimen/_20sdp"
-        android:src="@drawable/notification__"
-        android:layout_marginEnd="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
-
+    tools:context=".ui.Activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -34,15 +21,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:elevation="@dimen/_18sdp"
-            android:gravity="center_vertical">
-
+            android:gravity="center_vertical"
+            android:paddingEnd="16dp">
 
             <ImageView
                 android:id="@+id/btnBack"
@@ -52,17 +36,30 @@
                 android:src="@drawable/outline_arrow_back_24"
                 android:contentDescription="Back"/>
 
-
             <TextView
                 android:id="@+id/toolbarTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Subscribe"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 android:layout_marginStart="5dp"/>
 
+            <ImageView
+                android:id="@+id/btnSearch"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/search_img"
+                android:layout_marginEnd="15dp"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/notification"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/notification__" />
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -358,7 +355,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
-                        android:text="Subscription Duration"
+                        android:text="Start Date"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold" />

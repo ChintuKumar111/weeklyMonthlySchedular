@@ -8,7 +8,7 @@
     android:background="@color/primary"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".search.SearchActivity">
+    tools:context=".ui.Activity.SearchActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -29,17 +29,28 @@
             android:alpha="0.6"
             android:src="@drawable/search_img"/>
 
-        <EditText
-            android:id="@+id/etSearch"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="Search milk, milk product"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="#888888"
-            android:textSize="14sp"/>
+            android:layout_height="match_parent">
+
+            <TextSwitcher
+                android:id="@+id/textSwitcher"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inAnimation="@anim/slide_in_up"
+                android:outAnimation="@anim/slide_out_up" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint=""
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="14sp"/>
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -67,21 +78,21 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-       >
+        android:background="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSearch"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="gone" />
+            android:background="@color/white" />
 
         <LinearLayout
             android:id="@+id/llNoMatch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical"
+            android:gravity="center"
             android:visibility="gone">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -96,11 +107,11 @@
                 android:id="@+id/tvNoMatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:text="NO MATCH FOUND"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <ProgressBar
@@ -108,7 +119,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:indeterminateTint="?attr/colorPrimary"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
