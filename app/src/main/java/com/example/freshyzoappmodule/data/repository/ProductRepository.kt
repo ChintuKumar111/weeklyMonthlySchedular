@@ -7,7 +7,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductRepository {
-
     fun getProducts(callback: (List<ProductModel>?) -> Unit) {
 
         RetrofitClient.api.getProducts()

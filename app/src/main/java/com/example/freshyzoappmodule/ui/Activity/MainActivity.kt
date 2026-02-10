@@ -2,6 +2,7 @@ package com.example.freshyzoappmodule.ui.Activity
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.freshyzoappmodule.utils.helper.DateHelper
+import com.example.freshyzoappmodule.NewMode.view.Activity.ProductListActivity
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.ActivityMainBinding
 import com.example.freshyzoappmodule.databinding.BottomSheetDialogBinding
@@ -22,7 +25,9 @@ import java.util.Calendar
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels()
+      private val  viewModel: MainViewModel by viewModels()
+
+    private  lateinit var   dateHelper : DateHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +35,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        dateHelper = DateHelper(viewModel, this)
+
         setupObservers()
         setupClicks()
+        binding.btnCheck.setOnClickListener {
+            startActivity(Intent(this, ProductListActivity::class.java))
+        }
     }
 
     private fun setupObservers() {
@@ -94,15 +104,15 @@ class MainActivity : AppCompatActivity() {
         binding.btnSelectMonth.setOnClickListener { showMonthDialog() }
         binding.btnMonthQuantity.setOnClickListener { showMonthQuantityDialog() }
         
-        binding.edtWeeklyStartDate.setOnClickListener { showDatePicker(isStartDate = true, isMonthly = false) }
+        binding.edtWeeklyStartDate.setOnClickListener { dateHelper.showDatePicker(isStartDate = true, isMonthly = false) }
         binding.edtWeeklyEndDate.setOnClickListener {
             if (viewModel.weeklyStartDate.value == null) {
                 Toast.makeText(this, "Please select Start Date first", Toast.LENGTH_SHORT).show()
             } else {
-                showDatePicker(isStartDate = false, isMonthly = false)
+                dateHelper.showDatePicker(isStartDate = false, isMonthly = false)
             }
         }
-        binding.edtMonthlyStartDate.setOnClickListener { showDatePicker(isStartDate = true, isMonthly = true) }
+        binding.edtMonthlyStartDate.setOnClickListener { dateHelper.showDatePicker(isStartDate = true, isMonthly = true) }
 
         binding.notification.setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
@@ -252,31 +262,5 @@ class MainActivity : AppCompatActivity() {
         }.show()
     }
 
-    private fun showDatePicker(isStartDate: Boolean, isMonthly: Boolean) {
-        val minDate = viewModel.getMinCalendar()
-        
-        val datePickerDialog = DatePickerDialog(
-            this,
-            android.R.style.Theme_Material_Light_Dialog_Alert,
-            { _, year, month, day ->
-                val selectedCal = Calendar.getInstance().apply { set(year, month, day) }
-                if (isMonthly) {
-                    viewModel.setMonthlyStartDate(selectedCal)
-                } else {
-                    if (isStartDate) viewModel.setWeeklyStartDate(selectedCal)
-                    else viewModel.setWeeklyEndDate(selectedCal)
-                }
-            },
-            minDate.get(Calendar.YEAR), minDate.get(Calendar.MONTH), minDate.get(Calendar.DAY_OF_MONTH)
-        )
 
-        datePickerDialog.datePicker.minDate = minDate.timeInMillis
-        
-        if (!isStartDate && !isMonthly) {
-            viewModel.weeklyStartDate.value?.let {
-                datePickerDialog.datePicker.minDate = it.timeInMillis + (24 * 60 * 60 * 1000)
-            }
-        }
-        datePickerDialog.show()
-    }
 }

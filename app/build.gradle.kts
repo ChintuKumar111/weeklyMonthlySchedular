@@ -94,4 +94,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // For loading images in Compose
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    // For network image loading (requires internet permission)
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
 }

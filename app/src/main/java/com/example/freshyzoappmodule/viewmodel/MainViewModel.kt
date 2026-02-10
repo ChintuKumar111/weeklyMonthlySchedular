@@ -16,7 +16,7 @@ class MainViewModel : ViewModel() {
     val selectedMonths: LiveData<Int> = _selectedMonths
 
     private val _monthQuantity = MutableLiveData(1)
-    val monthQuantity: LiveData<Int> = _monthQuantity
+    val monthQuantity:LiveData<Int> = _monthQuantity
 
     private val _currentPlan = MutableLiveData(PlanType.WEEKLY)
     val currentPlan: LiveData<PlanType> = _currentPlan
