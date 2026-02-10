@@ -14,5 +14,6 @@ data class ProductModel(
     val unit: String,
     val product_price: String,
     val dairy_mrp: String,
-    val product_category_name: String
+    val product_category_name: String,
+    var quantity: Int = 0
 ) : Parcelable

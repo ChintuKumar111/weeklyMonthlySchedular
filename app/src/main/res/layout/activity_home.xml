@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.example.freshyzoappmodule.ui.Activity.HomeActivity">
+    tools:context="com.example.freshyzoappmodule.view.Activity.FirebaseAnalyticalActivity">
 
 
     <Button

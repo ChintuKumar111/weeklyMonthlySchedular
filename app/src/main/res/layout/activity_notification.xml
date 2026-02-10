@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
-    tools:context="com.example.freshyzoappmodule.ui.Activity.NotificationActivity">
+    tools:context="com.example.freshyzoappmodule.view.Activity.NotificationActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNotifications"
         android:layout_width="match_parent"
-        android:background="@color/primary_dark"
+        android:background="@color/gray_200"
         android:layout_height="match_parent"/>
 
 

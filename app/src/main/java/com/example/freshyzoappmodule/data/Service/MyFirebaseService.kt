@@ -3,7 +3,6 @@ package com.example.freshyzoappmodule.data.Service
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -15,7 +14,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONArray
 import org.json.JSONObject
-import com.example.freshyzoappmodule.ui.Activity.NotificationActivity
+import com.example.freshyzoappmodule.view.Activity.NotificationActivity
 
 class MyFirebaseService : FirebaseMessagingService() {
 
@@ -33,19 +32,22 @@ class MyFirebaseService : FirebaseMessagingService() {
             }
     }
 
+
+    // In MyFirebaseService.kt, update the onMessageReceived to handle data-only messages better
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        
-        Log.d("FCM_MESSAGE", "From: ${message.from}")
 
-        // Check if message contains a notification payload.
-        val title = message.notification?.title ?: message.data["title"] ?: "New Notification"
-        val body = message.notification?.body ?: message.data["message"] ?: ""
-        
-        saveNotification(title, body)
-        notifyNotificationScreen()
+        Log.d("FCM_MESSAGE", "Data: ${message.data}")
 
-        showNotification(title, body)
+        // Priority: Data payload (for data-only messages) -> Notification payload (fallback)
+        val title = message.data["title"] ?: message.notification?.title ?: "New Notification"
+        val body = message.data["message"] ?: message.data["body"] ?: message.notification?.body ?: ""
+
+        if (body.isNotEmpty()) {
+            saveNotification(title, body)
+            notifyNotificationScreen()
+            showNotification(title, body)
+        }
     }
 
     private fun showNotification(title: String, message: String) {

@@ -68,7 +68,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
             val result = productList.filter {
                 it.product_name.contains(query, ignoreCase = true)
             }
-
             _filteredList.value = result
             _isLoading.value = false
             _showNoMatch.value = result.isEmpty()
