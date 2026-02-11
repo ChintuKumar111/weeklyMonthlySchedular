@@ -1,5 +1,6 @@
-package com.example.freshyzoappmodule.view.Activity
+package com.example.freshyzoappmodule.view.activity
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -13,16 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.common.helper.DateHelper
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.ViewPager_.view.Activity.ProductListActivity
-import com.example.freshyzoappmodule.databinding.ActivityMainBinding
+import com.example.freshyzoappmodule.databinding.ActivityDailyWeeklyMonthlySubscriptionBinding
 import com.example.freshyzoappmodule.databinding.BottomSheetDialogBinding
-import com.example.freshyzoappmodule.view.Adapter.DayQuantityAdapter
+import com.example.freshyzoappmodule.view.adapter.DayQuantityAdapter
+
 import com.example.freshyzoappmodule.viewmodel.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.Calendar
 
-class MainActivity : AppCompatActivity() {
+class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var  binding : ActivityDailyWeeklyMonthlySubscriptionBinding
       private val  viewModel: MainViewModel by viewModels()
 
     private  lateinit var   dateHelper : DateHelper
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityDailyWeeklyMonthlySubscriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         dateHelper = DateHelper(viewModel, this)
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupObservers() {
         // Observe Plan Changes to update UI
         viewModel.currentPlan.observe(this) { plan ->

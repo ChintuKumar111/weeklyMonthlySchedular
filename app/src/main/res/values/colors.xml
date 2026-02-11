@@ -12,6 +12,7 @@
                <!-- Green -->
         <color name="primary_dark">#1C7652</color>
         <color name="primary_light">#511BD78B</color>
+        <color name="primary_light3">#514EEBB0</color>
         <color name="primary_light2">#fff</color>
 
 

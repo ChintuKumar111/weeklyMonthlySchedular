@@ -1,17 +1,17 @@
-package com.example.freshyzoappmodule.view.Activity
+package com.example.freshyzoappmodule.view.activity
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import com.example.freshyzoappmodule.common.BaseActivityy
-import com.example.freshyzoappmodule.databinding.ActivityHomeBinding
+import com.example.freshyzoappmodule.databinding.ActivityFirebaseAnalyticalBinding
 
 class FirebaseAnalyticalActivity : BaseActivityy() {
-    lateinit var binding: ActivityHomeBinding
+    lateinit var binding: ActivityFirebaseAnalyticalBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityFirebaseAnalyticalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.sendButton.setOnClickListener {

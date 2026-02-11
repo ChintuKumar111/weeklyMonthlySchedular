@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.view.Activity
+package com.example.freshyzoappmodule.view.activity
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -10,8 +10,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.freshyzoappmodule.view.Adapter.NotificationAdapter
+
 import com.example.freshyzoappmodule.databinding.ActivityNotificationBinding
+import com.example.freshyzoappmodule.view.adapter.NotificationAdapter
 import com.example.freshyzoappmodule.viewmodel.NotificationViewModel
 
 class NotificationActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.view.Adapter
+package com.example.freshyzoappmodule.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View

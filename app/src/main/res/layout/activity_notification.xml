@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
-    tools:context="com.example.freshyzoappmodule.view.Activity.NotificationActivity">
+    tools:context="com.example.freshyzoappmodule.view.activity.NotificationActivity">
 
     <TextView
         android:layout_width="match_parent"

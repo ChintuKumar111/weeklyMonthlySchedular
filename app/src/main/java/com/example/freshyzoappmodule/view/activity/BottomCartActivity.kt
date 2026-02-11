@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.view.Activity
+package com.example.freshyzoappmodule.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.freshyzoappmodule.data.model.CartStateModel
 import com.example.freshyzoappmodule.databinding.ActivityBottomCartActivtyBinding
-import com.example.freshyzoappmodule.view.cartpreview.freetrial.FreeTrialBottomSheet
 import com.example.freshyzoappmodule.viewmodel.CartViewModel
 
 class BottomCartActivity : AppCompatActivity() {
@@ -62,9 +61,7 @@ class BottomCartActivity : AppCompatActivity() {
             startActivity(Intent(this, NotificationActivity::class.java))
         }
 
-        binding.animationFreeTrial.setOnClickListener {
-            FreeTrialBottomSheet().show(supportFragmentManager, "FreeTrialBottomSheet")
-        }
+
     }
 
     // Animation logic stays in Activity because it's UI-related
@@ -94,6 +91,7 @@ class BottomCartActivity : AppCompatActivity() {
             .withEndAction { binding.floatingCartBar.visibility = View.GONE }
             .start()
     }
+
 
     private fun setupInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->

@@ -12,8 +12,8 @@ import com.example.freshyzoappmodule.ViewPager_.view.adapter.ProductAdapter
 import com.example.freshyzoappmodule.ViewPager_.ViewModel.ProductViewModel
 import com.example.freshyzoappmodule.ViewPager_.data.model.ProductResponse
 
-class ProductListActivity : AppCompatActivity() {
 
+class ProductListActivity : AppCompatActivity() {
     private val viewmodel : ProductViewModel by viewModels()
     private lateinit var adapter: ProductAdapter
     private lateinit var binding: ActivityMultipleImageBinding

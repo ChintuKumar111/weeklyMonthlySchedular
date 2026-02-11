@@ -19,13 +19,16 @@
             android:name=".ViewPager_.view.Activity.ProductDetailsScreenActivity"
             android:exported="false" />
         <activity
+            android:name=".view.Activity.ProductDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewPager_.view.Activity.ProductListActivity"
             android:exported="false" />
         <activity
-            android:name=".view.Activity.SearchActivity"
+            android:name=".view.activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".view.Activity.HomeActivity"
+            android:name=".view.activity.HomeActivity"
             android:exported="true" >
 
             <intent-filter>
@@ -33,31 +36,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+        </activity>
 
-
-        </activity>        <activity
-            android:name=".view.Activity.MainActivity"
+        <activity
+            android:name=".view.activity.DailyWeeklyMonthlySubscriptionActivity"
             android:exported="true">
 
         </activity>
         <activity
-            android:name=".view.Activity.BottomCartActivity"
+            android:name=".view.activity.BottomCartActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.SimpleApiCalling" />
         <activity
-            android:name=".view.Activity.FirebaseAnalyticalActivity"
+            android:name=".view.activity.FirebaseAnalyticalActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.SimpleApiCalling" />
 
         <activity
-            android:name=".view.Activity.NotificationActivity"
+            android:name=".view.activity.NotificationActivity"
             android:exported="true" />
 
-        <activity
-            android:name=".view.viewpagerr.ComposeActivity"
-            android:exported="true"
-            android:label="@string/title_activity_compose"
-            android:theme="@style/Base.Theme.SimpleApiCalling" />
+
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

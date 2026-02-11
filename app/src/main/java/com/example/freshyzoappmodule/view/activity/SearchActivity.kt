@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.view.Activity
+package com.example.freshyzoappmodule.view.activity
 
 import android.graphics.Color
 import android.os.Bundle
@@ -19,9 +19,10 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.ActivitySearchBinding
 import com.example.freshyzoappmodule.data.model.PopularProductModel
 import com.example.freshyzoappmodule.data.model.ProductModel
-import com.example.freshyzoappmodule.view.Adapter.PopularProductAdapter
-import com.example.freshyzoappmodule.view.Adapter.ProductAdapter
-import com.example.freshyzoappmodule.view.Adapter.RecentSearchAdapter
+import com.example.freshyzoappmodule.view.adapter.PopularProductAdapter
+import com.example.freshyzoappmodule.view.adapter.ProductAdapter
+import com.example.freshyzoappmodule.view.adapter.RecentSearchAdapter
+
 import com.example.freshyzoappmodule.viewmodel.SearchViewModel
 
 class SearchActivity : AppCompatActivity() {
@@ -139,7 +140,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupRecentSearches() {
-        recentAdapter = RecentSearchAdapter(emptyList(), 
+        recentAdapter = RecentSearchAdapter(
+            emptyList(),
             onItemClick = { selectedText ->
                 binding.etSearch.setText(selectedText)
                 binding.etSearch.setSelection(selectedText.length)
@@ -171,6 +173,10 @@ class SearchActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        binding.ivBack.setOnClickListener {
+            finish()
         }
     }
 }

@@ -7,7 +7,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Activity.BottomCartActivity">
+    tools:context=".view.activity.BottomCartActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -15,7 +15,7 @@
         android:layout_height="@dimen/_150sdp"
         android:background="@color/primary"
         android:elevation="@dimen/_20sdp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/floatingCartBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,18 +88,7 @@
     </FrameLayout>
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationFreeTrial"
-        android:layout_width="372dp"
-        android:layout_height="91dp"
-        android:layout_gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.41"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/animation_" />
+
 
 
 

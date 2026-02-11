@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.view.Activity
+package com.example.freshyzoappmodule.view.activity
 
 import android.Manifest
 import android.content.Intent
@@ -14,16 +14,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.freshyzoappmodule.data.model.ProductModel
-import com.example.freshyzoappmodule.databinding.ActivityProductLoadActivityBinding
-import com.example.freshyzoappmodule.view.Adapter.ProductAdapter
+import com.example.freshyzoappmodule.databinding.ActivityHomeBinding
 import com.example.freshyzoappmodule.viewmodel.HomeViewModel
 import com.example.freshyzoappmodule.data.model.CartStateModel
+import com.example.freshyzoappmodule.view.adapter.ProductAdapter
+import com.example.freshyzoappmodule.view.cartpreview.freetrial.FreeTrialBottomSheet
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityProductLoadActivityBinding
+    private lateinit var binding: ActivityHomeBinding
     private val viewModel: HomeViewModel by viewModels()
+
     private lateinit var adapter: ProductAdapter
+
     private var cartItemsCount = 0
     private var cartTotalPrice = 0.0
 
@@ -41,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivityProductLoadActivityBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         askNotificationPermission()
@@ -52,6 +55,16 @@ class HomeActivity : AppCompatActivity() {
         binding.iconNotification.setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
         }
+
+        binding.animationFreeTrial.setOnClickListener{
+
+            val bottomSheet = FreeTrialBottomSheet()
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+
+
+        }
+
+
 
         binding.btnSearchBar.setOnClickListener {
             val list = viewModel.productList.value
@@ -107,6 +120,7 @@ class HomeActivity : AppCompatActivity() {
         cartItemsCount += delta
         val price = product.product_price.toDoubleOrNull() ?: 0.0
         cartTotalPrice += (price * delta)
+
 
         if (cartItemsCount < 0) cartItemsCount = 0
         if (cartTotalPrice < 0) cartTotalPrice = 0.0

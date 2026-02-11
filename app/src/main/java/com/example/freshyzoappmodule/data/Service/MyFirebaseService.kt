@@ -9,12 +9,12 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.freshyzoappmodule.R
+import com.example.freshyzoappmodule.view.activity.NotificationActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.json.JSONArray
 import org.json.JSONObject
-import com.example.freshyzoappmodule.view.Activity.NotificationActivity
 
 class MyFirebaseService : FirebaseMessagingService() {
 

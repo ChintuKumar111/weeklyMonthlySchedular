@@ -1,5 +1,6 @@
-package com.example.freshyzoappmodule.view.Adapter
+package com.example.freshyzoappmodule.view.adapter
 
+import android.content.Intent
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.ProductModel
+import com.example.freshyzoappmodule.view.Activity.ProductDetailsActivity
 
 class ProductAdapter(
     private var list: List<ProductModel>,
@@ -67,6 +69,12 @@ class ProductAdapter(
                 onQuantityChanged(product, -1)
             }
         }
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ProductDetailsActivity::class.java)
+            intent.putExtra("product", product)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     fun updateList(newList: List<ProductModel>) {
@@ -85,5 +93,6 @@ class ProductAdapter(
         val btnMinus = view.findViewById<TextView>(R.id.btnMinus)
         val btnPlus = view.findViewById<TextView>(R.id.btnPlus)
         val tvQuantity = view.findViewById<TextView>(R.id.tvQuantity)
+
     }
 }
