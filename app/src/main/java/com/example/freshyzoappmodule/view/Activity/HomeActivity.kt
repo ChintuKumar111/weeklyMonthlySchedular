@@ -24,7 +24,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductLoadActivityBinding
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: ProductAdapter
-
     private var cartItemsCount = 0
     private var cartTotalPrice = 0.0
 

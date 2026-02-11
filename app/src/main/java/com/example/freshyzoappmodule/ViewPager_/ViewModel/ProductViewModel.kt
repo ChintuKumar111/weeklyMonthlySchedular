@@ -10,11 +10,7 @@ import com.example.freshyzoappmodule.ViewPager_.data.repo.ProductRepository
 import kotlinx.coroutines.launch
 
 class ProductViewModel : ViewModel() {
-
-    private val repository =
-        ProductRepository(
-            RetrofitClient.api
-        )
+    private val repository = ProductRepository(RetrofitClient.api)
 
     private val _productList = MutableLiveData<List<ProductResponse>>()
     val productList: LiveData<List<ProductResponse>> get() = _productList
@@ -25,6 +21,7 @@ class ProductViewModel : ViewModel() {
     init {
         loadProducts()
     }
+
 
     private fun loadProducts() {
         viewModelScope.launch {

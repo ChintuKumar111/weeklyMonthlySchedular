@@ -9,7 +9,6 @@ import com.example.freshyzoappmodule.ViewPager_.view.adapter.ImageSliderAdapter
 import com.example.freshyzoappmodule.databinding.ActivityProductDetailsScreenBinding
 
 class ProductDetailsScreenActivity : AppCompatActivity() {
-
     private val viewModel: ProductViewModel by viewModels()
     private lateinit var binding: ActivityProductDetailsScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
