@@ -2,4 +2,32 @@
     <string name="app_name">Delivery Scheduler</string>
 
     <string name="title_activity_compose">ComposeActivity</string>
+    !-- Screen Titles -->
+    <string name="product_details">Product Details</string>
+    <string name="cart">Cart</string>
+    <string name="back">Back</string>
+
+    <!-- Product Info -->
+    <string name="product_name">FreshyZo A2 Cow Milk</string>
+    <string name="product_image">Product Image</string>
+
+    <!-- Sections -->
+    <string name="about_product">About This Product</string>
+    <string name="key_benefits">Key Benefits</string>
+    <string name="quantity">Quantity</string>
+
+    <!-- Description -->
+    <string name="product_description">Introducing our 100% Preservative-Free A2 Gir Cow milk! Sourced from the finest Indian Gir Cows, this milk is rich in protein and calcium, making it an ideal choice for individuals of all ages. With its A2 beta-casein protein, it\'s easy on digestion, making it a great option for your daily nutrition.</string>
+
+    <!-- Benefits -->
+    <string name="rich_protein">Rich in Protein</string>
+    <string name="high_calcium">High Calcium</string>
+    <string name="easy_digestion">Easy Digestion</string>
+    <string name="pure_natural">Pure &amp; Natural</string>
+
+    <!-- Actions -->
+    <string name="buy_once">BUY ONCE</string>
+    <string name="subscribe">SUBSCRIBE</string>
+    <string name="info">Info</string>
+    <string name="benefits">Benefits</string>
 </resources>

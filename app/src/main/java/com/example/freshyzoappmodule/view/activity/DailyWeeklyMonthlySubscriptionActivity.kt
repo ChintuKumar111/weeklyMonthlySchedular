@@ -35,13 +35,12 @@ class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
         binding = ActivityDailyWeeklyMonthlySubscriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         dateHelper = DateHelper(viewModel, this)
 
         setupObservers()
         setupClicks()
-        binding.btnCheck.setOnClickListener {
-            startActivity(Intent(this, ProductListActivity::class.java))
-        }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -114,14 +113,6 @@ class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
             }
         }
         binding.edtMonthlyStartDate.setOnClickListener { dateHelper.showDatePicker(isStartDate = true, isMonthly = true) }
-
-        binding.notification.setOnClickListener {
-            startActivity(Intent(this, NotificationActivity::class.java))
-        }
-
-        binding.btnSearch.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
-        }
 
         binding.btnBack.setOnClickListener { finish() }
     }

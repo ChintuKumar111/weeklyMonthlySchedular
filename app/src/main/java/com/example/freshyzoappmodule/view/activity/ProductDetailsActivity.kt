@@ -1,5 +1,6 @@
-package com.example.freshyzoappmodule.view.Activity
+package com.example.freshyzoappmodule.view.activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -28,23 +29,28 @@ class ProductDetailsActivity : AppCompatActivity() {
             viewModel.setProduct(product)
         }
 
+        binding.btnSubscribe.setOnClickListener(){
+            startActivity(Intent(this, DailyWeeklyMonthlySubscriptionActivity::class.java))
+        }
+
+
         viewModel.product.observe(this) { productModel ->
-            binding.productTitle.text = productModel.product_name
+         binding.tvProductName.text = productModel?.product_name
 
             val nameParts = productModel.product_name.split(" ")
             if (nameParts.size >= 2 && nameParts[nameParts.size - 2].toIntOrNull() != null) {
                 val weight = nameParts.takeLast(2).joinToString(" ")
-                binding.productUnit.text = weight
+                binding.chipVolume.text = weight
             } else {
-                binding.productUnit.text = productModel.unit
+                binding.chipVolume.text = productModel.unit
             }
 
-            binding.productDescription.text = productModel.description
-            binding.currentPrice.text = "₹${productModel.product_price}"
+            binding.tvDescription.text = productModel.description
+            binding.tvCurrentPrice.text = "₹${productModel.product_price}"
 
             Glide.with(this)
                 .load("https://freshyzo.com/admin/uploads/product_image/" + productModel.dairy_product_image)
-                .into(binding.productImage)
+                .into(binding.ivProductImage)
         }
     }
 }

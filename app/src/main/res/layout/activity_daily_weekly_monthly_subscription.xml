@@ -47,29 +47,6 @@
                 android:textStyle="bold"
                 android:layout_marginStart="5dp"/>
 
-            <ImageView
-                android:id="@+id/btnCheck"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/user"
-                android:elevation="20dp"
-                android:layout_marginEnd="15dp"
-                app:tint="@color/white" />
-
-            <ImageView
-                android:id="@+id/btnSearch"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/search_img"
-                android:layout_marginEnd="15dp"
-                app:tint="@color/white" />
-
-            <ImageView
-                android:id="@+id/notification"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:src="@drawable/notification__" />
-
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 

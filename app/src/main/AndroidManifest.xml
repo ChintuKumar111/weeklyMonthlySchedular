@@ -19,7 +19,7 @@
             android:name=".ViewPager_.view.Activity.ProductDetailsScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".view.Activity.ProductDetailsActivity"
+            android:name=".view.activity.ProductDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ViewPager_.view.Activity.ProductListActivity"
@@ -29,9 +29,10 @@
             android:exported="false" />
         <activity
             android:name=".view.activity.HomeActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Base.Theme.SimpleApiCalling">
 
-            <intent-filter>
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

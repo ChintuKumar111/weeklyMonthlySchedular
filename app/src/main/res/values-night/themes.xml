@@ -3,10 +3,10 @@
     <style name="Base.Theme.SimpleApiCalling" parent="Theme.Material3.DayNight.NoActionBar">
 
         <!-- Status bar color -->
-        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
 
-        <!-- White icons -->
-        <item name="android:windowLightStatusBar">false</item>
+<!--        &lt;!&ndash; White icons &ndash;&gt;-->
+<!--        <item name="android:windowLightStatusBar">false</item>-->
 
     </style>
 

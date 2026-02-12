@@ -59,5 +59,24 @@
 
         <color name="semiPrimary">#FFEFEFEF</color>
 
+    <!-- Primary Colors -->
+    <color name="green_primary">#00C853</color>
+    <color name="green_dark">#00A844</color>
+    <color name="green_light">#E8F5E9</color>
+
+    <color name="blue_primary">#1976D2</color>
+    <color name="blue_light">#E3F2FD</color>
+
+    <color name="orange_primary">#FF9800</color>
+    <color name="red_primary">#FF1744</color>
+
+    <!-- Background Colors -->
+
+    <color name="background_gradient">#F5F7FA</color>
+    <color name="benefit_bg">#F8F9FA</color>
+    <color name="quantity_bg">#F5F5F5</color>
+
+
+
 
 </resources>

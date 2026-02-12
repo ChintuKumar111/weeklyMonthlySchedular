@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.ProductModel
-import com.example.freshyzoappmodule.view.Activity.ProductDetailsActivity
+import com.example.freshyzoappmodule.view.activity.ProductDetailsActivity
+
+
+
+
 
 class ProductAdapter(
     private var list: List<ProductModel>,
