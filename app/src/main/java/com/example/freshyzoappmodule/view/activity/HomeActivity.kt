@@ -17,6 +17,7 @@ import com.example.freshyzoappmodule.data.model.ProductModel
 import com.example.freshyzoappmodule.databinding.ActivityHomeBinding
 import com.example.freshyzoappmodule.viewmodel.HomeViewModel
 import com.example.freshyzoappmodule.data.model.CartStateModel
+import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.view.adapter.ProductAdapter
 import com.example.freshyzoappmodule.view.cartpreview.freetrial.FreeTrialBottomSheet
 
@@ -26,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeViewModel by viewModels()
 
     private lateinit var adapter: ProductAdapter
+    private lateinit var cartRepository: CartRepository
 
     private var cartItemsCount = 0
     private var cartTotalPrice = 0.0
@@ -47,9 +49,12 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        cartRepository = CartRepository(this)
+
         askNotificationPermission()
         setupUI()
         observeData()
+        loadCartState()
         viewModel.loadProducts()
 
         binding.iconNotification.setOnClickListener {
@@ -125,6 +130,17 @@ class HomeActivity : AppCompatActivity() {
         if (cartItemsCount < 0) cartItemsCount = 0
         if (cartTotalPrice < 0) cartTotalPrice = 0.0
 
-        binding.cartPreview.showCart(CartStateModel(cartItemsCount, cartTotalPrice))
+        val cartState = CartStateModel(cartItemsCount, cartTotalPrice)
+        binding.cartPreview.showCart(cartState)
+        cartRepository.saveCartState(cartState)
+    }
+
+    private fun loadCartState() {
+        val savedCartState = cartRepository.getCartState()
+        if (savedCartState != null) {
+            cartItemsCount = savedCartState.itemsCount
+            cartTotalPrice = savedCartState.totalPrice
+            binding.cartPreview.showCart(savedCartState)
+        }
     }
 }
