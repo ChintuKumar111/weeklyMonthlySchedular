@@ -30,4 +30,7 @@
     <string name="subscribe">SUBSCRIBE</string>
     <string name="info">Info</string>
     <string name="benefits">Benefits</string>
+
+    <!-- Wallet -->
+    <string name="wallet_balance">₹0</string>
 </resources>

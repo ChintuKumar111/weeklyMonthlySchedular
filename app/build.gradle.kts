@@ -99,4 +99,7 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-compose:3.3.0")
     // For network image loading (requires internet permission)
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
+
+    // taptargetView
+    implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
 }

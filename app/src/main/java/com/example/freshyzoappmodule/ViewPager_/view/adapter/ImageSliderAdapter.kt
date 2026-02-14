@@ -18,11 +18,11 @@ class ImageSliderAdapter(
             parent,false)
             return ViewHolder(binding)
     }
-    
+
 
     override fun getItemCount() = images.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.productImage.load(images[position])
+        holder.binding.imageView.load(images[position])
     }
 }
