@@ -5,8 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -20,6 +23,7 @@ import com.example.freshyzoappmodule.data.model.CartStateModel
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.view.adapter.ProductAdapter
 import com.example.freshyzoappmodule.view.cartpreview.freetrial.FreeTrialBottomSheet
+import com.example.freshyzoappmodule.view.dialog.FeedbackDialogFragment
 
 class HomeActivity : AppCompatActivity() {
 
@@ -57,6 +61,17 @@ class HomeActivity : AppCompatActivity() {
         loadCartState()
         viewModel.loadProducts()
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val feedbackDialog = FeedbackDialogFragment()
+                feedbackDialog.setFeedbackListener {
+                    // Handle feedback
+                    finish()
+                }
+                feedbackDialog.show(supportFragmentManager, "FeedbackDialog")
+            }
+        })
+
         binding.iconNotification.setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
         }
@@ -67,6 +82,24 @@ class HomeActivity : AppCompatActivity() {
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
 
 
+        }
+
+        binding.imgCat1.setOnClickListener{
+
+
+            binding.celebrationAnim.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                binding.celebrationAnim.visibility = View.GONE
+            }, 4000)
+
+        }
+
+        binding.imgCat2.setOnClickListener{
+            binding.cancelAnim.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.cancelAnim.visibility = View.GONE
+            }, 4000)
         }
 
 
