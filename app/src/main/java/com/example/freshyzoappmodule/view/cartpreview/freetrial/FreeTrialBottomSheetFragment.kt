@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import com.example.freshyzoappmodule.databinding.BottomSheetFreeTrialBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class FreeTrialBottomSheet : BottomSheetDialogFragment() {
-
+class FreeTrialBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetFreeTrialBinding? = null
     private val binding get() = _binding!!
