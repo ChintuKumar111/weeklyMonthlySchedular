@@ -156,10 +156,10 @@
 
             <!-- SHOP BY CATEGORY -->
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
-                android:gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:text="Shop By Category"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
@@ -230,16 +230,13 @@
 
             <!--        milk quality section -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/testReportCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 android:background="@android:color/white">
-
-
-
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -267,72 +264,85 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
+                            android:scaleType="fitXY"
                             android:src="@drawable/milk_quality_report"/>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Features Row -->
-                    <LinearLayout
+                    <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginTop="12dp"
+                        android:columnCount="2"
+                        android:alignmentMode="alignMargins"
+                        android:columnOrderPreserved="false">
 
-                        <!-- Row 1 -->
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
                             android:orientation="horizontal"
-                            >
-
-
-                                <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:src="@drawable/logo"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Urea free"
-                                    android:layout_marginStart="8dp"/>
-
-
-
-                                <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_marginStart="@dimen/_18sdp"
-                                    android:src="@drawable/logo"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Starch free"
-                                    android:layout_marginStart="8dp"/>
-
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="8dp">
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:layout_marginStart="@dimen/_18sdp"
-                                android:src="@drawable/logo"/>
-
+                                android:src="@drawable/tab_indicator_selected"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Urea free"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="8dp">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/tab_indicator_selected"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Starch free"
                                 android:layout_marginStart="8dp"/>
-
-
-                            </LinearLayout>
-
                         </LinearLayout>
-
-
-
-
-                    </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/tab_indicator_selected"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Detergent free"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/tab_indicator_selected"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No antibiotics"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+                    </GridLayout>
 
                     <!-- Button -->
                     <com.google.android.material.button.MaterialButton
@@ -345,6 +355,449 @@
 
                 </LinearLayout>
 
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/comboOffer"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text=" 🎁 COMBO OFFER "/>
+
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:columnCount="2"
+                android:paddingHorizontal="8dp"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false">
+
+
+                <!-- Combo Offer 1 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_75sdp"
+                                android:src="@drawable/combo_offer"
+                                android:scaleType="centerCrop"/>
+
+
+
+                        <TextView
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ghee and Paneer "
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Combo Offer 1"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:textColor="@color/gray_600"
+                            />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₹120"
+                                android:textColor="@color/primary"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp"/>
+
+                                <TextView
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:text="add+"
+                                    android:minHeight="@dimen/_20sdp"
+                                    android:backgroundTint="@color/primary"
+                                    android:textColor="@color/white"
+                                    android:gravity="center"
+                                    android:layout_gravity="end"
+                                    android:layout_marginTop="@dimen/_3sdp"
+                                    android:layout_marginEnd="@dimen/_5sdp"
+                                    android:background="@drawable/bg"/>
+
+
+
+                        </FrameLayout>
+
+
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Combo Offer 2 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="8dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_75sdp"
+                            android:src="@drawable/combo_offer"
+                            android:scaleType="centerCrop"/>
+
+
+
+                        <TextView
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ghee and Paneer "
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Combo Offer 1"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:textColor="@color/gray_600"
+                            />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₹120"
+                                android:textColor="@color/primary"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp"/>
+
+                            <TextView
+                                android:layout_width="@dimen/_60sdp"
+                                android:layout_height="wrap_content"
+                                android:text="add+"
+                                android:minHeight="@dimen/_20sdp"
+                                android:backgroundTint="@color/primary"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:layout_marginTop="@dimen/_3sdp"
+                                android:layout_gravity="end"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:background="@drawable/bg"/>
+
+
+
+                        </FrameLayout>
+
+
+
+
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </GridLayout>
+
+            <!-- What type of milk are you familiar with! -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:text="@string/milk_type_title"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/blogReport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="8dp">
+
+                <!-- Card 1 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                       >
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            app:cardElevation="2dp"
+                            app:cardCornerRadius="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:src="@drawable/blog1"
+                                android:scaleType="centerCrop"/>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/free_grazing_title"
+                            android:textStyle="bold"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_5sdp"
+                            android:text="@string/free_grazing_desc"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/learn_more"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/primary"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Card 2 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp"
+                    app:cardElevation="2dp"
+                    app:cardCornerRadius="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            app:cardElevation="2dp"
+                            app:cardCornerRadius="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:src="@drawable/blog2"
+                                android:scaleType="centerCrop"/>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/farm_to_door_title"
+                            android:textStyle="bold"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginTop="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/farm_to_door_desc"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/learn_more"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/primary"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/suggestionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_10sdp"
+                android:padding="@dimen/_10sdp"
+                android:layout_margin="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/app_icon"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toStartOf="@id/iv_logo"
+                        android:layout_marginEnd="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/suggestion_title"
+                            android:textStyle="bold"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/suggestion_subtitle"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint=" Type here"
+                            android:paddingStart="@dimen/_2sdp"
+                            android:layout_marginTop="8dp"
+                            android:padding="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:background="@drawable/suggest_bg"/>
+
+                    </LinearLayout>
+
+
+
+                    <TextView
+                        android:id="@+id/tvSend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send"
+
+                        android:textColor="@color/primary"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:padding="8dp"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="start"
+                android:layout_marginTop="@dimen/_75sdp"
+                android:minHeight="@dimen/_140sdp"
+                android:padding="16dp">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/freshy_means"
+                   android:textColor="#B4C1BC"
+                   android:textSize="52sp"
+                   android:textStyle="bold" />
+
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_50sdp"-->
+<!--                    android:scaleType="centerInside"-->
+<!--                    android:layout_marginStart="-90dp"-->
+<!--                    android:alpha="0.6"-->
+<!--                    android:src="@drawable/logo"/>-->
+
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_8ssp"
+                        android:textColor="#B4C1BC"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:text="@string/pure_product"/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_8ssp"
+                    android:textColor="#B4C1BC"
+                    android:text="@string/selection_based"/>
+
+                <!--                -->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:text="version - 1.0.0"/>-->
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 

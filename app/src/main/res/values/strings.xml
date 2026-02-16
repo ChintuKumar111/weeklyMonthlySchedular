@@ -33,4 +33,24 @@
 
     <!-- Wallet -->
     <string name="wallet_balance">₹0</string>
+
+    <!-- Milk Type -->
+    <string name="milk_type_title">What type of milk are you familiar with!</string>
+    <string name="free_grazing_title">Free Grazing vs Shed Fed ...</string>
+    <string name="free_grazing_desc">What Actually Makes a Difference- The health of the cows, the quality...</string>
+    <string name="farm_to_door_title">Farm to Door: How this </string>
+    <string name="farm_to_door_desc">Your milk shouldn\'t be a mystery. Discover how Doodhvale brings fresh n...</string>
+    <string name="learn_more">Learn More</string>
+
+    <!-- Suggestion Card -->
+    <string name="suggestion_title">Tell us what you want!</string>
+    <string name="suggestion_subtitle">Suggest products that you want us to make available to shop or feature to add on FreshyZo</string>
+    <string name="suggestion_hint">Type Message...</string>
+    <string name="send">Send</string>
+
+    <!-- Live it up -->
+    <string name="freshy_means">FreshyZo</string>
+    <string name="pure_product">WE MAKE 100% PURE PRODUCT </string>
+    <string name="selection_based"> SELECTION BASED ON QUALITY .</string>
+
 </resources>
