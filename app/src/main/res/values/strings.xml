@@ -36,10 +36,10 @@
 
     <!-- Milk Type -->
     <string name="milk_type_title">What type of milk are you familiar with!</string>
-    <string name="free_grazing_title">Free Grazing vs Shed Fed ...</string>
+    <string name="free_grazing_title">Free Grazing vs Shed...</string>
     <string name="free_grazing_desc">What Actually Makes a Difference- The health of the cows, the quality...</string>
-    <string name="farm_to_door_title">Farm to Door: How this </string>
-    <string name="farm_to_door_desc">Your milk shouldn\'t be a mystery. Discover how Doodhvale brings fresh n...</string>
+    <string name="farm_to_door_title">Farm to Door: How Fr</string>
+    <string name="farm_to_door_desc">Your milk shouldn\'t be a mystery. Discover how Freshyzo brings...</string>
     <string name="learn_more">Learn More</string>
 
     <!-- Suggestion Card -->
@@ -49,8 +49,31 @@
     <string name="send">Send</string>
 
     <!-- Live it up -->
-    <string name="freshy_means">FreshyZo</string>
+    <string name="freshyZo">FreshyZo</string>
+
+
+    <string name="freshy_means"> Fresh Means FreshyZo</string>
+    <string name="we_make">WE MAKE 100% PURE PRODUCT</string>
     <string name="pure_product">WE MAKE 100% PURE PRODUCT </string>
     <string name="selection_based"> SELECTION BASED ON QUALITY .</string>
+
+    <!-- Combo Offers -->
+    <string name="combo_offers_title">Combo Offers</string>
+    <string name="combo_1_title">Milk + Dahi</string>
+    <string name="combo_1_desc">Perfect breakfast combo</string>
+    <string name="combo_1_price">₹150</string>
+    <string name="combo_2_title">Ghee + Paneer</string>
+    <string name="combo_2_desc">Pure Ghee and Fresh Paneer</string>
+    <string name="combo_2_price">₹550</string>
+    <string name="combo_3_title">Milk + Bread</string>
+    <string name="combo_3_desc">Daily essentials combo</string>
+    <string name="combo_3_price">₹90</string>
+    <string name="combo_4_title">Dahi + Paneer</string>
+    <string name="combo_4_desc">Fresh dairy combo</string>
+    <string name="combo_4_price">₹200</string>
+    <string name="add_to_cart">Add to cart</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

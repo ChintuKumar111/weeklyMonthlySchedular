@@ -1,12 +1,11 @@
 package com.example.freshyzoappmodule.view.activity
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.ActivityNewHomeBinding
+import com.example.freshyzoappmodule.view.Fragments.NewHome_Fragment
 import com.example.freshyzoappmodule.view.adapter.ImageSliderAdapter
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -17,16 +16,47 @@ class NewHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         binding = ActivityNewHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUi()
-
-        window.decorView.post {
-            showHomeTour()
+        if (savedInstanceState == null) {
+            replaceFragment(NewHome_Fragment())
         }
+
+        // Disable icon tinting to show original colors
+        binding.bottomNavigation.itemIconTintList = null
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    replaceFragment(NewHome_Fragment())
+                    true
+                }
+                // TODO: Add other fragments for navigation
+                /*
+                R.id.navigation_product -> {
+                    replaceFragment(ProductFragment())
+                    true
+                }
+                R.id.navigation_wallet -> {
+                    replaceFragment(WalletFragment())
+                    true
+                }
+                R.id.navigation_account -> {
+                    replaceFragment(AccountFragment())
+                    true
+                }
+                R.id.navigation_cart -> {
+                    replaceFragment(CartFragment())
+                    true
+                }
+                */
+                else -> false
+            }
+        }
+
+        setupUi()
+        showHomeTour()
     }
 
     private fun showHomeTour() {
@@ -39,12 +69,6 @@ class NewHomeActivity : AppCompatActivity() {
     }
 
     private fun setupUi() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         // Sample images for the slider
         val images = listOf(
             "https://static1.squarespace.com/static/638d8044b6fc77648ebcedba/t/67a5b74af834d07712692f36/1738913639066/Top+10+dairy+products+for+your+kitchen+-+Kota+Fresh+Dairy.png?format=1500w",
@@ -53,57 +77,16 @@ class NewHomeActivity : AppCompatActivity() {
         )
 
         val adapter = ImageSliderAdapter(images)
-        binding.productSliderCart.adapter = adapter
+//        binding.productSliderCart.adapter = adapter
+//
+//        TabLayoutMediator(binding.tabLayout, binding.productSliderCart) { tab, position ->
+//            // No text to be displayed
+//        }.attach()
+    }
 
-        TabLayoutMediator(binding.tabLayout, binding.productSliderCart) { tab, position ->
-            // No text to be displayed
-        }.attach()
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 }
-
-
-
-//    private fun showHomeTour() {
-//
-//        TapTargetSequence(this)
-//            .targets(
-//
-//                TapTarget.forView(binding.img1,
-//                    "Daily Offers",
-//                    "Check discounts on dairy products here")
-//                    .cancelable(true),
-//
-//                TapTarget.forView(binding.img2,
-//                    "Categories",
-//                    "Browse milk, paneer, curd and more")
-//                    .cancelable(true),
-//
-//                TapTarget.forView(binding.img3,
-//                    "Wallet",
-//                    "Add money for fast checkout")
-//                    .cancelable(true),
-//
-//                TapTarget.forView(binding.img4,
-//                    "Notifications",
-//                    "See delivery updates and offers")
-//                    .cancelable(true),
-//
-//                TapTarget.forView(binding.img5,
-//                    "Dairy Blogs",
-//                    "Read how products are made")
-//                    .cancelable(true),
-//
-//                TapTarget.forView(binding.img6,
-//                    "Milk Quality",
-//                    "View daily milk test reports")
-//                    .cancelable(true)
-//            )
-//            .continueOnCancel(true) // ← this acts like Skip
-//            .start()
-//    }
-
-
-
-
-
-
