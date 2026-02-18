@@ -16,9 +16,8 @@ class ChatActivity : AppCompatActivity() {
     private val messageList = mutableListOf<Message>()
     private lateinit var adapter: ChatAdapter
 
-    private var userId = "user1"
-    private var agentId = "agent1"
-    private var chatId = "${userId}_${agentId}"
+    private var userId = "user1" // Current User
+    private var chatId: String? = null
 
     lateinit var binding: ActivityChatBinding
 
@@ -27,9 +26,13 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Get chatId from intent if available
-        intent.getStringExtra("CHAT_ID")?.let {
-            chatId = it
+        // Get chatId from intent
+        chatId = intent.getStringExtra("CHAT_ID")
+
+        // Safety check: If chatId is null or empty, don't proceed
+        if (chatId.isNullOrEmpty()) {
+            finish()
+            return
         }
 
         adapter = ChatAdapter(messageList, userId)
@@ -48,6 +51,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessage(text: String) {
+        val id = chatId ?: return
         val currentTime = System.currentTimeMillis()
 
         val message = hashMapOf(
@@ -58,36 +62,40 @@ class ChatActivity : AppCompatActivity() {
         )
 
         db.collection("chats")
-            .document(chatId)
+            .document(id)
             .collection("messages")
             .add(message)
 
         val chatSummary = hashMapOf(
-            "chatId" to chatId,
+            "chatId" to id,
             "lastMessage" to text,
             "timestamp" to currentTime,
-            "otherUserName" to "Customer Name", // Replace with actual name if possible
+            "otherUserName" to (intent.getStringExtra("OTHER_USER_NAME") ?: "Support"),
             "otherUserId" to userId
         )
 
-        db.collection("chats").document(chatId)
+        db.collection("chats").document(id)
             .set(chatSummary, SetOptions.merge())
     }
 
     private fun listenMessages() {
+        val id = chatId ?: return
+
         db.collection("chats")
-            .document(chatId)
+            .document(id)
             .collection("messages")
             .orderBy("timestamp")
             .addSnapshotListener { snapshots, error ->
                 if (error != null) return@addSnapshotListener
 
-                for (change in snapshots!!.documentChanges) {
+                snapshots?.documentChanges?.forEach { change ->
                     if (change.type == DocumentChange.Type.ADDED) {
                         val message = change.document.toObject(Message::class.java)
-                        messageList.add(message)
-                        adapter.notifyDataSetChanged()
-                        binding.rvChat.scrollToPosition(messageList.size - 1)
+                        if (message != null) {
+                            messageList.add(message)
+                            adapter.notifyItemInserted(messageList.size - 1)
+                            binding.rvChat.scrollToPosition(messageList.size - 1)
+                        }
                     }
                 }
             }

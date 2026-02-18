@@ -38,8 +38,6 @@ class ChatListActivity : AppCompatActivity() {
     }
 
     private fun listenForChats() {
-        // In a real app, you would filter by the current user's ID
-        // e.g., .whereArrayContains("participants", currentUserId)
         db.collection("chats")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshots, error ->
@@ -48,7 +46,15 @@ class ChatListActivity : AppCompatActivity() {
                 }
 
                 if (snapshots != null) {
-                    val newList = snapshots.toObjects(ChatListItem::class.java)
+                    val newList = mutableListOf<ChatListItem>()
+                    for (doc in snapshots.documents) {
+                        val chatItem = doc.toObject(ChatListItem::class.java)?.apply {
+                            chatId = doc.id
+                        }
+                        if (chatItem != null) {
+                            newList.add(chatItem)
+                        }
+                    }
                     adapter.updateList(newList)
                 }
             }
