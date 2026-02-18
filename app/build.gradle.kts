@@ -69,13 +69,16 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
-    // Firebase (FCM ONLY)
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-    implementation("com.google.firebase:firebase-messaging-ktx")
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-firestore")
+
 
     // UI Utils
     implementation("com.intuit.sdp:sdp-android:1.1.1")
     implementation("com.intuit.ssp:ssp-android:1.1.1")
+    implementation(libs.circleimageview)
 
     // Testing
     testImplementation(libs.junit)
@@ -88,6 +91,7 @@ dependencies {
 
     // lottie animation
     implementation("com.airbnb.android:lottie:6.1.0")
+
 
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -102,4 +106,10 @@ dependencies {
 
     // taptargetView
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
+    // Koin for Android
+    implementation("io.insert-koin:koin-android:3.5.0")
+    implementation ("com.google.firebase:firebase-storage-ktx")
+
 }

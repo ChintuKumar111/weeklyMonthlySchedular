@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.view.cartpreview.freetrial
+package com.example.freshyzoappmodule.view.dialog.cartpreview.freetrial
 
 import android.os.Bundle
 import android.view.LayoutInflater

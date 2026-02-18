@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_message_received.xml — Left-side (other person's) bubble -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="start"
+    android:paddingStart="8dp"
+    android:paddingEnd="64dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
+
+    <!-- Avatar (small, for group chats; hide in 1-on-1 if desired) -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgSenderAvatar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="4dp"
+        android:layout_gravity="bottom"
+        android:src="@drawable/ic_default_avatar"
+        android:visibility="gone" />
+
+    <!-- Bubble -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_bubble_received"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:maxWidth="260dp">
+
+        <!-- Sender name (visible in group chats) -->
+        <TextView
+            android:id="@+id/tvSenderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John"
+            android:textColor="#075E54"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello!"
+            android:textColor="#111111"
+            android:textSize="15sp"
+            android:lineSpacingExtra="1dp" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="10:42 AM"
+            android:textColor="#888888"
+            android:textSize="11sp"
+            android:layout_marginTop="2dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

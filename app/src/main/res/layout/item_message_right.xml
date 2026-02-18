@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_message_sent.xml — Right-side (my) bubble -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="end"
+    android:paddingStart="64dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_bubble_sent"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:maxWidth="260dp">
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello!"
+            android:textColor="#111111"
+            android:textSize="15sp"
+            android:lineSpacingExtra="1dp" />
+
+        <!-- Timestamp + Ticks row -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:42 AM"
+                android:textColor="#888888"
+                android:textSize="11sp" />
+
+            <!-- Double tick icon (blue when read, grey when delivered) -->
+            <ImageView
+                android:id="@+id/imgTick"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="3dp"
+                android:src="@drawable/ic_done_all"
+                android:contentDescription="Read" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

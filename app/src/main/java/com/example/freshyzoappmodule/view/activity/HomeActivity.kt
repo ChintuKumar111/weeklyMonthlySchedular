@@ -22,7 +22,7 @@ import com.example.freshyzoappmodule.viewmodel.HomeViewModel
 import com.example.freshyzoappmodule.data.model.CartStateModel
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.view.adapter.ProductAdapter
-import com.example.freshyzoappmodule.view.cartpreview.freetrial.FreeTrialBottomSheetFragment
+import com.example.freshyzoappmodule.view.dialog.cartpreview.freetrial.FreeTrialBottomSheetFragment
 import com.example.freshyzoappmodule.view.dialog.FeedbackDialogFragment
 
 class HomeActivity : AppCompatActivity() {

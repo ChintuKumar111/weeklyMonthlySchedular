@@ -761,14 +761,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/freshy_means"
                     android:textColor="#B4C1BC"
-                    android:textSize="52sp"
+                    android:textSize="@dimen/_42sdp"
                     android:textStyle="bold"/>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_8ssp"
+                    android:textSize="@dimen/_10ssp"
                     android:textColor="#B4C1BC"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/pure_product"/>
