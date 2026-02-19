@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.model.ProductSize
@@ -20,23 +21,40 @@ class ProductAdapterr(
 
     // Tracks selected size index per product id
     private val selectedSizeMap = mutableMapOf<Int, Int>()
+
     // Tracks quantity per product id
     private val qtyMap = mutableMapOf<Int, Int>()
 
-    inner class ProductViewHolder(
-        private val binding: ItemProductCardBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        val binding = ItemProductCardBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return ProductViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+
+
+    inner class ProductViewHolder(private val binding: ItemProductCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             val selectedSizeIndex = selectedSizeMap[product.id] ?: 0
-            val selectedSize = product.sizes.getOrNull(selectedSizeIndex) ?: product.sizes.firstOrNull()
+            val selectedSize =
+                product.sizes.getOrNull(selectedSizeIndex) ?: product.sizes.firstOrNull()
             val qty = qtyMap[product.id] ?: 0
 
             // ── Basic Info ──
             binding.tvTag.text = product.tag
             binding.tvProductName.text = product.name
-            binding.tvDesc.text = product.description
-            binding.ivProduct.setImageResource(product.imageRes)
+            binding.tvDesc.text = product.short_description
+
+            Glide.with(binding.ivProduct.context)
+                .load(product.imageUrl)
+                .placeholder(R.drawable.app_icon)
+                .into(binding.ivProduct)
 
             // ── Badge ──
             if (product.badgeText.isNotEmpty()) {
@@ -84,13 +102,7 @@ class ProductAdapterr(
                 onSubscribeClick(product)
             }
 
-            // ── VIP Row ──
-            if (product.hasVip) {
-                binding.llVipRow.visibility = View.VISIBLE
-                binding.tvVipText.text = product.vipSavingText
-            } else {
-                binding.llVipRow.visibility = View.GONE
-            }
+
         }
 
         private fun updatePrice(size: ProductSize) {
@@ -139,18 +151,8 @@ class ProductAdapterr(
             binding.tvMinus.alpha = if (qty > 0) 1f else 0.4f
         }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val binding = ItemProductCardBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return ProductViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
 }
+
 
 // ── DiffUtil for efficient list updates ──
 class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {

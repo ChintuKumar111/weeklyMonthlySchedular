@@ -18,6 +18,7 @@ class NewHomeActivity : AppCompatActivity() {
         binding = ActivityNewHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         if (savedInstanceState == null) {
             replaceFragment(NewHome_Fragment())
         }

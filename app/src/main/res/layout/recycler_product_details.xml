@@ -19,7 +19,7 @@
             android:id="@+id/imgProductImage"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:src="@drawable/ghee"
+            android:src="@drawable/ghee1"
             android:scaleType="centerCrop"
             android:background="@android:color/darker_gray"/>
 

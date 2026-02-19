@@ -27,11 +27,14 @@ class CategoryAdapter(
             binding.llCatItem.isActivated = isSelected
 
             binding.llCatItem.setOnClickListener {
+                val currentPosition = adapterPosition
+                if (currentPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+                
                 val previous = selectedPosition
-                selectedPosition = adapterPosition
+                selectedPosition = currentPosition
                 notifyItemChanged(previous)
                 notifyItemChanged(selectedPosition)
-                onCategoryClick(category, adapterPosition)
+                onCategoryClick(category, currentPosition)
             }
         }
     }

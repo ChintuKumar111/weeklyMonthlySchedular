@@ -35,7 +35,7 @@
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:padding="@dimen/_5sdp"
-                android:src="@drawable/ghee" />
+                android:src="@drawable/ghee1" />
 
 
             <TextView

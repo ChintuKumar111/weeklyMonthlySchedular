@@ -288,35 +288,6 @@
 <!--            android:fontFamily="@font/nunito_bold"-->
         </LinearLayout>
 
-        <!-- VIP Savings Row (optional, shown only when VIP discount exists) -->
-        <LinearLayout
-            android:id="@+id/llVipRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_vip_row"
-            android:padding="8dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👑" android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvVipText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="Save ₹84 (20% OFF) with VIP"
-                android:textColor="#B45309"
-                android:textSize="11sp"
-               />
-
-<!--            android:fontFamily="@font/nunito_semibold"-->
-        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

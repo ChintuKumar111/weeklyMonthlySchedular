@@ -5,7 +5,8 @@ data class Product(
     val name: String,
     val tag: String,          // e.g. "100% Natural"
     val description: String,
-    val imageRes: Int,        // drawable resource id
+    val short_description: String,
+    val imageUrl: String,     // Image URL from API
     val badgeText: String,    // e.g. "A2", "NEW", "" for none
     val sizes: List<ProductSize>,
     val categoryId: Int,
