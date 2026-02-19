@@ -76,6 +76,29 @@
     <color name="benefit_bg">#F8F9FA</color>
     <color name="quantity_bg">#F5F5F5</color>
 
+    // new color
+    <!-- Brand Colors -->
+<!--    <color name="green_primary">#1A9E5C</color>-->
+    <color name="green_mid">#2DBE74</color>
+<!--    <color name="green_light">#E8F7EF</color>-->
+<!--    <color name="green_dark">#158F50</color>-->
+<!--    <color name="orange_primary">#F97316</color>-->
+    <color name="orange_light">#FFF4ED</color>
+
+    <!-- Text -->
+    <color name="text_dark">#1A1A2E</color>
+    <color name="text_mid">#4B5563</color>
+    <color name="text_hintt">#9CA3AF</color>
+
+    <!-- Backgrounds -->
+    <color name="bg_grey">#F5F7F5</color>
+    <color name="sidebar_bg">#FAFAFA</color>
+    <color name="border_light">#F0F2F0</color>
+
+    <!-- VIP Row -->
+    <color name="vip_bg_start">#FFF8E7</color>
+    <color name="vip_text">#B45309</color>
+
 
 
 

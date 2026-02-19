@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_product_card.xml  — used in rvProducts RecyclerView -->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:strokeColor="@color/border_light"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <!-- Row 1: Image + Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Product Image + Badge -->
+            <FrameLayout
+                android:layout_width="88dp"
+                android:layout_height="88dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                     />
+<!--                app:shapeAppearanceOverlay="@style/RoundedCorner12"-->
+
+                <!-- Small pack badge -->
+                <TextView
+                    android:id="@+id/tvBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|start"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/bg_badge_green"
+                    android:text="A2"
+                    android:textColor="@color/white"
+                    android:textSize="9sp"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp" />
+
+              <!--  android:fontFamily="@font/nunito_extrabold"-->
+
+            </FrameLayout>
+
+            <!-- Product Info -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <!-- Tag (e.g. "100% Natural") -->
+                <TextView
+                    android:id="@+id/tvTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100% Natural"
+                    android:textColor="@color/green_primary"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.05"
+                    android:textAllCaps="true" />
+
+<!--                android:fontFamily="@font/nunito_bold"-->
+
+                <!-- Product Name -->
+                <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="FreshyZo A2 Cow Milk"
+                    android:textColor="@color/text_dark"
+                    android:textSize="15sp"
+                    android:lineSpacingMultiplier="1.2" />
+
+<!--                android:fontFamily="@font/nunito_extrabold"-->
+
+                <!-- Price Row -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹45"
+                        android:textColor="@color/text_dark"
+                        android:textSize="16sp"
+                         />
+
+<!--                    android:fontFamily="@font/nunito_extrabold"-->
+
+                    <TextView
+                        android:id="@+id/tvOriginalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="₹50"
+                        android:textColor="@color/text_hint"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="10% OFF"
+                        android:background="@drawable/bg_discount_badge"
+                        android:textColor="@color/orange_primary"
+                        android:textSize="10sp"
+
+                        android:paddingStart="6dp"
+                        android:paddingEnd="6dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp" />
+
+<!--                    android:fontFamily="@font/nunito_bold"-->
+
+                </LinearLayout>
+
+                <!-- Description -->
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Pure, digestible &amp; healthy"
+                    android:textColor="@color/text_hint"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Row 2: Size Options -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/llSizeOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Size chips injected programmatically, or hardcode below -->
+                <TextView
+                    android:id="@+id/tvSize1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="500ml"
+                    android:background="@drawable/bg_size_chip_active"
+                    android:textColor="@color/green_primary"
+                    android:textSize="11sp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginEnd="6dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+<!--                android:fontFamily="@font/nunito_bold"-->
+
+                <TextView
+                    android:id="@+id/tvSize2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 Litre"
+                    android:background="@drawable/bg_size_chip_inactive"
+                    android:textColor="@color/text_mid"
+                    android:textSize="11sp"
+
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginEnd="6dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+<!--                android:fontFamily="@font/nunito_bold"-->
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Row 3: Actions (Qty + Add + Subscribe) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Quantity Control -->
+            <LinearLayout
+                android:id="@+id/llQtyCtrl"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_qty_ctrl">
+
+                <TextView
+                    android:id="@+id/tvMinus"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:text="−"
+                    android:textColor="@color/green_primary"
+                    android:textSize="20sp"
+
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true" />
+<!--                android:fontFamily="@font/nunito_bold"-->
+
+                <TextView
+                    android:id="@+id/tvQty"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:text="1"
+                    android:textColor="@color/text_dark"
+                    android:textSize="14sp"
+                    android:gravity="center" />
+
+<!--                android:fontFamily="@font/nunito_extrabold"-->
+                <TextView
+                    android:id="@+id/tvPlus"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:textColor="@color/green_primary"
+                    android:textSize="20sp"
+
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+<!--                android:fontFamily="@font/nunito_bold"-->
+            </LinearLayout>
+
+            <!-- Add to Cart -->
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="ADD TO CART"
+                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:background="@drawable/bg_btn_green"
+                android:stateListAnimator="@null" />
+
+<!--            android:fontFamily="@font/nunito_extrabold"-->
+
+            <!-- Subscribe -->
+            <Button
+                android:id="@+id/btnSubscribe"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:text="Subscribe"
+                android:textColor="@color/green_primary"
+                android:textSize="12sp"
+                android:background="@drawable/bg_btn_outline_green"/>
+<!--            android:fontFamily="@font/nunito_bold"-->
+        </LinearLayout>
+
+        <!-- VIP Savings Row (optional, shown only when VIP discount exists) -->
+        <LinearLayout
+            android:id="@+id/llVipRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_vip_row"
+            android:padding="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="👑" android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvVipText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Save ₹84 (20% OFF) with VIP"
+                android:textColor="#B45309"
+                android:textSize="11sp"
+               />
+
+<!--            android:fontFamily="@font/nunito_semibold"-->
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_category_sidebar.xml — used in rvCategories RecyclerView -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llCatItem"
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="10dp"
+    android:background="@drawable/selector_cat_item"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Category Image / Icon -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivCatIcon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/milk_"
+        android:background="@drawable/bg_cat_icon"
+
+        xmlns:app="http://schemas.android.com/apk/res-auto" />
+<!--    app:shapeAppearanceOverlay="@style/RoundedCorner12"-->
+
+    <!-- Category Name -->
+    <TextView
+        android:id="@+id/tvCatName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Milk"
+        android:textColor="@color/gray_600"
+        android:textSize="10sp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end" />
+
+<!--    android:fontFamily="@font/nunito_bold"-->
+
+</LinearLayout>

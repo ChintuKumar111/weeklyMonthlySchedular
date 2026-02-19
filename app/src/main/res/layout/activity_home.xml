@@ -290,7 +290,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- CART PREVIEW BOTTOM BAR -->
-    <com.example.freshyzoappmodule.common.helper.CartPreviewView
+    <com.example.freshyzoappmodule.helper.CartPreviewView
         android:id="@+id/cartPreview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
