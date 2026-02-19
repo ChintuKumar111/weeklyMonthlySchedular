@@ -22,10 +22,6 @@ class NewHomeActivity : AppCompatActivity() {
             replaceFragment(NewHome_Fragment())
         }
 
-//        FirebaseFirestore.getInstance()
-//            .collection("test")
-//            .add(hashMapOf("name" to "Levi Ackerman"))
-
 
         // Disable icon tinting to show original colors
         binding.bottomNavigation.itemIconTintList = null
@@ -75,10 +71,6 @@ class NewHomeActivity : AppCompatActivity() {
             .continueOnCancel(true)
             .start()
     }
-
-
-
-
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
