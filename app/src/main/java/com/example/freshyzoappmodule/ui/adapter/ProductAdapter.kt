@@ -1,98 +1,136 @@
 package com.example.freshyzoappmodule.ui.adapter
 
-import android.content.Intent
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.ProductModel
-import com.example.freshyzoappmodule.ui.activity.ProductDetailsActivity
+import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.ProductSize
+import com.example.freshyzoappmodule.databinding.ItemProductCardBinding
 
 class ProductAdapter(
-    private var list: List<ProductModel>,
-    private val onQuantityChanged: (ProductModel, Int) -> Unit
-) : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+    private val onAddClick: (Product, ProductSize, Int) -> Unit,
+    private val onQtyChange: (Product, ProductSize, Int) -> Unit,
+    private val onSubscribeClick: (Product) -> Unit
+) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recycler_product_details, parent, false)
-        return ViewHolder(view)
-    }
+    private val selectedSizeMap = mutableMapOf<Int, Int>()
+    private val qtyMap = mutableMapOf<Int, Int>()
 
-    override fun getItemCount() = list.size
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = list[position]
-
-        holder.productName.text = product.product_name
-        holder.productSellingPrice.text = "₹${product.product_price}"
-        holder.productMrp.text = "₹${product.dairy_mrp}"
-        holder.productMrp.paintFlags = holder.productMrp.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        holder.productShortDesc.text = product.short_desc
-
-        Glide.with(holder.itemView.context)
-            .load("https://freshyzo.com/admin/uploads/product_image/" + product.dairy_product_image)
-            .into(holder.productImage)
-
-        // Handle Visibility based on quantity
-        if (product.quantity > 0) {
-            holder.addToCart.visibility = View.GONE
-            holder.llQuantityContainer.visibility = View.VISIBLE
-            holder.tvQuantity.text = product.quantity.toString()
-        } else {
-            holder.addToCart.visibility = View.VISIBLE
-            holder.llQuantityContainer.visibility = View.GONE
-        }
-
-        holder.addToCart.setOnClickListener {
-            product.quantity = 1
-            notifyItemChanged(position)
-            onQuantityChanged(product, 1)
-        }
-
-        holder.btnPlus.setOnClickListener {
-            product.quantity++
-            notifyItemChanged(position)
-            onQuantityChanged(product, 1)
-        }
-
-        holder.btnMinus.setOnClickListener {
-            if (product.quantity > 0) {
-                product.quantity--
-                notifyItemChanged(position)
-                onQuantityChanged(product, -1)
-            }
-        }
-
-        holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ProductDetailsActivity::class.java)
-            intent.putExtra("product", product)
-            holder.itemView.context.startActivity(intent)
-        }
-    }
-
-    fun updateList(newList: List<ProductModel>) {
-        list = newList
+    fun setInitialQuantities(quantities: Map<Int, Int>) {
+        qtyMap.clear()
+        qtyMap.putAll(quantities)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val productName = view.findViewById<TextView>(R.id.tvProductName)
-        val productShortDesc = view.findViewById<TextView>(R.id.tvProductShortDesc)
-        val productImage = view.findViewById<ImageView>(R.id.imgProductImage)
-        val productMrp = view.findViewById<TextView>(R.id.tvMrp)
-        val productSellingPrice = view.findViewById<TextView>(R.id.tvSellingPrice)
-        val addToCart = view.findViewById<TextView>(R.id.tvAddToCart)
-        val llQuantityContainer = view.findViewById<LinearLayout>(R.id.llQuantityContainer)
-        val btnMinus = view.findViewById<TextView>(R.id.btnMinus)
-        val btnPlus = view.findViewById<TextView>(R.id.btnPlus)
-        val tvQuantity = view.findViewById<TextView>(R.id.tvQuantity)
+    inner class ProductViewHolder(private val binding: ItemProductCardBinding) :
+        RecyclerView.ViewHolder(binding.root)
+    {
+        fun bind(product: Product) {
+            val selectedSizeIndex = selectedSizeMap[product.id] ?: 0
+            val selectedSize = product.sizes.getOrNull(selectedSizeIndex) ?: product.sizes.firstOrNull()
+            val qty = qtyMap[product.id] ?: 0
 
+            binding.tvTag.text = product.tag
+            binding.tvProductName.text = product.name
+            binding.tvDesc.text = product.short_description
+            
+            Glide.with(binding.ivProduct.context)
+                .load(product.imageUrl)
+                .placeholder(R.drawable.milk_)
+                .into(binding.ivProduct)
+
+            if (product.badgeText.isNotEmpty()) {
+                binding.tvBadge.visibility = View.VISIBLE
+                binding.tvBadge.text = product.badgeText
+            } else {
+                binding.tvBadge.visibility = View.GONE
+            }
+
+            selectedSize?.let { updatePrice(it) }
+            renderSizeChips(product, selectedSizeIndex)
+            selectedSize?.let { updateQtyUi(qty, product, it) }
+
+            binding.tvMinus.setOnClickListener {
+                val current = qtyMap[product.id] ?: 0
+                if (current > 0) {
+                    val newQty = current - 1
+                    qtyMap[product.id] = newQty
+                    selectedSize?.let { s -> 
+                        updateQtyUi(newQty, product, s)
+                        onQtyChange(product, s, -1)
+                    }
+                }
+            }
+
+            binding.tvPlus.setOnClickListener {
+                val current = qtyMap[product.id] ?: 0
+                val newQty = current + 1
+                qtyMap[product.id] = newQty
+                selectedSize?.let { s -> 
+                    updateQtyUi(newQty, product, s)
+                    onQtyChange(product, s, 1)
+                }
+            }
+
+            binding.btnAdd.setOnClickListener {
+                qtyMap[product.id] = 1
+                selectedSize?.let { s -> 
+                    updateQtyUi(1, product, s)
+                    onAddClick(product, s, 1)
+                }
+            }
+
+            binding.btnSubscribe.setOnClickListener {
+                onSubscribeClick(product)
+            }
+        }
+
+        private fun updatePrice(size: ProductSize) {
+            binding.tvPrice.text = "₹${size.price}"
+            binding.tvOriginalPrice.text = "₹${size.originalPrice}"
+            binding.tvDiscount.text = "${size.discountPercent}% OFF"
+        }
+
+        private fun renderSizeChips(product: Product, selectedIndex: Int) {
+            val sizes = product.sizes
+            binding.tvSize1.text = sizes.getOrNull(0)?.label ?: ""
+            binding.tvSize1.isSelected = true 
+            binding.tvSize1.setBackgroundResource(R.drawable.bg_size_chip_active)
+        }
+
+        private fun updateQtyUi(qty: Int, product: Product, size: ProductSize) {
+            if (qty > 0) {
+                binding.llQtyCtrl.visibility = View.VISIBLE
+                binding.btnAdd.visibility = View.GONE
+                binding.tvQty.text = qty.toString()
+            } else {
+                binding.llQtyCtrl.visibility = View.GONE
+                binding.btnAdd.visibility = View.VISIBLE
+            }
+        }
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        val binding = ItemProductCardBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return ProductViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+}
+
+class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
+    override fun areItemsTheSame(oldItem: Product, newItem: Product) =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: Product, newItem: Product) =
+        oldItem == newItem
 }

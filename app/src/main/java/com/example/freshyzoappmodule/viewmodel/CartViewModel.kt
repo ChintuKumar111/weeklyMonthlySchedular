@@ -4,18 +4,18 @@ package com.example.freshyzoappmodule.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.freshyzoappmodule.data.model.CartStateModel
+import com.example.freshyzoappmodule.data.model.cartStateModel
 
 class CartViewModel : ViewModel() {
 
     // Internal mutable state
-    private val _cartState = MutableLiveData<CartStateModel>(CartStateModel())
+    private val _cartState = MutableLiveData<cartStateModel>(cartStateModel())
 
     // External immutable LiveData for the View to observe
-    val cartState: LiveData<CartStateModel> get() = _cartState
+    val cartState: LiveData<cartStateModel> get() = _cartState
 
     fun addItemToCart(price: Double) {
-        val currentState = _cartState.value ?: CartStateModel()
+        val currentState = _cartState.value ?: cartStateModel()
         val newCount = currentState.itemsCount + 1
         val newPrice = currentState.totalPrice + price
 

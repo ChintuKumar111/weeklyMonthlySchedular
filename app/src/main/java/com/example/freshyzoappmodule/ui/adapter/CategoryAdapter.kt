@@ -1,16 +1,14 @@
 package com.example.freshyzoappmodule.ui.adapter
 
-// ── adapters/CategoryAdapter.kt ──
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.freshyzoappmodule.data.model.Category
+import com.example.freshyzoappmodule.data.model.categoryModel
 import com.example.freshyzoappmodule.databinding.ItemCategorySidebarBinding
 
 class CategoryAdapter(
-    private val categories: List<Category>,
-    private val onCategoryClick: (Category, Int) -> Unit
+    private val categories: List<categoryModel>,
+    private val onCategoryClick: (categoryModel, Int) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     private var selectedPosition = 0
@@ -19,7 +17,7 @@ class CategoryAdapter(
         private val binding: ItemCategorySidebarBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(category: Category, isSelected: Boolean) {
+        fun bind(category: categoryModel, isSelected: Boolean) {
             binding.tvCatName.text = category.name
             binding.ivCatIcon.setImageResource(category.iconRes)
 

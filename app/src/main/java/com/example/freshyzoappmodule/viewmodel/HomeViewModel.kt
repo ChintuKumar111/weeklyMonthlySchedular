@@ -3,15 +3,15 @@ package com.example.freshyzoappmodule.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.freshyzoappmodule.data.model.ProductModel
+import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.repository.ProductRepository
 
 class HomeViewModel : ViewModel() {
 
     private val repository = ProductRepository()
 
-    private val _productList = MutableLiveData<List<ProductModel>>()
-    val productList: LiveData<List<ProductModel>> = _productList
+    private val _productList = MutableLiveData<List<Product>>()
+    val productList: LiveData<List<Product>> = _productList
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -20,7 +20,6 @@ class HomeViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun loadProducts() {
-        // Only load if the list is empty to prevent redundant API calls
         if (!_productList.value.isNullOrEmpty()) {
             return
         }

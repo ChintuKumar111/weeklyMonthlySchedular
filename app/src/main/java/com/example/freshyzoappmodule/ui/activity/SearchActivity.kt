@@ -13,29 +13,33 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.databinding.ActivitySearchBinding
+import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.data.model.PopularProductModel
-import com.example.freshyzoappmodule.data.model.ProductModel
+import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.repository.CartRepository
+import com.example.freshyzoappmodule.databinding.ActivitySearchBinding
 import com.example.freshyzoappmodule.ui.adapter.PopularProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.RecentSearchAdapter
-
 import com.example.freshyzoappmodule.viewmodel.SearchViewModel
+import kotlin.concurrent.thread
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var productAdapter: ProductAdapter
     private lateinit var recentAdapter: RecentSearchAdapter
     private val viewModel: SearchViewModel by viewModels()
+    private lateinit var cartRepository: CartRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        cartRepository = CartRepository(this)
 
         setUpUI()
         setupTextSwitcher()
@@ -45,6 +49,7 @@ class SearchActivity : AppCompatActivity() {
         
         loadInitialData()
         observeViewModel()
+        loadCartState()
 
         binding.etSearch.addTextChangedListener { text ->
             viewModel.onSearchQueryChanged(text.toString().trim())
@@ -53,7 +58,11 @@ class SearchActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.filteredList.observe(this) { list ->
-            productAdapter.updateList(list)
+            // Sync current quantities from cart
+            val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
+            productAdapter.setInitialQuantities(sharedQuantities)
+            
+            productAdapter.submitList(list)
             
             val query = binding.etSearch.text.toString().trim()
             if (query.isEmpty()) {
@@ -150,21 +159,70 @@ class SearchActivity : AppCompatActivity() {
                 viewModel.deleteRecentSearch(textToDelete)
             }
         )
-        // Changed to HORIZONTAL layout manager
         binding.rvRecentSearches.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvRecentSearches.adapter = recentAdapter
     }
 
     private fun setupSearchProducts() {
-        productAdapter = ProductAdapter(emptyList()) { product, delta ->
-            Toast.makeText(this, "${product.product_name} updated in cart", Toast.LENGTH_SHORT).show()
-        }
-        binding.rvSearch.layoutManager = GridLayoutManager(this, 2)
+        productAdapter = ProductAdapter(
+            onAddClick = { product, size, qty ->
+                updateCart(product.id, size.price.toDouble() * qty, qty)
+            },
+            onQtyChange = { product, size, delta ->
+                updateCart(product.id, size.price.toDouble() * delta, delta)
+            },
+            onSubscribeClick = { product ->
+                Toast.makeText(this, "Subscribed to ${product.name}", Toast.LENGTH_SHORT).show()
+            }
+        )
+        binding.rvSearch.layoutManager = LinearLayoutManager(this)
         binding.rvSearch.adapter = productAdapter
     }
 
+    private fun updateCart(productId: Int, priceDelta: Double, countDelta: Int) {
+        thread {
+            val currentState = cartRepository.getCartState() ?: cartStateModel()
+            val newCount = currentState.itemsCount + countDelta
+            val newPrice = currentState.totalPrice + priceDelta
+            
+            val newQuantities = currentState.productQuantities.toMutableMap()
+            val currentQty = newQuantities[productId] ?: 0
+            val newQty = currentQty + countDelta
+            
+            if (newQty <= 0) {
+                newQuantities.remove(productId)
+            } else {
+                newQuantities[productId] = newQty
+            }
+            
+            val newState = cartStateModel(newCount, newPrice, true, newQuantities)
+            cartRepository.saveCartState(newState)
+            
+            runOnUiThread {
+                if (newState.itemsCount > 0) {
+                    binding.cartPreview.showCart(newState)
+                } else {
+                    binding.cartPreview.hideCart()
+                }
+            }
+        }
+    }
+
+    private fun loadCartState() {
+        thread {
+            val savedCartState = cartRepository.getCartState()
+            runOnUiThread {
+                if (savedCartState != null && savedCartState.itemsCount > 0) {
+                    binding.cartPreview.showCart(savedCartState)
+                } else {
+                    binding.cartPreview.hideCart()
+                }
+            }
+        }
+    }
+
     private fun loadInitialData() {
-        val incomingList = intent.getParcelableArrayListExtra<ProductModel>("product_list")
+        val incomingList = intent.getParcelableArrayListExtra<Product>("product_list")
         incomingList?.let { viewModel.setInitialProductList(it) }
     }
 

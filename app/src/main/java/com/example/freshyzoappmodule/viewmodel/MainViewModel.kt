@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MediatorLiveData
-import com.example.freshyzoappmodule.data.model.DayDateModel
+import com.example.freshyzoappmodule.data.model.dayDateModel
 import java.util.Calendar
 
 class MainViewModel : ViewModel() {
@@ -61,18 +61,18 @@ class MainViewModel : ViewModel() {
 
     enum class PlanType { DAILY, WEEKLY, MONTHLY }
 
-    private val _dayList = MutableLiveData<List<DayDateModel>>(
+    private val _dayList = MutableLiveData<List<dayDateModel>>(
         listOf(
-            DayDateModel("Mon", 0, false),
-            DayDateModel("Tue", 0, false),
-            DayDateModel("Wed", 0, false),
-            DayDateModel("Thu", 0, false),
-            DayDateModel("Fri", 0, false),
-            DayDateModel("Sat", 0, false),
-            DayDateModel("Sun", 0, false)
+            dayDateModel("Mon", 0, false),
+            dayDateModel("Tue", 0, false),
+            dayDateModel("Wed", 0, false),
+            dayDateModel("Thu", 0, false),
+            dayDateModel("Fri", 0, false),
+            dayDateModel("Sat", 0, false),
+            dayDateModel("Sun", 0, false)
         )
     )
-    val dayList: LiveData<List<DayDateModel>> = _dayList
+    val dayList: LiveData<List<dayDateModel>> = _dayList
 
     init {
         calculateMonthlyTotal()

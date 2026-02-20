@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.CartStateModel
+import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivityNewHomeBinding
 import com.example.freshyzoappmodule.ui.Fragments.NewHome_Fragment
@@ -74,7 +74,7 @@ class NewHomeActivity : AppCompatActivity() {
 
     fun updateSharedCart(productId: Int, priceDelta: Double, countDelta: Int) {
         thread {
-            val currentState = cartRepository.getCartState() ?: CartStateModel()
+            val currentState = cartRepository.getCartState() ?: cartStateModel()
             
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
@@ -90,7 +90,7 @@ class NewHomeActivity : AppCompatActivity() {
                 newQuantities[productId] = newQty
             }
             
-            val newState = CartStateModel(newCount, newPrice, true, newQuantities)
+            val newState = cartStateModel(newCount, newPrice, true, newQuantities)
             
             cartRepository.saveCartState(newState)
             
@@ -104,8 +104,8 @@ class NewHomeActivity : AppCompatActivity() {
         }
     }
 
-    fun getCartState(): CartStateModel {
-        return cartRepository.getCartState() ?: CartStateModel()
+    fun getCartState(): cartStateModel {
+        return cartRepository.getCartState() ?: cartStateModel()
     }
 
     private fun showHomeTour() {

@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.ViewPager_.dialog.cartpreview.freetrial
+package com.example.freshyzoappmodule.helper
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,5 +31,3 @@ class FreeTrialBottomSheetFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 }
-
-

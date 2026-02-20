@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.data.model
 
-data class ChatListItem(
+data class chatListItem(
     var chatId: String = "",
     val lastMessage: String = "",
     val timestamp: Long = 0L,

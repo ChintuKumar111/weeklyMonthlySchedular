@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.freshyzoappmodule.data.model.ProductModel
+import com.example.freshyzoappmodule.data.model.Product
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -15,13 +15,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private val sharedPrefs = application.getSharedPreferences("search_prefs", Context.MODE_PRIVATE)
 
-    // 1. DATA
-    private var productList: List<ProductModel> = emptyList()
+    private var productList: List<Product> = emptyList()
     private val hints = listOf("Search for milk", "Search ghee", "Search khowa", "Search buffalo milk", "Search paneer")
 
-    // 2. LIVE DATA (UI STATES)
-    private val _filteredList = MutableLiveData<List<ProductModel>>(emptyList())
-    val filteredList: LiveData<List<ProductModel>> = _filteredList
+    private val _filteredList = MutableLiveData<List<Product>>(emptyList())
+    val filteredList: LiveData<List<Product>> = _filteredList
 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -38,7 +36,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private val _recentSearches = MutableLiveData<List<String>>(emptyList())
     val recentSearches: LiveData<List<String>> = _recentSearches
 
-    // 3. JOBS
     private var searchJob: Job? = null
     private var hintJob: Job? = null
 
@@ -47,12 +44,10 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         startHintRotation()
     }
 
-    // 4. INITIAL DATA
-    fun setInitialProductList(list: List<ProductModel>) {
+    fun setInitialProductList(list: List<Product>) {
         productList = list
     }
 
-    // 5. SEARCH LOGIC
     fun onSearchQueryChanged(query: String) {
         searchJob?.cancel()
 
@@ -66,29 +61,23 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         searchJob = viewModelScope.launch {
             delay(1000) // debounce
             val result = productList.filter {
-                it.product_name.contains(query, ignoreCase = true)
+                it.productName.contains(query, ignoreCase = true)
             }
             _filteredList.value = result
             _isLoading.value = false
             _showNoMatch.value = result.isEmpty()
             
             if (result.isNotEmpty()) {
-                // If there are results, save the actual product name instead of the fragment
-                // This ensures if user types "ahi", "Dahi" is saved in recent search.
-                saveRecentSearch(result[0].product_name)
+                saveRecentSearch(result[0].productName)
             }
         }
     }
 
     private fun saveRecentSearch(name: String) {
         val current = _recentSearches.value?.toMutableList() ?: mutableListOf()
-
-        // Remove if exists to move it to the top
         current.remove(name)
         current.add(0, name)
-
-        if (current.size > 10) current.removeAt(10) // Keep up to 10 recent searches
-
+        if (current.size > 10) current.removeAt(10)
         _recentSearches.value = current
         persistRecentSearches(current)
     }
@@ -102,7 +91,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private fun persistRecentSearches(list: List<String>) {
-        // Use a delimited string to preserve order (StringSet does not preserve order)
         val stringData = list.joinToString(separator = "|")
         sharedPrefs.edit().putString("recent_ordered", stringData).apply()
     }
@@ -111,14 +99,9 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         val stringData = sharedPrefs.getString("recent_ordered", "") ?: ""
         if (stringData.isNotEmpty()) {
             _recentSearches.value = stringData.split("|")
-        } else {
-            // Fallback to old format if necessary
-            val set = sharedPrefs.getStringSet("recent", emptySet())
-            _recentSearches.value = set?.toList() ?: emptyList()
         }
     }
 
-    // 6. UI STATE HELPERS
     private fun showHintState() {
         _isHintVisible.value = true
         _isLoading.value = false
@@ -135,7 +118,6 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         stopHintRotation()
     }
 
-    // 7. HINT ROTATION
     private fun startHintRotation() {
         hintJob?.cancel()
         hintJob = viewModelScope.launch {

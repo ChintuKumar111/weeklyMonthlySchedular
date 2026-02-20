@@ -11,23 +11,21 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.Category
+import com.example.freshyzoappmodule.data.model.categoryModel
 import com.example.freshyzoappmodule.data.model.Product
-import com.example.freshyzoappmodule.data.model.ProductSize
 import com.example.freshyzoappmodule.databinding.FragmentProductSectionBinding
 import com.example.freshyzoappmodule.ui.activity.NewHomeActivity
 import com.example.freshyzoappmodule.ui.activity.SearchActivity
 import com.example.freshyzoappmodule.ui.adapter.CategoryAdapter
-import com.example.freshyzoappmodule.ui.adapter.ProductAdapterr
+import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
 import com.example.freshyzoappmodule.viewmodel.HomeViewModel
-import kotlin.concurrent.thread
 
 class ProductSectionFragment : Fragment() {
     private var _binding: FragmentProductSectionBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var productAdapter: ProductAdapterr
+    private lateinit var productAdapter: ProductAdapter
     private val viewModel: HomeViewModel by viewModels()
 
     private var allProducts: List<Product> = emptyList()
@@ -45,7 +43,6 @@ class ProductSectionFragment : Fragment() {
         setupCategories()
         observeViewModel()
         
-        // Delay heavy operations slightly to ensure fragment transition is smooth
         view.post {
             viewModel.loadProducts()
         }
@@ -69,11 +66,11 @@ class ProductSectionFragment : Fragment() {
 
     private fun setupCategories() {
         val categories = listOf(
-            Category(1, "Milk", R.drawable.milk_),
-            Category(2, "Ghee", R.drawable.ghee1),
-            Category(3, "Dahi", R.drawable.dahi),
-            Category(4, "Paneer", R.drawable.paneer),
-            Category(6, "Khowa", R.drawable.khowa),
+            categoryModel(1, "Milk", R.drawable.milk_),
+            categoryModel(2, "Ghee", R.drawable.ghee1),
+            categoryModel(3, "Dahi", R.drawable.dahi),
+            categoryModel(4, "Paneer", R.drawable.paneer),
+            categoryModel(6, "Khowa", R.drawable.khowa),
         )
 
         categoryAdapter = CategoryAdapter(categories) { category, _ ->
@@ -89,63 +86,8 @@ class ProductSectionFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { products ->
-            // Offload data processing to background thread to prevent UI stutter
-            thread {
-                val mapped = products.map {
-                    val (tag, badge) = when {
-                        it.product_name.contains("Buffalo Milk", true) -> "Rich & Creamy" to ""
-                        it.product_name.contains("A2 Cow Milk", true) -> "100% Natural" to "A2"
-                        it.product_name.contains("Pure Cow Ghee", true) -> "Traditional Recipe" to "PURE"
-                        it.product_name.contains("Malai Dahi", true) -> "Probiotic" to ""
-                        it.product_name.contains("Khatti Dahi", true) -> "Classic" to ""
-                        it.product_name.contains("Fresh Paneer", true) -> "Soft & Fresh" to "FRESH"
-                        it.product_name.contains("Khoya", true) || it.product_name.contains("Khowa", true) -> "Homestyle" to ""
-                        else -> "100% Natural" to ""
-                    }
-
-                    val catId = when {
-                        it.product_name.contains("Ghee", true) -> 2
-                        it.product_name.contains("Milk", true) -> 1
-                        it.product_name.contains("Dahi", true) -> 3
-                        it.product_name.contains("Paneer", true) -> 4
-                        it.product_name.contains("Khowa", true) ||
-                                it.product_name.contains("Khoya", true) -> 6
-                        else -> 1
-                    }
-
-                    val words = it.product_name.trim().split(" ")
-                    val sizeFromTitle = if (words.size > 2) {
-                        "${words[words.size - 2]} ${words.last()}"
-                    } else {
-                        it.unit
-                    }
-
-                    Product(
-                        id = it.product_id.toIntOrNull() ?: 0,
-                        name = it.product_name,
-                        tag = tag,
-                        description = it.description,
-                        short_description = it.short_desc,
-                        imageUrl = "https://freshyzo.com/admin/uploads/product_image/${it.dairy_product_image}",
-                        badgeText = badge,
-                        categoryId = catId,
-                        sizes = listOf(
-                            ProductSize(
-                                sizeFromTitle,
-                                it.product_price.toDoubleOrNull()?.toInt() ?: 0,
-                                it.dairy_mrp.toDoubleOrNull()?.toInt() ?: 0
-                            )
-                        )
-                    )
-                }
-
-                activity?.runOnUiThread {
-                    if (_binding != null) {
-                        allProducts = mapped
-                        filterProducts()
-                    }
-                }
-            }
+            allProducts = products
+            filterProducts()
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer { error ->
@@ -160,7 +102,6 @@ class ProductSectionFragment : Fragment() {
     private fun filterProducts() {
         val filtered = allProducts.filter { it.categoryId == selectedCategoryId }
         
-        // Pass the saved quantities from Activity to Adapter
         val sharedQuantities = (activity as? NewHomeActivity)?.getCartState()?.productQuantities ?: emptyMap()
         productAdapter.setInitialQuantities(sharedQuantities)
         
@@ -168,7 +109,7 @@ class ProductSectionFragment : Fragment() {
     }
 
     private fun setupProductRecyclerView() {
-        productAdapter = ProductAdapterr(
+        productAdapter = ProductAdapter(
             onAddClick = { product, size, qty ->
                 (activity as? NewHomeActivity)?.updateSharedCart(product.id, size.price.toDouble() * qty, qty)
             },

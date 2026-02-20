@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.Message
+import com.example.freshyzoappmodule.data.model.messageModel
 import java.util.Calendar
 
 class ChatAdapter(
-    private val messageList: MutableList<Message>,
+    private val messageList: MutableList<messageModel>,
     private val currentUserId: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

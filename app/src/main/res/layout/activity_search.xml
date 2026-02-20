@@ -1,100 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
-    android:background="@color/primary"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.SearchActivity">
 
     <LinearLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp">
-
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:padding="4dp"
-            android:src="@drawable/outline_arrow_back_24"
-            app:tint="@color/white" />
+        android:orientation="vertical"
+        android:background="@color/primary"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:background="@drawable/modern_search"
-            android:elevation="4dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="16dp">
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="10dp"
-                android:alpha="0.6"
-                android:src="@drawable/search_img"/>
+                android:id="@+id/ivBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:src="@drawable/outline_arrow_back_24"
+                app:tint="@color/white" />
 
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:background="@drawable/modern_search"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
 
-                <TextSwitcher
-                    android:id="@+id/textSwitcher"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:alpha="0.6"
+                    android:src="@drawable/search_img"/>
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inAnimation="@anim/slide_in_up"
-                    android:outAnimation="@anim/slide_out_up" />
+                    android:layout_height="match_parent">
 
-                <EditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint=""
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"/>
-            </FrameLayout>
+                    <TextSwitcher
+                        android:id="@+id/textSwitcher"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inAnimation="@anim/slide_in_up"
+                        android:outAnimation="@anim/slide_out_up" />
 
+                    <EditText
+                        android:id="@+id/etSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint=""
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"/>
+                </FrameLayout>
+
+            </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPopularHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:text="Popular Products "/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPopularProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:paddingBottom="10dp"
+            android:paddingStart="@dimen/_20sdp"
+            android:paddingEnd="@dimen/_20sdp"/>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvPopularHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:textColor="@color/white"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:text="Popular Products "/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPopularProducts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:clipToPadding="false"
-        android:paddingBottom="10dp"
-        android:paddingStart="@dimen/_20sdp"
-        android:paddingEnd="@dimen/_20sdp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"
+        app:layout_constraintBottom_toTopOf="@id/cartPreview">
 
         <!-- Result Content (Initially hidden) -->
         <androidx.recyclerview.widget.RecyclerView
@@ -165,4 +174,11 @@
 
     </FrameLayout>
 
-</LinearLayout>
+    <!-- Cart Preview View -->
+    <com.example.freshyzoappmodule.helper.CartPreviewView
+        android:id="@+id/cartPreview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

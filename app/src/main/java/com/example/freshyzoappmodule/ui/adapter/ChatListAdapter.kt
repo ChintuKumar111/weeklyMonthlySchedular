@@ -3,15 +3,15 @@ package com.example.freshyzoappmodule.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.freshyzoappmodule.data.model.ChatListItem
+import com.example.freshyzoappmodule.data.model.chatListItem
 import com.example.freshyzoappmodule.databinding.ItemChatListBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class ChatListAdapter(
-    private var chatList: List<ChatListItem>,
-    private val onItemClick: (ChatListItem) -> Unit
+    private var chatList: List<chatListItem>,
+    private val onItemClick: (chatListItem) -> Unit
 ) : RecyclerView.Adapter<ChatListAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemChatListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -34,7 +34,7 @@ class ChatListAdapter(
 
     override fun getItemCount(): Int = chatList.size
 
-    fun updateList(newList: List<ChatListItem>) {
+    fun updateList(newList: List<chatListItem>) {
         chatList = newList
         notifyDataSetChanged()
     }

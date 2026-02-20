@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.freshyzoappmodule.data.model.ProductModel
+import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.databinding.ActivityProductDetailsBinding
 import com.example.freshyzoappmodule.viewmodel.ProductDetailsViewModel
 
@@ -20,37 +20,31 @@ class ProductDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val product = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("product", ProductModel::class.java)
+            intent.getParcelableExtra("product", Product::class.java)
         } else {
-            intent.getParcelableExtra<ProductModel>("product")
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Product>("product")
         }
 
         if (product != null) {
             viewModel.setProduct(product)
         }
 
-        binding.btnSubscribe.setOnClickListener(){
+        binding.btnSubscribe.setOnClickListener {
             startActivity(Intent(this, DailyWeeklyMonthlySubscriptionActivity::class.java))
         }
 
+        viewModel.product.observe(this) { productObj ->
+            productObj?.let {
+                binding.tvProductName.text = it.productName
+                binding.chipVolume.text = it.sizeLabel
+                binding.tvDescription.text = it.description
+                binding.tvCurrentPrice.text = "₹${it.productPrice}"
 
-        viewModel.product.observe(this) { productModel ->
-         binding.tvProductName.text = productModel?.product_name
-
-            val nameParts = productModel.product_name.split(" ")
-            if (nameParts.size >= 2 && nameParts[nameParts.size - 2].toIntOrNull() != null) {
-                val weight = nameParts.takeLast(2).joinToString(" ")
-                binding.chipVolume.text = weight
-            } else {
-                binding.chipVolume.text = productModel.unit
+                Glide.with(this)
+                    .load(it.imageUrl)
+                    .into(binding.ivProductImage)
             }
-
-            binding.tvDescription.text = productModel.description
-            binding.tvCurrentPrice.text = "₹${productModel.product_price}"
-
-            Glide.with(this)
-                .load("https://freshyzo.com/admin/uploads/product_image/" + productModel.dairy_product_image)
-                .into(binding.ivProductImage)
         }
     }
 }

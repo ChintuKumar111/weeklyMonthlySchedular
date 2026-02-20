@@ -3,9 +3,8 @@ package com.example.freshyzoappmodule.helper
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
-import com.example.freshyzoappmodule.data.model.CartStateModel
+import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.databinding.BottomSheetCartPreviewBinding
 
 class CartPreviewView @JvmOverloads constructor(
@@ -33,7 +32,7 @@ class CartPreviewView @JvmOverloads constructor(
         viewCartClick = listener
     }
 
-    fun showCart(cartData: CartStateModel) {
+    fun showCart(cartData: cartStateModel) {
 
         // 🔥 Auto collapse when empty
         if (cartData.itemsCount <= 0) {

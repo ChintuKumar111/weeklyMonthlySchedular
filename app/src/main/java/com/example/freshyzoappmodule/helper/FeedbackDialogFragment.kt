@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.ViewPager_.dialog
+package com.example.freshyzoappmodule.helper
 
 import android.os.Bundle
 import android.view.LayoutInflater

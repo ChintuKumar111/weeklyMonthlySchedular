@@ -164,7 +164,7 @@ class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
         sheetBinding.recyclerDates.adapter = adapter
 
         // Setup Observers for this dialog instance
-        val dayListObserver = androidx.lifecycle.Observer<List<com.example.freshyzoappmodule.data.model.DayDateModel>> { list ->
+        val dayListObserver = androidx.lifecycle.Observer<List<com.example.freshyzoappmodule.data.model.dayDateModel>> { list ->
             adapter.updateList(list.toMutableList())
             val selectedIndex = viewModel.selectedDayIndex.value ?: -1
             if (selectedIndex != -1) {
