@@ -29,12 +29,22 @@
                 android:layout_width="88dp"
                 android:layout_height="88dp">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/ivProduct"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                     />
+                    android:elevation="@dimen/_3sdp"
+                    app:cardCornerRadius="@dimen/_3sdp"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/ivProduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+
 <!--                app:shapeAppearanceOverlay="@style/RoundedCorner12"-->
 
                 <!-- Small pack badge -->
@@ -179,14 +189,15 @@
                     android:layout_marginEnd="6dp"
                     android:clickable="true"
                     android:focusable="true" />
-
 <!--                android:fontFamily="@font/nunito_bold"-->
+
 
                 <TextView
                     android:id="@+id/tvSize2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 Litre"
+                    android:visibility="gone"
                     android:background="@drawable/bg_size_chip_inactive"
                     android:textColor="@color/text_mid"
                     android:textSize="11sp"
@@ -210,7 +221,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="end">
 
             <!-- Quantity Control -->
             <LinearLayout
@@ -218,7 +229,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:background="@drawable/bg_qty_ctrl">
 
                 <TextView
@@ -260,32 +272,21 @@
             </LinearLayout>
 
             <!-- Add to Cart -->
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:text="ADD TO CART"
-                android:visibility="invisible"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:background="@drawable/bg_btn_green"
-                android:stateListAnimator="@null" />
 
-<!--            android:fontFamily="@font/nunito_extrabold"-->
+            <!--            android:fontFamily="@font/nunito_extrabold"-->
 
             <!-- Subscribe -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubscribe"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginStart="8dp"
+                android:layout_height="@dimen/_30sdp"
                 android:text="Subscribe"
-                android:textColor="@color/green_primary"
-                android:textSize="12sp"
-                android:background="@drawable/bg_btn_outline_green"/>
-<!--            android:fontFamily="@font/nunito_bold"-->
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:background="@drawable/bg"
+                app:backgroundTint="@color/primary"/>
+
+            <!--            android:fontFamily="@font/nunito_bold"-->
         </LinearLayout>
 
 

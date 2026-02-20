@@ -90,12 +90,12 @@ class ProductAdapterr(
             }
 
             // ── Add to Cart ──
-            binding.btnAdd.setOnClickListener {
-                val sizeIndex = selectedSizeMap[product.id] ?: 0
-                val size = product.sizes.getOrNull(sizeIndex) ?: product.sizes.first()
-                val q = qtyMap[product.id] ?: 1
-                onAddClick(product, size, if (q == 0) 1 else q)
-            }
+//            binding.btnAdd.setOnClickListener {
+//                val sizeIndex = selectedSizeMap[product.id] ?: 0
+//                val size = product.sizes.getOrNull(sizeIndex) ?: product.sizes.first()
+//                val q = qtyMap[product.id] ?: 1
+//                onAddClick(product, size, if (q == 0) 1 else q)
+//            }
 
             // ── Subscribe ──
             binding.btnSubscribe.setOnClickListener {

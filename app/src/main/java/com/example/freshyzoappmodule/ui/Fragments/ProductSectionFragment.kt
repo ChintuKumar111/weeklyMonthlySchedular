@@ -47,7 +47,15 @@ class ProductSectionFragment : Fragment() {
         viewModel.loadProducts()
 
         binding.btnSearch.setOnClickListener {
-            startActivity(Intent(requireContext(), SearchActivity::class.java))
+            val list = viewModel.productList.value
+            if (list.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Products not loaded yet", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            intent.putParcelableArrayListExtra("product_list", ArrayList(list))
+            startActivity(intent)
         }
     }
 
@@ -74,8 +82,6 @@ class ProductSectionFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { products ->
             allProducts = products.map {
-                Log.d("CATEGORY_DEBUG", "API Category Name: ${it.product_category_name}")
-
                 // Determine tag and badge
                 val (tag, badge) = when {
                     it.product_name.contains("Buffalo Milk", true) -> "Rich & Creamy" to ""
@@ -99,10 +105,13 @@ class ProductSectionFragment : Fragment() {
                     else -> 1
                 }
 
-
-                Log.d("CATEGORY_DEBUG", "Assigned categoryId: $catId")
-                Log.d("CATEGORY_DEBUG", "API Category Name: ${it.product_category_name}")
-
+                // Extract size from product name (last word)
+                val words = it.product_name.trim().split(" ")
+                val sizeFromTitle = if (words.size > 2) {
+                    "${words[words.size - 2]} ${words.last()}"
+                } else {
+                    it.unit
+                }
 
                 Product(
                     id = it.product_id.toIntOrNull() ?: 0,
@@ -115,7 +124,7 @@ class ProductSectionFragment : Fragment() {
                     categoryId = catId,
                     sizes = listOf(
                         ProductSize(
-                            it.unit,
+                            sizeFromTitle,
                             it.product_price.toDoubleOrNull()?.toInt() ?: 0,
                             it.dairy_mrp.toDoubleOrNull()?.toInt() ?: 0
                         )
@@ -136,7 +145,6 @@ class ProductSectionFragment : Fragment() {
 
     private fun filterProducts() {
         val filtered = allProducts.filter { it.categoryId == selectedCategoryId }
-        Log.d("FILTER_DEBUG", "Filtered size: ${filtered.size}")
         productAdapter.submitList(filtered)
     }
 
