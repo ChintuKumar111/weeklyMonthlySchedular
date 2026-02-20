@@ -109,30 +109,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Search Bar Spacer -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp" />
-
-        <!-- Promo Chips Container -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="14dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Main Content: Sidebar + Product List -->
@@ -143,25 +119,28 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_70sdp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="match_parent"
+            android:paddingTop="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
             android:elevation="@dimen/_10sdp">
 
             <!-- Category Sidebar -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategories"
-                android:layout_width="@dimen/_70sdp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/sidebar_bg"
                 android:scrollbars="none" />
 
-
         </androidx.cardview.widget.CardView>
-
 
         <!-- Product List -->
         <FrameLayout
             android:layout_width="0dp"
+            android:layout_marginStart="2dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
 
@@ -170,9 +149,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingStart="@dimen/_3sdp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingEnd="@dimen/_8sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingEnd="@dimen/_5sdp"
                 android:paddingBottom="80dp"
                 android:scrollbars="none" />
 

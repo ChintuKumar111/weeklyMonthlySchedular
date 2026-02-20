@@ -2,7 +2,6 @@ package com.example.freshyzoappmodule.ui.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +15,12 @@ import com.example.freshyzoappmodule.data.model.Category
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.model.ProductSize
 import com.example.freshyzoappmodule.databinding.FragmentProductSectionBinding
+import com.example.freshyzoappmodule.ui.activity.NewHomeActivity
 import com.example.freshyzoappmodule.ui.activity.SearchActivity
 import com.example.freshyzoappmodule.ui.adapter.CategoryAdapter
 import com.example.freshyzoappmodule.ui.adapter.ProductAdapterr
 import com.example.freshyzoappmodule.viewmodel.HomeViewModel
+import kotlin.concurrent.thread
 
 class ProductSectionFragment : Fragment() {
     private var _binding: FragmentProductSectionBinding? = null
@@ -27,7 +28,6 @@ class ProductSectionFragment : Fragment() {
 
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var productAdapter: ProductAdapterr
-    private var cartTotal = 0
     private val viewModel: HomeViewModel by viewModels()
 
     private var allProducts: List<Product> = emptyList()
@@ -44,7 +44,11 @@ class ProductSectionFragment : Fragment() {
         setupProductRecyclerView()
         setupCategories()
         observeViewModel()
-        viewModel.loadProducts()
+        
+        // Delay heavy operations slightly to ensure fragment transition is smooth
+        view.post {
+            viewModel.loadProducts()
+        }
 
         binding.btnSearch.setOnClickListener {
             val list = viewModel.productList.value
@@ -56,6 +60,10 @@ class ProductSectionFragment : Fragment() {
             val intent = Intent(requireContext(), SearchActivity::class.java)
             intent.putParcelableArrayListExtra("product_list", ArrayList(list))
             startActivity(intent)
+        }
+        
+        binding.btnBack.setOnClickListener {
+            activity?.onBackPressedDispatcher?.onBackPressed()
         }
     }
 
@@ -81,57 +89,63 @@ class ProductSectionFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { products ->
-            allProducts = products.map {
-                // Determine tag and badge
-                val (tag, badge) = when {
-                    it.product_name.contains("Buffalo Milk", true) -> "Rich & Creamy" to ""
-                    it.product_name.contains("A2 Cow Milk", true) -> "100% Natural" to "A2"
-                    it.product_name.contains("Pure Cow Ghee", true) -> "Traditional Recipe" to "PURE"
-                    it.product_name.contains("Malai Dahi", true) -> "Probiotic" to ""
-                    it.product_name.contains("Khatti Dahi", true) -> "Classic" to ""
-                    it.product_name.contains("Fresh Paneer", true) -> "Soft & Fresh" to "FRESH"
-                    it.product_name.contains("Khoya", true) || it.product_name.contains("Khowa", true) -> "Homestyle" to ""
-                    else -> "100% Natural" to ""
-                }
+            // Offload data processing to background thread to prevent UI stutter
+            thread {
+                val mapped = products.map {
+                    val (tag, badge) = when {
+                        it.product_name.contains("Buffalo Milk", true) -> "Rich & Creamy" to ""
+                        it.product_name.contains("A2 Cow Milk", true) -> "100% Natural" to "A2"
+                        it.product_name.contains("Pure Cow Ghee", true) -> "Traditional Recipe" to "PURE"
+                        it.product_name.contains("Malai Dahi", true) -> "Probiotic" to ""
+                        it.product_name.contains("Khatti Dahi", true) -> "Classic" to ""
+                        it.product_name.contains("Fresh Paneer", true) -> "Soft & Fresh" to "FRESH"
+                        it.product_name.contains("Khoya", true) || it.product_name.contains("Khowa", true) -> "Homestyle" to ""
+                        else -> "100% Natural" to ""
+                    }
 
-                // Determine Category ID
-                val catId = when {
-                    it.product_name.contains("Ghee", true) -> 2
-                    it.product_name.contains("Milk", true) -> 1
-                    it.product_name.contains("Dahi", true) -> 3
-                    it.product_name.contains("Paneer", true) -> 4
-                    it.product_name.contains("Khowa", true) ||
-                            it.product_name.contains("Khoya", true) -> 6
-                    else -> 1
-                }
+                    val catId = when {
+                        it.product_name.contains("Ghee", true) -> 2
+                        it.product_name.contains("Milk", true) -> 1
+                        it.product_name.contains("Dahi", true) -> 3
+                        it.product_name.contains("Paneer", true) -> 4
+                        it.product_name.contains("Khowa", true) ||
+                                it.product_name.contains("Khoya", true) -> 6
+                        else -> 1
+                    }
 
-                // Extract size from product name (last word)
-                val words = it.product_name.trim().split(" ")
-                val sizeFromTitle = if (words.size > 2) {
-                    "${words[words.size - 2]} ${words.last()}"
-                } else {
-                    it.unit
-                }
+                    val words = it.product_name.trim().split(" ")
+                    val sizeFromTitle = if (words.size > 2) {
+                        "${words[words.size - 2]} ${words.last()}"
+                    } else {
+                        it.unit
+                    }
 
-                Product(
-                    id = it.product_id.toIntOrNull() ?: 0,
-                    name = it.product_name,
-                    tag = tag,
-                    description = it.description,
-                    short_description = it.short_desc,
-                    imageUrl = "https://freshyzo.com/admin/uploads/product_image/${it.dairy_product_image}",
-                    badgeText = badge,
-                    categoryId = catId,
-                    sizes = listOf(
-                        ProductSize(
-                            sizeFromTitle,
-                            it.product_price.toDoubleOrNull()?.toInt() ?: 0,
-                            it.dairy_mrp.toDoubleOrNull()?.toInt() ?: 0
+                    Product(
+                        id = it.product_id.toIntOrNull() ?: 0,
+                        name = it.product_name,
+                        tag = tag,
+                        description = it.description,
+                        short_description = it.short_desc,
+                        imageUrl = "https://freshyzo.com/admin/uploads/product_image/${it.dairy_product_image}",
+                        badgeText = badge,
+                        categoryId = catId,
+                        sizes = listOf(
+                            ProductSize(
+                                sizeFromTitle,
+                                it.product_price.toDoubleOrNull()?.toInt() ?: 0,
+                                it.dairy_mrp.toDoubleOrNull()?.toInt() ?: 0
+                            )
                         )
                     )
-                )
+                }
+
+                activity?.runOnUiThread {
+                    if (_binding != null) {
+                        allProducts = mapped
+                        filterProducts()
+                    }
+                }
             }
-            filterProducts()
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer { error ->
@@ -145,14 +159,21 @@ class ProductSectionFragment : Fragment() {
 
     private fun filterProducts() {
         val filtered = allProducts.filter { it.categoryId == selectedCategoryId }
+        
+        // Pass the saved quantities from Activity to Adapter
+        val sharedQuantities = (activity as? NewHomeActivity)?.getCartState()?.productQuantities ?: emptyMap()
+        productAdapter.setInitialQuantities(sharedQuantities)
+        
         productAdapter.submitList(filtered)
     }
 
     private fun setupProductRecyclerView() {
         productAdapter = ProductAdapterr(
             onAddClick = { product, size, qty ->
-                cartTotal += size.price * qty
-                Toast.makeText(requireContext(), "${product.name} (${size.label}) × $qty added!", Toast.LENGTH_SHORT).show()
+                (activity as? NewHomeActivity)?.updateSharedCart(product.id, size.price.toDouble() * qty, qty)
+            },
+            onQtyChange = { product, size, delta ->
+                (activity as? NewHomeActivity)?.updateSharedCart(product.id, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
                 Toast.makeText(requireContext(), "Subscribed to ${product.name}", Toast.LENGTH_SHORT).show()

@@ -20,6 +20,11 @@ class HomeViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun loadProducts() {
+        // Only load if the list is empty to prevent redundant API calls
+        if (!_productList.value.isNullOrEmpty()) {
+            return
+        }
+
         _isLoading.value = true
         repository.getProducts { results ->
             _isLoading.value = false

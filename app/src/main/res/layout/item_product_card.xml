@@ -44,9 +44,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-
-<!--                app:shapeAppearanceOverlay="@style/RoundedCorner12"-->
-
                 <!-- Small pack badge -->
                 <TextView
                     android:id="@+id/tvBadge"
@@ -62,8 +59,6 @@
                     android:paddingEnd="6dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp" />
-
-              <!--  android:fontFamily="@font/nunito_extrabold"-->
 
             </FrameLayout>
 
@@ -86,8 +81,6 @@
                     android:letterSpacing="0.05"
                     android:textAllCaps="true" />
 
-<!--                android:fontFamily="@font/nunito_bold"-->
-
                 <!-- Product Name -->
                 <TextView
                     android:id="@+id/tvProductName"
@@ -98,8 +91,6 @@
                     android:textColor="@color/text_dark"
                     android:textSize="15sp"
                     android:lineSpacingMultiplier="1.2" />
-
-<!--                android:fontFamily="@font/nunito_extrabold"-->
 
                 <!-- Price Row -->
                 <LinearLayout
@@ -117,8 +108,6 @@
                         android:textColor="@color/text_dark"
                         android:textSize="16sp"
                          />
-
-<!--                    android:fontFamily="@font/nunito_extrabold"-->
 
                     <TextView
                         android:id="@+id/tvOriginalPrice"
@@ -138,13 +127,10 @@
                         android:background="@drawable/bg_discount_badge"
                         android:textColor="@color/orange_primary"
                         android:textSize="10sp"
-
                         android:paddingStart="6dp"
                         android:paddingEnd="6dp"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp" />
-
-<!--                    android:fontFamily="@font/nunito_bold"-->
 
                 </LinearLayout>
 
@@ -154,141 +140,122 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
+                    android:visibility="gone"
                     android:text="Pure, digestible &amp; healthy"
                     android:textColor="@color/text_hint"
                     android:textSize="11sp" />
-            </LinearLayout>
-        </LinearLayout>
 
-        <!-- Row 2: Size Options -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/llSizeOptions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- Size chips injected programmatically, or hardcode below -->
+                <!-- Size chip -->
                 <TextView
                     android:id="@+id/tvSize1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="500ml"
+                    android:layout_gravity="start"
                     android:background="@drawable/bg_size_chip_active"
                     android:textColor="@color/green_primary"
-                    android:textSize="11sp"
+                    android:textSize="8dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:layout_marginEnd="6dp"
                     android:clickable="true"
                     android:focusable="true" />
-<!--                android:fontFamily="@font/nunito_bold"-->
-
-
-                <TextView
-                    android:id="@+id/tvSize2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1 Litre"
-                    android:visibility="gone"
-                    android:background="@drawable/bg_size_chip_inactive"
-                    android:textColor="@color/text_mid"
-                    android:textSize="11sp"
-
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_marginEnd="6dp"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-<!--                android:fontFamily="@font/nunito_bold"-->
-
             </LinearLayout>
-        </HorizontalScrollView>
+        </LinearLayout>
 
         <!-- Row 3: Actions (Qty + Add + Subscribe) -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:gravity="end">
 
-            <!-- Quantity Control -->
-            <LinearLayout
-                android:id="@+id/llQtyCtrl"
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:background="@drawable/bg_qty_ctrl">
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_5sdp">
 
-                <TextView
-                    android:id="@+id/tvMinus"
-                    android:layout_width="32dp"
+                <!-- Buy Now Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="90dp"
                     android:layout_height="match_parent"
-                    android:text="−"
+                    android:text="ADD"
                     android:textColor="@color/green_primary"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
+                    android:padding="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="@color/green_primary"
+                    app:strokeWidth="1dp"
+                    android:backgroundTint="@color/white"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
-<!--                android:fontFamily="@font/nunito_bold"-->
-
-                <TextView
-                    android:id="@+id/tvQty"
-                    android:layout_width="30dp"
+                <!-- Quantity Control -->
+                <LinearLayout
+                    android:id="@+id/llQtyCtrl"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="1"
-                    android:textColor="@color/text_dark"
-                    android:textSize="14sp"
-                    android:gravity="center" />
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_qty_ctrl">
 
-<!--                android:fontFamily="@font/nunito_extrabold"-->
-                <TextView
-                    android:id="@+id/tvPlus"
-                    android:layout_width="32dp"
-                    android:layout_height="match_parent"
-                    android:text="+"
-                    android:textColor="@color/green_primary"
-                    android:textSize="20sp"
+                    <TextView
+                        android:id="@+id/tvMinus"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:text="−"
+                        android:textColor="@color/green_primary"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                    android:gravity="center"
-                    android:clickable="true"
-                    android:focusable="true" />
+                    <TextView
+                        android:id="@+id/tvQty"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:text="1"
+                        android:textColor="@color/text_dark"
+                        android:textSize="14sp"
+                        android:gravity="center" />
 
-<!--                android:fontFamily="@font/nunito_bold"-->
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvPlus"
+                        android:layout_width="32dp"
+                        android:layout_height="match_parent"
+                        android:text="+"
+                        android:textColor="@color/green_primary"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
 
-            <!-- Add to Cart -->
-
-            <!--            android:fontFamily="@font/nunito_extrabold"-->
+            </FrameLayout>
 
             <!-- Subscribe -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubscribe"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_3sdp"
+                android:paddingStart="@dimen/_11sdp"
+                android:paddingEnd="@dimen/_11sdp"
                 android:text="Subscribe"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:textColor="@color/white"
-                android:background="@drawable/bg"
-                app:backgroundTint="@color/primary"/>
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
 
-            <!--            android:fontFamily="@font/nunito_bold"-->
         </LinearLayout>
-
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
