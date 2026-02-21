@@ -3,19 +3,21 @@ package com.example.freshyzoappmodule.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivityNewHomeBinding
-import com.example.freshyzoappmodule.ui.Fragments.NewHome_Fragment
-import com.example.freshyzoappmodule.ui.Fragments.ProductSectionFragment
 import com.getkeepsafe.taptargetview.TapTargetSequence
 import kotlin.concurrent.thread
 
 class NewHomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewHomeBinding
     private lateinit var cartRepository: CartRepository
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,33 +26,30 @@ class NewHomeActivity : AppCompatActivity() {
 
         cartRepository = CartRepository(this)
 
-        if (savedInstanceState == null) {
-            replaceFragment(NewHome_Fragment())
-        }
+        // Setup Navigation Component
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
 
-        // Initialize shared cart preview
-        loadCartState()
+        // Link BottomNavigationView with NavController
+        binding.bottomNavigation.setupWithNavController(navController)
 
         // Disable icon tinting to show original colors
         binding.bottomNavigation.itemIconTintList = null
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    replaceFragment(NewHome_Fragment())
-                    true
-                }
-                R.id.nav_product -> {
-                    replaceFragment(ProductSectionFragment())
-                    true
-                }
-                R.id.nav_wallet -> {
-                    startActivity(Intent(this, ChatListActivity::class.java))
-                    true
-                }
-                else -> false
+            if (item.itemId == R.id.nav_wallet) {
+                startActivity(Intent(this, ChatListActivity::class.java))
+                false
+            } else {
+                NavigationUI.onNavDestinationSelected(item, navController)
             }
         }
+
+
+
+        // Initialize shared cart preview
+        loadCartState()
 
         binding.cartPreview.setOnViewCartClickListener {
             // Handle view cart click
@@ -79,7 +78,6 @@ class NewHomeActivity : AppCompatActivity() {
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
             
-            // Update product quantities map
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
@@ -91,7 +89,6 @@ class NewHomeActivity : AppCompatActivity() {
             }
             
             val newState = cartStateModel(newCount, newPrice, true, newQuantities)
-            
             cartRepository.saveCartState(newState)
             
             runOnUiThread {
@@ -110,16 +107,8 @@ class NewHomeActivity : AppCompatActivity() {
 
     private fun showHomeTour() {
         TapTargetSequence(this)
-            .targets(
-                // Your TapTarget views here
-            )
+            .targets()
             .continueOnCancel(true)
             .start()
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
     }
 }

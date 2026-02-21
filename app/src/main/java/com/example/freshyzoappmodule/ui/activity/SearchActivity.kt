@@ -20,6 +20,7 @@ import com.example.freshyzoappmodule.data.model.PopularProductModel
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivitySearchBinding
+import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.ui.adapter.PopularProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.RecentSearchAdapter
@@ -172,7 +173,7 @@ class SearchActivity : AppCompatActivity() {
                 updateCart(product.id, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
-                Toast.makeText(this, "Subscribed to ${product.name}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
             }
         )
         binding.rvSearch.layoutManager = LinearLayoutManager(this)

@@ -2,6 +2,7 @@ package com.example.freshyzoappmodule.ui.Fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.categoryModel
@@ -60,9 +63,14 @@ class ProductSectionFragment : Fragment() {
             intent.putParcelableArrayListExtra("product_list", ArrayList(list))
             startActivity(intent)
         }
-        
+
+
+
         binding.btnBack.setOnClickListener {
-            activity?.onBackPressedDispatcher?.onBackPressed()
+//            // This will trigger the BottomNavigationView to switch back to the Home tab
+//            requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
+//                ?.selectedItemId = R.id.nav_home
+            findNavController().navigate(R.id.nav_home)
         }
     }
 
@@ -102,11 +110,10 @@ class ProductSectionFragment : Fragment() {
     }
 
     private fun filterProducts() {
-        val filtered = allProducts.filter { it.categoryId == selectedCategoryId }
-        
-        val sharedQuantities = (activity as? NewHomeActivity)?.getCartState()?.productQuantities ?: emptyMap()
-        productAdapter.setInitialQuantities(sharedQuantities)
-        
+        val filtered = allProducts.filter { product ->
+            product.categoryId == selectedCategoryId
+        }
+
         productAdapter.submitList(filtered)
     }
 
@@ -133,4 +140,7 @@ class ProductSectionFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+
 }

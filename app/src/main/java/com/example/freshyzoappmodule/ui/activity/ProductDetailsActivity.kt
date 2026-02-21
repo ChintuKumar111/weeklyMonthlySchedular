@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.databinding.ActivityProductDetailsBinding
+import com.example.freshyzoappmodule.extensions.imageUrl
+import com.example.freshyzoappmodule.extensions.sizeLabel
 import com.example.freshyzoappmodule.viewmodel.ProductDetailsViewModel
 
 class ProductDetailsActivity : AppCompatActivity() {

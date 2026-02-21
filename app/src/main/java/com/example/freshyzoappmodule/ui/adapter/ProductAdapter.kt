@@ -1,5 +1,6 @@
 package com.example.freshyzoappmodule.ui.adapter
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,12 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.model.ProductSize
 import com.example.freshyzoappmodule.databinding.ItemProductCardBinding
+import com.example.freshyzoappmodule.extensions.badgeText
+import com.example.freshyzoappmodule.extensions.discountPercent
+import com.example.freshyzoappmodule.extensions.id
+import com.example.freshyzoappmodule.extensions.imageUrl
+import com.example.freshyzoappmodule.extensions.sizes
+import com.example.freshyzoappmodule.extensions.tag
 
 class ProductAdapter(
     private val onAddClick: (Product, ProductSize, Int) -> Unit,
@@ -36,8 +43,8 @@ class ProductAdapter(
             val qty = qtyMap[product.id] ?: 0
 
             binding.tvTag.text = product.tag
-            binding.tvProductName.text = product.name
-            binding.tvDesc.text = product.short_description
+            binding.tvProductName.text = product.productName
+            binding.tvDesc.text = product.shortDesc
             
             Glide.with(binding.ivProduct.context)
                 .load(product.imageUrl)
@@ -90,9 +97,10 @@ class ProductAdapter(
             }
         }
 
-        private fun updatePrice(size: ProductSize) {
+        private fun updatePrice(size: ProductSize)
+        {
             binding.tvPrice.text = "₹${size.price}"
-            binding.tvOriginalPrice.text = "₹${size.originalPrice}"
+            binding.tvOriginalPrice.paintFlags = binding.tvOriginalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             binding.tvDiscount.text = "${size.discountPercent}% OFF"
         }
 

@@ -15,10 +15,6 @@ val Product.price: Int
 val Product.originalPrice: Int
     get() = dairyMrp.toDoubleOrNull()?.toInt() ?: 0
 
-val Product.discountPercent: Int
-    get() = if (originalPrice > 0)
-        ((originalPrice - price) * 100 / originalPrice)
-    else 0
 
 val ProductSize.discountPercent: Int
     get() = if (originalPrice > 0)
@@ -46,15 +42,15 @@ val Product.badgeText: String
         else -> ""
     }
 
-val Product.categoryId: Int
-    get() = when {
-        productCategoryName.contains("Ghee", true) -> 2
-        productCategoryName.contains("Milk", true) -> 1
-        productCategoryName.contains("Dahi", true) -> 3
-        productCategoryName.contains("Paneer", true) -> 4
-        productCategoryName.contains("Khowa", true) -> 6
-        else -> 1
-    }
+//val Product.categoryId: Int
+//    get() = when {
+//        productCategoryName.contains("Ghee", true) -> 2
+//        productCategoryName.contains("Milk", true) -> 1
+//        productCategoryName.contains("Dahi", true) -> 3
+//        productCategoryName.contains("Paneer", true) -> 4
+//        productCategoryName.contains("Khowa", true) -> 6
+//        else -> 1
+//    }
 
 val Product.sizeLabel: String
     get() {
@@ -66,3 +62,17 @@ val Product.sizeLabel: String
 
 val Product.sizes: List<ProductSize>
     get() = listOf(ProductSize(sizeLabel, price, originalPrice))
+
+val Product.categoryId: Int
+    get() {
+        val name = productName.lowercase()
+
+        return when {
+            "milk" in name -> 1
+            "ghee" in name -> 2
+            "dahi" in name -> 3
+            "paneer" in name -> 4
+            "khoya" in name || "khowa" in name -> 6
+            else -> 0   // important
+        }
+    }
