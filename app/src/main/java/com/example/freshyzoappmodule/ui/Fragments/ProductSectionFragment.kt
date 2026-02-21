@@ -14,6 +14,8 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.categoryModel
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.databinding.FragmentProductSectionBinding
+import com.example.freshyzoappmodule.extensions.categoryId
+import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.ui.activity.NewHomeActivity
 import com.example.freshyzoappmodule.ui.activity.SearchActivity
 import com.example.freshyzoappmodule.ui.adapter.CategoryAdapter
@@ -117,7 +119,7 @@ class ProductSectionFragment : Fragment() {
                 (activity as? NewHomeActivity)?.updateSharedCart(product.id, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
-                Toast.makeText(requireContext(), "Subscribed to ${product.name}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
             }
         )
 
