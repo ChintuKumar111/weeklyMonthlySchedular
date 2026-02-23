@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_rating_bar.xml — one row of the rating distribution bars -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="5dp">
+
+    <!-- Star count label -->
+    <TextView
+        android:id="@+id/tvStarCount"
+        android:layout_width="18dp"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:textSize="10sp"
+        android:textColor="@color/text_muted"
+        android:fontFamily="@font/sora_bold"
+        android:gravity="end" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="★"
+        android:textSize="10sp"
+        android:textColor="#F5A623"
+        android:layout_marginHorizontal="4dp" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/pbRating"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        android:layout_weight="1"
+        android:progress="85"
+        android:progressDrawable="@drawable/rating_progress_drawable"
+        android:background="@drawable/rating_progress_bg"
+        android:max="100" />
+
+    <!-- Percentage -->
+    <TextView
+        android:id="@+id/tvRatingPercent"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:text="85%"
+        android:textSize="9sp"
+        android:textColor="@color/text_muted"
+        android:fontFamily="@font/sora_regular"
+        android:layout_marginStart="5dp"
+        android:gravity="end" />
+
+</LinearLayout>

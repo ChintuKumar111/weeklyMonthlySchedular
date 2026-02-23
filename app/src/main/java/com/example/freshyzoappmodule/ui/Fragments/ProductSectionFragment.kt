@@ -127,6 +127,15 @@ class ProductSectionFragment : Fragment() {
             },
             onSubscribeClick = { product ->
                 Toast.makeText(requireContext(), "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
+            },
+            onProductClick = { product ->
+                val bundle = Bundle()
+                bundle.putInt("productId", product.id)
+
+                findNavController().navigate(
+                    R.id.productDetailsFragment,
+                    bundle
+                )
             }
         )
 

@@ -174,6 +174,9 @@ class SearchActivity : AppCompatActivity() {
             },
             onSubscribeClick = { product ->
                 Toast.makeText(this, "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
+            },
+            onProductClick = {
+
             }
         )
         binding.rvSearch.layoutManager = LinearLayoutManager(this)

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_nutrition_stat.xml — single nutrition stat box (emoji + value + label) -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg_stat_box"
+    android:padding="12dp">
+
+    <!-- Emoji icon -->
+    <TextView
+        android:id="@+id/tvStatEmoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🧬"
+        android:textSize="22sp" />
+
+    <!-- Stat value -->
+    <TextView
+        android:id="@+id/tvStatValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="A2"
+        android:textSize="15sp"
+        android:textColor="@color/green_primary"
+        android:fontFamily="@font/lora_bold" />
+
+    <!-- Stat label -->
+    <TextView
+        android:id="@+id/tvStatLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="PROTEIN"
+        android:textSize="9sp"
+        android:textColor="@color/text_muted"
+        android:fontFamily="@font/sora_bold"
+        android:textAllCaps="true"
+        android:letterSpacing="0.08"
+        android:gravity="center" />
+
+</LinearLayout>

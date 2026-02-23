@@ -2,8 +2,10 @@ package com.example.freshyzoappmodule.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -26,14 +28,20 @@ class NewHomeActivity : AppCompatActivity() {
 
         cartRepository = CartRepository(this)
 
+
+        showHomeTour()
+        // Initialize shared cart preview
+        loadCartState()
+
+
         // Setup Navigation Component
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragment_container) as NavHostFragment
+
         navController = navHostFragment.navController
-
         // Link BottomNavigationView with NavController
-        binding.bottomNavigation.setupWithNavController(navController)
 
+        binding.bottomNavigation.setupWithNavController(navController)
         // Disable icon tinting to show original colors
         binding.bottomNavigation.itemIconTintList = null
 
@@ -46,16 +54,35 @@ class NewHomeActivity : AppCompatActivity() {
             }
         }
 
+//        // Use the existing navController property
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when (destination.id) {
+//                R.id.productDetailsFragment -> binding.bottomNavigation.visibility = View.GONE
+//                R.id.productDetailsFragment -> binding.cartPreview.visibility = View.GONE
+//                else -> binding.bottomNavigation.visibility = View.VISIBLE
+//            }
+//        }
 
 
-        // Initialize shared cart preview
-        loadCartState()
+        val hideBottomNavDestinations = listOf(R.id.productDetailsFragment)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            if (hideBottomNavDestinations.contains(destination.id)) {
+                binding.bottomNavigation.visibility = View.GONE
+                binding.cartPreview.visibility = View.GONE
+            } else {
+                binding.bottomNavigation.visibility = View.VISIBLE
+                binding.cartPreview.visibility = View.VISIBLE
+            }
+        }
+
+
 
         binding.cartPreview.setOnViewCartClickListener {
             // Handle view cart click
         }
 
-        showHomeTour()
+
     }
 
     private fun loadCartState() {

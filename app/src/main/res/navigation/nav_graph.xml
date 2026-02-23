@@ -17,4 +17,14 @@
         android:label="Products"
         tools:layout="@layout/fragment_product_section" />
 
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.ProductDetailsFragment"
+        android:label="Product Details">
+
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

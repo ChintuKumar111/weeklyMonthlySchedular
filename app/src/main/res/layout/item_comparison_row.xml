@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_comparison_row.xml — one row in the brand comparison table -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+    <!-- Feature Label -->
+    <TextView
+        android:id="@+id/tvFeatureName"
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:text="A2 Protein"
+        android:textSize="12sp"
+        android:textColor="@color/text_mid"
+        android:fontFamily="@font/sora_bold"
+        android:gravity="center_vertical"
+        android:paddingStart="4dp" />
+
+    <!-- OUR VALUE (highlighted green bg) -->
+    <TextView
+        android:id="@+id/tvOurValue"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:text="✔"
+        android:textSize="15sp"
+        android:textColor="@color/green_mid"
+        android:fontFamily="@font/sora_bold"
+        android:gravity="center"
+        android:background="@color/compare_ours_bg"
+        android:layout_marginEnd="2dp" />
+
+    <!-- Amul -->
+    <TextView
+        android:id="@+id/tvAmulValue"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:text="✘"
+        android:textSize="14sp"
+        android:textColor="#E04040"
+        android:gravity="center"
+        android:background="@color/bg_screen" />
+
+    <!-- Mother Dairy -->
+    <TextView
+        android:id="@+id/tvMotherDairyValue"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:text="✘"
+        android:textSize="14sp"
+        android:textColor="#E04040"
+        android:gravity="center"
+        android:background="@color/white" />
+
+    <!-- Nestle -->
+    <TextView
+        android:id="@+id/tvNestleValue"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:text="✘"
+        android:textSize="14sp"
+        android:textColor="#E04040"
+        android:gravity="center"
+        android:background="@color/bg_screen" />
+
+</LinearLayout>

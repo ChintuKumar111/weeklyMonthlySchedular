@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_review_card.xml — individual customer review card -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_review_card"
+    android:padding="13dp">
+
+    <!-- Top Row: Avatar + Name + Verified -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Avatar circle -->
+        <TextView
+            android:id="@+id/tvAvatar"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:text="R"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/sora_bold"
+            android:gravity="center"
+            android:background="@drawable/bg_avatar_circle" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="9dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvReviewerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ravi S."
+                android:textSize="12sp"
+                android:textColor="@color/text_dark"
+                android:fontFamily="@font/sora_bold" />
+
+            <!-- Verified Badge -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✔ Verified Buyer"
+                android:textSize="9sp"
+                android:textColor="@color/green_mid"
+                />
+
+        </LinearLayout>
+
+        <!-- Star Rating -->
+        <TextView
+            android:id="@+id/tvStarRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="★ 5.0"
+            android:textSize="11sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/sora_bold"
+            android:background="@drawable/bg_star_badge"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp" />
+
+    </LinearLayout>
+
+    <!-- Review Text -->
+    <TextView
+        android:id="@+id/tvReviewText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Best milk I've ever had! Tastes so
+        fresh and creamy. My kids love it. Will subscribe monthly!\"
+        android:textSize="11.5sp"
+        android:textColor="@color/text_mid"
+        android:fontFamily="@font/sora_regular"
+        android:lineSpacingMultiplier="1.55"
+        android:maxLines="4"
+        android:ellipsize="end" />
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/tvReviewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Feb 14, 2026"
+        android:textSize="10sp"
+        android:textColor="@color/text_mid"
+        android:fontFamily="@font/sora_regular" />
+
+    <!-- Helpful Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Helpful?"
+            android:textSize="10sp"
+            android:textColor="@color/text_mid"
+            android:fontFamily="@font/sora_regular" />
+
+        <TextView
+            android:id="@+id/btnHelpfulYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="👍 12"
+            android:textSize="10sp"
+            android:textColor="@color/text_mid"
+            android:background="@drawable/bg_helpful_btn"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="3dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

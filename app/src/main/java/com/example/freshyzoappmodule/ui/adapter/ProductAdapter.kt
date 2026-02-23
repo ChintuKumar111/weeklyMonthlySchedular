@@ -22,7 +22,8 @@ import com.example.freshyzoappmodule.extensions.tag
 class ProductAdapter(
     private val onAddClick: (Product, ProductSize, Int) -> Unit,
     private val onQtyChange: (Product, ProductSize, Int) -> Unit,
-    private val onSubscribeClick: (Product) -> Unit
+    private val onSubscribeClick: (Product) -> Unit,
+    private val onProductClick: (Product) -> Unit
 ) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
 
     private val selectedSizeMap = mutableMapOf<Int, Int>()
@@ -95,6 +96,10 @@ class ProductAdapter(
             binding.btnSubscribe.setOnClickListener {
                 onSubscribeClick(product)
             }
+
+            binding.root.setOnClickListener {
+                onProductClick(product)
+            }
         }
 
         private fun updatePrice(size: ProductSize)
@@ -132,6 +137,7 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(getItem(position))
+
     }
 }
 
