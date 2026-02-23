@@ -20,6 +20,7 @@ import com.example.freshyzoappmodule.databinding.FragmentProductSectionBinding
 import com.example.freshyzoappmodule.extensions.categoryId
 import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.ui.activity.NewHomeActivity
+import com.example.freshyzoappmodule.ui.activity.ProductDetailsActivity
 import com.example.freshyzoappmodule.ui.activity.SearchActivity
 import com.example.freshyzoappmodule.ui.adapter.CategoryAdapter
 import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
@@ -129,13 +130,13 @@ class ProductSectionFragment : Fragment() {
                 Toast.makeText(requireContext(), "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
             },
             onProductClick = { product ->
-                val bundle = Bundle()
-                bundle.putInt("productId", product.id)
+                val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
+                intent.putExtra("product_id", product.id)
+                startActivity(intent)
 
-                findNavController().navigate(
-                    R.id.productDetailsFragment,
-                    bundle
-                )
+
+
+
             }
         )
 

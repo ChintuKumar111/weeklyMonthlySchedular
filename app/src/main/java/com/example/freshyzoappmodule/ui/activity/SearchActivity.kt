@@ -1,5 +1,6 @@
 package com.example.freshyzoappmodule.ui.activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.cartStateModel
@@ -62,14 +65,15 @@ class SearchActivity : AppCompatActivity() {
             // Sync current quantities from cart
             val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
             productAdapter.setInitialQuantities(sharedQuantities)
-            
+
             productAdapter.submitList(list)
-            
+
             val query = binding.etSearch.text.toString().trim()
             if (query.isEmpty()) {
                 binding.rvSearch.visibility = View.GONE
                 binding.llNoMatch.visibility = View.GONE
-                binding.llRecentSearch.visibility = if (viewModel.recentSearches.value?.isNotEmpty() == true) View.VISIBLE else View.GONE
+                binding.llRecentSearch.visibility =
+                    if (viewModel.recentSearches.value?.isNotEmpty() == true) View.VISIBLE else View.GONE
             } else if (list.isEmpty() && viewModel.isLoading.value == false) {
                 binding.rvSearch.visibility = View.GONE
                 binding.llNoMatch.visibility = View.VISIBLE
@@ -97,7 +101,7 @@ class SearchActivity : AppCompatActivity() {
         viewModel.currentHintIndex.observe(this) { index ->
             binding.textSwitcher.setText(viewModel.getHintText(index))
         }
-        
+
         viewModel.showNoMatch.observe(this) { show ->
             if (show && binding.etSearch.text.toString().trim().isNotEmpty()) {
                 binding.llNoMatch.visibility = View.VISIBLE
@@ -115,6 +119,7 @@ class SearchActivity : AppCompatActivity() {
                 binding.llRecentSearch.visibility = View.GONE
             }
         }
+
     }
 
     private fun setupTextSwitcher() {
@@ -175,7 +180,12 @@ class SearchActivity : AppCompatActivity() {
             onSubscribeClick = { product ->
                 Toast.makeText(this, "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
             },
-            onProductClick = {
+            onProductClick = { product ->
+
+               val intent = Intent(this, ProductDetailsActivity::class.java)
+                intent.putExtra("product", product)
+                startActivity(/* intent = */ intent)
+
 
             }
         )

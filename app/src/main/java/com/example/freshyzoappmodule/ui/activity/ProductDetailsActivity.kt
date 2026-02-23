@@ -32,20 +32,20 @@ class ProductDetailsActivity : AppCompatActivity() {
             viewModel.setProduct(product)
         }
 
-        binding.btnSubscribe.setOnClickListener {
-            startActivity(Intent(this, DailyWeeklyMonthlySubscriptionActivity::class.java))
-        }
+//        binding.btnSubscribe.setOnClickListener {
+//            startActivity(Intent(this, DailyWeeklyMonthlySubscriptionActivity::class.java))
+//        }
 
         viewModel.product.observe(this) { productObj ->
             productObj?.let {
                 binding.tvProductName.text = it.productName
-                binding.chipVolume.text = it.sizeLabel
+               // binding.chipVolume.text = it.sizeLabel
                 binding.tvDescription.text = it.description
-                binding.tvCurrentPrice.text = "₹${it.productPrice}"
+                binding.tvMrp.text = "₹${it.productPrice}"
 
-                Glide.with(this)
-                    .load(it.imageUrl)
-                    .into(binding.ivProductImage)
+//                Glide.with(this)
+//                    .load(it.imageUrl)
+//                    .into(binding.vpProductImages)
             }
         }
     }

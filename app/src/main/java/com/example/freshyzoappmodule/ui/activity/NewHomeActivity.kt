@@ -64,17 +64,7 @@ class NewHomeActivity : AppCompatActivity() {
 //        }
 
 
-        val hideBottomNavDestinations = listOf(R.id.productDetailsFragment)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
 
-            if (hideBottomNavDestinations.contains(destination.id)) {
-                binding.bottomNavigation.visibility = View.GONE
-                binding.cartPreview.visibility = View.GONE
-            } else {
-                binding.bottomNavigation.visibility = View.VISIBLE
-                binding.cartPreview.visibility = View.VISIBLE
-            }
-        }
 
 
 
