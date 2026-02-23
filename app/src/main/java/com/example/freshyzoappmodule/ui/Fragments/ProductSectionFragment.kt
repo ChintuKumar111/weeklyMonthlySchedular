@@ -68,12 +68,10 @@ class ProductSectionFragment : Fragment() {
 
 
         binding.btnBack.setOnClickListener {
-//            // This will trigger the BottomNavigationView to switch back to the Home tab
-//            requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_navigation)
-//                ?.selectedItemId = R.id.nav_home
             findNavController().navigate(R.id.nav_home)
         }
     }
+
 
     private fun setupCategories() {
         val categories = listOf(
@@ -131,11 +129,8 @@ class ProductSectionFragment : Fragment() {
             },
             onProductClick = { product ->
                 val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
-                intent.putExtra("product_id", product.id)
+                intent.putExtra("product", product)
                 startActivity(intent)
-
-
-
 
             }
         )

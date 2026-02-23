@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F4F0"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <!-- ══════════════════════════════════════ -->
+        <!--              HEADER                    -->
+        <!-- ══════════════════════════════════════ -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="0dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/circle_white_20"
+                android:src="@drawable/outline_arrow_back_24"
+                android:tint="@color/white"
+                android:contentDescription="Back" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:elevation="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_12sdp">
+
+                <ImageView
+                    android:id="@+id/ivProductImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="Product Image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/milk_" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvBrandTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnBack"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="FRESHYZO · FRESH DAILY"
+                android:textColor="#CCF5FF"
+                android:textSize="10sp"
+                android:letterSpacing="0.12"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProductTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvBrandTag"
+                android:layout_marginTop="4dp"
+                android:text="Buffalo Milk\n1000 ml"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:lineSpacingMultiplier="1.1" />
+
+            <LinearLayout
+                android:id="@+id/layoutPriceRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvProductTitle"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="14dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvPriceMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹70"
+                    android:textColor="#FFFFFF"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvPriceOld"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="₹75.00"
+                    android:textColor="#99FFFFFF"
+                    android:textSize="14sp"
+                     />
+
+                <TextView
+                    android:id="@+id/tvOffBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="6% OFF"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:background="@drawable/badge_white_outline" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvInStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardView"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="@dimen/_2sdp"
+                android:text="● In Stock"
+                android:textColor="#E0FFE8"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--           PRODUCT IMAGE                -->
+        <!-- ══════════════════════════════════════ -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1DB954">
+
+
+            <!-- gradient fade into content below -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_green_to_cream" />
+
+        </FrameLayout>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--       DELIVERY FREQUENCY CARD          -->
+        <!-- ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DELIVERY FREQUENCY"
+                    android:textColor="#6B7280"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.10"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <!-- DAILY -->
+                    <LinearLayout
+                        android:id="@+id/optionDaily"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="8dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/freq_option_selected"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📅" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Daily" android:textColor="#1a1a2e" android:textSize="13sp" android:textStyle="bold" android:layout_marginTop="4dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Every day, fresh" android:textColor="#6B7280" android:textSize="10sp" android:layout_marginTop="2dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Best Value" android:textColor="#FF6B35" android:textSize="9sp" android:textStyle="bold" android:paddingStart="7dp" android:paddingEnd="7dp" android:paddingTop="2dp" android:paddingBottom="2dp" android:layout_marginTop="5dp" android:background="@drawable/badge_orange_light" />
+
+                    </LinearLayout>
+
+                    <!-- ALTERNATE -->
+                    <LinearLayout
+                        android:id="@+id/optionAlternate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/freq_option_default"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🔄" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Alternate Days" android:textColor="#1a1a2e" android:textSize="13sp" android:textStyle="bold" android:layout_marginTop="4dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Every other day" android:textColor="#6B7280" android:textSize="10sp" android:layout_marginTop="2dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Save 10%" android:textColor="#FF6B35" android:textSize="9sp" android:textStyle="bold" android:paddingStart="7dp" android:paddingEnd="7dp" android:paddingTop="2dp" android:paddingBottom="2dp" android:layout_marginTop="5dp" android:background="@drawable/badge_orange_light" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- WEEKLY -->
+                    <LinearLayout
+                        android:id="@+id/optionWeekly"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/freq_option_default"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🗓️" android:textSize="20sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Weekly" android:textColor="#1a1a2e" android:textSize="13sp" android:textStyle="bold" android:layout_marginTop="4dp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pick days &amp; qty" android:textColor="#6B7280" android:textSize="10sp" android:layout_marginTop="2dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Save 15%"
+                            android:textColor="#FF6B35"
+                            android:textSize="9sp"
+                            android:textStyle="bold"
+                            android:paddingStart="7dp"
+                            android:visibility="invisible"
+                            android:paddingEnd="7dp"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/badge_orange_light" />
+
+                    </LinearLayout>
+
+                    <!-- MONTHLY -->
+                    <LinearLayout
+                        android:id="@+id/optionMonthly"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/freq_option_default"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📆"
+                            android:textSize="20sp" />
+
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Monthly"
+                            android:textColor="#1a1a2e"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bulk once a month"
+                            android:textColor="#6B7280"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Save 15%"
+                            android:textColor="#FF6B35"
+                            android:textSize="9sp"
+                            android:textStyle="bold"
+                            android:paddingStart="7dp"
+                            android:paddingEnd="7dp"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/badge_orange_light" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--    DAY-WISE QUANTITY CARD              -->
+        <!--    Visible only for Weekly/Alternate   -->
+        <!-- ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDayQty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <!-- Header row -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/tvDayQtyTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="SELECT DAYS &amp; QUANTITY"
+                        android:textColor="#6B7280"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.10" />
+
+                    <TextView
+                        android:id="@+id/tvDayQtySummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="0 packets/week"
+                        android:textColor="#17A349"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:background="@drawable/badge_green_light" />
+
+                </RelativeLayout>
+
+                <!-- ── MONDAY ── -->
+                <include layout="@layout/item_day_row"
+                    android:id="@+id/rowMonday" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F3F4F6" android:layout_marginTop="2dp" android:layout_marginBottom="2dp" />
+
+                <!-- ── TUESDAY ── -->
+                <include layout="@layout/item_day_row"
+                    android:id="@+id/rowTuesday" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F3F4F6" android:layout_marginTop="2dp" android:layout_marginBottom="2dp" />
+
+                <!-- ── WEDNESDAY ── -->
+                <include layout="@layout/item_day_row"
+                    android:id="@+id/rowWednesday" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F3F4F6" android:layout_marginTop="2dp" android:layout_marginBottom="2dp" />
+
+                <!-- ── THURSDAY ── -->
+                <include layout="@layout/item_day_row"
+                    android:id="@+id/rowThursday" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F3F4F6" android:layout_marginTop="2dp" android:layout_marginBottom="2dp" />
+
+                <!-- ── FRIDAY ── -->
+                <include layout="@layout/item_day_row"
+                    android:id="@+id/rowFriday" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F3F4F6" android:layout_marginTop="2dp" android:layout_marginBottom="2dp" />
+
+                <!-- ── SATURDAY ── -->
+                <include layout="@layout/item_day_row"
+                    android:id="@+id/rowSaturday" />
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F3F4F6" android:layout_marginTop="2dp" android:layout_marginBottom="2dp" />
+
+                <!-- ── SUNDAY ── -->
+                <include layout="@layout/item_day_row"
+                    android:id="@+id/rowSunday" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--    SIMPLE QUANTITY CARD                -->
+        <!--    Visible only for Daily / Monthly    -->
+        <!-- ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSimpleQty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QUANTITY"
+                    android:textColor="#6B7280"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.10"
+                    android:layout_marginBottom="12dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/layoutQtyLabels"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Packets per delivery"
+                            android:textColor="#1a1a2e"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvQtySub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1 packet × daily = ~30/month"
+                            android:textColor="#6B7280"
+                            android:textSize="11sp"
+                            android:layout_marginTop="2dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        android:background="@drawable/stepper_bg"
+                        android:gravity="center_vertical">
+
+                        <ImageButton
+                            android:id="@+id/btnQtyMinus"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_minus"
+                            android:tint="@color/primary"
+                            android:contentDescription="Decrease" />
+
+                        <TextView
+                            android:id="@+id/tvQtyValue"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="#1a1a2e"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center" />
+
+                        <ImageButton
+                            android:id="@+id/btnQtyPlus"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:src="@drawable/ic_plus"
+                            android:tint="@color/primary"
+                            android:contentDescription="Increase" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--           START DATE CARD              -->
+        <!-- ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="START DATE"
+                    android:textColor="#6B7280"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.10"
+                    android:layout_marginBottom="12dp" />
+
+                <RelativeLayout
+                    android:id="@+id/layoutDateSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="13dp"
+                    android:background="@drawable/date_selector_bg"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📅" android:textSize="19sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="10dp">
+
+                            <TextView
+                                android:id="@+id/tvSelectedDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="February 24, 2026"
+                                android:textColor="#1a1a2e"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Delivery begins Tuesday"
+                                android:textColor="#6B7280"
+                                android:textSize="10sp"
+                                android:layout_marginTop="1dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/baseline_edit_24"
+                        android:tint="@color/primary"
+                        android:contentDescription="Edit" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--           INFO BANNER                  -->
+        <!-- ══════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            android:padding="14dp"
+            android:background="@drawable/info_banner_bg"
+            android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ℹ️" android:textSize="15sp" android:layout_marginTop="1dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="Your subscription delivery will begin on Tuesday, 24th February. You can pause or cancel anytime from your account."
+                android:textColor="#92400E"
+                android:textSize="12sp"
+                android:lineSpacingMultiplier="1.4" />
+
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--           OFFER CARD                   -->
+        <!-- ══════════════════════════════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            android:padding="16dp"
+            android:background="@drawable/offer_card_bg"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/offer_icon_bg">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:text="🏷️" android:textSize="21sp" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="12dp">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Subscription Offer Applied" android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Flat 25% off + Up to 30 packets FREE on 1st recharge" android:textColor="#99FFFFFF" android:textSize="10sp" android:layout_marginTop="3dp" android:lineSpacingMultiplier="1.3" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="✓ Applied"
+                android:textColor="#1DB954"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:background="@drawable/badge_green_light" />
+
+        </LinearLayout>
+
+        <!-- ══════════════════════════════════════ -->
+        <!--              CTA BUTTON                -->
+        <!-- ══════════════════════════════════════ -->
+        <Button
+            android:id="@+id/btnSubscribeNow"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:text="Subscribe Now  ·  ₹70"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_cta_green"
+            android:elevation="8dp" />
+
+    </LinearLayout>
+</ScrollView>

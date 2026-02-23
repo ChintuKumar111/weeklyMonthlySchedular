@@ -54,26 +54,10 @@ class NewHomeActivity : AppCompatActivity() {
             }
         }
 
-//        // Use the existing navController property
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            when (destination.id) {
-//                R.id.productDetailsFragment -> binding.bottomNavigation.visibility = View.GONE
-//                R.id.productDetailsFragment -> binding.cartPreview.visibility = View.GONE
-//                else -> binding.bottomNavigation.visibility = View.VISIBLE
-//            }
-//        }
-
-
-
-
-
-
         binding.cartPreview.setOnViewCartClickListener {
             // Handle view cart click
         }
-
-
-    }
+   }
 
     private fun loadCartState() {
         thread {

@@ -12,7 +12,7 @@
         android:id="@+id/tvFeatureName"
         android:layout_width="110dp"
         android:layout_height="match_parent"
-        android:text="A2 Protein"
+        android:text="No Starch in Paneer"
         android:textSize="12sp"
         android:textColor="@color/text_mid"
         android:fontFamily="@font/sora_bold"
