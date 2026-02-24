@@ -21,10 +21,12 @@ class ProductSubscribeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductSubscribeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+        setContentView(binding.root)
         setupClickListeners()
         observeViewModel()
+
+
     }
 
     private fun observeViewModel() {
