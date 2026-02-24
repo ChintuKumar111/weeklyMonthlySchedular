@@ -17,6 +17,12 @@
         android:label="Products"
         tools:layout="@layout/fragment_product_section" />
 
+    <fragment
+        android:id="@+id/nav_wallet"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.WalletFragment"
+        android:label="Wallet"
+        tools:layout="@layout/fragment_wallet" />
+
 
 
 </navigation>

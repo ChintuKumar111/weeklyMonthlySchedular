@@ -40,8 +40,7 @@
                 android:layout_height="@dimen/_100sdp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:elevation="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 app:cardCornerRadius="@dimen/_12sdp">
 
                 <ImageView
@@ -71,12 +70,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvBrandTag"
+                android:layout_alignParentStart="true"
                 android:layout_marginTop="4dp"
+                android:layout_toStartOf="@+id/cardView"
+                android:lineSpacingMultiplier="1.1"
                 android:text="Buffalo Milk\n1000 ml"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                android:lineSpacingMultiplier="1.1" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/layoutPriceRow"
@@ -377,9 +378,10 @@
                         android:textColor="#17A349"
                         android:textSize="11sp"
                         android:textStyle="bold"
+                        android:visibility="gone"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:paddingTop="3dp"
+                        android:paddingTop="10dp"
                         android:paddingBottom="3dp"
                         android:background="@drawable/badge_green_light" />
 
@@ -596,6 +598,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvDeliveryBegins"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Delivery begins Tuesday"
@@ -608,6 +611,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/btnEditDate"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_alignParentEnd="true"
@@ -699,17 +703,18 @@
         <!-- ══════════════════════════════════════ -->
         <!--              CTA BUTTON                -->
         <!-- ══════════════════════════════════════ -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubscribeNow"
             android:layout_width="match_parent"
-            android:layout_height="58dp"
+            android:layout_height="@dimen/_45sdp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
-            android:text="Subscribe Now  ·  ₹70"
+            android:text="Subscribe Now "
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="@dimen/_15sdp"
             android:textStyle="bold"
+            app:backgroundTint="@color/primary"
             android:background="@drawable/btn_cta_green"
             android:elevation="8dp" />
 

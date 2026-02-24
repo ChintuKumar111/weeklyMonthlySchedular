@@ -73,13 +73,13 @@ class ProductDetailsActivity : AppCompatActivity() {
         binding.btnSubscribe.setOnClickListener {
             val intent = Intent (this@ProductDetailsActivity, ProductSubscribeActivity::class.java)
             intent.putExtra("product",product)
+            intent.putExtra("quantity", viewModel.qty.value)
             startActivity(intent)
         }
 
         binding.btnShare.setOnClickListener {
             shareProduct()
         }
-
         // comparison section
         val comparisonBinder = ComparisonBinder(binding)
         comparisonBinder.bind(ComparisonData.getMilkComparison())
@@ -128,7 +128,6 @@ class ProductDetailsActivity : AppCompatActivity() {
                 }
             })
     }
-
 
 
     private fun displayProductData(product: Product) {

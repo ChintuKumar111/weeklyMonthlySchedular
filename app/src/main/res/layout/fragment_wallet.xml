@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/bg_page">
+
+    <!-- Top App Bar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="5dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:paddingHorizontal="8dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/outline_arrow_back_24"
+                android:background="@drawable/bg_icon_btn"
+                android:contentDescription="Back"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:text="My Wallet"
+                android:textSize="18sp"
+
+                android:textColor="@color/text_primary"
+                android:fontFamily="@font/sora_bold" />
+
+            <ImageButton
+                android:id="@+id/btnNotification"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/notification_"
+                android:background="@drawable/bg_green_circle_light"
+                />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <!-- ── BALANCE CARD ──────────────────────────── -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="8dp"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_balance_card"
+                    android:padding="10dp">
+
+                    <!-- Decorative circle top-right -->
+                    <View
+                        android:id="@+id/decorCircle1"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:background="@drawable/bg_card_circle"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="-60dp"
+                        android:layout_marginEnd="-60dp" />
+
+                    <!-- Decorative circle bottom-left -->
+                    <View
+                        android:id="@+id/decorCircle2"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:background="@drawable/bg_card_circle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginBottom="-80dp"
+                        android:layout_marginStart="-60dp" />
+
+                    <!-- Active Badge -->
+                    <TextView
+                        android:id="@+id/tvActiveBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ACTIVE"
+                        android:textSize="10sp"
+                        android:textColor="#E8FFFFFF"
+                        android:fontFamily="@font/sora_bold"
+                        android:letterSpacing="0.08"
+                        android:background="@drawable/bg_active_badge"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <!-- Wallet Icon -->
+                    <ImageView
+                        android:id="@+id/ivWalletIcon"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/wallet"
+                        android:background="@drawable/bg_wallet_icon"
+                        android:padding="10dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Balance label -->
+                    <TextView
+                        android:id="@+id/tvBalanceLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current Balance"
+                        android:textSize="11sp"
+                        android:textColor="#B3FFFFFF"
+                        android:fontFamily="@font/sora_regular"
+                        android:letterSpacing="0.04"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvActiveBadge"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <!-- Balance Amount -->
+                    <TextView
+                        android:id="@+id/tvBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹1,500"
+                        android:textSize="35sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="-0.02"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvBalanceLabel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:text="₹1,250" />
+
+                    <!-- Low Balance Chip -->
+                    <LinearLayout
+                        android:id="@+id/layoutLowBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/bg_low_balance_chip"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvBalance"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:visibility="visible">
+
+                        <View
+                            android:id="@+id/pulseDot"
+                            android:layout_width="7dp"
+                            android:layout_height="7dp"
+                            android:background="@drawable/bg_pulse_dot"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Low balance — please recharge!"
+                            android:textSize="11sp"
+                            android:textColor="#FECACA"
+                            android:fontFamily="@font/sora_bold" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── STATS ROW ──────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="14dp"
+                android:weightSum="3">
+
+                <com.google.android.material.card.MaterialCardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/border_color"
+                    android:layout_margin="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <ImageView
+                            android:id="@+id/ivStatIcon"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/wallet"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:id="@+id/tvStatLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Added"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_muted"
+                            android:fontFamily="@font/sora_bold"
+                            android:letterSpacing="0.04"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvTotalAdded"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₹0"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="@font/sora_bold"
+                            android:letterSpacing="-0.02"
+                            android:layout_marginTop="2dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="1dp"
+                    android:layout_margin="@dimen/_5sdp"
+                    app:strokeColor="@color/border_color"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_2sdp"
+
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_cart"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Spent"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_muted"
+                            android:fontFamily="@font/sora_bold"
+                            android:letterSpacing="0.04"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvTotalSpent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₹0"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="@font/sora_bold"
+                            android:letterSpacing="-0.02"
+                            android:layout_marginTop="2dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    android:layout_margin="@dimen/_5sdp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@color/border_color"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginEnd="@dimen/_2sdp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <ImageView
+
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/offer_icon"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cashback"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_muted"
+                            android:fontFamily="@font/sora_bold"
+                            android:letterSpacing="0.04"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvTotalCashBack"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="₹0"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="@font/sora_bold"
+                            android:letterSpacing="-0.02"
+                            android:layout_marginTop="2dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- ── RECHARGE SECTION ───────────────────────── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recharge Wallet"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:fontFamily="@font/sora_extrabold"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardRecharge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/border_color"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp">
+
+                    <!-- Amount input + Recharge button -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <!-- Input field -->
+                        <LinearLayout
+                            android:id="@+id/layoutAmountInput"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_weight="0.62"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp"
+                            android:background="@drawable/bg_amount_input"
+                            android:layout_marginEnd="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="₹"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/green_primary"
+                                android:layout_marginEnd="8dp" />
+
+                            <EditText
+                                android:id="@+id/etAmount"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Enter amount"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary"
+                                android:inputType="numberDecimal"
+                                android:background="@null"
+                                android:fontFamily="@font/sora_light"
+                                android:maxLines="1"
+                                android:imeOptions="actionDone" />
+                        </LinearLayout>
+
+                        <!-- Recharge button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnRecharge"
+                            android:layout_width="0dp"
+                            android:layout_height="52dp"
+                            android:layout_weight="0.38"
+                            android:text="Recharge"
+                            android:textSize="@dimen/_8sdp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/sora_bold"
+                            android:letterSpacing="0.01"
+                            app:backgroundTint="@color/primary"
+                            android:background="@drawable/bg_recharge_btn"
+                            app:cornerRadius="14dp" />
+
+                    </LinearLayout>
+
+                    <!-- Coupon banner -->
+                    <LinearLayout
+                        android:id="@+id/layoutCoupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/bg_coupon_banner"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="12dp"
+                        android:layout_marginTop="14dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/offer_icon"
+                            android:layout_marginEnd="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Apply Coupon"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="#92400E"
+                                android:fontFamily="@font/sora_bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Save more on recharge"
+                                android:textSize="11sp"
+                                android:textColor="#B45309"
+                                android:fontFamily="@font/sora_regular" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/outline_arrow_circle_right_24"
+                            android:tint="#D97706" />
+
+                    </LinearLayout>
+
+                    <!-- Recommended label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RECOMMENDED"
+                        android:textSize="10sp"
+                        android:textColor="@color/text_muted"
+                        android:fontFamily="@font/sora_bold"
+                        android:letterSpacing="0.06"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="10dp" />
+
+                    <!-- Quick amount chips -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:id="@+id/chip1000"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="6dp"
+                            android:text="₹1,000"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="@font/sora_bold"
+                            android:background="@drawable/bg_amt_chip" />
+
+                        <TextView
+                            android:id="@+id/chip2000"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="3dp"
+                            android:text="₹2,000"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="@font/sora_bold"
+                            android:background="@drawable/bg_amt_chip" />
+
+                        <TextView
+                            android:id="@+id/chip3000"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginHorizontal="3dp"
+                            android:text="₹3,000"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="@font/sora_bold"
+                            android:background="@drawable/bg_amt_chip" />
+
+                        <TextView
+                            android:id="@+id/chip5000"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="6dp"
+                            android:text="₹5,000"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="@font/sora_bold"
+                            android:background="@drawable/bg_amt_chip" />
+
+                    </LinearLayout>
+
+                    <!-- Info banner -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/bg_info_banner"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="14dp"
+                        android:layout_marginTop="14dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_info"
+                            android:tint="@color/blue_primary"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="1dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="If your balance is zero or negative, please recharge before 9 PM to ensure your delivery is not missed tomorrow."
+                            android:textSize="12sp"
+                            android:textColor="@color/blue_primary"
+                            android:fontFamily="@font/sora_regular"
+                            android:lineSpacingExtra="2dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ── RECHARGE HISTORY ───────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Recharge History"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:fontFamily="@font/sora_extrabold" />
+
+                <TextView
+                    android:id="@+id/tvViewAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View all ›"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/green_primary"
+                    android:fontFamily="@font/sora_regular" />
+
+            </LinearLayout>
+
+            <!-- Empty history state -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEmptyHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/border_color"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="32dp">
+
+                    <ImageView
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:src="@drawable/payment_check"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No transactions yet"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"
+                        android:fontFamily="@font/sora_bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your recharge history will appear here"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_muted"
+                        android:fontFamily="@font/sora_regular"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Populated history list (use RecyclerView in real app) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone"
+                tools:listitem="@layout/item_recharge_history" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

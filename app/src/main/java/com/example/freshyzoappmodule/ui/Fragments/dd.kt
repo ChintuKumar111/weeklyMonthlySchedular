@@ -1,6 +1,5 @@
 //package com.example.freshyzoappmodule.ui.Fragments
 //
-//
 //import android.os.Bundle
 //import android.view.View
 //import android.widget.FrameLayout
@@ -13,10 +12,8 @@
 //import com.example.freshyzoappmodule.databinding.ActivityProductSubscribeBinding
 //
 //class ProductSubscribeActivity : AppCompatActivity() {
-//
 //    // ── Binding ────────────────────────────────────────────
 //    private lateinit var binding: ActivityProductSubscribeBinding
-//
 //    // ── State ──────────────────────────────────────────────
 //    private var selectedFrequency = DeliveryFrequency.DAILY
 //    private var simpleQty = 1

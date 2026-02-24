@@ -45,18 +45,18 @@ class NewHomeActivity : AppCompatActivity() {
         // Disable icon tinting to show original colors
         binding.bottomNavigation.itemIconTintList = null
 
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            if (item.itemId == R.id.nav_wallet) {
-                startActivity(Intent(this, ChatListActivity::class.java))
-                false
-            } else {
-                NavigationUI.onNavDestinationSelected(item, navController)
-            }
-        }
-
-        binding.cartPreview.setOnViewCartClickListener {
-            // Handle view cart click
-        }
+//        binding.bottomNavigation.setOnItemSelectedListener { item ->
+//            if (item.itemId == R.id.nav_wallet) {
+//                startActivity(Intent(this, ChatListActivity::class.java))
+//                false
+//            } else {
+//                NavigationUI.onNavDestinationSelected(item, navController)
+//            }
+//        }
+//
+//        binding.cartPreview.setOnViewCartClickListener {
+//            // Handle view cart click
+//        }
    }
 
     private fun loadCartState() {

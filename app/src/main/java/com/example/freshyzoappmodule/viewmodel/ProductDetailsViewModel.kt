@@ -19,7 +19,7 @@ class ProductDetailsViewModel : ViewModel() {
     private val _qty = MutableLiveData<Int>()
     val qty: LiveData<Int> = _qty
 
-    private var count = 0
+    private var count = 1
 
     fun setProduct(product: Product) {
         _product.value = product
