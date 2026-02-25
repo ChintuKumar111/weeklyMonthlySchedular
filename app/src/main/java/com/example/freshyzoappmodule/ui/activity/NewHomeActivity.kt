@@ -3,6 +3,8 @@ package com.example.freshyzoappmodule.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -29,6 +31,14 @@ class NewHomeActivity : AppCompatActivity() {
         cartRepository = CartRepository(this)
 
 
+
+        val deviceId = Settings.Secure.getString(
+            contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
+
+        Toast.makeText(this,"$deviceId + ip address", Toast.LENGTH_LONG).show()
+
         showHomeTour()
         // Initialize shared cart preview
         loadCartState()
@@ -45,18 +55,7 @@ class NewHomeActivity : AppCompatActivity() {
         // Disable icon tinting to show original colors
         binding.bottomNavigation.itemIconTintList = null
 
-//        binding.bottomNavigation.setOnItemSelectedListener { item ->
-//            if (item.itemId == R.id.nav_wallet) {
-//                startActivity(Intent(this, ChatListActivity::class.java))
-//                false
-//            } else {
-//                NavigationUI.onNavDestinationSelected(item, navController)
-//            }
-//        }
-//
-//        binding.cartPreview.setOnViewCartClickListener {
-//            // Handle view cart click
-//        }
+
    }
 
     private fun loadCartState() {
