@@ -35,10 +35,8 @@ class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
 
 
         dateHelper = DateHelper(viewModel, this)
-
         setupObservers()
         setupClicks()
-
     }
 
     @SuppressLint("SetTextI18n")

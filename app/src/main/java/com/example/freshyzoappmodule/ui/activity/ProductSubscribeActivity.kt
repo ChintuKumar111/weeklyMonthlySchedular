@@ -26,11 +26,11 @@ import com.example.freshyzoappmodule.helper.DayRowHolder
 import com.example.freshyzoappmodule.viewmodel.ProductDetailsViewModel
 import com.example.freshyzoappmodule.viewmodel.ProductSubscribeViewModel
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 class ProductSubscribeActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityProductSubscribeBinding
     private lateinit var product: Product
     private val vm: ProductDetailsViewModel by viewModels()
@@ -46,9 +46,6 @@ class ProductSubscribeActivity : AppCompatActivity() {
 
         dateHelperr = DateHelperr()
 
-
-
-
         bindDayRows()
         observeViewModel()
         setupClickListeners()
@@ -56,6 +53,20 @@ class ProductSubscribeActivity : AppCompatActivity() {
         setupDayRowClicks()
         viewModel.setBasePrice(product.productPrice.toInt())
 
+        // Initial setup for date display
+        val initialDate = Calendar.getInstance()
+        if (initialDate.get(Calendar.HOUR_OF_DAY) >= 8) {
+            initialDate.add(Calendar.DATE, 1)
+        }
+        updateDateUI(initialDate.time)
+    }
+
+    private fun updateDateUI(date: Date) {
+        val dateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
+        val dayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
+        
+        binding.tvSelectedDate.text = dateFormat.format(date)
+        binding.tvDeliveryBegins.text = "Delivery begins " + dayFormat.format(date)
     }
 
     private fun observeViewModel() {
@@ -153,35 +164,30 @@ class ProductSubscribeActivity : AppCompatActivity() {
         binding.tvDayQtySummary.text = state.daySummaryText
         binding.tvQtyValue.text = state.simpleQty.toString()
 
-
-
         highlightFrequency(state.selectedFrequency)
 
-        // 🔥 IMPORTANT: Toggle cards
-        val isDayMode = state.selectedFrequency == DeliveryFrequency.WEEKLY ||
-                state.selectedFrequency == DeliveryFrequency.ALTERNATE
+        // Show/Hide cards based on frequency
+        when (state.selectedFrequency) {
+            DeliveryFrequency.DAILY, DeliveryFrequency.MONTHLY -> {
+                binding.cardDayQty.visibility = View.GONE
+                binding.cardSimpleQty.visibility = View.VISIBLE
+                binding.cardIntervalOptions.visibility = View.GONE
+            }
+            DeliveryFrequency.WEEKLY -> {
+                binding.cardDayQty.visibility = View.VISIBLE
+                binding.cardSimpleQty.visibility = View.GONE
+                binding.cardIntervalOptions.visibility = View.GONE
+            }
+            DeliveryFrequency.ALTERNATE -> {
+                binding.cardDayQty.visibility = View.GONE
+                binding.cardSimpleQty.visibility = View.VISIBLE
+                binding.cardIntervalOptions.visibility = View.VISIBLE
+            }
+        }
 
-        binding.cardDayQty.visibility = 
-            if (isDayMode) View.VISIBLE else View.GONE
-
-        binding.cardSimpleQty.visibility = 
-            if (isDayMode) View.GONE else View.VISIBLE
-
-        // Update day rows
+        // Update day rows (relevant for Weekly)
         state.dayStates.forEachIndexed { index, day ->
-            
-            val shouldShow = when (state.selectedFrequency) {
-                DeliveryFrequency.ALTERNATE -> true
-                DeliveryFrequency.WEEKLY -> true
-                else -> false
-            }
-
-            dayRows[index].root.visibility = 
-                if (shouldShow) View.VISIBLE else View.GONE
-
-            if (shouldShow) {
-                applyDayRowUI(index, day)
-            }
+            applyDayRowUI(index, day)
         }
     }
 
@@ -197,7 +203,6 @@ class ProductSubscribeActivity : AppCompatActivity() {
 
         binding.optionDaily.setOnClickListener { 
             viewModel.selectFrequency(DeliveryFrequency.DAILY)
-
         }
 
         binding.optionAlternate.setOnClickListener { 
@@ -217,12 +222,18 @@ class ProductSubscribeActivity : AppCompatActivity() {
         }
 
         binding.btnEditDate.setOnClickListener {
+            showDatePicker()
+        }
 
-            dateHelperr.showMaterialDatePicker(this) { formattedDate, dayName ->
+        binding.layoutDateSelector.setOnClickListener {
+            showDatePicker()
+        }
+    }
 
-                binding.tvSelectedDate.text = formattedDate
-                binding.tvDeliveryBegins.text = "Delivery begins "+dayName
-            }
+    private fun showDatePicker() {
+        dateHelperr.showMaterialDatePicker(this) { formattedDate, dayName ->
+            binding.tvSelectedDate.text = formattedDate
+            binding.tvDeliveryBegins.text = "Delivery begins " + dayName
         }
     }
 

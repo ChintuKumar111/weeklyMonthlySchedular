@@ -106,6 +106,7 @@
                     android:text="₹75.00"
                     android:textColor="#99FFFFFF"
                     android:textSize="14sp"
+
                      />
 
                 <TextView
@@ -331,7 +332,7 @@
 
         <!-- ══════════════════════════════════════ -->
         <!--    DAY-WISE QUANTITY CARD              -->
-        <!--    Visible only for Weekly/Alternate   -->
+        <!--    Visible only for Weekly   -->
         <!-- ══════════════════════════════════════ -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardDayQty"
@@ -431,6 +432,77 @@
         </androidx.cardview.widget.CardView>
 
         <!-- ══════════════════════════════════════ -->
+        <!--         INTERVAL OPTIONS CARD          -->
+        <!-- Visible only for Weekly/Alternate modes-->
+        <!-- ══════════════════════════════════════ -->
+
+        <!-- Visible only for Alternate modes-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardIntervalOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DELIVER"
+                android:textColor="#6B7280"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.10"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Use a RadioGroup for single selection -->
+            <RadioGroup
+                android:id="@+id/radioGroupInterval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioEveryDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Every Day"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:id="@+id/radioEveryAlternateDay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Every Alternate Day" />
+
+                <RadioButton
+                    android:id="@+id/radioEvery2Days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Every 2 Days" />
+
+                <RadioButton
+                    android:id="@+id/radioEvery3Days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Every 3 Days" />
+            </RadioGroup>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- ══════════════════════════════════════ -->
         <!--    SIMPLE QUANTITY CARD                -->
         <!--    Visible only for Daily / Monthly    -->
         <!-- ══════════════════════════════════════ -->
