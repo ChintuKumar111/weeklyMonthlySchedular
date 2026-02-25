@@ -107,7 +107,7 @@ dependencies {
 
     // For loading images in Compose
     implementation("io.coil-kt.coil3:coil-compose:3.3.0")
-    // For network image loading (requires internet permission)
+    // For network image loading
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
 
     // taptargetView
@@ -120,5 +120,8 @@ dependencies {
 
     // Dots Indicator
     implementation("com.tbuonomo:dotsindicator:5.1.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    // razor pay================
+    implementation("com.razorpay:checkout:1.6.33")
 
 }

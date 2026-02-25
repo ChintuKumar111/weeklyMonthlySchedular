@@ -10,5 +10,7 @@ data class ProductSubscribeUiState(
     val totalPriceText: String = "Subscribe Now · ₹70",
     val simpleSummaryText: String = "1 packet × daily",
     val daySummaryText: String = "",
-    val isDayMode: Boolean = false
+    val isDayMode: Boolean = false,
+    val startDate: String = "",
+    val deliveryBeginsText: String = ""
 )

@@ -1,16 +1,10 @@
 package com.example.freshyzoappmodule.viewmodel
 
-import android.content.Intent
-import android.graphics.Bitmap
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.example.freshyzoappmodule.data.model.Product
-import com.google.android.datatransport.runtime.scheduling.persistence.EventStoreModule_PackageNameFactory.packageName
-import java.io.File
-import java.io.FileOutputStream
 
 class ProductDetailsViewModel : ViewModel() {
     private val _product = MutableLiveData<Product>()
@@ -20,6 +14,7 @@ class ProductDetailsViewModel : ViewModel() {
     val qty: LiveData<Int> = _qty
 
     private var count = 1
+
 
     fun setProduct(product: Product) {
         _product.value = product
@@ -37,8 +32,5 @@ class ProductDetailsViewModel : ViewModel() {
             _qty.value = count
         }
     }
-
-
-
-
 }
+

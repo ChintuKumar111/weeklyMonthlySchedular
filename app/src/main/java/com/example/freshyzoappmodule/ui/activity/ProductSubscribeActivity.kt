@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.ui.activity
 
-import DateHelperr
+import com.example.freshyzoappmodule.helper.DateHelperr
 import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
@@ -52,21 +52,6 @@ class ProductSubscribeActivity : AppCompatActivity() {
         initializeProduct()
         setupDayRowClicks()
         viewModel.setBasePrice(product.productPrice.toInt())
-
-        // Initial setup for date display
-        val initialDate = Calendar.getInstance()
-        if (initialDate.get(Calendar.HOUR_OF_DAY) >= 8) {
-            initialDate.add(Calendar.DATE, 1)
-        }
-        updateDateUI(initialDate.time)
-    }
-
-    private fun updateDateUI(date: Date) {
-        val dateFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault())
-        val dayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
-        
-        binding.tvSelectedDate.text = dateFormat.format(date)
-        binding.tvDeliveryBegins.text = "Delivery begins " + dayFormat.format(date)
     }
 
     private fun observeViewModel() {
@@ -163,6 +148,9 @@ class ProductSubscribeActivity : AppCompatActivity() {
         binding.btnSubscribeNow.text = state.totalPriceText
         binding.tvDayQtySummary.text = state.daySummaryText
         binding.tvQtyValue.text = state.simpleQty.toString()
+        binding.tvQtySub.text = state.simpleSummaryText
+        binding.tvSelectedDate.text = state.startDate
+        binding.tvDeliveryBegins.text = state.deliveryBeginsText
 
         highlightFrequency(state.selectedFrequency)
 
@@ -232,8 +220,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
 
     private fun showDatePicker() {
         dateHelperr.showMaterialDatePicker(this) { formattedDate, dayName ->
-            binding.tvSelectedDate.text = formattedDate
-            binding.tvDeliveryBegins.text = "Delivery begins " + dayName
+            viewModel.updateDateSelection(formattedDate, dayName)
         }
     }
 

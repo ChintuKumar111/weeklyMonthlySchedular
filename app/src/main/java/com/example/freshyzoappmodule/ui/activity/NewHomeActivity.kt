@@ -1,24 +1,21 @@
 package com.example.freshyzoappmodule.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.provider.Settings
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivityNewHomeBinding
-import com.getkeepsafe.taptargetview.TapTargetSequence
+import com.example.freshyzoappmodule.ui.Fragments.WalletFragment
+import com.razorpay.Checkout
+import com.razorpay.PaymentResultListener
 import kotlin.concurrent.thread
 
-class NewHomeActivity : AppCompatActivity() {
+class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
+
     private lateinit var binding: ActivityNewHomeBinding
     private lateinit var cartRepository: CartRepository
     private lateinit var navController: NavController
@@ -30,35 +27,18 @@ class NewHomeActivity : AppCompatActivity() {
 
         cartRepository = CartRepository(this)
 
+        // Preload Razorpay here for better performance
+        Checkout.preload(applicationContext)
 
-
-        // for device id get to check========================
-//        val deviceId = Settings.Secure.getString(
-//            contentResolver,
-//            Settings.Secure.ANDROID_ID
-//        )
-//
-//        Toast.makeText(this,"$deviceId + ip address", Toast.LENGTH_LONG).show()
-
-
-
-        showHomeTour()
-        // Initialize shared cart preview
+        // showHomeTour() // Commented out to prevent empty sequence hang
         loadCartState()
 
-
-        // Setup Navigation Component
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragment_container) as NavHostFragment
 
         navController = navHostFragment.navController
-        // Link BottomNavigationView with NavController
-
         binding.bottomNavigation.setupWithNavController(navController)
-        // Disable icon tinting to show original colors
         binding.bottomNavigation.itemIconTintList = null
-
-
    }
 
     private fun loadCartState() {
@@ -108,10 +88,26 @@ class NewHomeActivity : AppCompatActivity() {
         return cartRepository.getCartState() ?: cartStateModel()
     }
 
-    private fun showHomeTour() {
-        TapTargetSequence(this)
-            .targets()
-            .continueOnCancel(true)
-            .start()
+    override fun onPaymentSuccess(razorpayPaymentID: String?) {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as? NavHostFragment
+        navHostFragment?.childFragmentManager?.fragments?.forEach { fragment ->
+            if (fragment is WalletFragment) {
+                fragment.onPaymentSuccess(razorpayPaymentID)
+            }
+        }
+    }
+
+    override fun onPaymentError(code: Int, response: String?) {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as? NavHostFragment
+        navHostFragment?.childFragmentManager?.fragments?.forEach { fragment ->
+            if (fragment is WalletFragment) {
+                fragment.onPaymentError(code, response)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Checkout.clearUserData(this)
     }
 }

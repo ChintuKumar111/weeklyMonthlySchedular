@@ -6,31 +6,60 @@ import androidx.lifecycle.ViewModel
 import com.example.freshyzoappmodule.data.model.DayState
 import com.example.freshyzoappmodule.data.model.ProductSubscribeUiState
 import com.example.freshyzoappmodule.ui.activity.DeliveryFrequency
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class ProductSubscribeViewModel : ViewModel() {
     private var basePrice: Int = 0
 
-    private val alternateDayIndices = listOf(0, 2, 4, 6)
     private val _uiState = MutableLiveData(ProductSubscribeUiState())
     val uiState: LiveData<ProductSubscribeUiState> = _uiState
+
+    init {
+        val calendar = Calendar.getInstance()
+        // ✅ 8 AM Cut-off Logic
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 8) {
+            calendar.add(Calendar.DATE, 1)
+        }
+        updateDate(calendar.time)
+    }
+
+    fun updateDate(date: Date) {
+        val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+        val dayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
+        val state = _uiState.value ?: ProductSubscribeUiState()
+        updateState(state.copy(
+            startDate = dateFormat.format(date),
+            deliveryBeginsText = "Delivery begins ${dayFormat.format(date)}"
+        ))
+    }
+    
+    fun updateDateSelection(formattedDate: String, dayName: String) {
+        val state = _uiState.value ?: ProductSubscribeUiState()
+        updateState(state.copy(
+            startDate = formattedDate,
+            deliveryBeginsText = "Delivery begins $dayName"
+        ))
+    }
 
     fun setQuantity(quantity: Int) {
         val state = _uiState.value ?: return
         updateState(state.copy(simpleQty = quantity))
     }
+
     fun selectFrequency(freq: DeliveryFrequency) {
         val current = _uiState.value ?: return
 
         val newDays = when (freq) {
-
             // 🔥 WEEKLY → Select all days
             DeliveryFrequency.WEEKLY -> {
                 current.dayStates.map { day ->
                     day.copy(isOn = true, qty = if (day.qty == 0) 1 else day.qty)
                 }
             }
-
-            // 🔥 ALTERNATE → Select Mon Wed Fri Sun
+            // 🔥 ALTERNATE → Select Mon Wed Fri Sun (index 0, 2, 4, 6)
             DeliveryFrequency.ALTERNATE -> {
                 current.dayStates.mapIndexed { index, day ->
                     if (index % 2 == 0) {
@@ -40,7 +69,6 @@ class ProductSubscribeViewModel : ViewModel() {
                     }
                 }
             }
-
             // DAILY & MONTHLY → Don't touch days
             else -> current.dayStates
         }
@@ -53,17 +81,15 @@ class ProductSubscribeViewModel : ViewModel() {
         )
     }
 
-
-
     fun increaseSimpleQty() {
-        val state = _uiState.value!!
+        val state = _uiState.value ?: return
         if (state.simpleQty < 10) {
             updateState(state.copy(simpleQty = state.simpleQty + 1))
         }
     }
 
     fun decreaseSimpleQty() {
-        val state = _uiState.value!!
+        val state = _uiState.value ?: return
         if (state.simpleQty > 1) {
             updateState(state.copy(simpleQty = state.simpleQty - 1))
         }
@@ -75,7 +101,7 @@ class ProductSubscribeViewModel : ViewModel() {
     }
 
     fun toggleDay(index: Int) {
-        val state = _uiState.value!!
+        val state = _uiState.value ?: return
         val newDays = state.dayStates.mapIndexed { i, day ->
             if (i == index) {
                 if (day.isOn)
@@ -88,7 +114,7 @@ class ProductSubscribeViewModel : ViewModel() {
     }
 
     fun increaseDayQty(index: Int) {
-        val state = _uiState.value!!
+        val state = _uiState.value ?: return
         val newDays = state.dayStates.mapIndexed { i, day ->
             if (i == index && day.isOn && day.qty < 10)
                 day.copy(qty = day.qty + 1)
@@ -98,7 +124,7 @@ class ProductSubscribeViewModel : ViewModel() {
     }
 
     fun decreaseDayQty(index: Int) {
-        val state = _uiState.value!!
+        val state = _uiState.value ?: return
         val newDays = state.dayStates.mapIndexed { i, day ->
             if (i == index && day.isOn && day.qty > 1)
                 day.copy(qty = day.qty - 1)
@@ -108,26 +134,34 @@ class ProductSubscribeViewModel : ViewModel() {
     }
 
     private fun updateState(state: ProductSubscribeUiState) {
-
         val updated = state.copy(
             totalPriceText = calculateTotal(state),
-            daySummaryText = calculateSummary(state)
+            daySummaryText = calculateSummary(state),
+            simpleSummaryText = calculateSimpleSummary(state)
         )
         _uiState.value = updated
     }
 
+    private fun calculateSimpleSummary(state: ProductSubscribeUiState): String {
+        val qty = state.simpleQty
+        val unit = if (qty > 1) "packets" else "packet"
+        
+        return when (state.selectedFrequency) {
+            DeliveryFrequency.DAILY -> "$qty $unit × daily = ~${qty * 30}/month"
+            DeliveryFrequency.ALTERNATE -> "$qty $unit × alternate days = ~${qty * 15}/month"
+            DeliveryFrequency.MONTHLY -> "$qty $unit × monthly"
+            else -> ""
+        }
+    }
 
     private fun calculateTotal(state: ProductSubscribeUiState): String {
         return when (state.selectedFrequency) {
-            // For Weekly and Alternate, the logic is the same: sum up selected days.
             DeliveryFrequency.WEEKLY, DeliveryFrequency.ALTERNATE -> {
                 val total = state.dayStates.sumOf { day ->
                     if (day.isOn) day.qty * basePrice else 0
                 }
-                "Subscribe Now "
+                "Subscribe Now · ₹$total"
             }
-
-            // The 'Once' or 'Daily' calculation remains the same.
             else -> "Subscribe Now · ₹${state.simpleQty * basePrice}"
         }
     }
@@ -135,15 +169,12 @@ class ProductSubscribeViewModel : ViewModel() {
     private fun calculateSummary(state: ProductSubscribeUiState): String {
         return when (state.selectedFrequency) {
             DeliveryFrequency.WEEKLY, DeliveryFrequency.ALTERNATE -> {
-                // Correctly calculate summary based on the actual state of the days.
                 val totalPackets = state.dayStates.sumOf { if (it.isOn) it.qty else 0 }
                 val selectedDaysCount = state.dayStates.count { it.isOn }
                 val dayOrDays = if (selectedDaysCount == 1) "day" else "days"
                 "$totalPackets packets on $selectedDaysCount $dayOrDays/cycle"
             }
-            // Return an empty or default summary for other frequencies.
             else -> ""
         }
     }
-
 }

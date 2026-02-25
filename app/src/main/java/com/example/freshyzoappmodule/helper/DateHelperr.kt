@@ -1,8 +1,14 @@
+package com.example.freshyzoappmodule.helper
+
 import androidx.appcompat.app.AppCompatActivity
 import com.example.freshyzoappmodule.R
-import com.google.android.material.datepicker.*
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
+import java.util.TimeZone
 
 class DateHelperr {
 
@@ -11,39 +17,46 @@ class DateHelperr {
         onDateSelected: (formattedDate: String, dayName: String) -> Unit
     ) {
 
+        // Get current local calendar
         val calendar = Calendar.getInstance()
 
-        val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
-
-        // ✅ 8 AM Cut-off Logic
-        if (currentHour >= 8) {
+        // 8 AM Cutoff Logic
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 8) {
             calendar.add(Calendar.DATE, 1)
         }
 
-        // Reset time to midnight
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
+        // Convert selected date to UTC midnight
+        val utcCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        utcCalendar.set(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH),
+            0, 0, 0
+        )
+        utcCalendar.set(Calendar.MILLISECOND, 0)
 
-        val minDate = calendar.timeInMillis
+        val minDate = utcCalendar.timeInMillis
 
+        // Apply constraints
         val constraints = CalendarConstraints.Builder()
             .setValidator(DateValidatorPointForward.from(minDate))
             .build()
 
+        // Build Date Picker
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select Delivery Start Date")
-            .setSelection(minDate) // 🔥 Auto Select Here
+            .setSelection(minDate)   // ✅ Selected when dialog opens
             .setCalendarConstraints(constraints)
-            .setTheme(R.style.CustomCalendarTheme) // 🔥 Apply primary theme
+            .setTheme(R.style.CustomCalendarTheme)
             .build()
 
+        // Show dialog
         datePicker.show(activity.supportFragmentManager, "DATE_PICKER")
 
+        // Handle date selection
         datePicker.addOnPositiveButtonClickListener { selection ->
 
-            val selectedCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            val selectedCalendar = Calendar.getInstance()
             selectedCalendar.timeInMillis = selection
 
             val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
