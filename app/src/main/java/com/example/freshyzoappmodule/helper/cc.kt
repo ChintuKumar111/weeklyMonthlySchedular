@@ -1,5 +1,4 @@
 //package com.example.freshyzoappmodule.helper
-//
 //import android.animation.ObjectAnimator
 //import android.os.Bundle
 //import android.view.LayoutInflater

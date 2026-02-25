@@ -32,12 +32,15 @@ class NewHomeActivity : AppCompatActivity() {
 
 
 
-        val deviceId = Settings.Secure.getString(
-            contentResolver,
-            Settings.Secure.ANDROID_ID
-        )
+        // for device id get to check========================
+//        val deviceId = Settings.Secure.getString(
+//            contentResolver,
+//            Settings.Secure.ANDROID_ID
+//        )
+//
+//        Toast.makeText(this,"$deviceId + ip address", Toast.LENGTH_LONG).show()
 
-        Toast.makeText(this,"$deviceId + ip address", Toast.LENGTH_LONG).show()
+
 
         showHomeTour()
         // Initialize shared cart preview

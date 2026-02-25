@@ -41,15 +41,15 @@
                 android:textColor="@color/text_primary"
                 android:fontFamily="@font/sora_bold" />
 
-            <ImageButton
-                android:id="@+id/btnNotification"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="4dp"
-                android:src="@drawable/notification_"
-                android:background="@drawable/bg_green_circle_light"
-                />
+<!--            <ImageButton-->
+<!--                android:id="@+id/btnNotification"-->
+<!--                android:layout_width="38dp"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:layout_marginEnd="4dp"-->
+<!--                android:src="@drawable/notification_"-->
+<!--                android:background="@drawable/bg_green_circle_light"-->
+<!--                />-->
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -502,7 +502,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/outline_arrow_circle_right_24"
-                            android:tint="#D97706" />
+                            android:tint="@color/orange_semi_primary" />
 
                     </LinearLayout>
 
@@ -704,6 +704,11 @@
                 tools:listitem="@layout/item_recharge_history" />
 
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
+
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
