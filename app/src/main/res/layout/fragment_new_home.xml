@@ -47,7 +47,7 @@
                     android:layout_marginStart="8dp"
                     android:padding="4dp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:src="@drawable/notification_"
+                    android:src="@drawable/notification__"
                     />
 
                 <LinearLayout
@@ -62,7 +62,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:padding="4dp"
-                        android:src="@drawable/wallet" />
+                        android:src="@drawable/wallet__" />
 
                     <TextView
                         android:id="@+id/tvWalletMoney"

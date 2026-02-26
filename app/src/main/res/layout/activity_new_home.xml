@@ -49,8 +49,8 @@
             app:itemBackground="@drawable/bg_bottom_nav"
             app:itemActiveIndicatorStyle="@drawable/bg_bottom_nav"
             app:menu="@menu/bottom_nav_menu"
-            app:itemIconTint="@drawable/bg_bottom_nav"
             app:itemTextColor="@color/selector_nav_color"
+            app:itemIconTint="@color/selector_nav_color"
             app:labelVisibilityMode="labeled" />
 
     </androidx.cardview.widget.CardView>

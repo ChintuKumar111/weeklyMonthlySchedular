@@ -1,6 +1,7 @@
 package com.example.freshyzoappmodule.ui.activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -30,25 +31,47 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         // Preload Razorpay here for better performance
         Checkout.preload(applicationContext)
 
-        // showHomeTour() // Commented out to prevent empty sequence hang
-        loadCartState()
-
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragment_container) as NavHostFragment
 
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.itemIconTintList = null
-   }
+
+        // Initial load
+        loadCartState()
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.nav_cart, R.id.nav_account -> {
+                    // Hide cart preview on Cart and Account fragments
+                    binding.cartPreview.visibility = View.GONE
+                }
+                else -> {
+                    // Show cart preview only if it has items
+                    val cartState = cartRepository.getCartState()
+                    if (cartState != null && cartState.itemsCount > 0) {
+                        binding.cartPreview.visibility = View.VISIBLE
+                        binding.cartPreview.showCart(cartState)
+                    } else {
+                        binding.cartPreview.visibility = View.GONE
+                    }
+                }
+            }
+        }
+    }
 
     private fun loadCartState() {
         thread {
             val savedCartState = cartRepository.getCartState()
             runOnUiThread {
-                if (savedCartState != null && savedCartState.itemsCount > 0) {
+                val currentId = try { navController.currentDestination?.id } catch (e: Exception) { null }
+                if (savedCartState != null && savedCartState.itemsCount > 0 && 
+                    currentId != R.id.nav_cart && currentId != R.id.nav_account) {
                     binding.cartPreview.showCart(savedCartState)
+                    binding.cartPreview.visibility = View.VISIBLE
                 } else {
-                    binding.cartPreview.hideCart()
+                    binding.cartPreview.visibility = View.GONE
                 }
             }
         }
@@ -75,10 +98,12 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
             cartRepository.saveCartState(newState)
             
             runOnUiThread {
-                if (newState.itemsCount > 0) {
+                val currentId = try { navController.currentDestination?.id } catch (e: Exception) { null }
+                if (newState.itemsCount > 0 && currentId != R.id.nav_cart && currentId != R.id.nav_account) {
                     binding.cartPreview.showCart(newState)
+                    binding.cartPreview.visibility = View.VISIBLE
                 } else {
-                    binding.cartPreview.hideCart()
+                    binding.cartPreview.visibility = View.GONE
                 }
             }
         }

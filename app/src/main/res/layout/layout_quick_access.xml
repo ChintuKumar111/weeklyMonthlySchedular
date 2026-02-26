@@ -40,8 +40,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_plus"
-                    app:tint="@color/green_primary" />
+                    android:src="@drawable/box"
+                 />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -74,8 +74,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_plus"
-                    app:tint="@color/blue_primary" />
+                    android:src="@drawable/truck"
+                    />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -108,8 +108,8 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_plus"
-                    app:tint="@color/orange_primary" />
+                    android:src="@drawable/wallet"
+                    />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -142,8 +142,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_plus"
-                    app:tint="#A855F7" />
+                    android:src="@drawable/plane" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView

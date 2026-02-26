@@ -51,15 +51,15 @@
         <item name="android:textColor">@color/text_muted</item>
     </style>
 
-    <!-- Logout Button (outlined) -->
-    <style name="LogoutButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:fontFamily">@font/sora_bold</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:letterSpacing">0.05</item>
-        <item name="android:textColor">@color/green_primary</item>
-        <item name="strokeColor">@color/green_primary</item>
-        <item name="strokeWidth">1.5dp</item>
-        <item name="cornerRadius">14dp</item>
-        <item name="rippleColor">@color/green_light</item>
-    </style>
+<!--    &lt;!&ndash; Logout Button (outlined) &ndash;&gt;-->
+<!--    <style name="LogoutButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">-->
+<!--        <item name="android:fontFamily">@font/sora_bold</item>-->
+<!--        <item name="android:textSize">14sp</item>-->
+<!--        <item name="android:letterSpacing">0.05</item>-->
+<!--        <item name="android:textColor">@color/green_primary</item>-->
+<!--        <item name="strokeColor">@color/green_primary</item>-->
+<!--        <item name="strokeWidth">1.5dp</item>-->
+<!--        <item name="cornerRadius">14dp</item>-->
+<!--        <item name="rippleColor">@color/green_light</item>-->
+<!--    </style>-->
 </resources>

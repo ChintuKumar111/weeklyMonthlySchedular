@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/cartFragment"
     android:orientation="vertical"
-    android:background="#F7F6F2">
+    android:background="@color/white">
 
     <!-- ═══════════════════════════════════════ -->
     <!--              HEADER SECTION             -->
@@ -16,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        app:liftOnScroll="false"
         app:elevation="4dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -24,77 +26,12 @@
             android:layout_height="56dp"
             android:paddingStart="8dp"
             app:navigationIcon="@drawable/ic_back"
+            android:background="@color/white"
             app:title="My Cart"
             app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="16dp"
-        android:elevation="4dp">
-
-
-        <!-- Delivery Date Row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_green_light_rounded"
-            android:padding="10dp">
-
-            <!-- Calendar Icon -->
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/calendar"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="Calendar" />
-
-            <!-- Delivery Text -->
-            <TextView
-                android:id="@+id/tvDeliveryLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Select Delivery Date"
-                android:textSize="13sp"
-                android:textColor="#1A7A4A"
-                android:textStyle="normal" />
-
-            <!-- Pick Date Button -->
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:elevation="@dimen/_5sdp"
-                app:cardCornerRadius="5dp"
-
-                >
-
-                <TextView
-                    android:id="@+id/btnPickDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="pick date "
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
-                    android:textColor="@color/primary"
-                    android:drawableTint="@color/primary"
-                    android:gravity="center"
-                    android:drawableEnd="@drawable/baseline_edit_24" />
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-    </LinearLayout>
 
     <!-- ═══════════════════════════════════════ -->
     <!--           SCROLLABLE CONTENT            -->
@@ -104,6 +41,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="none"
+        android:overScrollMode="never"
         android:fillViewport="true">
 
         <LinearLayout
@@ -111,15 +49,65 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-
+            <!-- Delivery Date Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_green_light_rounded"
+                android:padding="10dp">
 
-                >
+                <!-- Calendar Icon -->
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/calendar"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Calendar" />
 
+                <!-- Delivery Text -->
+                <TextView
+                    android:id="@+id/tvDeliveryLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Select Delivery Date"
+                    android:textSize="13sp"
+                    android:textColor="#1A7A4A"
+                    android:textStyle="normal" />
 
+                <!-- Pick Date Button -->
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:elevation="@dimen/_5sdp"
+                    app:cardCornerRadius="5dp"
+
+                    >
+
+                    <TextView
+                        android:id="@+id/btnPickDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="pick date "
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        android:textColor="@color/primary"
+                        app:drawableTint="@color/primary"
+                        android:gravity="center"
+                        app:drawableEndCompat="@drawable/baseline_edit_24" />
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <!-- Section Label -->
                 <TextView
@@ -164,13 +152,14 @@
                 android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:id="@+id/rvAddedProductInCart"/>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardItem1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="@color/white"
                 android:layout_marginBottom="10dp">
 
                 <LinearLayout
@@ -279,12 +268,12 @@
 
                         <ImageButton
                             android:id="@+id/btnMinus1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_minus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
-                            android:contentDescription="Decrease" />
+                            android:contentDescription="Decrease"
+                            android:src="@drawable/ic_minus"
+                            app:tint="@color/white" />
 
                         <TextView
                             android:id="@+id/tvQty1"
@@ -302,7 +291,7 @@
                             android:layout_height="30dp"
                             android:src="@drawable/ic_plus"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
                             android:contentDescription="Increase" />
 
                     </LinearLayout>
@@ -424,7 +413,7 @@
                             android:layout_height="30dp"
                             android:src="@drawable/ic_minus"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
                             android:contentDescription="Decrease" />
 
                         <TextView
@@ -443,7 +432,7 @@
                             android:layout_height="30dp"
                             android:src="@drawable/ic_plus"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
                             android:contentDescription="Increase" />
 
                     </LinearLayout>
@@ -565,7 +554,7 @@
                             android:layout_height="30dp"
                             android:src="@drawable/ic_minus"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
                             android:contentDescription="Decrease" />
 
                         <TextView
@@ -584,7 +573,7 @@
                             android:layout_height="30dp"
                             android:src="@drawable/ic_plus"
                             android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
                             android:contentDescription="Increase" />
 
                     </LinearLayout>
@@ -618,7 +607,7 @@
                         android:textStyle="bold"
                         android:fontFamily="serif"
                         android:textColor="#1A1A1A"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="@dimen/_5sdp" />
 
                     <!-- Total MRP Row -->
                     <LinearLayout
@@ -731,7 +720,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Total Payable"
-                            android:textSize="14sp"
+                            android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="#1A1A1A" />
 
@@ -740,7 +729,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹285"
-                            android:textSize="16sp"
+                            android:textSize="20sp"
                             android:textStyle="bold"
                             android:fontFamily="serif"
                             android:textColor="#1A1A1A" />
@@ -754,13 +743,12 @@
                 android:id="@+id/tvSavings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🎊 You're saving ₹25 on this order!"
-                android:textSize="12sp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:padding="@dimen/_10sdp"
-                android:textColor="#1A7A4A"
+                android:background="@drawable/bg_green_light_rounded"
                 android:gravity="center"
-                android:background="@drawable/bg_green_light_rounded" />
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="🎊 You're saving ₹25 on this order!"
+                android:textColor="@color/primary"
+                android:textSize="12sp" />
 
         </LinearLayout>
     </ScrollView>
@@ -779,34 +767,23 @@
         android:paddingBottom="14dp"
         android:elevation="8dp">
 
-<!--        &lt;!&ndash; Savings Pill &ndash;&gt;-->
-<!--        <TextView-->
-<!--            android:id="@+id/tvSavings"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="🎊 You're saving ₹25 on this order!"-->
-<!--            android:textSize="12sp"-->
-<!--            android:textColor="#1A7A4A"-->
-<!--            android:gravity="center"-->
-<!--            android:background="@drawable/bg_green_light_rounded"-->
-<!--            android:paddingTop="7dp"-->
-<!--            android:paddingBottom="7dp"-->
-<!--            android:layout_marginBottom="10dp" />-->
 
         <!-- Order Button -->
-
 
         <!-- ══════════════════════════════════════ -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubscribeNow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:text="Place Order "
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/primary"
             android:background="@drawable/btn_cta_green"
-            android:elevation="5dp"
-            android:text="Place Order"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/sora_bold"
-            app:backgroundTint="@color/primary" />
+            android:elevation="8dp" />
 
     </LinearLayout>
 
