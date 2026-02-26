@@ -73,4 +73,70 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- App Bar -->
+    <string name="account_title">Account</string>
+
+    <!-- Hero -->
+    <string name="my_profile">My Profile</string>
+    <string name="welcome_user">Welcome, Levi 👋</string>
+    <string name="account_subtitle">Manage your account &amp;\nfind useful links below.</string>
+
+    <!-- Section Labels -->
+    <string name="quick_access">Quick Access</string>
+    <string name="account_settings">Account &amp; Settings</string>
+    <string name="support_info">Support &amp; Info</string>
+
+    <!-- Quick Access Tiles -->
+    <string name="my_orders">My Orders</string>
+    <string name="deliveries">Deliveries</string>
+    <string name="wallet">Wallet</string>
+    <string name="vacation">Vacation</string>
+
+    <!-- Account Menu Items -->
+    <string name="subscriptions">Subscriptions</string>
+    <string name="subscriptions_sub">Check and manage subscriptions</string>
+
+    <string name="profile">Profile</string>
+    <string name="profile_sub">Manage and update your profile</string>
+
+    <string name="address">Address</string>
+    <string name="address_sub">Manage and update saved addresses</string>
+
+    <string name="payments_wallet">Payments and Wallet</string>
+    <string name="payments_wallet_sub">Manage your wallet</string>
+
+    <!-- Support Menu Items -->
+    <string name="test_report">Test Report</string>
+    <string name="test_report_sub">Know the quality of our products</string>
+
+    <string name="refer_earn">Refer and Earn</string>
+    <string name="refer_earn_sub">Browse coupons, earn points</string>
+
+    <string name="complaint">Complaint Assistance</string>
+    <string name="complaint_sub">Facing an issue? We\'re here to help!</string>
+
+    <string name="language">Language</string>
+    <string name="language_sub">Manage your language preferences</string>
+
+    <string name="about_us">About Us</string>
+    <string name="about_us_sub">Get to know us</string>
+
+    <!-- Footer -->
+    <string name="terms">Terms</string>
+    <string name="privacy">Privacy</string>
+    <string name="return_policy">Return</string>
+
+    <!-- Logout -->
+    <string name="log_out">LOG OUT</string>
+
+    <!-- App Info -->
+    <string name="app_info">Made with freshness in Raipur 🌿 · v3.2.0</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_alerts">Alerts</string>
+    <string name="nav_wallet">Wallet</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_cart">Cart</string>
+
 </resources>

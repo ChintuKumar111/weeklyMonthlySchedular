@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            style="@style/SectionLabelStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/support_info" />
+
+        <!-- Test Report -->
+        <include
+            android:id="@+id/menuTestReport"
+            layout="@layout/layout_menu_item" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/divider" />
+
+        <!-- Refer & Earn -->
+        <include
+            android:id="@+id/menuReferEarn"
+            layout="@layout/layout_menu_item" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/divider" />
+
+        <!-- Complaint -->
+        <include
+            android:id="@+id/menuComplaint"
+            layout="@layout/layout_menu_item" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/divider" />
+
+        <!-- Language -->
+        <include
+            android:id="@+id/menuLanguage"
+            layout="@layout/layout_menu_item" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/divider" />
+
+        <!-- About Us -->
+        <include
+            android:id="@+id/menuAboutUs"
+            layout="@layout/layout_menu_item" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

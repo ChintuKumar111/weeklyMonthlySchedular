@@ -121,4 +121,14 @@
     <color name="border_color">#E2E8F0</color>
     <color name="orange_semi_primary">#D97706</color>
 
+    <!-- Account Screen Badges -->
+    <color name="badge_green">#E8F5E9</color>
+    <color name="badge_blue">#E3F2FD</color>
+    <color name="badge_orange">#FFF3E0</color>
+    <color name="badge_purple">#F3E5F5</color>
+    <color name="badge_teal">#E0F2F1</color>
+    <color name="badge_red">#FFEBEE</color>
+    <color name="badge_yellow">#FFFDE7</color>
+    <color name="nav_inactive">#94A3B8</color>
+
 </resources>
