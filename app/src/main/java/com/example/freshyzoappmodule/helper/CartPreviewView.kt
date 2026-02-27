@@ -3,6 +3,7 @@ package com.example.freshyzoappmodule.helper
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.databinding.BottomSheetCartPreviewBinding
@@ -12,17 +13,11 @@ class CartPreviewView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    private val binding =
-        BottomSheetCartPreviewBinding.inflate(
-            LayoutInflater.from(context), 
-            this,
-            true)
-
+    private val binding = BottomSheetCartPreviewBinding.inflate(LayoutInflater.from(context), this, true)
     private var viewCartClick: (() -> Unit)? = null
 
     init {
-        visibility = GONE
-
+        visibility = View.GONE
         binding.btnViewCart.setOnClickListener {
             viewCartClick?.invoke()
         }
@@ -33,59 +28,69 @@ class CartPreviewView @JvmOverloads constructor(
     }
 
     fun showCart(cartData: cartStateModel) {
+        // Update labels first
+        binding.tvAddedItemCount.text = "${cartData.itemsCount} items"
+        binding.tvItemAddedPrice.text = "₹${cartData.totalPrice}"
 
-        // 🔥 Auto collapse when empty
         if (cartData.itemsCount <= 0) {
             hideCart()
             return
         }
 
-        binding.tvAddedItemCount.text =
-            "${cartData.itemsCount} items"
-
-        binding.tvItemAddedPrice.text =
-            "₹${cartData.totalPrice}"
-
-        animateIn()
+        // Only trigger animation if not already visible or if it was hiding
+        if (visibility != View.VISIBLE || translationY > 0f) {
+            animateIn()
+        }
     }
 
     fun hideCart() {
-        if (visibility == GONE) return
+        if (visibility == View.GONE) return
+        
+        animate().cancel()
+        
+        // Ensure height is measured. Fallback to a large value if not.
+        val targetY = if (height > 0) height.toFloat() else 600f
         
         animate()
-            .translationY(height.toFloat())
-            .setDuration(300)
+            .translationY(targetY)
+            .alpha(0f)
+            .setDuration(350)
             .withEndAction { 
-                visibility = GONE 
+                visibility = View.GONE
+                translationY = 0f
+                alpha = 1f
             }
             .start()
     }
 
     private fun animateIn() {
-        if (visibility == VISIBLE && translationY == 0f) {
-            return
-        }
+        animate().cancel()
+        alpha = 1f
 
-        // To avoid "blink", we ensure the view is off-screen before making it visible
         if (height == 0) {
-            // If height isn't measured yet (first time), wait for layout
-            visibility = INVISIBLE
+            // Wait for measurement
+            visibility = View.INVISIBLE
             post {
                 if (height > 0) {
                     translationY = height.toFloat()
-                    visibility = VISIBLE
+                    visibility = View.VISIBLE
                     animate()
                         .translationY(0f)
-                        .setDuration(300)
+                        .setDuration(350)
                         .start()
+                } else {
+                    visibility = View.VISIBLE
+                    translationY = 0f
                 }
             }
         } else {
-            translationY = height.toFloat()
-            visibility = VISIBLE
+            if (visibility != View.VISIBLE) {
+                translationY = height.toFloat()
+                visibility = View.VISIBLE
+            }
             animate()
                 .translationY(0f)
-                .setDuration(300)
+                .setDuration(350)
                 .start()
         }
     }

@@ -181,7 +181,7 @@
 
                         <View
                             android:id="@+id/pulseDot"
-                            android:layout_width="7dp"
+                            android:layout_width="10dp"
                             android:layout_height="10dp"
                             android:background="@drawable/bg_pulse_dot"
                             android:layout_marginEnd="6dp" />
@@ -445,7 +445,7 @@
                             android:layout_height="52dp"
                             android:layout_weight="0.38"
                             android:text="Recharge"
-                            android:textSize="@dimen/_8sdp"
+                            android:textSize="@dimen/_11sdp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:fontFamily="@font/sora_bold"
@@ -638,16 +638,19 @@
                 <TextView
                     android:id="@+id/tvViewAll"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="23dp"
+                    android:fontFamily="@font/sora_regular"
                     android:text="View all ›"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
                     android:textColor="@color/green_primary"
-                    android:fontFamily="@font/sora_regular" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <!-- Empty history state -->
+
+<!--            has to implement the recycler view for showing all recharge history-->
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardEmptyHistory"
                 android:layout_width="match_parent"
@@ -691,6 +694,7 @@
                         android:layout_marginTop="4dp" />
 
                 </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Populated history list (use RecyclerView in real app) -->

@@ -118,10 +118,10 @@ class ProductSectionFragment : Fragment() {
     private fun setupProductRecyclerView() {
         productAdapter = ProductAdapter(
             onAddClick = { product, size, qty ->
-                (activity as? NewHomeActivity)?.updateSharedCart(product.id, size.price.toDouble() * qty, qty)
+                (activity as? NewHomeActivity)?.updateSharedCart(product, size.price.toDouble() * qty, qty)
             },
             onQtyChange = { product, size, delta ->
-                (activity as? NewHomeActivity)?.updateSharedCart(product.id, size.price.toDouble() * delta, delta)
+                (activity as? NewHomeActivity)?.updateSharedCart(product, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
                // Toast.makeText(requireContext(), "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()

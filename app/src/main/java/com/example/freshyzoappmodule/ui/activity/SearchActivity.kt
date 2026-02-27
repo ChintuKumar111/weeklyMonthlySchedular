@@ -170,10 +170,10 @@ class SearchActivity : AppCompatActivity() {
     private fun setupSearchProducts() {
         productAdapter = ProductAdapter(
             onAddClick = { product, size, qty ->
-                updateCart(product.id, size.price.toDouble() * qty, qty)
+                updateCart(product, size.price.toDouble() * qty, qty)
             },
             onQtyChange = { product, size, delta ->
-                updateCart(product.id, size.price.toDouble() * delta, delta)
+                updateCart(product, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
                 Toast.makeText(this, "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
@@ -191,23 +191,30 @@ class SearchActivity : AppCompatActivity() {
         binding.rvSearch.adapter = productAdapter
     }
 
-    private fun updateCart(productId: Int, priceDelta: Double, countDelta: Int) {
+    private fun updateCart(product: Product, priceDelta: Double, countDelta: Int) {
         thread {
             val currentState = cartRepository.getCartState() ?: cartStateModel()
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
             
+            val productId = product.productId.toIntOrNull() ?: 0
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
             
+            val currentProducts = currentState.products.toMutableList()
+
             if (newQty <= 0) {
                 newQuantities.remove(productId)
+                currentProducts.removeAll { (it.productId.toIntOrNull() ?: 0) == productId }
             } else {
                 newQuantities[productId] = newQty
+                if (!currentProducts.any { (it.productId.toIntOrNull() ?: 0) == productId }) {
+                    currentProducts.add(product)
+                }
             }
             
-            val newState = cartStateModel(newCount, newPrice, true, newQuantities)
+            val newState = cartStateModel(newCount, newPrice, true, newQuantities, currentProducts)
             cartRepository.saveCartState(newState)
             
             runOnUiThread {

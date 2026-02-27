@@ -25,8 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:paddingStart="8dp"
+            app:titleTextColor="@color/white"
             app:navigationIcon="@drawable/ic_back"
-            android:background="@color/white"
+            android:background="@color/primary"
             app:title="My Cart"
             app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
@@ -49,60 +50,70 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
             <!-- Delivery Date Row -->
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/layoutDateSelector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/bg_green_light_rounded"
-                android:padding="10dp">
+                android:padding="13dp"
+                android:background="@drawable/date_selector_bg"
+                android:clickable="true"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:focusable="true">
 
-                <!-- Calendar Icon -->
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/calendar"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="Calendar" />
-
-                <!-- Delivery Text -->
-                <TextView
-                    android:id="@+id/tvDeliveryLabel"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Select Delivery Date"
-                    android:textSize="13sp"
-                    android:textColor="#1A7A4A"
-                    android:textStyle="normal" />
-
-                <!-- Pick Date Button -->
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:elevation="@dimen/_5sdp"
-                    app:cardCornerRadius="5dp"
-
-                    >
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/btnPickDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="pick date "
-                        android:paddingStart="2dp"
-                        android:paddingEnd="2dp"
-                        android:textColor="@color/primary"
-                        app:drawableTint="@color/primary"
-                        android:gravity="center"
-                        app:drawableEndCompat="@drawable/baseline_edit_24" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📅"
+                        android:textSize="19sp" />
 
-                </androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="10dp">
 
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvSelectedDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="February 24, 2026"
+                            android:textColor="#1a1a2e"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvDeliveryBegins"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delivery begins Tuesday"
+                            android:textColor="#6B7280"
+                            android:textSize="10sp"
+                            android:layout_marginTop="1dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/btnEditDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="Edit"
+                    android:src="@drawable/baseline_edit_24"
+                    android:tint="@color/primary" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,7 +140,7 @@
                     android:text="3 items"
                     android:textSize="11sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:background="@drawable/bg_badge_green"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
@@ -149,439 +160,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:id="@+id/rvAddedProductInCart"/>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardItem1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginBottom="10dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="14dp">
 
-                    <!-- Product Image -->
-                    <ImageView
-                        android:id="@+id/imgProduct1"
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:src="@drawable/dahi"
-                        android:background="@drawable/bg_green_light_rounded_small"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Buffalo Milk" />
-
-                    <!-- Product Info -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="10dp">
-
-                        <TextView
-                            android:id="@+id/tvName1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="FreshyZo Buffalo Milk"
-                            android:textSize="13.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:layout_marginBottom="4dp" />
-
-                        <!-- Price Row -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginBottom="3dp">
-
-                            <!-- Discount Badge -->
-                            <TextView
-                                android:id="@+id/tvDiscount1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="7% OFF"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:textColor="#5A4000"
-                                android:background="@drawable/bg_badge_amber"
-                                android:paddingStart="6dp"
-                                android:paddingEnd="6dp"
-                                android:paddingTop="2dp"
-                                android:paddingBottom="2dp"
-                                android:layout_marginEnd="6dp" />
-
-                            <!-- Original Price -->
-                            <TextView
-                                android:id="@+id/tvOrigPrice1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹75"
-                                android:textSize="11sp"
-                                android:textColor="#7A7A7A"
-                                android:layout_marginEnd="4dp" />
-
-                            <!-- Final Price -->
-                            <TextView
-                                android:id="@+id/tvFinalPrice1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹70"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A7A4A" />
-
-                        </LinearLayout>
-
-                        <!-- Volume -->
-                        <TextView
-                            android:id="@+id/tvVolume1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1000 ml"
-                            android:textSize="11sp"
-                            android:textColor="#7A7A7A" />
-
-                    </LinearLayout>
-
-                    <!-- Quantity Control -->
-                    <LinearLayout
-                        android:id="@+id/layoutQty1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/bg_green_rounded_qty">
-
-                        <ImageButton
-                            android:id="@+id/btnMinus1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="Decrease"
-                            android:src="@drawable/ic_minus"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:id="@+id/tvQty1"
-                            android:layout_width="22dp"
-                            android:layout_height="wrap_content"
-                            android:text="1"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:gravity="center" />
-
-                        <ImageButton
-                            android:id="@+id/btnPlus1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_plus"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            app:tint="@color/white"
-                            android:contentDescription="Increase" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- ─────────────────────────────── -->
-            <!--       CART ITEM 2               -->
-            <!-- ─────────────────────────────── -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardItem2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="14dp">
-
-                    <ImageView
-                        android:id="@+id/imgProduct2"
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:src="@drawable/milk"
-                        android:background="@drawable/bg_green_light_rounded_small"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="A2 Cow Milk 500ml" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="10dp">
-
-                        <TextView
-                            android:id="@+id/tvName2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="FreshyZo A2 Cow Milk"
-                            android:textSize="13.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:layout_marginBottom="4dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginBottom="3dp">
-
-                            <TextView
-                                android:id="@+id/tvDiscount2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="10% OFF"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:textColor="#5A4000"
-                                android:background="@drawable/bg_badge_amber"
-                                android:paddingStart="6dp"
-                                android:paddingEnd="6dp"
-                                android:paddingTop="2dp"
-                                android:paddingBottom="2dp"
-                                android:layout_marginEnd="6dp" />
-
-                            <TextView
-                                android:id="@+id/tvOrigPrice2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹150"
-                                android:textSize="11sp"
-                                android:textColor="#7A7A7A"
-                                android:layout_marginEnd="4dp" />
-
-                            <TextView
-                                android:id="@+id/tvFinalPrice2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹135"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A7A4A" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tvVolume2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="500 ml"
-                            android:textSize="11sp"
-                            android:textColor="#7A7A7A" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layoutQty2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/bg_green_rounded_qty">
-
-                        <ImageButton
-                            android:id="@+id/btnMinus2"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_minus"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            app:tint="@color/white"
-                            android:contentDescription="Decrease" />
-
-                        <TextView
-                            android:id="@+id/tvQty2"
-                            android:layout_width="22dp"
-                            android:layout_height="wrap_content"
-                            android:text="3"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:gravity="center" />
-
-                        <ImageButton
-                            android:id="@+id/btnPlus2"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_plus"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            app:tint="@color/white"
-                            android:contentDescription="Increase" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- ─────────────────────────────── -->
-            <!--       CART ITEM 3               -->
-            <!-- ─────────────────────────────── -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardItem3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="14dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="14dp">
-
-                    <ImageView
-                        android:id="@+id/imgProduct3"
-                        android:layout_width="58dp"
-                        android:layout_height="58dp"
-                        android:src="@drawable/ghee"
-                        android:background="@drawable/bg_green_light_rounded_small"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="A2 Cow Milk 1L" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="10dp">
-
-                        <TextView
-                            android:id="@+id/tvName3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="FreshyZo A2 Cow Milk"
-                            android:textSize="13.5sp"
-                            android:textStyle="bold"
-                            android:textColor="#1A1A1A"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:layout_marginBottom="4dp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginBottom="3dp">
-
-                            <TextView
-                                android:id="@+id/tvDiscount3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="6% OFF"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:textColor="#5A4000"
-                                android:background="@drawable/bg_badge_amber"
-                                android:paddingStart="6dp"
-                                android:paddingEnd="6dp"
-                                android:paddingTop="2dp"
-                                android:paddingBottom="2dp"
-                                android:layout_marginEnd="6dp" />
-
-                            <TextView
-                                android:id="@+id/tvOrigPrice3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹85"
-                                android:textSize="11sp"
-                                android:textColor="#7A7A7A"
-                                android:layout_marginEnd="4dp" />
-
-                            <TextView
-                                android:id="@+id/tvFinalPrice3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="₹80"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A7A4A" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tvVolume3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1 litre"
-                            android:textSize="11sp"
-                            android:textColor="#7A7A7A" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/layoutQty3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/bg_green_rounded_qty">
-
-                        <ImageButton
-                            android:id="@+id/btnMinus3"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_minus"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            app:tint="@color/white"
-                            android:contentDescription="Decrease" />
-
-                        <TextView
-                            android:id="@+id/tvQty3"
-                            android:layout_width="22dp"
-                            android:layout_height="wrap_content"
-                            android:text="1"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:gravity="center" />
-
-                        <ImageButton
-                            android:id="@+id/btnPlus3"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_plus"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            app:tint="@color/white"
-                            android:contentDescription="Increase" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- ═══════════════════════════════════════ -->
             <!--           PRICE DETAILS CARD            -->
             <!-- ═══════════════════════════════════════ -->
             <androidx.cardview.widget.CardView
@@ -729,7 +312,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹285"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:fontFamily="serif"
                             android:textColor="#1A1A1A" />
@@ -745,6 +328,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_green_light_rounded"
                 android:gravity="center"
+                android:padding="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="🎊 You're saving ₹25 on this order!"
                 android:textColor="@color/primary"

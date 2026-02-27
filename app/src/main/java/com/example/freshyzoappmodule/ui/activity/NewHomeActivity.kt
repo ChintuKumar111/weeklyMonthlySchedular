@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.freshyzoappmodule.R
+import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivityNewHomeBinding
@@ -45,19 +46,22 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
             when (destination.id) {
                 R.id.nav_cart, R.id.nav_account -> {
                     // Hide cart preview on Cart and Account fragments
-                    binding.cartPreview.visibility = View.GONE
+                    binding.cartPreview.hideCart()
                 }
                 else -> {
                     // Show cart preview only if it has items
                     val cartState = cartRepository.getCartState()
                     if (cartState != null && cartState.itemsCount > 0) {
-                        binding.cartPreview.visibility = View.VISIBLE
                         binding.cartPreview.showCart(cartState)
                     } else {
-                        binding.cartPreview.visibility = View.GONE
+                        binding.cartPreview.hideCart()
                     }
                 }
             }
+        }
+        
+        binding.cartPreview.setOnViewCartClickListener {
+            binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
     }
 
@@ -69,42 +73,54 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
                 if (savedCartState != null && savedCartState.itemsCount > 0 && 
                     currentId != R.id.nav_cart && currentId != R.id.nav_account) {
                     binding.cartPreview.showCart(savedCartState)
-                    binding.cartPreview.visibility = View.VISIBLE
                 } else {
-                    binding.cartPreview.visibility = View.GONE
+                    binding.cartPreview.hideCart()
                 }
             }
         }
     }
 
-    fun updateSharedCart(productId: Int, priceDelta: Double, countDelta: Int) {
+    fun updateSharedCart(product: Product, priceDelta: Double, countDelta: Int, onComplete: ((cartStateModel) -> Unit)? = null) {
         thread {
             val currentState = cartRepository.getCartState() ?: cartStateModel()
             
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
             
+            val productId = product.productId.toIntOrNull() ?: 0
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
             
+            val currentProducts = currentState.products.toMutableList()
+
             if (newQty <= 0) {
                 newQuantities.remove(productId)
+                currentProducts.removeAll { (it.productId.toIntOrNull() ?: 0) == productId }
             } else {
                 newQuantities[productId] = newQty
+                if (!currentProducts.any { (it.productId.toIntOrNull() ?: 0) == productId }) {
+                    currentProducts.add(product)
+                }
             }
             
-            val newState = cartStateModel(newCount, newPrice, true, newQuantities)
+            val newState = cartStateModel(
+                itemsCount = if (newCount < 0) 0 else newCount, 
+                totalPrice = if (newPrice < 0.0) 0.0 else newPrice, 
+                isVisible = true, 
+                productQuantities = newQuantities, 
+                products = currentProducts
+            )
             cartRepository.saveCartState(newState)
             
             runOnUiThread {
                 val currentId = try { navController.currentDestination?.id } catch (e: Exception) { null }
                 if (newState.itemsCount > 0 && currentId != R.id.nav_cart && currentId != R.id.nav_account) {
                     binding.cartPreview.showCart(newState)
-                    binding.cartPreview.visibility = View.VISIBLE
                 } else {
-                    binding.cartPreview.visibility = View.GONE
+                    binding.cartPreview.hideCart()
                 }
+                onComplete?.invoke(newState)
             }
         }
     }
