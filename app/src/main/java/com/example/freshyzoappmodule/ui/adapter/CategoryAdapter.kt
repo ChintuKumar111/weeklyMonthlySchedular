@@ -28,13 +28,26 @@ class CategoryAdapter(
                 val currentPosition = adapterPosition
                 if (currentPosition == RecyclerView.NO_POSITION) return@setOnClickListener
                 
-                val previous = selectedPosition
-                selectedPosition = currentPosition
-                notifyItemChanged(previous)
-                notifyItemChanged(selectedPosition)
+                updateSelection(currentPosition)
                 onCategoryClick(category, currentPosition)
             }
         }
+    }
+
+    fun updateSelection(newPosition: Int) {
+        if (newPosition == selectedPosition || newPosition !in categories.indices) return
+        val previous = selectedPosition
+        selectedPosition = newPosition
+        notifyItemChanged(previous)
+        notifyItemChanged(selectedPosition)
+    }
+
+    fun getCategoryIdAt(position: Int): Int? {
+        return if (position in categories.indices) categories[position].id else null
+    }
+
+    fun getPositionForId(categoryId: Int): Int {
+        return categories.indexOfFirst { it.id == categoryId }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {

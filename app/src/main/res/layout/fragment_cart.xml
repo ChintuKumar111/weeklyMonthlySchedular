@@ -774,7 +774,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubscribeNow"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
             android:text="Place Order "

@@ -2,7 +2,6 @@ package com.example.freshyzoappmodule.ui.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.categoryModel
 import com.example.freshyzoappmodule.data.model.Product
@@ -35,7 +34,7 @@ class ProductSectionFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
 
     private var allProducts: List<Product> = emptyList()
-    private var selectedCategoryId: Int = 1
+    private var isScrollingFromCategory = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProductSectionBinding.inflate(inflater, container, false)
@@ -65,13 +64,10 @@ class ProductSectionFragment : Fragment() {
             startActivity(intent)
         }
 
-
-
         binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.nav_home)
         }
     }
-
 
     private fun setupCategories() {
         val categories = listOf(
@@ -83,8 +79,7 @@ class ProductSectionFragment : Fragment() {
         )
 
         categoryAdapter = CategoryAdapter(categories) { category, _ ->
-            selectedCategoryId = category.id
-            filterProducts()
+            scrollToCategory(category.id)
         }
 
         binding.rvCategories.apply {
@@ -93,10 +88,22 @@ class ProductSectionFragment : Fragment() {
         }
     }
 
+    private fun scrollToCategory(categoryId: Int) {
+        val position = allProducts.indexOfFirst { it.categoryId == categoryId }
+        if (position != -1) {
+            isScrollingFromCategory = true
+            (binding.rvProducts.layoutManager as LinearLayoutManager)
+                .scrollToPositionWithOffset(position, 0)
+        } else {
+             Toast.makeText(requireContext(), "No products in this category", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun observeViewModel() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { products ->
-            allProducts = products
-            filterProducts()
+            // Sort products by category to ensure they are grouped together
+            allProducts = products.sortedBy { it.categoryId }
+            productAdapter.submitList(allProducts)
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer { error ->
@@ -108,14 +115,6 @@ class ProductSectionFragment : Fragment() {
         })
     }
 
-    private fun filterProducts() {
-        val filtered = allProducts.filter { product ->
-            product.categoryId == selectedCategoryId
-        }
-
-        productAdapter.submitList(filtered)
-    }
-
     private fun setupProductRecyclerView() {
         productAdapter = ProductAdapter(
             onAddClick = { product, size, qty ->
@@ -125,19 +124,46 @@ class ProductSectionFragment : Fragment() {
                 (activity as? NewHomeActivity)?.updateSharedCart(product.id, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
-                Toast.makeText(requireContext(), "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(requireContext(), "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
+                intent.putExtra("product", product)
+                startActivity(intent)
             },
             onProductClick = { product ->
                 val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
                 intent.putExtra("product", product)
                 startActivity(intent)
-
             }
         )
 
         binding.rvProducts.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            val linearLayoutManager = LinearLayoutManager(requireContext())
+            layoutManager = linearLayoutManager
             adapter = productAdapter
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                        isScrollingFromCategory = false
+                    }
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (!isScrollingFromCategory) {
+                        val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
+                        if (firstVisibleItemPosition != RecyclerView.NO_POSITION && allProducts.isNotEmpty()) {
+                            val categoryId = allProducts[firstVisibleItemPosition].categoryId
+                            val categoryPosition = categoryAdapter.getPositionForId(categoryId)
+                            if (categoryPosition != -1) {
+                                categoryAdapter.updateSelection(categoryPosition)
+                                binding.rvCategories.smoothScrollToPosition(categoryPosition)
+                            }
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -145,7 +171,4 @@ class ProductSectionFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
-
 }
