@@ -21,6 +21,9 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
     private lateinit var binding: ActivityNewHomeBinding
     private lateinit var cartRepository: CartRepository
     private lateinit var navController: NavController
+    
+    // Cache the cart state to avoid repeated disk I/O and JSON parsing on the main thread
+    private var cachedCartState: cartStateModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +31,10 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         setContentView(binding.root)
 
         cartRepository = CartRepository(this)
+        // Load once at start
+        cachedCartState = cartRepository.getCartState()
 
-        // Preload Razorpay here for better performance
+        // Preload Razorpay
         Checkout.preload(applicationContext)
 
         val navHostFragment = supportFragmentManager
@@ -39,20 +44,16 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.itemIconTintList = null
 
-        // Initial load
-        loadCartState()
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_cart, R.id.nav_account -> {
-                    // Hide cart preview on Cart and Account fragments
                     binding.cartPreview.hideCart()
                 }
                 else -> {
-                    // Show cart preview only if it has items
-                    val cartState = cartRepository.getCartState()
-                    if (cartState != null && cartState.itemsCount > 0) {
-                        binding.cartPreview.showCart(cartState)
+                    // Use cached state instead of reading from disk during navigation transitions
+                    val state = cachedCartState
+                    if (state != null && state.itemsCount > 0) {
+                        binding.cartPreview.showCart(state)
                     } else {
                         binding.cartPreview.hideCart()
                     }
@@ -63,26 +64,17 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         binding.cartPreview.setOnViewCartClickListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
-    }
-
-    private fun loadCartState() {
-        thread {
-            val savedCartState = cartRepository.getCartState()
-            runOnUiThread {
-                val currentId = try { navController.currentDestination?.id } catch (e: Exception) { null }
-                if (savedCartState != null && savedCartState.itemsCount > 0 && 
-                    currentId != R.id.nav_cart && currentId != R.id.nav_account) {
-                    binding.cartPreview.showCart(savedCartState)
-                } else {
-                    binding.cartPreview.hideCart()
-                }
-            }
+        
+        // Initial setup for the preview if needed
+        val initialState = cachedCartState
+        if (initialState != null && initialState.itemsCount > 0) {
+            binding.cartPreview.showCart(initialState)
         }
     }
 
     fun updateSharedCart(product: Product, priceDelta: Double, countDelta: Int, onComplete: ((cartStateModel) -> Unit)? = null) {
         thread {
-            val currentState = cartRepository.getCartState() ?: cartStateModel()
+            val currentState = cachedCartState ?: cartRepository.getCartState() ?: cartStateModel()
             
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
@@ -111,6 +103,9 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
                 productQuantities = newQuantities, 
                 products = currentProducts
             )
+            
+            // Update cache and save to disk
+            cachedCartState = newState
             cartRepository.saveCartState(newState)
             
             runOnUiThread {
@@ -126,7 +121,7 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
     }
 
     fun getCartState(): cartStateModel {
-        return cartRepository.getCartState() ?: cartStateModel()
+        return cachedCartState ?: cartRepository.getCartState() ?: cartStateModel()
     }
 
     override fun onPaymentSuccess(razorpayPaymentID: String?) {

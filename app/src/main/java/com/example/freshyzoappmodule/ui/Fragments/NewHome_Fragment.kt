@@ -21,20 +21,10 @@ class NewHome_Fragment : Fragment() {
 
     private val viewModel: HomeFragmentViewModel by viewModels()
 
-    // ✅ Default static fallback images
     private val defaultImages = listOf(
-        SliderItem(
-            0,
-            "https://static1.squarespace.com/static/638d8044b6fc77648ebcedba/t/67a5b74af834d07712692f36/1738913639066/Top+10+dairy+products+for+your+kitchen+-+Kota+Fresh+Dairy.png?format=1500w"
-        ),
-        SliderItem(
-            1,
-            "https://images.squarespace-cdn.com/content/v1/638d8044b6fc77648ebcedba/7d7c7c4f-34b6-4381-b8ad-d88433c86f62/4.png"
-        ),
-        SliderItem(
-            2,
-            "https://asset7.ckassets.com/blog/wp-content/uploads/sites/5/2021/12/Best-Milk-Brands.jpg"
-        )
+        SliderItem(0, "https://static1.squarespace.com/static/638d8044b6fc77648ebcedba/t/67a5b74af834d07712692f36/1738913639066/Top+10+dairy+products+for+your+kitchen+-+Kota+Fresh+Dairy.png?format=1500w"),
+        SliderItem(1, "https://images.squarespace-cdn.com/content/v1/638d8044b6fc77648ebcedba/7d7c7c4f-34b6-4381-b8ad-d88433c86f62/4.png"),
+        SliderItem(2, "https://asset7.ckassets.com/blog/wp-content/uploads/sites/5/2021/12/Best-Milk-Brands.jpg")
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -47,28 +37,23 @@ class NewHome_Fragment : Fragment() {
 
         setupSlider()
         observeSlider()
-        viewModel.fetchSlider()
+        
+        // Delay fetching slider until the fragment is fully transitioned to reduce lag
+        view.postDelayed({
+            if (isAdded) viewModel.fetchSlider()
+        }, 300)
 
         binding.iconNotification.setOnClickListener {
             startActivity(Intent(requireContext(), NotificationActivity::class.java))
         }
-
-//        // Set up listeners for Combo Offers Add buttons using the shared activity cart
-//        binding.btnAdd1.setOnClickListener {
-//            (activity as? NewHomeActivity)?.updateSharedCart(90.0, 1)
-//        }
-//
-//        binding.btnAdd2.setOnClickListener {
-//            (activity as? NewHomeActivity)?.updateSharedCart(90.0, 1)
-//        }
     }
 
     private fun setupSlider() {
-        // Show static images first
-        val adapter = ImageSliderAdapter(defaultImages)
-        binding.productSliderCart.adapter = adapter
-
+        binding.productSliderCart.adapter = ImageSliderAdapter(defaultImages)
         TabLayoutMediator(binding.tabLayout, binding.productSliderCart) { _, _ -> }.attach()
+        
+        // Reduce the ViewPager's sensitivity/rendering weight
+        binding.productSliderCart.offscreenPageLimit = 1
     }
 
     private fun observeSlider() {

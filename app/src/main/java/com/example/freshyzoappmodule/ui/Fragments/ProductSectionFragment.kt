@@ -85,6 +85,9 @@ class ProductSectionFragment : Fragment() {
         binding.rvCategories.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoryAdapter
+            // Optimization for lag
+            setHasFixedSize(true)
+            itemAnimator = null
         }
     }
 
@@ -101,7 +104,6 @@ class ProductSectionFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { products ->
-            // Sort products by category to ensure they are grouped together
             allProducts = products.sortedBy { it.categoryId }
             productAdapter.submitList(allProducts)
         })
@@ -124,7 +126,6 @@ class ProductSectionFragment : Fragment() {
                 (activity as? NewHomeActivity)?.updateSharedCart(product, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
-               // Toast.makeText(requireContext(), "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
                 intent.putExtra("product", product)
                 startActivity(intent)
@@ -140,8 +141,15 @@ class ProductSectionFragment : Fragment() {
             val linearLayoutManager = LinearLayoutManager(requireContext())
             layoutManager = linearLayoutManager
             adapter = productAdapter
+            
+            // Performance optimizations
+            setHasFixedSize(true)
+            itemAnimator = null
+            recycledViewPool.setMaxRecycledViews(0, 20)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                private var lastCategoryId = -1
+                
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
@@ -155,10 +163,15 @@ class ProductSectionFragment : Fragment() {
                         val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
                         if (firstVisibleItemPosition != RecyclerView.NO_POSITION && allProducts.isNotEmpty()) {
                             val categoryId = allProducts[firstVisibleItemPosition].categoryId
-                            val categoryPosition = categoryAdapter.getPositionForId(categoryId)
-                            if (categoryPosition != -1) {
-                                categoryAdapter.updateSelection(categoryPosition)
-                                binding.rvCategories.smoothScrollToPosition(categoryPosition)
+                            
+                            // Only update if category actually changed to avoid redundant layout passes
+                            if (categoryId != lastCategoryId) {
+                                lastCategoryId = categoryId
+                                val categoryPosition = categoryAdapter.getPositionForId(categoryId)
+                                if (categoryPosition != -1) {
+                                    categoryAdapter.updateSelection(categoryPosition)
+                                    binding.rvCategories.smoothScrollToPosition(categoryPosition)
+                                }
                             }
                         }
                     }
