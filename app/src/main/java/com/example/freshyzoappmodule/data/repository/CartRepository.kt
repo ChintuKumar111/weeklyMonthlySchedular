@@ -14,7 +14,6 @@ class CartRepository(context: Context) {
         val cartStateJson = gson.toJson(cartState)
         sharedPreferences.edit().putString("cart_state", cartStateJson).apply()
     }
-
     fun getCartState(): cartStateModel? {
         val cartStateJson = sharedPreferences.getString("cart_state", null)
         return if (cartStateJson != null) {
