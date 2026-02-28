@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="@dimen/_3sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:id="@+id/cardItem3"
@@ -10,6 +11,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:cardElevation="4dp"
+        android:layout_margin="@dimen/_3sdp"
         app:cardBackgroundColor="#FFFFFF"
         android:layout_marginBottom="14dp">
 
@@ -118,7 +120,7 @@
                 android:layout_height="30dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_green_rounded_qty">
+                android:background="@drawable/bg">
 
                 <ImageButton
                     android:id="@+id/btnMinus"
@@ -126,7 +128,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_minus"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/white"
+                    android:tint="@color/red_error"
                     android:contentDescription="Decrease" />
 
                 <TextView
@@ -136,7 +138,7 @@
                     android:text="1"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:gravity="center" />
 
                 <ImageButton
@@ -145,7 +147,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_plus"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/white"
+                    android:tint="@color/primary"
                     android:contentDescription="Increase" />
 
             </LinearLayout>

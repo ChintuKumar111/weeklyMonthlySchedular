@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.repository.CartRepository
-import com.example.freshyzoappmodule.databinding.ItemCartProductBinding
+import com.example.freshyzoappmodule.databinding.ItemCartProductRvBinding
 import com.example.freshyzoappmodule.extensions.discountPercent
 import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.extensions.imageUrl
@@ -25,11 +25,11 @@ class CartAdapter(
     private val onCartUpdated: () -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    inner class CartViewHolder(val binding: ItemCartProductBinding)
+    inner class CartViewHolder(val binding: ItemCartProductRvBinding)
         : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        val binding = ItemCartProductBinding.inflate(
+        val binding = ItemCartProductRvBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false

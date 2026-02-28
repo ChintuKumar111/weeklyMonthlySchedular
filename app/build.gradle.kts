@@ -43,6 +43,10 @@ android {
     kotlinOptions {
         jvmTarget = "21"
     }
+
+    androidResources {
+        noCompress += "lottie"
+    }
 }
 
 dependencies {
@@ -96,7 +100,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     // lottie animation
-    implementation("com.airbnb.android:lottie:6.1.0")
+    implementation("com.airbnb.android:lottie:6.7.1")
 
 
     // retrofit

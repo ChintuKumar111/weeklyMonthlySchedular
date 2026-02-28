@@ -78,9 +78,7 @@
         app:cornerRadius="@dimen/_5sdp"
         android:backgroundTint="@color/primary"
         android:layout_gravity="center_horizontal"/>
-
-
-    <!-- ═══════════════════════════════════════ -->
+        <!-- ═══════════════════════════════════════ -->
     <!--           SCROLLABLE CONTENT            -->
     <!-- ═══════════════════════════════════════ -->
     <ScrollView
@@ -96,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <!-- Delivery Date Row -->
             <RelativeLayout
@@ -204,6 +202,8 @@
             <!--       CART ITEM 1               -->
             <!-- ─────────────────────────────── -->
 
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -217,15 +217,17 @@
                 android:id="@+id/cardPriceDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="18dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="10dp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <!-- Card Title -->
                     <TextView
@@ -383,6 +385,7 @@
         </LinearLayout>
     </ScrollView>
 
+
     <!-- ═══════════════════════════════════════ -->
     <!--              FOOTER SECTION             -->
     <!-- ═══════════════════════════════════════ -->
@@ -396,6 +399,7 @@
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
         android:elevation="8dp">
+
 
 
         <!-- Order Button -->
@@ -416,6 +420,7 @@
             android:elevation="8dp" />
 
     </LinearLayout>
+
 
     <!-- ═══════════════════════════════════════ -->
     <!--            BOTTOM NAVIGATION            -->

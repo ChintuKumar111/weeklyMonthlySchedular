@@ -40,7 +40,6 @@ class SearchActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         cartRepository = CartRepository(this)
 
         setUpUI()

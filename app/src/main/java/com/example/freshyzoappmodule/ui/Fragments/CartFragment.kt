@@ -1,9 +1,12 @@
 package com.example.freshyzoappmodule.ui.Fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -59,6 +62,16 @@ class CartFragment : Fragment() {
         }
         binding.layoutDateSelector.setOnClickListener(dateClickListener)
         binding.btnEditDate.setOnClickListener(dateClickListener)
+        binding.btnSubscribeNow.setOnClickListener {
+
+            binding.animOrderConfirm.visibility = View.GONE
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.animOrderConfirm.visibility = View.VISIBLE
+                binding.animOrderConfirm.playAnimation()
+            }, 5000)
+        }
+
 
         binding.btnShopNow.setOnClickListener {
             val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)

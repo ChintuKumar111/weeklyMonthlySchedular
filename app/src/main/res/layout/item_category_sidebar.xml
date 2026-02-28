@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_width="80dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_2sdp"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
 <!-- item_category_sidebar.xml — used in rvCategories RecyclerView -->
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llCatItem"
-    android:layout_width="80dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
@@ -11,6 +20,10 @@
     android:background="@drawable/selector_cat_item"
     android:clickable="true"
     android:focusable="true">
+
+
+
+
 
     <!-- Category Image / Icon -->
     <com.google.android.material.imageview.ShapeableImageView
@@ -40,3 +53,4 @@
 <!--    android:fontFamily="@font/nunito_bold"-->
 
 </LinearLayout>
+</androidx.cardview.widget.CardView>

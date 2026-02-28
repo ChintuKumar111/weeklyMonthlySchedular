@@ -9,11 +9,13 @@
             </item>
             <item android:left="3dp">
                 <shape>
-                    <solid android:color="@color/green_light" />
+                    <solid android:color="#CAF4CD" />
                 </shape>
             </item>
         </layer-list>
     </item>
+
+
     <item android:state_activated="true">
         <layer-list>
             <item>
@@ -23,7 +25,7 @@
             </item>
             <item android:left="3dp">
                 <shape>
-                    <solid android:color="@color/green_light" />
+                    <solid android:color="#CAF4CD" />
                 </shape>
             </item>
         </layer-list>
