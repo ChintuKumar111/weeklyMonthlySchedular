@@ -1,7 +1,9 @@
 package com.example.freshyzoappmodule.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +17,7 @@ import com.example.freshyzoappmodule.ui.Fragments.WalletFragment
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlin.concurrent.thread
+import com.example.freshyzoappmodule.extensions.sizes
 
 class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
 
@@ -22,8 +25,8 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
     private lateinit var cartRepository: CartRepository
     private lateinit var navController: NavController
     
-    // Cache the cart state to avoid repeated disk I/O and JSON parsing on the main thread
     private var cachedCartState: cartStateModel? = null
+    private var isFromSearch: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +34,12 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         setContentView(binding.root)
 
         cartRepository = CartRepository(this)
-        // Load once at start
         cachedCartState = cartRepository.getCartState()
 
-        // Preload Razorpay
         Checkout.preload(applicationContext)
 
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.fragment_container) as NavHostFragment
+            .findFragmentById(binding.fragmentContainer.id) as NavHostFragment
 
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
@@ -50,7 +51,6 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
                     binding.cartPreview.hideCart()
                 }
                 else -> {
-                    // Use cached state instead of reading from disk during navigation transitions
                     val state = cachedCartState
                     if (state != null && state.itemsCount > 0) {
                         binding.cartPreview.showCart(state)
@@ -65,10 +65,37 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
         
-        // Initial setup for the preview if needed
         val initialState = cachedCartState
         if (initialState != null && initialState.itemsCount > 0) {
             binding.cartPreview.showCart(initialState)
+        }
+
+        handleIntent(intent)
+
+        // Handle Back Press to return to SearchActivity if needed
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (isFromSearch && navController.currentDestination?.id == R.id.nav_cart) {
+                    finish() // Close NewHomeActivity and go back to SearchActivity
+                } else {
+                    isEnabled = false // Disable this callback
+                    onBackPressedDispatcher.onBackPressed() // Perform default back action
+                    isEnabled = true // Re-enable for next time
+                }
+            }
+        })
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        isFromSearch = intent?.getBooleanExtra("FROM_SEARCH", false) == true
+        if (intent?.getBooleanExtra("OPEN_CART", false) == true) {
+            binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
     }
 
@@ -77,7 +104,6 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
             val currentState = cachedCartState ?: cartRepository.getCartState() ?: cartStateModel()
             
             val newCount = currentState.itemsCount + countDelta
-            val newPrice = currentState.totalPrice + priceDelta
             
             val productId = product.productId.toIntOrNull() ?: 0
             val newQuantities = currentState.productQuantities.toMutableMap()
@@ -96,15 +122,30 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
                 }
             }
             
+            // Calculate Total Price and Total Discount
+            var totalMRP = 0.0
+            var totalSellingPrice = 0.0
+            
+            currentProducts.forEach { p ->
+                val qty = newQuantities[p.productId.toIntOrNull() ?: 0] ?: 0
+                val size = p.sizes.firstOrNull()
+                if (size != null) {
+                    totalMRP += size.originalPrice.toDouble() * qty
+                    totalSellingPrice += size.price.toDouble() * qty
+                }
+            }
+
+            val totalDiscount = totalMRP - totalSellingPrice
+            
             val newState = cartStateModel(
                 itemsCount = if (newCount < 0) 0 else newCount, 
-                totalPrice = if (newPrice < 0.0) 0.0 else newPrice, 
+                totalPrice = if (totalSellingPrice < 0.0) 0.0 else totalSellingPrice, 
                 isVisible = true, 
                 productQuantities = newQuantities, 
-                products = currentProducts
+                products = currentProducts,
+                discount = if (totalDiscount < 0.0) 0.0 else totalDiscount
             )
             
-            // Update cache and save to disk
             cachedCartState = newState
             cartRepository.saveCartState(newState)
             
@@ -125,7 +166,7 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
     }
 
     override fun onPaymentSuccess(razorpayPaymentID: String?) {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as? NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id) as? NavHostFragment
         navHostFragment?.childFragmentManager?.fragments?.forEach { fragment ->
             if (fragment is WalletFragment) {
                 fragment.onPaymentSuccess(razorpayPaymentID)
@@ -134,7 +175,7 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
     }
 
     override fun onPaymentError(code: Int, response: String?) {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as? NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id) as? NavHostFragment
         navHostFragment?.childFragmentManager?.fragments?.forEach { fragment ->
             if (fragment is WalletFragment) {
                 fragment.onPaymentError(code, response)

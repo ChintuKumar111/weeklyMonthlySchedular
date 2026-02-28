@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Product
-import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ItemCartProductBinding
 import com.example.freshyzoappmodule.extensions.discountPercent

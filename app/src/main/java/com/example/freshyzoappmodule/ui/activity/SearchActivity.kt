@@ -56,8 +56,15 @@ class SearchActivity : AppCompatActivity() {
         binding.etSearch.addTextChangedListener { text ->
             viewModel.onSearchQueryChanged(text.toString().trim())
         }
+        binding.cartPreview.setOnViewCartClickListener {
+            val intent = Intent(this, NewHomeActivity::class.java)
+            intent.putExtra("OPEN_CART", true)
+            intent.putExtra("FROM_SEARCH", true)
+            startActivity(intent)
+        }
     }
 
+    // observe view model so that the state will be maintained
     private fun observeViewModel() {
         viewModel.filteredList.observe(this) { list ->
             // Sync current quantities from cart

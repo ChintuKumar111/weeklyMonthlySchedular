@@ -69,6 +69,19 @@ class ProductSectionFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Sync quantities when returning to the fragment
+        syncCartQuantities()
+    }
+
+    private fun syncCartQuantities() {
+        if (::productAdapter.isInitialized) {
+            val sharedQuantities = (activity as? NewHomeActivity)?.getCartState()?.productQuantities ?: emptyMap()
+            productAdapter.setInitialQuantities(sharedQuantities)
+        }
+    }
+
     private fun setupCategories() {
         val categories = listOf(
             categoryModel(1, "Milk", R.drawable.milk_),
@@ -105,6 +118,7 @@ class ProductSectionFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.productList.observe(viewLifecycleOwner, Observer { products ->
             allProducts = products.sortedBy { it.categoryId }
+            syncCartQuantities()
             productAdapter.submitList(allProducts)
         })
 

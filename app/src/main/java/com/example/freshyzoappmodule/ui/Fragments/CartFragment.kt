@@ -4,19 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.FragmentCartBinding
+import com.example.freshyzoappmodule.helper.DateHelperr
 import com.example.freshyzoappmodule.ui.adapter.CartAdapter
+import com.example.freshyzoappmodule.viewmodel.ProductSubscribeViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CartFragment : Fragment() {
 
+    private val viewModel: ProductSubscribeViewModel by viewModels()
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var cartAdapter: CartAdapter
     private lateinit var cartRepository: CartRepository
+    private lateinit var dateHelperr: DateHelperr
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +39,38 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         cartRepository = CartRepository(requireContext())
+        dateHelperr = DateHelperr()
 
         setupCartList()
+        setupObservers()
+        setupClickListeners()
+    }
+
+    private fun setupObservers() {
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            binding.tvSelectedDate.text = state.startDate
+            binding.tvDeliveryBegins.text = state.deliveryBeginsText
+        }
+    }
+
+    private fun setupClickListeners() {
+        val dateClickListener = View.OnClickListener {
+            showDatePicker()
+        }
+        binding.layoutDateSelector.setOnClickListener(dateClickListener)
+        binding.btnEditDate.setOnClickListener(dateClickListener)
+
+        binding.btnShopNow.setOnClickListener {
+            val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNav?.selectedItemId = R.id.nav_product
+        }
+    }
+
+    private fun showDatePicker() {
+        // Passing requireActivity() as AppCompatActivity fixes the type mismatch error
+        dateHelperr.showMaterialDatePicker(requireActivity() as AppCompatActivity) { formattedDate, dayName ->
+            viewModel.updateDateSelection(formattedDate, dayName)
+        }
     }
 
     private fun setupCartList() {
@@ -41,7 +79,13 @@ class CartFragment : Fragment() {
         if (cartState != null && cartState.products.isNotEmpty()) {
             binding.rvAddedProductInCart.visibility = View.VISIBLE
             binding.cardPriceDetails.visibility = View.VISIBLE
-            // binding.emptyLayout.visibility = View.GONE
+            binding.llElements.visibility = View.VISIBLE
+            binding.btnSubscribeNow.visibility = View.VISIBLE
+
+            binding.tvCartIsEmpty.visibility = View.GONE
+            binding.animEmptyCart.visibility = View.GONE
+            binding.tvFreshness.visibility = View.GONE
+            binding.btnShopNow.visibility = View.GONE
 
             cartAdapter = CartAdapter(
                 products = cartState.products,
@@ -57,23 +101,32 @@ class CartFragment : Fragment() {
 
             updateSummary()
         } else {
-            binding.rvAddedProductInCart.visibility = View.GONE
-            binding.cardPriceDetails.visibility = View.GONE
-            // binding.emptyLayout.visibility = View.VISIBLE
+            showEmptyUI()
         }
+    }
+
+    private fun showEmptyUI() {
+        binding.llElements.visibility = View.GONE
+        binding.btnSubscribeNow.visibility = View.GONE
+        binding.btnShopNow.visibility = View.VISIBLE
+        binding.tvCartIsEmpty.visibility = View.VISIBLE
+        binding.animEmptyCart.visibility = View.VISIBLE
+        binding.tvFreshness.visibility = View.VISIBLE
     }
 
     private fun updateSummary() {
         val cartState = cartRepository.getCartState()
         if (cartState != null) {
-            binding.tvTotalMRP.text = "₹${cartState.totalPrice}"
-            // Update other summary fields if they exist in FragmentCartBinding
-            // binding.tvTotalAmount.text = "₹${cartState.totalPrice}"
+            val totalMRP = cartState.totalPrice + cartState.discount
             
+            binding.tvTotalMRP.text = "₹${"%.2f".format(totalMRP)}"
+            binding.tvTotalPayable.text = "₹${"%.2f".format(cartState.totalPrice)}"
+            binding.tvDiscount.text = "- ₹${"%.2f".format(cartState.discount)}"
+            binding.tvSavings.text = "🎊 You're saving ₹${"%.2f".format(cartState.discount)} on this order!"
+            binding.tvItemCount.text = "${cartState.itemsCount} items"
+
             if (cartState.products.isEmpty()) {
-                binding.rvAddedProductInCart.visibility = View.GONE
-                binding.cardPriceDetails.visibility = View.GONE
-                // binding.emptyLayout.visibility = View.VISIBLE
+                showEmptyUI()
             }
         }
     }

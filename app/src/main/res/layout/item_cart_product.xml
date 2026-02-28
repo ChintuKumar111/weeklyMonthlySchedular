@@ -19,15 +19,26 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:padding="14dp">
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:elevation="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_10sdp">
 
-            <ImageView
-                android:id="@+id/imgAddedInCart"
-                android:layout_width="58dp"
-                android:layout_height="58dp"
-                android:src="@drawable/ghee"
-                android:background="@drawable/bg_green_light_rounded_small"
-                android:scaleType="centerCrop"
-                android:contentDescription="A2 Cow Milk 1L" />
+                <ImageView
+                    android:id="@+id/imgAddedInCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ghee"
+                    android:background="@drawable/bg_green_light_rounded_small"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="A2 Cow Milk 1L" />
+
+
+            </androidx.cardview.widget.CardView>
+
+
 
             <LinearLayout
                 android:layout_width="0dp"

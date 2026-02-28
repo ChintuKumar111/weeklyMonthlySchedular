@@ -34,6 +34,52 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animEmptyCart"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_250sdp"
+        app:lottie_rawRes="@raw/empty"
+        app:lottie_loop="true"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/tvCartIsEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/sora_bold"
+        android:text="Your Cart is emtpy!"/>
+
+
+    <TextView
+        android:id="@+id/tvFreshness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/sora_regular"
+        android:visibility="gone"
+        android:text="Fill this cart with freshness"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnShopNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="shop now"
+        android:visibility="gone"
+        app:cornerRadius="@dimen/_5sdp"
+        android:backgroundTint="@color/primary"
+        android:layout_gravity="center_horizontal"/>
+
+
     <!-- ═══════════════════════════════════════ -->
     <!--           SCROLLABLE CONTENT            -->
     <!-- ═══════════════════════════════════════ -->
@@ -46,6 +92,7 @@
         android:fillViewport="true">
 
         <LinearLayout
+            android:id="@+id/llElements"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
