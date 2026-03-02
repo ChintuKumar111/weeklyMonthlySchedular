@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,11 +19,9 @@ import com.example.freshyzoappmodule.viewmodel.ProductSubscribeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CartFragment : Fragment() {
-
     private val viewModel: ProductSubscribeViewModel by viewModels()
     private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var cartAdapter: CartAdapter
     private lateinit var cartRepository: CartRepository
     private lateinit var dateHelperr: DateHelperr
@@ -37,7 +34,6 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,16 +58,6 @@ class CartFragment : Fragment() {
         }
         binding.layoutDateSelector.setOnClickListener(dateClickListener)
         binding.btnEditDate.setOnClickListener(dateClickListener)
-        binding.btnSubscribeNow.setOnClickListener {
-
-            binding.animOrderConfirm.visibility = View.GONE
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.animOrderConfirm.visibility = View.VISIBLE
-                binding.animOrderConfirm.playAnimation()
-            }, 5000)
-        }
-
 
         binding.btnShopNow.setOnClickListener {
             val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -131,7 +117,7 @@ class CartFragment : Fragment() {
         val cartState = cartRepository.getCartState()
         if (cartState != null) {
             val totalMRP = cartState.totalPrice + cartState.discount
-            
+
             binding.tvTotalMRP.text = "₹${"%.2f".format(totalMRP)}"
             binding.tvTotalPayable.text = "₹${"%.2f".format(cartState.totalPrice)}"
             binding.tvDiscount.text = "- ₹${"%.2f".format(cartState.discount)}"
@@ -143,7 +129,6 @@ class CartFragment : Fragment() {
             }
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

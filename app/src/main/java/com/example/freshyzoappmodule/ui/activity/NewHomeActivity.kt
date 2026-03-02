@@ -46,30 +46,13 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         binding.bottomNavigation.itemIconTintList = null
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.nav_cart, R.id.nav_account -> {
-                    binding.cartPreview.hideCart()
-                }
-                else -> {
-                    val state = cachedCartState
-                    if (state != null && state.itemsCount > 0) {
-                        binding.cartPreview.showCart(state)
-                    } else {
-                        binding.cartPreview.hideCart()
-                    }
-                }
-            }
+            updateCartPreviewVisibility(destination.id)
         }
         
         binding.cartPreview.setOnViewCartClickListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
         
-        val initialState = cachedCartState
-        if (initialState != null && initialState.itemsCount > 0) {
-            binding.cartPreview.showCart(initialState)
-        }
-
         handleIntent(intent)
 
         // Handle Back Press to return to SearchActivity if needed
@@ -84,6 +67,30 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh cart state from repository in case it was changed in SearchActivity
+        cachedCartState = cartRepository.getCartState()
+        val currentDestinationId = try { navController.currentDestination?.id } catch (e: Exception) { null }
+        updateCartPreviewVisibility(currentDestinationId)
+    }
+
+    private fun updateCartPreviewVisibility(destinationId: Int?) {
+        val state = cachedCartState
+        if (state != null && state.itemsCount > 0) {
+            when (destinationId) {
+                R.id.nav_cart, R.id.nav_account -> {
+                    binding.cartPreview.hideCart()
+                }
+                else -> {
+                    binding.cartPreview.showCart(state)
+                }
+            }
+        } else {
+            binding.cartPreview.hideCart()
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -101,7 +108,7 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
 
     fun updateSharedCart(product: Product, priceDelta: Double, countDelta: Int, onComplete: ((cartStateModel) -> Unit)? = null) {
         thread {
-            val currentState = cachedCartState ?: cartRepository.getCartState() ?: cartStateModel()
+            val currentState = cartRepository.getCartState() ?: cartStateModel()
             
             val newCount = currentState.itemsCount + countDelta
             
@@ -151,11 +158,7 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
             
             runOnUiThread {
                 val currentId = try { navController.currentDestination?.id } catch (e: Exception) { null }
-                if (newState.itemsCount > 0 && currentId != R.id.nav_cart && currentId != R.id.nav_account) {
-                    binding.cartPreview.showCart(newState)
-                } else {
-                    binding.cartPreview.hideCart()
-                }
+                updateCartPreviewVisibility(currentId)
                 onComplete?.invoke(newState)
             }
         }

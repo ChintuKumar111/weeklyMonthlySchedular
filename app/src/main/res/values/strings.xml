@@ -78,8 +78,8 @@
 
     <!-- Hero -->
     <string name="my_profile">My Profile</string>
-    <string name="welcome_user">Welcome, Levi 👋</string>
-    <string name="account_subtitle">Manage your account &amp;\nfind useful links below.</string>
+    <string name="welcome_user">Welcome, User 👋</string>
+    <string name="account_subtitle">Manage your account &amp; find useful links below.</string>
 
     <!-- Section Labels -->
     <string name="quick_access">Quick Access</string>
@@ -89,7 +89,7 @@
     <!-- Quick Access Tiles -->
     <string name="my_orders">My Orders</string>
     <string name="deliveries">Deliveries</string>
-    <string name="wallet">Wallet</string>
+    <string name="invoice_for_monthly_subscription">Invoice</string>
     <string name="vacation">Vacation</string>
 
     <!-- Account Menu Items -->

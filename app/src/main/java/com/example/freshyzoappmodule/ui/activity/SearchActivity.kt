@@ -40,14 +40,13 @@ class SearchActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        cartRepository = CartRepository(this)
 
+        cartRepository = CartRepository(this)
         setUpUI()
         setupTextSwitcher()
         setupPopularProducts()
         setupRecentSearches()
         setupSearchProducts()
-        
         loadInitialData()
         observeViewModel()
         loadCartState()
@@ -62,69 +61,154 @@ class SearchActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    private fun updateUIState(
+        list: List<Product>,
+        isLoading: Boolean,
+        query: String,
+        recentList: List<String>
+    ) {
+        when {
+            isLoading -> {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.rvSearch.visibility = View.GONE
+                binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility = View.GONE
+            }
 
-    // observe view model so that the state will be maintained
+            query.isEmpty() -> {
+                binding.progressBar.visibility = View.GONE
+                binding.rvSearch.visibility = View.GONE
+                binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility =
+                    if (recentList.isNotEmpty()) View.VISIBLE else View.GONE
+            }
+
+            list.isEmpty() -> {
+                binding.progressBar.visibility = View.GONE
+                binding.rvSearch.visibility = View.GONE
+                binding.llNoMatch.visibility = View.VISIBLE
+                binding.llRecentSearch.visibility = View.GONE
+            }
+
+            else -> {
+                binding.progressBar.visibility = View.GONE
+                binding.rvSearch.visibility = View.VISIBLE
+                binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility = View.GONE
+            }
+        }
+    }
+
     private fun observeViewModel() {
+
         viewModel.filteredList.observe(this) { list ->
-            // Sync current quantities from cart
-            val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
+
+            val sharedQuantities =
+                cartRepository.getCartState()?.productQuantities ?: emptyMap()
             productAdapter.setInitialQuantities(sharedQuantities)
 
             productAdapter.submitList(list)
 
-            val query = binding.etSearch.text.toString().trim()
-            if (query.isEmpty()) {
-                binding.rvSearch.visibility = View.GONE
-                binding.llNoMatch.visibility = View.GONE
-                binding.llRecentSearch.visibility =
-                    if (viewModel.recentSearches.value?.isNotEmpty() == true) View.VISIBLE else View.GONE
-            } else if (list.isEmpty() && viewModel.isLoading.value == false) {
-                binding.rvSearch.visibility = View.GONE
-                binding.llNoMatch.visibility = View.VISIBLE
-                binding.llRecentSearch.visibility = View.GONE
-            } else {
-                binding.rvSearch.visibility = if (list.isNotEmpty()) View.VISIBLE else View.GONE
-                binding.llNoMatch.visibility = View.GONE
-                binding.llRecentSearch.visibility = View.GONE
-            }
+            updateUIState(
+                list = list,
+                isLoading = viewModel.isLoading.value ?: false,
+                query = binding.etSearch.text.toString().trim(),
+                recentList = viewModel.recentSearches.value ?: emptyList()
+            )
         }
 
         viewModel.isLoading.observe(this) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            if (isLoading) {
-                binding.rvSearch.visibility = View.GONE
-                binding.llNoMatch.visibility = View.GONE
-                binding.llRecentSearch.visibility = View.GONE
-            }
+            updateUIState(
+                list = viewModel.filteredList.value ?: emptyList(),
+                isLoading = isLoading,
+                query = binding.etSearch.text.toString().trim(),
+                recentList = viewModel.recentSearches.value ?: emptyList()
+            )
+        }
+
+        viewModel.recentSearches.observe(this) { list ->
+            recentAdapter.updateList(list)
+
+            updateUIState(
+                list = viewModel.filteredList.value ?: emptyList(),
+                isLoading = viewModel.isLoading.value ?: false,
+                query = binding.etSearch.text.toString().trim(),
+                recentList = list
+            )
         }
 
         viewModel.isHintVisible.observe(this) { isVisible ->
-            binding.textSwitcher.visibility = if (isVisible) View.VISIBLE else View.GONE
+            binding.textSwitcher.visibility =
+                if (isVisible) View.VISIBLE else View.GONE
         }
 
         viewModel.currentHintIndex.observe(this) { index ->
             binding.textSwitcher.setText(viewModel.getHintText(index))
         }
-
-        viewModel.showNoMatch.observe(this) { show ->
-            if (show && binding.etSearch.text.toString().trim().isNotEmpty()) {
-                binding.llNoMatch.visibility = View.VISIBLE
-                binding.rvSearch.visibility = View.GONE
-            } else {
-                binding.llNoMatch.visibility = View.GONE
-            }
-        }
-
-        viewModel.recentSearches.observe(this) { list ->
-            recentAdapter.updateList(list)
-            if (binding.etSearch.text.toString().trim().isEmpty() && list.isNotEmpty()) {
-                binding.llRecentSearch.visibility = View.VISIBLE
-            } else {
-                binding.llRecentSearch.visibility = View.GONE
-            }
-        }
-
     }
+    // observe view model so that the state will be maintained
+//    private fun observeViewModel() {
+
+//        viewModel.filteredList.observe(this) { list ->
+//            // Sync current quantities from cart
+//            val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
+//            productAdapter.setInitialQuantities(sharedQuantities)
+//
+//            productAdapter.submitList(list)
+//
+//            val query = binding.etSearch.text.toString().trim()
+//            if (query.isEmpty()) {
+//                binding.rvSearch.visibility = View.GONE
+//                binding.llNoMatch.visibility = View.GONE
+//                binding.llRecentSearch.visibility =
+//                    if (viewModel.recentSearches.value?.isNotEmpty() == true) View.VISIBLE else View.GONE
+//            } else if (list.isEmpty() && viewModel.isLoading.value == false) {
+//                binding.rvSearch.visibility = View.GONE
+//                binding.llNoMatch.visibility = View.VISIBLE
+//                binding.llRecentSearch.visibility = View.GONE
+//            } else {
+//                binding.rvSearch.visibility = if (list.isNotEmpty()) View.VISIBLE else View.GONE
+//                binding.llNoMatch.visibility = View.GONE
+//                binding.llRecentSearch.visibility = View.GONE
+//            }
+//        }
+//
+//        viewModel.isLoading.observe(this) { isLoading ->
+//            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+//            if (isLoading) {
+//                binding.rvSearch.visibility = View.GONE
+//                binding.llNoMatch.visibility = View.GONE
+//                binding.llRecentSearch.visibility = View.GONE
+//            }
+//        }
+//
+//        viewModel.isHintVisible.observe(this) { isVisible ->
+//            binding.textSwitcher.visibility = if (isVisible) View.VISIBLE else View.GONE
+//        }
+//
+//        viewModel.currentHintIndex.observe(this) { index ->
+//            binding.textSwitcher.setText(viewModel.getHintText(index))
+//        }
+//
+//        viewModel.showNoMatch.observe(this) { show ->
+//            if (show && binding.etSearch.text.toString().trim().isNotEmpty()) {
+//                binding.llNoMatch.visibility = View.VISIBLE
+//                binding.rvSearch.visibility = View.GONE
+//            } else {
+//                binding.llNoMatch.visibility = View.GONE
+//            }
+//        }
+//
+//        viewModel.recentSearches.observe(this) { list ->
+//            recentAdapter.updateList(list)
+//            if (binding.etSearch.text.toString().trim().isEmpty() && list.isNotEmpty()) {
+//                binding.llRecentSearch.visibility = View.VISIBLE
+//            } else {
+//                binding.llRecentSearch.visibility = View.GONE
+//            }
+//        }
+//
+//    }
 
     private fun setupTextSwitcher() {
         binding.textSwitcher.setFactory {
@@ -202,12 +286,12 @@ class SearchActivity : AppCompatActivity() {
             val currentState = cartRepository.getCartState() ?: cartStateModel()
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
-            
+
             val productId = product.productId.toIntOrNull() ?: 0
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
-            
+
             val currentProducts = currentState.products.toMutableList()
 
             if (newQty <= 0) {
@@ -219,10 +303,10 @@ class SearchActivity : AppCompatActivity() {
                     currentProducts.add(product)
                 }
             }
-            
+
             val newState = cartStateModel(newCount, newPrice, true, newQuantities, currentProducts)
             cartRepository.saveCartState(newState)
-            
+
             runOnUiThread {
                 if (newState.itemsCount > 0) {
                     binding.cartPreview.showCart(newState)

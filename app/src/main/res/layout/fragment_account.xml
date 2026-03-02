@@ -63,14 +63,15 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
                 android:background="@drawable/bg_outline_green"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
                 app:backgroundTint="#D6E04040"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="4dp"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingBottom="@dimen/_2sdp"
                 app:icon="@drawable/logout"
                 android:text="@string/log_out"
-                app:iconGravity="textStart"
+                android:layout_gravity="center_horizontal"
+                app:iconGravity="textEnd"
                 app:iconPadding="8dp" />
 
             <!-- App Info -->

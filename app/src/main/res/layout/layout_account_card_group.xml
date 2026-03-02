@@ -28,6 +28,7 @@
 
         <!-- Subscriptions -->
         <LinearLayout
+            android:id="@+id/tabSubscription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -90,6 +91,7 @@
 
         <!-- Profile -->
         <LinearLayout
+            android:id="@+id/tabProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -151,6 +153,7 @@
 
         <!-- Address -->
         <LinearLayout
+            android:id="@+id/tabAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -212,6 +215,7 @@
 
         <!-- Payments -->
         <LinearLayout
+            android:id="@+id/tabPaymentsAndWallet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"

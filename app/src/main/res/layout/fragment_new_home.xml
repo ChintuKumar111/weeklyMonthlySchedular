@@ -257,15 +257,15 @@
                     <!-- Report Image Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="@dimen/_150sdp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="2dp">
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/milk_quality_report"/>
+                            android:src="@drawable/milk_reportt"/>
                     </androidx.cardview.widget.CardView>
 
                     <GridLayout
@@ -350,7 +350,7 @@
                         android:layout_height="wrap_content"
                         android:text="View today's milk test report"
                         android:layout_marginTop="14dp"
-                        app:backgroundTint="@color/primary"
+                        app:backgroundTint="@color/primary_dark"
                         android:background="@drawable/bg" />
 
                 </LinearLayout>
