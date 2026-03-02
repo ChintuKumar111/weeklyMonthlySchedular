@@ -10,7 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.freshyzoappmodule.helper.DateHelper
+import com.example.freshyzoappmodule.helper.DailyWeeklyDateHelper
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.ActivityDailyWeeklyMonthlySubscriptionBinding
 import com.example.freshyzoappmodule.databinding.BottomSheetDialogBinding
@@ -25,7 +25,7 @@ class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
     private lateinit var  binding : ActivityDailyWeeklyMonthlySubscriptionBinding
       private val  viewModel: MainViewModel by viewModels()
 
-    private  lateinit var   dateHelper : DateHelper
+    private  lateinit var   dateHelper : DailyWeeklyDateHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        dateHelper = DateHelper(viewModel, this)
+        dateHelper = DailyWeeklyDateHelper(viewModel, this)
         setupObservers()
         setupClicks()
     }

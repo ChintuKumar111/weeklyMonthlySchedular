@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import com.example.freshyzoappmodule.data.model.cartStateModel
 import com.example.freshyzoappmodule.databinding.BottomSheetCartPreviewBinding
 
-class CartPreviewView @JvmOverloads constructor(
+class CartPreviewViewHelper @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {

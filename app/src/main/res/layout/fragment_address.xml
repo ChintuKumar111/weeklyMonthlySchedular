@@ -361,9 +361,8 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/outline_edit_location_alt_24"
             android:backgroundTint="@color/primary"
-            android:text="Use Current Location"
+            android:text="Get Current Location"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>
 

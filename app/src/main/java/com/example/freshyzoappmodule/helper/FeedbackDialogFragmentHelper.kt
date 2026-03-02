@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.freshyzoappmodule.databinding.DialogFeedbackBinding
 
-class FeedbackDialogFragment : DialogFragment() {
+class FeedbackDialogFragmentHelper : DialogFragment() {
 
     private var _binding: DialogFeedbackBinding? = null
     private val binding get() = _binding!!

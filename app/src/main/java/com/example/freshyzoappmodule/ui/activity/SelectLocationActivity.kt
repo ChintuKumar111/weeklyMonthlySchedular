@@ -1,115 +1,200 @@
 package com.example.freshyzoappmodule.ui.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.provider.Settings
+import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat
 import com.example.freshyzoappmodule.R
+import com.example.freshyzoappmodule.data.repository.GeocoderRepository
 import com.example.freshyzoappmodule.databinding.ActivitySelectLocationBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.example.freshyzoappmodule.helper.LocationHelper
+import com.example.freshyzoappmodule.viewmodel.SelectLocationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import java.util.Locale
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
+
     private lateinit var binding: ActivitySelectLocationBinding
     private lateinit var mMap: GoogleMap
+    private lateinit var locationHelper: LocationHelper
+    private lateinit var viewModel: SelectLocationViewModel
+
     private var selectedLatLng: LatLng? = null
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivitySelectLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+
+        val repository = GeocoderRepository(this)
+        viewModel = SelectLocationViewModel(repository)
+
+        setupMap()
+        observeViewModel()
+
+        locationHelper = LocationHelper(
+            activity = this,
+            onLocationStatusChanged = { isLoading ->
+                binding.llLoadingLocation.visibility = if (isLoading) View.VISIBLE else View.GONE
+            },
+            onLocationReceived = { latLng ->
+                if (::mMap.isInitialized) {
+                    mMap.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(latLng, 17f)
+                    )
+                }
+            }
+        )
+
+        binding.fabMyLocation.setOnClickListener {
+            checkPermissionAndRequestLocation()
+        }
 
         binding.btnConfirm.setOnClickListener {
-            val resultIntent = Intent()
-            resultIntent.putExtra("address", binding.tvSelectedAddress.text.toString())
-            setResult(RESULT_OK, resultIntent)
-            finish()
+            selectedLatLng?.let {
+                val resultIntent = Intent().apply {
+                    putExtra("address", binding.tvSelectedAddress.text.toString())
+                    putExtra("lat", it.latitude)
+                    putExtra("lng", it.longitude)
+                }
+                setResult(RESULT_OK, resultIntent)
+                finish()
+            }
         }
     }
 
-//    override fun onMapReady(googleMap: GoogleMap) {
-//        mMap = googleMap
-//
-//        val defaultLocation = LatLng(21.2514, 81.6296) // Raipur example
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 16f))
-//
-//        mMap.setOnCameraIdleListener {
-//            selectedLatLng = mMap.cameraPosition.target
-//            selectedLatLng?.let {
-//                getAddressFromLatLng(it)
-//            }
-//        }
-//    }
+    private fun observeViewModel() {
+        viewModel.address.observe(this) {
+            binding.tvSelectedAddress.text = it
+        }
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                101
-            )
-            return
+        mMap.uiSettings.apply {
+            isZoomControlsEnabled = false
+            isMyLocationButtonEnabled = false
+            isCompassEnabled = true
+            isRotateGesturesEnabled = true
         }
 
-        mMap.isMyLocationEnabled = true
+        checkPermissionAndRequestLocation()
 
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                val currentLatLng = LatLng(location.latitude, location.longitude)
-                mMap.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(currentLatLng, 17f)
-                )
-            }
+        mMap.setOnCameraMoveStartedListener {
+            binding.tvSelectedAddress.text = "Fetching address..."
         }
 
         mMap.setOnCameraIdleListener {
             selectedLatLng = mMap.cameraPosition.target
             selectedLatLng?.let {
-                getAddressFromLatLng(it)
+                viewModel.fetchAddress(it)
             }
         }
     }
 
-    private fun getAddressFromLatLng(latLng: LatLng) {
-        val geocoder = Geocoder(this, Locale.getDefault())
-
-        try {
-            val addressList = geocoder.getFromLocation(
-                latLng.latitude,
-                latLng.longitude,
-                1
-            )
-
-            if (!addressList.isNullOrEmpty()) {
-                binding.tvSelectedAddress.text =
-                    addressList[0].getAddressLine(0)
+    private fun checkPermissionAndRequestLocation() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                enableMyLocation()
+                locationHelper.reset()
+                locationHelper.checkLocationSettings(2001)
             }
-        } catch (e: Exception) {
+            ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                showPermissionRationaleDialog()
+            }
+            else -> {
+                locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+        }
+    }
+
+    private fun showPermissionRationaleDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Location Permission Needed")
+            .setMessage("This app needs location access to find your delivery address automatically. Please grant the permission.")
+            .setPositiveButton("Try Again") { _, _ ->
+                locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showSettingsDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Permission Permanently Denied")
+            .setMessage("You have denied location permission multiple times. Please enable it in the app settings to use this feature.")
+            .setPositiveButton("Go to Settings") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", packageName, null)
+                }
+                startActivity(intent)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun enableMyLocation() {
+        try {
+            mMap.isMyLocationEnabled = true
+        } catch (e: SecurityException) {
             e.printStackTrace()
         }
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 2001) {
+            if (resultCode == Activity.RESULT_OK) {
+                locationHelper.requestLocation()
+            } else {
+                Toast.makeText(this, "Location services are required", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        locationHelper.removeUpdates()
+    }
+
+    private fun setupMap() {
+        val mapFragment =
+            supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    }
+
+    private val locationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) {
+                enableMyLocation()
+                locationHelper.checkLocationSettings(2001)
+            } else {
+                // If it's not granted and we shouldn't show rationale, it means it's permanently denied
+                if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    showSettingsDialog()
+                } else {
+                    Toast.makeText(this, "Location permission is required", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 }

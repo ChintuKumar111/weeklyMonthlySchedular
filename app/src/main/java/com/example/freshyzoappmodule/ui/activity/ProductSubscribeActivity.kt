@@ -5,11 +5,6 @@ import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -21,14 +16,9 @@ import com.example.freshyzoappmodule.data.model.ProductSubscribeUiState
 import com.example.freshyzoappmodule.databinding.ActivityProductSubscribeBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
 import com.example.freshyzoappmodule.extensions.sizes
-import com.example.freshyzoappmodule.helper.DateHelper
-import com.example.freshyzoappmodule.helper.DayRowHolder
+import com.example.freshyzoappmodule.helper.DayRowHolderHelper
 import com.example.freshyzoappmodule.viewmodel.ProductDetailsViewModel
 import com.example.freshyzoappmodule.viewmodel.ProductSubscribeViewModel
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class ProductSubscribeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductSubscribeBinding
@@ -36,7 +26,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
     private val vm: ProductDetailsViewModel by viewModels()
     private val viewModel: ProductSubscribeViewModel by viewModels()
 
-    lateinit var dayRows: List<DayRowHolder>
+    lateinit var dayRows: List<DayRowHolderHelper>
     private lateinit var dateHelperr: DateHelperr
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,13 +51,13 @@ class ProductSubscribeActivity : AppCompatActivity() {
     }
     private fun bindDayRows() {
         dayRows = listOf(
-            DayRowHolder(binding.rowMonday.root),
-            DayRowHolder(binding.rowTuesday.root),
-            DayRowHolder(binding.rowWednesday.root),
-            DayRowHolder(binding.rowThursday.root),
-            DayRowHolder(binding.rowFriday.root),
-            DayRowHolder(binding.rowSaturday.root),
-            DayRowHolder(binding.rowSunday.root),
+            DayRowHolderHelper(binding.rowMonday.root),
+            DayRowHolderHelper(binding.rowTuesday.root),
+            DayRowHolderHelper(binding.rowWednesday.root),
+            DayRowHolderHelper(binding.rowThursday.root),
+            DayRowHolderHelper(binding.rowFriday.root),
+            DayRowHolderHelper(binding.rowSaturday.root),
+            DayRowHolderHelper(binding.rowSunday.root),
         )
     }
     private fun initializeProduct() {

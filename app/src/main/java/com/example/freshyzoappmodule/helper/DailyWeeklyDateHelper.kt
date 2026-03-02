@@ -6,7 +6,7 @@ import android.content.Context
 import com.example.freshyzoappmodule.viewmodel.MainViewModel
 import java.util.Calendar
 
-class DateHelper(private val viewModel: MainViewModel, private val context: Context){
+class DailyWeeklyDateHelper(private val viewModel: MainViewModel, private val context: Context){
 
 
 
