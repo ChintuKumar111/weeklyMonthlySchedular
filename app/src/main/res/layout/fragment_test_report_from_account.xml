@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8F5ED"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="40dp">
+
+        <!-- ── PAGE LABEL ── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FRESHYZO · LAB REPORTS"
+            android:textColor="#2D6A4F"
+            android:textSize="11sp"
+            android:fontFamily="@font/sora_bold"
+            android:letterSpacing="0.15"
+            android:gravity="center"
+            android:alpha="0.7"
+            android:layout_marginBottom="16dp" />
+
+        <!-- ════════════════════════════════════
+             CARD 1: COW MILK
+        ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_header_green_gradient"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="20dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp">
+
+                    <!-- Icon -->
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_header_icon"
+                        android:text="🥛"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FreshyZo Cow Milk"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="-0.02" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QUALITY TEST REPORT"
+                        android:textColor="#BDECD0"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_bold"
+                        android:letterSpacing="0.2"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Table Header Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#F0FAF3"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content"
+                        android:text="SR."
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TEST NAME"
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:text="VALID RANGE"
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="RESULT"
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View android:layout_width="match_parent" android:layout_height="2dp" android:background="#C7E8D0" />
+
+                <!-- Row 1 -->
+                <include layout="@layout/item_row_fat"/>
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <!-- Row 2 -->
+                <include layout="@layout/item_row_snf"/>
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <!-- Row 3 -->
+                <include layout="@layout/item_row_urea"/>
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <!-- Row 4 -->
+                <include layout="@layout/item_row_starch"/>
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <!-- Row 5 -->
+                <include layout="@layout/item_row_acidity"/>
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <!-- Row 6 -->
+                <include layout="@layout/item_row_detergent"/>
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <!-- Row 7 -->
+                <include layout="@layout/item_row_antibiotics"/>
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <!-- Row 8 -->
+                <include layout="@layout/item_row_caustic"/>
+
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+
+
+                <!-- Footer -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F0FAF3"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="16dp">
+
+                    <!-- Date -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:background="@drawable/bg_dot_amber"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tested — 2025-10-27"
+                            android:textColor="#3D5A47"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/sora_bold" />
+
+                    </LinearLayout>
+
+                    <!-- Pass legend -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="top"
+                        android:layout_marginBottom="6dp">
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:background="@drawable/bg_dot_green"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pass: Pure Milk — No adulteration detected."
+                            android:textColor="#3D5A47"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/sora_regular" />
+
+                    </LinearLayout>
+
+                    <!-- Fail legend -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="top">
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:background="@drawable/bg_dot_red"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="3dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fail: Adulterated Milk — Contains harmful additives."
+                            android:textColor="#3D5A47"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/sora_regular" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- ════════════════════════════════════
+             CARD 2: BUFFALO MILK
+        ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_header_green_gradient"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="20dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_header_icon"
+                        android:text="🐃"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="FreshyZo Buffalo Milk"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="-0.02" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QUALITY TEST REPORT"
+                        android:textColor="#BDECD0"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_bold"
+                        android:letterSpacing="0.2"
+                        android:layout_marginTop="4dp" />
+
+                </LinearLayout>
+
+                <!-- Table Header Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#F0FAF3"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content"
+                        android:text="SR."
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TEST NAME"
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        android:text="VALID RANGE"
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="RESULT"
+                        android:textColor="#2D6A4F"
+                        android:textSize="10sp"
+                        android:fontFamily="@font/sora_extrabold"
+                        android:letterSpacing="0.1"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="2dp" android:background="#C7E8D0" />
+
+                <!-- Row 1: Fat (Green - in range) -->
+                <include layout="@layout/item_test_row_green_value"
+                    android:id="@+id/rowBufFat" />
+                <!-- resultText = "6.5%" -->
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F7F2" />
+
+                <!-- Row 2: SNF (Green - in range) -->
+                <include layout="@layout/item_row_snf"
+                    android:id="@+id/rowBufSNF" />
+                <!-- resultText = "8.9%" -->
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F7F2" />
+
+                <include layout="@layout/item_row_urea"
+                    android:id="@+id/rowBufUrea" />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp" android:background="#F0F7F2" />
+
+                <include layout="@layout/item_row_starch"
+                    android:id="@+id/rowBufStarch" />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <include layout="@layout/item_row_acidity"
+                    android:id="@+id/rowBufAcidity" />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <include layout="@layout/item_row_detergent"
+                    android:id="@+id/rowBufDetergent" />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <include layout="@layout/item_row_antibiotics"
+                    android:id="@+id/rowBufAntibiotics" />
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F7F2" />
+
+                <include layout="@layout/item_row_caustic"
+                    android:id="@+id/rowBufCaustic" />
+
+                <!-- Footer -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F0FAF3"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <View android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:background="@drawable/bg_dot_green"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tested — 2025-10-27"
+                            android:textColor="#3D5A47"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/sora_bold" />
+                    </LinearLayout>
+
+                    <!-- PASS ITEM -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="start">
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_dot_green" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Pass: Pure Milk — No adulteration detected."
+                            android:textColor="#3D5A47"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/sora_regular"
+                            android:lineSpacingExtra="2dp"/>
+                    </LinearLayout>
+
+
+                    <!-- FAIL ITEM -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="start">
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_dot_red" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Fail: Adulterated Milk — Contains harmful additives."
+                            android:textColor="#3D5A47"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/sora_regular"
+                            android:lineSpacingExtra="2dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- ════════════════════════════════════
+             CARD 3: INTERPRETATION
+        ════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_header_green_gradient"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="16dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Interpretation"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/sora_extrabold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="UNDERSTANDING YOUR TEST RESULTS"
+                        android:textColor="#BDECD0"
+                        android:textSize="9sp"
+                        android:fontFamily="@font/sora_bold"
+                        android:letterSpacing="0.18"
+                        android:layout_marginTop="3dp" />
+
+                </LinearLayout>
+
+                <!-- Body -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp">
+
+                    <!-- Item 1: FAT -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="#52B788"
+                            android:layout_marginEnd="14dp"
+                            android:minHeight="60dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1. FAT (Milk Fat Content)"
+                                android:textColor="#2D6A4F"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/sora_extrabold"
+                                android:layout_marginBottom="6dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Butterfat portion in milk.\nCow Milk: 3.5% – 3.9%\nBuffalo Milk: 8.5 – 8.8%"
+                                android:textColor="#3D5A47"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/sora_regular"
+                                android:lineSpacingMultiplier="1.5" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#C7E8D0"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Item 2: SNF -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="3dp"
+                            android:layout_height="match_parent"
+                            android:background="#52B788"
+                            android:layout_marginEnd="14dp"
+                            android:minHeight="60dp" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2. SNF (Solids Not Fat)"
+                                android:textColor="#2D6A4F"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/sora_extrabold"
+                                android:layout_marginBottom="6dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Includes casein, lactose, vitamins, minerals.\nCow Milk SNF: 7.5% – 8.5%\nBuffalo Milk SNF: 8.5% – 9.5%"
+                                android:textColor="#3D5A47"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/sora_regular"
+                                android:lineSpacingMultiplier="1.5" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#C7E8D0"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Item 3: Urea -->
+                    <include layout="@layout/item_interpretation"
+                        android:id="@+id/interpUrea" />
+                    <!--
+                        number = "3."
+                        title = "Urea"
+                        passText = "No urea detected"
+                        failText = "Urea adulteration detected"
+                    -->
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#C7E8D0"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Item 4: Starch -->
+                    <include layout="@layout/interp_starch"
+                        android:id="@+id/interpStarch" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#C7E8D0"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Item 5: Acidity -->
+                    <include layout="@layout/interp_acidity"
+                        android:id="@+id/interpAcidity" />
+                    <!-- passText = "Acidity within acceptable limits (fresh milk)" -->
+                    <!-- failText = "Acidity exceeds acceptable limits (spoiled or poor-quality milk)" -->
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#C7E8D0"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Item 6: Detergent -->
+                    <include
+                        layout="@layout/interp_detergent" android:id="@+id/interpDetergent" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#C7E8D0"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Item 7: Antibiotics -->
+                    <include layout="@layout/interp_antibiotics"
+                        android:id="@+id/interpAntibiotics" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#C7E8D0"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Item 8: Caustic Soda -->
+                    <include layout="@layout/interp_coustic_soda"
+                        android:id="@+id/interpCaustic" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

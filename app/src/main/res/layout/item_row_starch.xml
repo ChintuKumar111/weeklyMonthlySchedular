@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- SR Number -->
+    <TextView
+        android:id="@+id/tvSr"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:text="4."
+        android:textColor="#7A9E8A"
+        android:textSize="12sp"
+        android:fontFamily="@font/sora_bold" />
+
+    <!-- Test Name -->
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Starch"
+        android:textColor="#1B2D24"
+        android:textSize="14sp"
+        android:fontFamily="@font/sora_bold" />
+
+    <!-- Valid Range -->
+    <TextView
+        android:id="@+id/tvRange"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textColor="#7A9E8A"
+        android:textSize="12sp"
+        android:fontFamily="@font/sora_regular" />
+
+    <!-- Result: Green Value Badge -->
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_badge_pass"
+            android:text="Pass"
+            android:textColor="#40916C"
+            android:textSize="12sp"
+            android:fontFamily="@font/sora_extrabold"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:minWidth="56dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</LinearLayout>

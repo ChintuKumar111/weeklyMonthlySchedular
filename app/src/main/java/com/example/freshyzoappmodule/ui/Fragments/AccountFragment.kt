@@ -1,5 +1,7 @@
 package com.example.freshyzoappmodule.ui.Fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +34,21 @@ class AccountFragment : Fragment() {
 
         binding.root.findViewById<View>(R.id.tabAddress)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_addressFragment)
+        }
+        binding.root.findViewById<View>(R.id.tabComplaintsNAssistance)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_complaintAssistanceFragment)
+        }
+
+        binding.root.findViewById<View>(R.id.tabTestReport)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_testReportFragment)
+        }
+
+        binding.root.findViewById<View>(R.id.tabAboutUs)?.setOnClickListener {
+            val url = "https://freshyzo.com/about-us/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+
         }
         
         binding.btnLogout.setOnClickListener {

@@ -575,7 +575,7 @@
                         <ImageButton
                             android:id="@+id/btnQtyMinus"
                             android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_height="35dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:src="@drawable/ic_minus"
                             android:tint="@color/primary"
@@ -594,7 +594,7 @@
                         <ImageButton
                             android:id="@+id/btnQtyPlus"
                             android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_height="35dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:src="@drawable/ic_plus"
                             android:tint="@color/primary"

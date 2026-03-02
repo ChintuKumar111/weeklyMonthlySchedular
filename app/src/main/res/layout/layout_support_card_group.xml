@@ -27,6 +27,7 @@
 
         <!-- Test Report -->
         <LinearLayout
+            android:id="@+id/tabTestReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -84,6 +85,7 @@
 
         <!-- Refer & Earn -->
         <LinearLayout
+            android:id="@+id/tabReferAndEarn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -142,6 +144,7 @@
 
         <!-- Complaint -->
         <LinearLayout
+            android:id="@+id/tabComplaintsNAssistance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -199,6 +202,7 @@
 
         <!-- Language -->
         <LinearLayout
+            android:id="@+id/tabLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -257,6 +261,7 @@
 
         <!-- About Us -->
         <LinearLayout
+            android:id="@+id/tabAboutUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"

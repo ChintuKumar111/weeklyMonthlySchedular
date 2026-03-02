@@ -160,9 +160,9 @@ class ProductSubscribeViewModel : ViewModel() {
                 val total = state.dayStates.sumOf { day ->
                     if (day.isOn) day.qty * basePrice else 0
                 }
-                "Subscribe Now · ₹$total"
+                "Subscribe Now "
             }
-            else -> "Subscribe Now · ₹${state.simpleQty * basePrice}"
+            else -> "Subscribe Now "
         }
     }
 

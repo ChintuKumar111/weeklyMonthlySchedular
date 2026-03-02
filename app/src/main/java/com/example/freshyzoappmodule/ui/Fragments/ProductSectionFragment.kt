@@ -35,6 +35,7 @@ class ProductSectionFragment : Fragment() {
 
     private var allProducts: List<Product> = emptyList()
     private var isScrollingFromCategory = false
+    private var pendingCategoryId: Int = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProductSectionBinding.inflate(inflater, container, false)
@@ -43,6 +44,9 @@ class ProductSectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Get category ID from navigation arguments
+        pendingCategoryId = arguments?.getInt("category_id", -1) ?: -1
 
         setupProductRecyclerView()
         setupCategories()
@@ -98,7 +102,6 @@ class ProductSectionFragment : Fragment() {
         binding.rvCategories.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoryAdapter
-            // Optimization for lag
             setHasFixedSize(true)
             itemAnimator = null
         }
@@ -110,8 +113,13 @@ class ProductSectionFragment : Fragment() {
             isScrollingFromCategory = true
             (binding.rvProducts.layoutManager as LinearLayoutManager)
                 .scrollToPositionWithOffset(position, 0)
-        } else {
-             Toast.makeText(requireContext(), "No products in this category", Toast.LENGTH_SHORT).show()
+            
+            // Update category selection in the vertical list
+            val categoryPos = categoryAdapter.getPositionForId(categoryId)
+            if (categoryPos != -1) {
+                categoryAdapter.updateSelection(categoryPos)
+                binding.rvCategories.smoothScrollToPosition(categoryPos)
+            }
         }
     }
 
@@ -120,6 +128,15 @@ class ProductSectionFragment : Fragment() {
             allProducts = products.sortedBy { it.categoryId }
             syncCartQuantities()
             productAdapter.submitList(allProducts)
+
+            // Auto-scroll if a category was passed via navigation
+            if (pendingCategoryId != -1) {
+                // Delay slightly to ensure RecyclerView has laid out its items
+                binding.rvProducts.post {
+                    scrollToCategory(pendingCategoryId)
+                    pendingCategoryId = -1 // Reset after scrolling
+                }
+            }
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer { error ->
@@ -156,7 +173,6 @@ class ProductSectionFragment : Fragment() {
             layoutManager = linearLayoutManager
             adapter = productAdapter
             
-            // Performance optimizations
             setHasFixedSize(true)
             itemAnimator = null
             recycledViewPool.setMaxRecycledViews(0, 20)
@@ -178,7 +194,6 @@ class ProductSectionFragment : Fragment() {
                         if (firstVisibleItemPosition != RecyclerView.NO_POSITION && allProducts.isNotEmpty()) {
                             val categoryId = allProducts[firstVisibleItemPosition].categoryId
                             
-                            // Only update if category actually changed to avoid redundant layout passes
                             if (categoryId != lastCategoryId) {
                                 lastCategoryId = categoryId
                                 val categoryPosition = categoryAdapter.getPositionForId(categoryId)

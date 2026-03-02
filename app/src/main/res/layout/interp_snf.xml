@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="#52B788"
+        android:layout_marginEnd="14dp"
+        android:minHeight="60dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. SNF (Solids Not Fat)"
+            android:textColor="#2D6A4F"
+            android:textSize="14sp"
+            android:fontFamily="@font/sora_extrabold"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Includes casein, lactose, vitamins, minerals.\nCow Milk SNF: 7.5% – 8.5%\nBuffalo Milk SNF: 8.5% – 9.5%"
+            android:textColor="#3D5A47"
+            android:textSize="12sp"
+            android:fontFamily="@font/sora_regular"
+            android:lineSpacingMultiplier="1.5" />
+
+    </LinearLayout>
+</LinearLayout>

@@ -6,11 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.freshyzoappmodule.data.api.RetrofitClient
+import com.example.freshyzoappmodule.data.repository.AddressRepository
 import com.example.freshyzoappmodule.databinding.BottomSheetEditAddressBinding
 import com.example.freshyzoappmodule.databinding.FragmentAddressBinding
 import com.example.freshyzoappmodule.ui.activity.SelectLocationActivity
+import com.example.freshyzoappmodule.viewmodel.AddressViewModel
+import com.example.freshyzoappmodule.viewmodel.factory.AddressViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class AddressFragment : Fragment() {
@@ -18,16 +24,21 @@ class AddressFragment : Fragment() {
     private var _binding: FragmentAddressBinding? = null
     private val binding get() = _binding!!
 
-    // Launcher to handle result from SelectLocationActivity (for current location/map picking)
+    private val viewModel: AddressViewModel by viewModels {
+        AddressViewModelFactory(AddressRepository(RetrofitClient.api))
+    }
+
     private val selectLocationLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
-            val address = data?.getStringExtra("address")
-            if (!address.isNullOrEmpty()) {
-                // Reflect the map-selected address in the TextView
-                binding.tvAddress.text = address
+            val address = data?.getStringExtra("address") ?: ""
+            val lat = data?.getDoubleExtra("lat", 0.0) ?: 0.0
+            val lng = data?.getDoubleExtra("lng", 0.0) ?: 0.0
+            
+            if (address.isNotEmpty()) {
+                viewModel.updateAddress(address, lat, lng)
             }
         }
     }
@@ -42,7 +53,37 @@ class AddressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        setupObservers()
         setupClickListeners()
+        
+        viewModel.loadSavedAddress()
+    }
+
+    private fun setupObservers() {
+        // Update UI when address data is received
+        viewModel.address.observe(viewLifecycleOwner) { address ->
+            binding.tvAddress.text = address.fullAddress
+            binding.tvUserName.text = if (address.name.isNotEmpty()) address.name else "Levi Ackerman"
+            binding.tvPhone.text = if (address.phone.isNotEmpty()) address.phone else "+91 91795 93730"
+        }
+
+        // Handle Loading State: Hide content and show ProgressBar
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.scrollView.visibility = View.GONE
+                binding.llBottomButton.visibility = View.GONE
+            } else {
+                binding.progressBar.visibility = View.GONE
+                binding.scrollView.visibility = View.VISIBLE
+                binding.llBottomButton.visibility = View.VISIBLE
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupClickListeners() {
@@ -50,17 +91,14 @@ class AddressFragment : Fragment() {
             activity?.onBackPressedDispatcher?.onBackPressed()
         }
 
-        // Edit button on the address card - Now opens a BottomSheet for manual editing
         binding.btnEdit.setOnClickListener {
             showEditAddressBottomSheet()
         }
 
-        // Add new address card - Still opens map for convenience
         binding.cardAddNewAddress.setOnClickListener {
             openMapLocationPicker()
         }
 
-        // Bottom button: Use Current Location - Opens map
         binding.btnCurrentLocation.setOnClickListener {
             openMapLocationPicker()
         }
@@ -71,15 +109,13 @@ class AddressFragment : Fragment() {
         val sheetBinding = BottomSheetEditAddressBinding.inflate(layoutInflater)
         bottomSheetDialog.setContentView(sheetBinding.root)
 
-        // Pre-fill the current address from the UI
         sheetBinding.etAddress.setText(binding.tvAddress.text)
         sheetBinding.etAddress.setSelection(sheetBinding.etAddress.text?.length ?: 0)
 
         sheetBinding.btnSaveAddress.setOnClickListener {
             val newAddress = sheetBinding.etAddress.text.toString().trim()
             if (newAddress.isNotEmpty()) {
-                // Reflect the manually edited address in the Fragment's TextView
-                binding.tvAddress.text = newAddress
+                viewModel.updateAddress(newAddress)
                 bottomSheetDialog.dismiss()
             } else {
                 sheetBinding.tilAddress.error = "Address cannot be empty"

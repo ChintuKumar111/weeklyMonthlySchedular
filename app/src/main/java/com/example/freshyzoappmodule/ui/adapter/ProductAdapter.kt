@@ -49,7 +49,7 @@ class ProductAdapter(
             
             Glide.with(binding.ivProduct.context)
                 .load(product.imageUrl)
-                .placeholder(R.drawable.milk_)
+                .placeholder(R.drawable.logo)
                 .into(binding.ivProduct)
 
             if (product.badgeText.isNotEmpty()) {

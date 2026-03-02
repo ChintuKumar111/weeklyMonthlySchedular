@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp">
+
+    <View
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="#52B788"
+        android:layout_marginEnd="14dp"
+        android:minHeight="60dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7. Antibiotics"
+            android:textColor="#2D6A4F"
+            android:textSize="14sp"
+            android:fontFamily="@font/sora_extrabold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_tag_pass"
+                android:text="Pass"
+                android:textColor="#40916C"
+                android:textSize="10sp"
+                android:fontFamily="@font/sora_extrabold"
+                android:paddingStart="7dp"
+                android:paddingEnd="7dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="1dp" />
+
+            <TextView
+                android:id="@+id/tvPassText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No antibiotics detected"
+                android:textColor="#3D5A47"
+                android:textSize="12sp"
+                android:fontFamily="@font/sora_regular"
+                android:lineSpacingMultiplier="1.4" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_tag_fail"
+                android:text="Fail"
+                android:textColor="#D62828"
+                android:textSize="10sp"
+                android:fontFamily="@font/sora_bold"
+                android:paddingStart="7dp"
+                android:paddingEnd="7dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="1dp" />
+
+            <TextView
+                android:id="@+id/tvFailText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Antibiotics found"
+                android:textColor="#3D5A47"
+                android:textSize="12sp"
+                android:fontFamily="@font/sora_regular"
+                android:lineSpacingMultiplier="1.4" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
