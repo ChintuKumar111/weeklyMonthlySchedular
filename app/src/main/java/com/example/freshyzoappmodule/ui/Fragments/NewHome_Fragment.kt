@@ -47,7 +47,7 @@ class NewHome_Fragment : Fragment() {
         setupRecyclerViews()
         observeViewModel()
         setupCategoryClicks()
-        
+
         // Fetch data
         view.postDelayed({
             if (isAdded) {
@@ -59,6 +59,9 @@ class NewHome_Fragment : Fragment() {
 
         binding.iconNotification.setOnClickListener {
             startActivity(Intent(requireContext(), NotificationActivity::class.java))
+        }
+        binding.root.findViewById<View>(R.id.btnTestReport)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_testReportFragment)
         }
     }
 
@@ -78,15 +81,13 @@ class NewHome_Fragment : Fragment() {
             findNavController().navigate(R.id.nav_product, bundle)
         }
     }
-
     private fun setupSlider() {
         binding.productSliderCart.adapter = ImageSliderAdapter(defaultImages)
         TabLayoutMediator(binding.tabLayout, binding.productSliderCart) { _, _ -> }.attach()
         binding.productSliderCart.offscreenPageLimit = 1
     }
-
     private fun setupRecyclerViews() {
-        // Combo Offers
+        // combo offers section
         comboAdapter = ComboOfferAdapter(emptyList()) { combo ->
             Toast.makeText(requireContext(), "Added ${combo.title} to cart", Toast.LENGTH_SHORT).show()
         }
@@ -104,7 +105,6 @@ class NewHome_Fragment : Fragment() {
             adapter = blogAdapter
         }
     }
-
     private fun observeViewModel() {
         viewModel.sliderData.observe(viewLifecycleOwner) { sliderList ->
             if (!sliderList.isNullOrEmpty()) {

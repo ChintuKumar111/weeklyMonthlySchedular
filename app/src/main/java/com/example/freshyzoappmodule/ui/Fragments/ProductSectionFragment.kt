@@ -85,20 +85,17 @@ class ProductSectionFragment : Fragment() {
             productAdapter.setInitialQuantities(sharedQuantities)
         }
     }
-
     private fun setupCategories() {
         val categories = listOf(
             categoryModel(1, "Milk", R.drawable.milk_),
-            categoryModel(2, "Ghee", R.drawable.ghee1),
+            categoryModel(2, "Ghee", R.drawable.ghee),
             categoryModel(3, "Dahi", R.drawable.dahi),
             categoryModel(4, "Paneer", R.drawable.paneer),
             categoryModel(6, "Khowa", R.drawable.khowa),
         )
-
         categoryAdapter = CategoryAdapter(categories) { category, _ ->
             scrollToCategory(category.id)
         }
-
         binding.rvCategories.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = categoryAdapter

@@ -229,7 +229,7 @@ class SearchActivity : AppCompatActivity() {
             PopularProductModel("Milk", R.drawable.milk),
             PopularProductModel("dahi", R.drawable.dahi),
             PopularProductModel("Paneer", R.drawable.paneer),
-            PopularProductModel("ghee", R.drawable.ghee1),
+            PopularProductModel("ghee", R.drawable.ghee),
             PopularProductModel("khowa", R.drawable.khowa)
         )
 

@@ -14,7 +14,7 @@
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
         android:scaleType="centerInside"
-        android:src="@drawable/ghee1"/>
+        android:src="@drawable/ghee"/>
 
     <TextView
         android:id="@+id/tvPopularProductName"

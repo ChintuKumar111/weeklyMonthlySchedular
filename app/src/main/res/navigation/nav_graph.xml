@@ -9,7 +9,14 @@
         android:id="@+id/nav_home"
         android:name="com.example.freshyzoappmodule.ui.Fragments.NewHome_Fragment"
         android:label="Home"
-        tools:layout="@layout/fragment_new_home" />
+        tools:layout="@layout/fragment_new_home" >
+
+        <action
+            android:id="@+id/action_nav_account_to_testReportFragment"
+            app:destination="@id/testReportFromAccountFragment" />
+
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_product"
