@@ -90,7 +90,7 @@
 
             <!-- Card 1: App Related Issue -->
             <LinearLayout
-                android:id="@+id/cardApp"
+                android:id="@+id/tabAppRelatedIssue"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginBottom="2dp"
@@ -158,7 +158,7 @@
 
             <!-- Card 2: Product Related Issue -->
             <LinearLayout
-                android:id="@+id/cardProduct"
+                android:id="@+id/tabProductRelatedIssue"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginBottom="2dp"
@@ -224,7 +224,7 @@
 
             <!-- Card 3: Recharge Related Issue -->
             <LinearLayout
-                android:id="@+id/cardRecharge"
+                android:id="@+id/tabRechargeRelatedIssue"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginBottom="2dp"
@@ -291,7 +291,7 @@
 
             <!-- Card 4: Delivery Related Issue -->
             <LinearLayout
-                android:id="@+id/cardDelivery"
+                android:id="@+id/tabDeliveryRelatedIssue"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginBottom="2dp"
@@ -359,7 +359,7 @@
 
             <!-- Card 5: Other Issue -->
             <LinearLayout
-                android:id="@+id/cardOther"
+                android:id="@+id/tabOtherIssue"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginBottom="2dp"
@@ -425,7 +425,7 @@
 
             <!-- Card 6: Previous Complaints (History – styled distinctly) -->
             <LinearLayout
-                android:id="@+id/cardHistory"
+                android:id="@+id/tabPreviousComplaints"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginBottom="24dp"

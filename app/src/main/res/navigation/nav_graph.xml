@@ -54,7 +54,7 @@
             app:destination="@id/addressFragment" />
         <action
             android:id="@+id/action_nav_account_to_complaintAssistanceFragment"
-            app:destination="@id/ComplaintsCenterFragment" />
+            app:destination="@id/complaintAssistanceCenterFragment" />
 
         <action
             android:id="@+id/action_nav_account_to_testReportFragment"
@@ -96,21 +96,26 @@
         tools:layout="@layout/fragment_payment_and_wallet" />
 
     <fragment
-        android:id="@+id/testReportFragment"
-        android:name="com.example.freshyzoappmodule.ui.Fragments.TestReportFragment"
-        android:label="@string/test_report"
-        tools:layout="@layout/fragment_test_report" />
-    <fragment
-        android:id="@+id/ComplaintsCenterFragment"
-        android:name="com.example.freshyzoappmodule.ui.Fragments.ComplaintAssistanceCenterFragment"
-        android:label="@string/test_report"
-        tools:layout="@layout/fragment_complaint_assistance_center" />
-
-    <fragment
         android:id="@+id/testReportFromAccountFragment"
         android:name="com.example.freshyzoappmodule.ui.Fragments.TestReportFromAccountFragment"
         android:label="@string/test_report"
         tools:layout="@layout/fragment_test_report_from_account" />
+
+    <fragment
+        android:id="@+id/complaintAssistanceCenterFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.ComplaintAssistanceCenterFragment"
+        android:label="Complaints Assistance"
+        tools:layout="@layout/fragment_complaint_assistance_center" >
+        <action
+            android:id="@+id/action_complaintAssistanceCenterFragment_to_complaintHistoryFragment"
+            app:destination="@id/complaintHistoryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/complaintHistoryFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.ComplaintHistoryFragment"
+        android:label="Complaint History"
+        tools:layout="@layout/fragment_complaint_history" />
 
 
 </navigation>

@@ -42,11 +42,41 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
             .findFragmentById(binding.fragmentContainer.id) as NavHostFragment
 
         navController = navHostFragment.navController
-        binding.bottomNavigation.setupWithNavController(navController)
+        // Do NOT use setupWithNavController if it prevents manual navigation or causes issues with back stack
+        // binding.bottomNavigation.setupWithNavController(navController)
+        
         binding.bottomNavigation.itemIconTintList = null
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    navController.popBackStack(R.id.nav_home, false)
+                    true
+                }
+                R.id.nav_product -> {
+                    navController.navigate(R.id.nav_product)
+                    true
+                }
+                R.id.nav_wallet -> {
+                    navController.navigate(R.id.nav_wallet)
+                    true
+                }
+                R.id.nav_cart -> {
+                    navController.navigate(R.id.nav_cart)
+                    true
+                }
+                R.id.nav_account -> {
+                    navController.navigate(R.id.nav_account)
+                    true
+                }
+                else -> false
+            }
+        }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             updateCartPreviewVisibility(destination.id)
+            // Sync bottom navigation selection
+            binding.bottomNavigation.menu.findItem(destination.id)?.isChecked = true
         }
         
         binding.cartPreview.setOnViewCartClickListener {
@@ -55,15 +85,15 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         
         handleIntent(intent)
 
-        // Handle Back Press to return to SearchActivity if needed
+        // Handle Back Press
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (isFromSearch && navController.currentDestination?.id == R.id.nav_cart) {
-                    finish() // Close NewHomeActivity and go back to SearchActivity
+                    finish()
+                } else if (navController.currentDestination?.id != R.id.nav_home) {
+                    navController.popBackStack(R.id.nav_home, false)
                 } else {
-                    isEnabled = false // Disable this callback
-                    onBackPressedDispatcher.onBackPressed() // Perform default back action
-                    isEnabled = true // Re-enable for next time
+                    finish()
                 }
             }
         })
@@ -71,7 +101,6 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
 
     override fun onResume() {
         super.onResume()
-        // Refresh cart state from repository in case it was changed in SearchActivity
         cachedCartState = cartRepository.getCartState()
         val currentDestinationId = try { navController.currentDestination?.id } catch (e: Exception) { null }
         updateCartPreviewVisibility(currentDestinationId)
@@ -129,7 +158,6 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
                 }
             }
             
-            // Calculate Total Price and Total Discount
             var totalMRP = 0.0
             var totalSellingPrice = 0.0
             

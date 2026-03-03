@@ -49,7 +49,6 @@ class SearchActivity : AppCompatActivity() {
         setupSearchProducts()
         loadInitialData()
         observeViewModel()
-        loadCartState()
 
         binding.etSearch.addTextChangedListener { text ->
             viewModel.onSearchQueryChanged(text.toString().trim())
@@ -61,6 +60,18 @@ class SearchActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        loadCartState()
+        syncProductQuantities()
+    }
+
+    private fun syncProductQuantities() {
+        val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
+        productAdapter.setInitialQuantities(sharedQuantities)
+    }
+
     private fun updateUIState(
         list: List<Product>,
         isLoading: Boolean,
@@ -269,12 +280,9 @@ class SearchActivity : AppCompatActivity() {
                 Toast.makeText(this, "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
             },
             onProductClick = { product ->
-
                val intent = Intent(this, ProductDetailsActivity::class.java)
                 intent.putExtra("product", product)
-                startActivity(/* intent = */ intent)
-
-
+                startActivity(intent)
             }
         )
         binding.rvSearch.layoutManager = LinearLayoutManager(this)
@@ -287,7 +295,7 @@ class SearchActivity : AppCompatActivity() {
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
 
-            val productId = product.productId.toIntOrNull() ?: 0
+            val productId = product.id
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
@@ -296,10 +304,10 @@ class SearchActivity : AppCompatActivity() {
 
             if (newQty <= 0) {
                 newQuantities.remove(productId)
-                currentProducts.removeAll { (it.productId.toIntOrNull() ?: 0) == productId }
+                currentProducts.removeAll { it.id == productId }
             } else {
                 newQuantities[productId] = newQty
-                if (!currentProducts.any { (it.productId.toIntOrNull() ?: 0) == productId }) {
+                if (!currentProducts.any { it.id == productId }) {
                     currentProducts.add(product)
                 }
             }

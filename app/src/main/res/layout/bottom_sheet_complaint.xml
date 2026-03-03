@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_bottom_sheet"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="#D1D5DB" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvSheetTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/sora_bold"
+        android:text="App Related Issue"
+        android:textColor="#111827"
+        android:textSize="18sp" />
+
+    <!-- Issue Selection Spinner/Layout -->
+    <LinearLayout
+        android:id="@+id/llIssueType"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/tvSelectedIssue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/sora_regular"
+            android:text="Select issue type"
+            android:textColor="#6B7280"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/outline_arrow_drop_down_24"
+            app:tint="#6B7280" />
+    </LinearLayout>
+
+    <!-- Description Input -->
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/white"
+        android:fontFamily="@font/sora_regular"
+        android:gravity="top"
+        android:hint="Please describe your issue"
+        android:padding="16dp"
+        android:textColor="#111827"
+        android:textColorHint="#9CA3AF"
+        android:textSize="14sp" />
+
+    <!-- Character Count -->
+    <TextView
+        android:id="@+id/tvCharCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/sora_regular"
+        android:text="0/300"
+        android:textColor="#9CA3AF"
+        android:textSize="12sp" />
+
+    <!-- Image Selection -->
+    <LinearLayout
+        android:id="@+id/btnSelectImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_image_24"
+            app:tint="#6B7280" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/sora_regular"
+            android:text="Select image"
+            android:textColor="#6B7280"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Submit Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:fontFamily="@font/sora_bold"
+        android:text="Submit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/primary"
+        app:cornerRadius="12dp" />
+
+</LinearLayout>

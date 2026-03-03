@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8F5ED"
+    android:background="#ABD8E6DE"
     android:fillViewport="true">
 
     <LinearLayout
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            app:cardCornerRadius="24dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
             app:cardBackgroundColor="#FFFFFF"
             xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -53,28 +53,20 @@
                     android:background="@drawable/bg_header_green_gradient"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:paddingTop="24dp"
+                    android:paddingTop="10dp"
                     android:paddingBottom="20dp"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp">
 
                     <!-- Icon -->
-                    <TextView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_header_icon"
-                        android:text="🥛"
-                        android:textSize="22sp"
-                        android:gravity="center"
-                        android:layout_marginBottom="12dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="FreshyZo Cow Milk"
                         android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/sora_extrabold"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
                         android:letterSpacing="-0.02" />
 
                     <TextView
@@ -314,21 +306,12 @@
                     android:paddingEnd="24dp">
 
                     <TextView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_header_icon"
-                        android:text="🐃"
-                        android:textSize="22sp"
-                        android:gravity="center"
-                        android:layout_marginBottom="12dp" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="FreshyZo Buffalo Milk"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/white"
                         android:textSize="20sp"
-                        android:fontFamily="@font/sora_extrabold"
+                        android:textStyle="bold"
                         android:letterSpacing="-0.02" />
 
                     <TextView
