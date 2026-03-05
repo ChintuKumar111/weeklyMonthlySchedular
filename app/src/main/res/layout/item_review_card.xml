@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/bg_review_card"
-    android:padding="13dp">
+    android:padding="10dp">
 
     <!-- Top Row: Avatar + Name + Verified -->
     <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="★ 5.0"
-            android:textSize="11sp"
+            android:textSize="9sp"
             android:textColor="@color/white"
             android:fontFamily="@font/sora_bold"
             android:background="@drawable/bg_star_badge"
@@ -77,7 +77,7 @@
         android:layout_marginTop="10dp"
         android:text="Best milk I've ever had! Tastes so
         fresh and creamy. My kids love it. Will subscribe monthly!\"
-        android:textSize="11.5sp"
+        android:textSize="9sp"
         android:textColor="@color/text_mid"
         android:fontFamily="@font/sora_regular"
         android:lineSpacingMultiplier="1.55"

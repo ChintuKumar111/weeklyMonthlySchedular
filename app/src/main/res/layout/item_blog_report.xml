@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="220dp"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
@@ -22,7 +23,7 @@
             <ImageView
                 android:id="@+id/ivBlogImage"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/blog1" />
 
@@ -37,7 +38,7 @@
             android:maxLines="1"
             android:text="Blog Title"
             android:textStyle="bold"
-            android:textSize="14sp"/>
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tvBlogDesc"
@@ -48,7 +49,7 @@
             android:maxLines="2"
             android:text="Blog short description goes here..."
             android:textColor="@color/gray_600"
-            android:textSize="12sp" />
+            android:textSize="9sp" />
 
         <TextView
             android:id="@+id/btnLearnMore"

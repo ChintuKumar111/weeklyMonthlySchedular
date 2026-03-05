@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_faq_row.xml — one FAQ question + answer row -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- ── Question Row (tappable) ── -->
+    <LinearLayout
+        android:id="@+id/faqQuestionRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="14dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/tvFaqQuestion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Question goes here"
+            android:textSize="12sp"
+            android:textColor="@color/text_dark"
+            android:fontFamily="@font/sora_bold"
+            android:lineSpacingMultiplier="1.4" />
+
+        <ImageView
+            android:id="@+id/ivFaqArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_chevron_down"
+            android:contentDescription="Toggle answer" />
+
+    </LinearLayout>
+
+    <!-- ── Answer (GONE by default, shown when expanded) ── -->
+    <TextView
+        android:id="@+id/tvFaqAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Answer goes here"
+        android:textSize="12sp"
+        android:textColor="@color/text_muted"
+        android:fontFamily="@font/sora_regular"
+        android:lineSpacingMultiplier="1.6"
+        android:paddingBottom="14dp"
+        android:visibility="gone" />
+
+    <!-- ── Row Divider ── -->
+    <View
+        android:id="@+id/faqDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_light" />
+
+</LinearLayout>

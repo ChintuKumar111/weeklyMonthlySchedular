@@ -296,6 +296,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Urea free"
+                                android:textSize="@dimen/_10sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
                         <LinearLayout
@@ -313,6 +314,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Starch free"
+                                android:textSize="@dimen/_10sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
                         <LinearLayout
@@ -329,6 +331,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Detergent free"
+                                android:textSize="@dimen/_10sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
                         <LinearLayout
@@ -345,6 +348,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="No antibiotics"
+                                android:textSize="@dimen/_10sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
                     </GridLayout>

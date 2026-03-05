@@ -131,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                   android:padding="10dp">
 
                     <!-- Brand Tag -->
                     <TextView
@@ -291,7 +291,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="14dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="@color/white">
@@ -300,7 +300,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <!-- Section Header -->
                     <LinearLayout
@@ -323,7 +323,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nutrition"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:textColor="@color/text_dark"
                             android:fontFamily="@font/sora_bold"
                             android:letterSpacing="0.02" />
@@ -333,7 +333,7 @@
                     <!-- Nutrition Grid (3 columns) -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
@@ -349,7 +349,7 @@
                             android:layout_marginStart="@dimen/_3sdp"
                             android:layout_marginEnd="@dimen/_3sdp"
                             android:background="@drawable/bg_stat_box"
-                            android:padding="1dp">
+                            android:padding="5dp">
 
                             <!-- Emoji icon -->
                             <TextView
@@ -394,7 +394,7 @@
                             android:layout_marginStart="@dimen/_3sdp"
                             android:layout_marginEnd="@dimen/_3sdp"
                             android:background="@drawable/bg_stat_box"
-                            android:padding="12dp">
+                            android:padding="5dp">
 
                             <!-- Emoji icon -->
                             <TextView
@@ -438,7 +438,7 @@
                             android:layout_marginEnd="@dimen/_3sdp"
                             android:background="@drawable/bg_stat_box"
                             android:layout_weight="1"
-                            android:padding="12dp">
+                            android:padding="5dp">
 
                             <!-- Emoji icon -->
                             <TextView
@@ -518,9 +518,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Description"
-                            android:textSize="13sp"
+                            android:textSize="10sp"
                             android:textColor="@color/text_dark"
-                            android:fontFamily="@font/sora_bold"
+                            android:textStyle="bold"
                             android:letterSpacing="0.02" />
 
                     </LinearLayout>
@@ -913,8 +913,8 @@
                             android:layout_height="wrap_content"
                             android:text="See all →"
                             android:textSize="12sp"
-                            android:textColor="@color/green_primary"
-                            android:fontFamily="@font/sora_bold" />
+                            android:textStyle="bold"
+                            android:textColor="@color/green_primary" />
 
                     </LinearLayout>
 
@@ -941,7 +941,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4.8"
-                                android:textSize="36sp"
+                                android:textSize="20sp"
                                 android:textColor="@color/text_dark"
                                 android:fontFamily="@font/sora_bold" />
 
@@ -1226,6 +1226,13 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+
+
+
+           <include
+               android:id="@+id/rv_card_Frag"
+               layout="@layout/card_faq_section"/>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -1250,20 +1257,20 @@
             android:orientation="horizontal"
             android:gravity="center">
 
-            <!-- Add to Cart -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBuyOnce"
-                android:layout_width="0dp"
-                android:layout_height="52dp"
-                android:layout_weight="1"
-                android:text="Buy Once"
-                android:textSize="14sp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:textColor="@color/white"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:fontFamily="@font/sora_bold"
-                app:backgroundTint="@color/primary"
-                app:cornerRadius="12dp"/>
+<!--            &lt;!&ndash; Add to Cart &ndash;&gt;-->
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnBuyOnce"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Buy Once"-->
+<!--                android:textSize="12sp"-->
+<!--                android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:layout_marginStart="@dimen/_5sdp"-->
+<!--                android:fontFamily="@font/sora_bold"-->
+<!--                app:backgroundTint="@color/primary"-->
+<!--                app:cornerRadius="12dp"/>-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubscribe"
@@ -1271,8 +1278,8 @@
                 android:layout_height="52dp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_weight="1"
-                android:text="Subscribe"
-                android:textSize="14sp"
+                android:text="Continue to Subscribe"
+                android:textSize="11sp"
                 app:backgroundTint="@color/primary_dark"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:textColor="@color/white"

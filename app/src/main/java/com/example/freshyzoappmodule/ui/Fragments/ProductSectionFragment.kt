@@ -20,6 +20,7 @@ import com.example.freshyzoappmodule.extensions.categoryId
 import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.ui.activity.NewHomeActivity
 import com.example.freshyzoappmodule.ui.activity.ProductDetailsActivity
+import com.example.freshyzoappmodule.ui.activity.ProductSubscribeActivity
 import com.example.freshyzoappmodule.ui.activity.SearchActivity
 import com.example.freshyzoappmodule.ui.adapter.CategoryAdapter
 import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
@@ -154,7 +155,7 @@ class ProductSectionFragment : Fragment() {
                 (activity as? NewHomeActivity)?.updateSharedCart(product, size.price.toDouble() * delta, delta)
             },
             onSubscribeClick = { product ->
-                val intent = Intent(requireContext(), ProductDetailsActivity::class.java)
+                val intent = Intent(requireContext(), ProductSubscribeActivity::class.java)
                 intent.putExtra("product", product)
                 startActivity(intent)
             },

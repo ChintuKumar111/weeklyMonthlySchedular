@@ -1,6 +1,5 @@
 package com.example.freshyzoappmodule.ui.activity
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
@@ -10,51 +9,79 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.objects.FaqManager
 import com.example.freshyzoappmodule.databinding.ActivityProductDetailsBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
 import com.example.freshyzoappmodule.extensions.sizes
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonBinder
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonData
+import com.example.freshyzoappmodule.ui.adapter.FaqAdapter
 import com.example.freshyzoappmodule.viewmodel.ProductDetailsViewModel
 import java.io.File
 import java.io.FileOutputStream
+import android.content.Intent as AndroidIntent
 
 class ProductDetailsActivity : AppCompatActivity() {
 
-    lateinit var product: Product
     private lateinit var binding: ActivityProductDetailsBinding
+    private lateinit var product: Product
+
     private val viewModel: ProductDetailsViewModel by viewModels()
+    private val faqAdapter = FaqAdapter()
+
+    // ─────────────────────────────────────────────────────────────
+    //  Lifecycle
+    // ─────────────────────────────────────────────────────────────
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize product from intent
-        val intentProduct = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val intentProduct = parseProductFromIntent() ?: run { finish(); return }
+        product = intentProduct
+        viewModel.setProduct(intentProduct)
+
+        setupFaq(intentProduct.productName)
+        setupComparison()
+        setupClickListeners()
+        observeViewModel()
+        displayProductData(intentProduct)
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  Setup
+    // ─────────────────────────────────────────────────────────────
+
+    private fun parseProductFromIntent(): Product? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("product", Product::class.java)
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra<Product>("product")
+            intent.getParcelableExtra("product")
         }
 
-        if (intentProduct != null) {
-            this.product = intentProduct
-            viewModel.setProduct(intentProduct)
-            displayProductData(intentProduct)
-        } else {
-            // Handle cases where product is missing - maybe finish the activity
-            finish()
-            return
+    private fun setupFaq(productName: String) {
+        binding.rvCardFrag.rvFaq.apply {
+            layoutManager = LinearLayoutManager(this@ProductDetailsActivity)
+            adapter = faqAdapter
         }
+        faqAdapter.submitList(FaqManager.getFaqList(productName))
+    }
 
-        viewModel.qty.observe(this) { quantity ->
-            binding.tvQty.text = quantity.toString()
+    private fun setupComparison() {
+        ComparisonBinder(binding).bind(ComparisonData.getMilkComparison())
+    }
+
+    private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnPlus.setOnClickListener {
@@ -65,49 +92,71 @@ class ProductDetailsActivity : AppCompatActivity() {
             viewModel.decreaseQuantity()
         }
 
-        // Setup back button
-        binding.btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-
         binding.btnSubscribe.setOnClickListener {
-            val intent = Intent (this@ProductDetailsActivity, ProductSubscribeActivity::class.java)
-            intent.putExtra("product",product)
-            intent.putExtra("quantity", viewModel.qty.value)
-            startActivity(intent)
+            animateButton(binding.btnSubscribe)
+            startActivity(
+                AndroidIntent(this, ProductSubscribeActivity::class.java).apply {
+                    putExtra("product", product)
+                    putExtra("quantity", viewModel.qty.value)
+                }
+            )
         }
 
         binding.btnShare.setOnClickListener {
             shareProduct()
         }
-        // comparison section
-        val comparisonBinder = ComparisonBinder(binding)
-        comparisonBinder.bind(ComparisonData.getMilkComparison())
+    }
 
-        viewModel.product.observe(this) { productObj ->
-            productObj?.let {
-                this.product = it
-                displayProductData(it)
-            }
+    private fun observeViewModel() {
+        viewModel.qty.observe(this) { quantity ->
+            binding.tvQty.text = quantity.toString()
         }
     }
 
+    // ─────────────────────────────────────────────────────────────
+    //  Display
+    // ─────────────────────────────────────────────────────────────
+
+    private fun displayProductData(product: Product) {
+        with(binding) {
+            tvProductName.text  = product.productName
+            tvDescription.text  = product.description
+            tvSellingPrice.text = "₹${product.productPrice}"
+            tvVolume.text       = product.sizes.getOrNull(0)?.label ?: ""
+            tvVolume.isSelected = true
+
+            tvMrp.apply {
+                text       = "₹${product.dairyMrp}"
+                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
+
+            bindDiscountBadge(
+                price = product.productPrice.toDoubleOrNull() ?: 0.0,
+                mrp   = product.dairyMrp.toDoubleOrNull()    ?: 0.0
+            )
+
+            Glide.with(this@ProductDetailsActivity)
+                .load(product.imageUrl)
+                .into(ivProductImage)
+        }
+    }
+
+    private fun bindDiscountBadge(price: Double, mrp: Double) {
+        if (mrp > price) {
+            val discount = ((mrp - price) / mrp * 100).toInt()
+            binding.tvDiscount.text       = "$discount% OFF"
+            binding.tvDiscount.visibility = View.VISIBLE
+        } else {
+            binding.tvDiscount.visibility = View.GONE
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  Share
+    // ─────────────────────────────────────────────────────────────
+
     private fun shareProduct() {
-        val productName = product.productName
-        val price = product.productPrice
-        val description = product.shortDesc
-        val appLink = "https://play.google.com/store/search?q=freshyzo&c=apps&hl=en_IN}"
-        
-        val shareText = """
-            🛒 Check out this product on Freshyzo!
-            
-            Product: $productName
-            Price: ₹$price
-       
-            $description
-            
-            Download Freshyzo App Now: $appLink
-        """.trimIndent()
+        val shareText = buildShareText()
 
         Glide.with(this)
             .asBitmap()
@@ -116,70 +165,78 @@ class ProductDetailsActivity : AppCompatActivity() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     shareImageAndText(resource, shareText)
                 }
-
-                override fun onLoadCleared(placeholder: Drawable?) {}
-                
+                override fun onLoadCleared(placeholder: Drawable?) = Unit
                 override fun onLoadFailed(errorDrawable: Drawable?) {
-                    // If image load fails, share text only
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.type = "text/plain"
-                    intent.putExtra(Intent.EXTRA_TEXT, shareText)
-                    startActivity(Intent.createChooser(intent, "Share via"))
+                    shareTextOnly(shareText)
                 }
             })
     }
 
+    private fun buildShareText(): String = """
+        🛒 Check out this product on Freshyzo!
+        
+        Product : ${product.productName}
+        Price   : ₹${product.productPrice}
+        
+        ${product.shortDesc}
+        
+        Download Freshyzo App: https://play.google.com/store/search?q=freshyzo&c=apps&hl=en_IN
+    """.trimIndent()
 
-    private fun displayProductData(product: Product) {
-        val sizes = product.sizes
-        binding.tvProductName.text = product.productName
-        binding.tvDescription.text = product.description
-        binding.tvSellingPrice.text = "₹${product.productPrice}"
-        binding.tvVolume.text = "${product.unit}"
-        binding.tvVolume.text = sizes.getOrNull(0)?.label ?: ""
-        binding.tvVolume.isSelected = true
-        binding.tvMrp.apply { text = "₹${product.dairyMrp}"
-            paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        }
-
-        // Calculate discount percentage
-        val price = product.productPrice.toDoubleOrNull() ?: 0.0
-        val mrp = product.dairyMrp.toDoubleOrNull() ?: 0.0
-        if (mrp > price) {
-            val discount = ((mrp - price) / mrp * 100).toInt()
-            binding.tvDiscount.text = "$discount% OFF"
-            binding.tvDiscount.visibility = View.VISIBLE
-        } else {
-            binding.tvDiscount.visibility = View.GONE
-        }
-
-        Glide.with(this)
-            .load(product.imageUrl)
-            .into(binding.ivProductImage)
+    private fun shareTextOnly(text: String) {
+        startActivity(
+            AndroidIntent.createChooser(
+                AndroidIntent(AndroidIntent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(AndroidIntent.EXTRA_TEXT, text)
+                },
+                "Share via"
+            )
+        )
     }
 
     private fun shareImageAndText(bitmap: Bitmap, text: String) {
         try {
-            val cachePath = File(cacheDir, "images")
-            cachePath.mkdirs()
-            val stream = FileOutputStream("$cachePath/product_image.png")
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            stream.close()
+            val imageFile = saveBitmapToCache(bitmap)
+            val contentUri = FileProvider.getUriForFile(
+                this, "${packageName}.fileprovider", imageFile
+            )
 
-            val imageFile = File(cachePath, "product_image.png")
-            val contentUri = FileProvider.getUriForFile(this, "${packageName}.fileprovider", imageFile)
-
-            if (contentUri != null) {
-                val shareIntent = Intent(Intent.ACTION_SEND)
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                shareIntent.setDataAndType(contentUri, contentResolver.getType(contentUri))
-                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
-                shareIntent.putExtra(Intent.EXTRA_TEXT, text)
-                shareIntent.type = "image/png"
-                startActivity(Intent.createChooser(shareIntent, "Share via"))
-            }
+            startActivity(
+                AndroidIntent.createChooser(
+                    AndroidIntent(AndroidIntent.ACTION_SEND).apply {
+                        addFlags(AndroidIntent.FLAG_GRANT_READ_URI_PERMISSION)
+                        setDataAndType(contentUri, contentResolver.getType(contentUri))
+                        putExtra(AndroidIntent.EXTRA_STREAM, contentUri)
+                        putExtra(AndroidIntent.EXTRA_TEXT, text)
+                        type = "image/png"
+                    },
+                    "Share via"
+                )
+            )
         } catch (e: Exception) {
             e.printStackTrace()
+            shareTextOnly(text)   // graceful fallback
         }
+    }
+
+    private fun saveBitmapToCache(bitmap: Bitmap): File {
+        val cacheDir = File(cacheDir, "images").also { it.mkdirs() }
+        val file = File(cacheDir, "product_image.png")
+        FileOutputStream(file).use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        return file
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    //  Helpers
+    // ─────────────────────────────────────────────────────────────
+
+    private fun animateButton(view: View) {
+        view.animate()
+            .scaleX(0.95f).scaleY(0.95f)
+            .setDuration(100)
+            .withEndAction {
+                view.animate().scaleX(1f).scaleY(1f).duration = 100
+            }
     }
 }
