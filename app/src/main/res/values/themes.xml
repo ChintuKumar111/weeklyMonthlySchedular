@@ -23,5 +23,8 @@
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
+    <style name="WhitePopupMenu" parent="Widget.Material3.PopupMenu">
+        <item name="android:popupBackground">@android:color/white</item>
+    </style>
 
 </resources>

@@ -1,5 +1,8 @@
 package com.example.freshyzoappmodule.ui.Fragments
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.freshyzoappmodule.R
@@ -19,6 +23,19 @@ class ComplaintAssistanceCenterFragment : Fragment() {
 
     private var _binding: FragmentComplaintAssistanceCenterBinding? = null
     private val binding get() = _binding!!
+
+    private var selectedImageUri: Uri? = null
+    private var currentSheetBinding: BottomSheetComplaintBinding? = null
+
+    private val pickImageLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data = result.data
+            selectedImageUri = data?.data
+            updateImagePreview()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,19 +80,20 @@ class ComplaintAssistanceCenterFragment : Fragment() {
         binding.tabPreviousComplaints.setOnClickListener {
             findNavController().navigate(R.id.action_complaintAssistanceCenterFragment_to_complaintHistoryFragment)
         }
-        binding.tabOtherIssue.setOnClickListener {
-
-        }
     }
 
     private fun showComplaintBottomSheet(title: String) {
         val dialog = BottomSheetDialog(requireContext())
         val sheetBinding = BottomSheetComplaintBinding.inflate(layoutInflater)
+        currentSheetBinding = sheetBinding
         dialog.setContentView(sheetBinding.root)
+
+        // Reset state for new sheet
+        selectedImageUri = null
+        updateImagePreview()
 
         sheetBinding.tvSheetTitle.text = title
 
-        // Dropdown options based on category
         val issues = when (title) {
             "App Related Issue" -> arrayOf(
                 "App crashing or freezing",
@@ -93,7 +111,8 @@ class ComplaintAssistanceCenterFragment : Fragment() {
         }
 
         sheetBinding.llIssueType.setOnClickListener {
-            val popup = PopupMenu(requireContext(), it)
+            val wrapper = android.view.ContextThemeWrapper(requireContext(), R.style.WhitePopupMenu)
+            val popup = PopupMenu(wrapper, it)
             issues.forEach { issue -> popup.menu.add(issue) }
             popup.setOnMenuItemClickListener { item ->
                 sheetBinding.tvSelectedIssue.text = item.title
@@ -103,7 +122,6 @@ class ComplaintAssistanceCenterFragment : Fragment() {
             popup.show()
         }
 
-        // Description character count logic
         sheetBinding.etDescription.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -117,6 +135,17 @@ class ComplaintAssistanceCenterFragment : Fragment() {
             }
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        sheetBinding.btnSelectImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            pickImageLauncher.launch(intent)
+        }
+
+        sheetBinding.btnRemoveImage.setOnClickListener {
+            selectedImageUri = null
+            updateImagePreview()
+        }
 
         sheetBinding.btnSubmit.setOnClickListener {
             val issueType = sheetBinding.tvSelectedIssue.text.toString()
@@ -137,15 +166,25 @@ class ComplaintAssistanceCenterFragment : Fragment() {
             }
         }
 
-        sheetBinding.btnSelectImage.setOnClickListener {
-            Toast.makeText(requireContext(), "Image selection coming soon", Toast.LENGTH_SHORT).show()
-        }
-
         dialog.show()
+    }
+
+    private fun updateImagePreview() {
+        currentSheetBinding?.let { binding ->
+            if (selectedImageUri != null) {
+                binding.cvImagePreview.visibility = View.VISIBLE
+                binding.ivSelectedImage.setImageURI(selectedImageUri)
+                binding.btnSelectImage.visibility = View.GONE
+            } else {
+                binding.cvImagePreview.visibility = View.GONE
+                binding.btnSelectImage.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        currentSheetBinding = null
     }
 }

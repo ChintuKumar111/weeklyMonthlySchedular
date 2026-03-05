@@ -14,7 +14,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="280dp"
         android:background="@android:color/transparent"
         app:elevation="0dp">
 
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="A2 Gir Cow Fresh Milk"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textColor="@color/text_dark"
                         android:fontFamily="@font/sora_bold"
                         android:lineSpacingMultiplier="1.2" />
@@ -163,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:text="500 ml "
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         android:textColor="@color/text_muted"
                         android:fontFamily="@font/sora_regular" />
 
@@ -187,7 +187,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹65"
-                            android:textSize="28sp"
+                            android:textSize="18sp"
                             android:textColor="@color/green_primary"
                             android:fontFamily="@font/sora_bold" />
 
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:text="₹75"
-                            android:textSize="14sp"
+                            android:textSize="10sp"
                             android:textColor="@color/text_muted"
                             android:fontFamily="@font/sora_regular" />
 
@@ -224,7 +224,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="● In Stock"
-                            android:textSize="11sp"
+                            android:textSize="10sp"
                             android:textColor="@color/green_mid"
                             android:fontFamily="@font/sora_bold" />
 
@@ -243,15 +243,15 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Quantity"
-                            android:textSize="13sp"
+                            android:textSize="12sp"
                             android:textColor="@color/text_mid"
                             android:fontFamily="@font/sora_bold" />
 
                         <!-- Minus Button -->
                         <androidx.appcompat.widget.AppCompatImageButton
                             android:id="@+id/btnMinus"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
                             android:background="@drawable/bg_qty_btn"
                             android:src="@drawable/ic_minus"
                             android:padding="8dp"
@@ -271,8 +271,8 @@
                         <!-- Plus Button -->
                         <androidx.appcompat.widget.AppCompatImageButton
                             android:id="@+id/btnPlus"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
                             android:background="@drawable/bg_qty_btn_filled"
                             android:src="@drawable/ic_plus"
                             android:padding="8dp"
@@ -323,7 +323,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nutrition"
-                            android:textSize="13sp"
+                            android:textSize="14sp"
                             android:textColor="@color/text_dark"
                             android:fontFamily="@font/sora_bold"
                             android:letterSpacing="0.02" />
@@ -333,7 +333,7 @@
                     <!-- Nutrition Grid (3 columns) -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:layout_marginTop="12dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
@@ -349,14 +349,14 @@
                             android:layout_marginStart="@dimen/_3sdp"
                             android:layout_marginEnd="@dimen/_3sdp"
                             android:background="@drawable/bg_stat_box"
-                            android:padding="12dp">
+                            android:padding="1dp">
 
                             <!-- Emoji icon -->
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="🧬"
-                                android:textSize="22sp" />
+                                android:textSize="14sp" />
 
                             <!-- Stat value -->
                             <TextView
@@ -401,7 +401,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="🌿"
-                                android:textSize="22sp" />
+                                android:textSize="14sp" />
 
                             <!-- Stat value -->
                             <TextView
@@ -409,7 +409,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:text="100%"
-                                android:textSize="15sp"
+                                android:textSize="14sp"
                                 android:textColor="@color/green_primary"
                                 android:fontFamily="@font/lora_bold" />
 
@@ -421,7 +421,6 @@
                                 android:text="Organic"
                                 android:textSize="9sp"
                                 android:textColor="@color/text_muted"
-                                android:fontFamily="@font/sora_bold"
                                 android:textAllCaps="true"
                                 android:letterSpacing="0.08"
                                 android:gravity="center" />
@@ -447,7 +446,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="🥛"
-                                android:textSize="22sp" />
+                                android:textSize="14sp" />
 
                             <!-- Stat value -->
                             <TextView
@@ -456,7 +455,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:text="Gir"
-                                android:textSize="15sp"
+                                android:textSize="14sp"
                                 android:textColor="@color/green_primary"
                                 android:fontFamily="@font/lora_bold" />
 

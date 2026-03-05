@@ -39,7 +39,7 @@
                 android:letterSpacing="-0.02"
                 android:text="Complaints Assistance"
                 android:textColor="@color/white"
-                android:textSize="17sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hello, User ! 👋"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold|italic"
                 android:layout_marginBottom="5dp" />
 
@@ -73,7 +73,7 @@
                 android:lineSpacingMultiplier="1.5"
                 android:text="Please select a category so we can assist you further."
                 android:textColor="#6B8578"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
 
@@ -86,13 +86,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingStart="20dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:paddingEnd="20dp">
 
             <!-- Card 1: App Related Issue -->
             <LinearLayout
                 android:id="@+id/tabAppRelatedIssue"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/bg_card"
                 android:clickable="true"
@@ -129,16 +130,15 @@
                         android:letterSpacing="-0.01"
                         android:textStyle="bold"
                         android:text="App Related Issue"
-                        android:textColor="#1A2E22"
-                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sora_regular"
                         android:text="Issues with app or performance"
-                        android:textColor="#6B8578"
+                        android:textColor="@color/gray_900"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -151,7 +151,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/outline_arrow_circle_right_24" />
+                        android:src="@drawable/outline_keyboard_arrow_right_24" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -160,7 +160,7 @@
             <LinearLayout
                 android:id="@+id/tabProductRelatedIssue"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/bg_card"
                 android:clickable="true"
@@ -196,16 +196,17 @@
                      android:textStyle="bold"
                         android:text="Product Related Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sora_regular"
+                        android:textColor="@color/gray_900"
+                        android:textSize="12sp"
                         android:text="Issues with FreshyZo products"
-                        android:textColor="#6B8578"
-                        android:textSize="12sp" />
+
+                        />
 
                 </LinearLayout>
 
@@ -217,7 +218,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/outline_arrow_circle_right_24" />
+                        android:src="@drawable/outline_keyboard_arrow_right_24" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -226,7 +227,7 @@
             <LinearLayout
                 android:id="@+id/tabRechargeRelatedIssue"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/bg_card"
                 android:clickable="true"
@@ -262,16 +263,15 @@
                         android:textStyle="bold"
                         android:text="Recharge Related Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sora_regular"
                         android:text="Failed recharge &amp; payment issues"
-                        android:textColor="#6B8578"
-                        android:textSize="12sp" />
+                        android:textColor="@color/gray_900"
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 
@@ -283,7 +283,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/outline_arrow_circle_right_24" />
+                        android:src="@drawable/outline_keyboard_arrow_right_24" />
                 </LinearLayout>
                 </LinearLayout>
 
@@ -293,7 +293,7 @@
             <LinearLayout
                 android:id="@+id/tabDeliveryRelatedIssue"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/bg_card"
                 android:clickable="true"
@@ -331,13 +331,12 @@
                         android:textStyle="bold"
                         android:text="Delivery Related Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sora_regular"
                         android:text="Issues with delivery or partner"
                         android:textColor="#6B8578"
                         android:textSize="12sp" />
@@ -352,7 +351,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/outline_arrow_circle_right_24" />
+                        android:src="@drawable/outline_keyboard_arrow_right_24" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -361,7 +360,7 @@
             <LinearLayout
                 android:id="@+id/tabOtherIssue"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/bg_card"
                 android:clickable="true"
@@ -397,13 +396,12 @@
                         android:textStyle="bold"
                         android:text="Other Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sora_regular"
                         android:text="Any other issue you may have"
                         android:textColor="#6B8578"
                         android:textSize="12sp" />
@@ -418,7 +416,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/outline_arrow_circle_right_24" />
+                        android:src="@drawable/outline_keyboard_arrow_right_24" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -427,7 +425,7 @@
             <LinearLayout
                 android:id="@+id/tabPreviousComplaints"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:clickable="true"
                 android:elevation="2dp"
@@ -464,13 +462,12 @@
                         android:textStyle="bold"
                         android:text="Previous Complaints"
                         android:textColor="#1A2E22"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/sora_regular"
                         android:text="Browse your complaint history"
                         android:textColor="#6B8578"
                         android:textSize="12sp" />
@@ -485,7 +482,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/outline_arrow_circle_right_24" />
+                        android:src="@drawable/outline_keyboard_arrow_right_24" />
                 </LinearLayout>
 
             </LinearLayout>

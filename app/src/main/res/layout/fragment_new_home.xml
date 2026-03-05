@@ -182,7 +182,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/allProductCard"
                         android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:layout_margin="4dp"
                         app:cardCornerRadius="@dimen/_10sdp"
                         app:cardElevation="2dp">
@@ -199,7 +199,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/milkProductCard"
                         android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:layout_margin="4dp"
                         app:cardCornerRadius="@dimen/_10sdp"
                         app:cardElevation="2dp">
@@ -216,7 +216,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/milkCard"
                         android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_80sdp"
+                        android:layout_height="@dimen/_60sdp"
                         android:layout_margin="4dp"
                         app:cardCornerRadius="@dimen/_10sdp"
                         app:cardElevation="2dp">
@@ -255,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:text="FreshyZo provide 100% pure Milk  "
                         android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_gravity="center"
                         android:paddingBottom="10dp"/>
 
@@ -370,7 +370,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/combo_offers_title"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -387,8 +387,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/milk_type_title"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -462,7 +462,7 @@
                             android:layout_weight="1"
                             android:minHeight="@dimen/_40sdp"
                         android:textColorHint="@color/gray_600"
-                            android:hint="type here.."
+                            android:hint="Type here.."
                             android:background="@drawable/bg"
                             android:layout_marginEnd="8dp"/>
 

@@ -9,14 +9,7 @@
         android:id="@+id/nav_home"
         android:name="com.example.freshyzoappmodule.ui.Fragments.NewHome_Fragment"
         android:label="Home"
-        tools:layout="@layout/fragment_new_home" >
-
-        <action
-            android:id="@+id/action_nav_account_to_testReportFragment"
-            app:destination="@id/testReportFromAccountFragment" />
-
-
-    </fragment>
+        tools:layout="@layout/fragment_new_home" />
 
     <fragment
         android:id="@+id/nav_product"
@@ -38,7 +31,7 @@
     <fragment
         android:id="@+id/nav_cart"
         android:name="com.example.freshyzoappmodule.ui.Fragments.CartFragment"
-        android:label="Wallet"
+        android:label="Cart"
         tools:layout="@layout/fragment_cart" />
 
     <fragment
@@ -55,7 +48,6 @@
         <action
             android:id="@+id/action_nav_account_to_complaintAssistanceFragment"
             app:destination="@id/complaintAssistanceCenterFragment" />
-
         <action
             android:id="@+id/action_nav_account_to_testReportFragment"
             app:destination="@id/testReportFromAccountFragment" />
@@ -66,39 +58,17 @@
         android:name="com.example.freshyzoappmodule.ui.Fragments.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.example.freshyzoappmodule.ui.Fragments.AddressFragment"
         android:label="Address"
         tools:layout="@layout/fragment_address" />
-    <fragment
-        android:id="@+id/SubscribeFragment"
-        android:name="com.example.freshyzoappmodule.ui.Fragments.SubscriptionFragment"
-        android:label="Subscribe"
-        tools:layout="@layout/fragment_subscription" />
-
-    <fragment
-        android:id="@+id/ComplaintsFragment"
-        android:name="com.example.freshyzoappmodule.ui.Fragments.ComplaintsAssistanceFragment"
-        android:label="complaintAssistance"
-        tools:layout="@layout/fragment_complaints_assistance" />
-
-    <fragment
-        android:id="@+id/paymentAndWalletFragment"
-        android:name="com.example.freshyzoappmodule.ui.Fragments.PaymentAndWalletFragment"
-        android:label="@string/payments_wallet"
-        tools:layout="@layout/fragment_payment_and_wallet" />
-
-    <fragment
-        android:id="@+id/referralFragment"
-        android:name="com.example.freshyzoappmodule.ui.Fragments.ReferAndEarnFragment"
-        android:label="@string/refer_earn"
-        tools:layout="@layout/fragment_payment_and_wallet" />
 
     <fragment
         android:id="@+id/testReportFromAccountFragment"
         android:name="com.example.freshyzoappmodule.ui.Fragments.TestReportFromAccountFragment"
-        android:label="@string/test_report"
+        android:label="Test Report"
         tools:layout="@layout/fragment_test_report_from_account" />
 
     <fragment
@@ -117,5 +87,29 @@
         android:label="Complaint History"
         tools:layout="@layout/fragment_complaint_history" />
 
+    <!-- Other Fragments -->
+    <fragment
+        android:id="@+id/SubscribeFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.SubscriptionFragment"
+        android:label="Subscribe"
+        tools:layout="@layout/fragment_subscription" />
+
+    <fragment
+        android:id="@+id/ComplaintsFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.ComplaintsAssistanceFragment"
+        android:label="complaintAssistance"
+        tools:layout="@layout/fragment_complaints_assistance" />
+
+    <fragment
+        android:id="@+id/paymentAndWalletFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.PaymentAndWalletFragment"
+        android:label="Payments &amp; Wallet"
+        tools:layout="@layout/fragment_payment_and_wallet" />
+
+    <fragment
+        android:id="@+id/referralFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.ReferAndEarnFragment"
+        android:label="Refer &amp; Earn"
+        tools:layout="@layout/fragment_payment_and_wallet" />
 
 </navigation>
