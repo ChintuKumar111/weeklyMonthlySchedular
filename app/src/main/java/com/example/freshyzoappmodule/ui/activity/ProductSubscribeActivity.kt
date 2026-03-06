@@ -35,7 +35,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         dateHelperr = DateHelperr()
-
+        
         bindDayRows()
         observeViewModel()
         setupClickListeners()
@@ -138,6 +138,10 @@ class ProductSubscribeActivity : AppCompatActivity() {
         binding.btnSubscribeNow.text = state.totalPriceText
         binding.tvDayQtySummary.text = state.daySummaryText
         binding.tvQtyValue.text = state.simpleQty.toString()
+        binding.btnQtyMinus.apply {
+            isEnabled = state.simpleQty > 1
+            alpha = if (state.simpleQty > 1) 1.0f else 0.5f
+        }
         binding.tvQtySub.text = state.simpleSummaryText
         binding.tvSelectedDate.text = state.startDate
         binding.tvDeliveryBegins.text = state.deliveryBeginsText
@@ -154,6 +158,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
             DeliveryFrequency.WEEKLY -> {
                 binding.cardDayQty.visibility = View.VISIBLE
                 binding.cardSimpleQty.visibility = View.GONE
+                android.util.Log.d("DEBUG", "Weekly selected")
                 binding.cardIntervalOptions.visibility = View.GONE
             }
             DeliveryFrequency.ALTERNATE -> {
@@ -175,7 +180,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
             viewModel.increaseSimpleQty()
         }
 
-        binding.btnQtyMinus.setOnClickListener { 
+        binding.btnQtyMinus.setOnClickListener {
             viewModel.decreaseSimpleQty()
         }
 
@@ -247,7 +252,10 @@ class ProductSubscribeActivity : AppCompatActivity() {
             )
 
             holder.miniStepper.alpha = 1f
-            holder.btnMinus.isEnabled = true
+            holder.btnMinus.apply {
+                isEnabled = state.qty > 1
+                alpha = if (state.qty > 1) 1.0f else 0.5f
+            }
             holder.btnPlus.isEnabled = true
 
             holder.tvDayQty.text = state.qty.toString()
@@ -262,11 +270,9 @@ class ProductSubscribeActivity : AppCompatActivity() {
                 ContextCompat.getDrawable(this, R.drawable.day_toggle_off)
 
             holder.ivCheck.visibility = View.GONE
-
             holder.tvDayName.setTextColor(
                 ContextCompat.getColor(this, R.color.text_muted)
             )
-
             holder.miniStepper.alpha = 0.35f
             holder.btnMinus.isEnabled = false
             holder.btnPlus.isEnabled = false

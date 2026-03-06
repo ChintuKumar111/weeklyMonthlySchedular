@@ -5,8 +5,16 @@
         <!-- Status bar color -->
         <item name="android:statusBarColor">@android:color/transparent</item>
 
-<!--        &lt;!&ndash; White icons on black bar &ndash;&gt;-->
-<!--        <item name="android:windowLightStatusBar">false</item>-->
+        <!-- Brand Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/primary</item>
+
+        <!-- Material 3 Selection Colors -->
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorContainer">@color/white</item>
+        <item name="colorControlActivated">@color/primary_dark</item>
 
     </style>
 

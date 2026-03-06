@@ -62,7 +62,7 @@
                 android:text="Hello, User ! 👋"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold|italic"
+                android:textStyle="bold"
                 android:layout_marginBottom="5dp" />
 
             <!-- Subtitle -->
@@ -102,8 +102,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:padding="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="46dp"
@@ -169,8 +168,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:padding="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="46dp"
@@ -236,8 +234,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:padding="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="46dp"
@@ -302,8 +299,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:padding="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="46dp"
@@ -369,8 +365,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:padding="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="46dp"
@@ -434,8 +429,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp">
+                android:padding="@dimen/_10sdp">
 
                 <LinearLayout
                     android:layout_width="46dp"

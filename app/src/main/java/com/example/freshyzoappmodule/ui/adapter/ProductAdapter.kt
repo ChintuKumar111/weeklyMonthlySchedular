@@ -25,10 +25,8 @@ class ProductAdapter(
     private val onSubscribeClick: (Product) -> Unit,
     private val onProductClick: (Product) -> Unit
 ) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
-
     private val selectedSizeMap = mutableMapOf<Int, Int>()
     private val qtyMap = mutableMapOf<Int, Int>()
-
     fun setInitialQuantities(quantities: Map<Int, Int>) {
         qtyMap.clear()
         qtyMap.putAll(quantities)

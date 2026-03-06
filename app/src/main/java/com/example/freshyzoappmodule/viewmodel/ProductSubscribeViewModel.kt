@@ -29,17 +29,31 @@ class ProductSubscribeViewModel : ViewModel() {
     fun updateDate(date: Date) {
         val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         val dayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
+        val shortDateFormat = SimpleDateFormat("MMM\ndd", Locale.getDefault())
         val state = _uiState.value ?: ProductSubscribeUiState()
         updateState(state.copy(
             startDate = dateFormat.format(date),
+            shortDate = shortDateFormat.format(date),
             deliveryBeginsText = "Delivery begins ${dayFormat.format(date)}"
         ))
     }
-    
+
     fun updateDateSelection(formattedDate: String, dayName: String) {
+        // Since formattedDate comes from a helper, we might need to parse it back or just update labels
         val state = _uiState.value ?: ProductSubscribeUiState()
+
+        // Extracting Day/Month from formattedDate (assuming "dd MMMM yyyy")
+        var displayShort = "📅"
+        try {
+            val date = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).parse(formattedDate)
+            if (date != null) {
+                displayShort = SimpleDateFormat("MMM\ndd", Locale.getDefault()).format(date)
+            }
+        } catch (e: Exception) { e.printStackTrace() }
+
         updateState(state.copy(
             startDate = formattedDate,
+            shortDate = displayShort,
             deliveryBeginsText = "Delivery begins $dayName"
         ))
     }
@@ -145,7 +159,7 @@ class ProductSubscribeViewModel : ViewModel() {
     private fun calculateSimpleSummary(state: ProductSubscribeUiState): String {
         val qty = state.simpleQty
         val unit = if (qty > 1) "packets" else "packet"
-        
+
         return when (state.selectedFrequency) {
             DeliveryFrequency.DAILY -> "$qty $unit × daily = ~${qty * 30}/month"
             DeliveryFrequency.ALTERNATE -> "$qty $unit × alternate days = ~${qty * 15}/month"
@@ -155,15 +169,7 @@ class ProductSubscribeViewModel : ViewModel() {
     }
 
     private fun calculateTotal(state: ProductSubscribeUiState): String {
-        return when (state.selectedFrequency) {
-            DeliveryFrequency.WEEKLY, DeliveryFrequency.ALTERNATE -> {
-                val total = state.dayStates.sumOf { day ->
-                    if (day.isOn) day.qty * basePrice else 0
-                }
-                "Subscribe Now "
-            }
-            else -> "Subscribe Now "
-        }
+        return "Subscribe Now "
     }
 
     private fun calculateSummary(state: ProductSubscribeUiState): String {

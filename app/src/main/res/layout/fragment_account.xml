@@ -51,6 +51,7 @@
             <include layout="@layout/layout_quick_access" />
 
             <!-- Account & Setting Card Group -->
+
             <include layout="@layout/layout_account_card_group" />
 
             <!-- Support  & Info Card Group -->

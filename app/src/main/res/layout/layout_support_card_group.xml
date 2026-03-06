@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/test_tube"
-                     />
+                    android:contentDescription="Test Report" />
             </FrameLayout>
 
             <LinearLayout
@@ -63,7 +63,7 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Test Report"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/gift"
-                 />
+                    android:contentDescription="Refer and Earn" />
             </FrameLayout>
 
             <LinearLayout
@@ -121,7 +121,7 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Refer and Earn"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/live_chat"
-                  />
+                    android:contentDescription="Complaints" />
             </FrameLayout>
 
             <LinearLayout
@@ -180,7 +180,7 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Complaints Assistance"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -222,7 +222,7 @@
                     android:layout_height="22dp"
                     android:layout_gravity="center"
                     android:src="@drawable/language"
-                  />
+                    android:contentDescription="Language" />
             </FrameLayout>
 
             <LinearLayout
@@ -238,13 +238,76 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Language"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sora_regular"
                     android:text="Manage your language preferences"
+                    android:textColor="@color/text_muted"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/divider" />
+
+        <!-- FaQ -->
+        <LinearLayout
+            android:id="@+id/tabFaqs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <FrameLayout
+                android:id="@+id/faqIconBadge"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_icon_badge_green">
+
+                <ImageView
+                    android:id="@+id/faqIcon"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/outline_feedback_24"
+                    android:contentDescription="FAQs" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/faqTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_bold"
+                    android:text="FAQs"
+                    android:textColor="@color/text_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/faqSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sora_regular"
+                    android:text="FreshyZo related query"
                     android:textColor="@color/text_muted"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -272,18 +335,18 @@
             android:padding="16dp">
 
             <FrameLayout
-                android:id="@+id/menuIconBadge"
+                android:id="@+id/aboutUsIconBadge"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:background="@drawable/bg_icon_badge_green">
 
                 <ImageView
-                    android:id="@+id/menuIcon"
+                    android:id="@+id/aboutUsIcon"
                     android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_height="19dp"
                     android:layout_gravity="center"
                     android:src="@drawable/information_point"
-                    />
+                    android:contentDescription="About Us" />
             </FrameLayout>
 
             <LinearLayout
@@ -294,16 +357,16 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/menuTitle"
+                    android:id="@+id/aboutUsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sora_bold"
                     android:text="About Us"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/menuSubtitle"
+                    android:id="@+id/aboutUsSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sora_regular"

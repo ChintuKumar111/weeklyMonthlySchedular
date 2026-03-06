@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_faq_question.xml — one FAQ accordion row -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ── QUESTION ROW (tappable) ── -->
+        <LinearLayout
+            android:id="@+id/faqQuestionRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="14dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <!-- Number badge -->
+            <TextView
+                android:id="@+id/tvFaqNumber"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:text="1"
+                android:textSize="11sp"
+                android:textColor="@color/green_mid"
+                android:fontFamily="@font/sora_bold"
+                android:gravity="center"
+                android:background="@drawable/bg_faq_number_default"
+                android:layout_marginEnd="12dp" />
+
+            <!-- Question text -->
+            <TextView
+                android:id="@+id/tvFaqQuestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Question text"
+                android:textSize="13sp"
+                android:textColor="@color/text_dark"
+                android:fontFamily="@font/sora_bold"
+                android:lineSpacingMultiplier="1.4"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Arrow icon -->
+            <ImageView
+                android:id="@+id/ivFaqArrow"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_chevron_down"
+                android:background="@drawable/bg_faq_arrow_default"
+                android:padding="7dp"
+                android:contentDescription="Toggle" />
+
+        </LinearLayout>
+
+        <!-- ── DIVIDER (shown when open) ── -->
+        <View
+            android:id="@+id/faqDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/border_light"
+            android:visibility="gone" />
+
+        <!-- ── ANSWER (GONE by default) ── -->
+        <TextView
+            android:id="@+id/tvFaqAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Answer text"
+            android:textSize="12.5sp"
+            android:textColor="@color/text_mid"
+            android:fontFamily="@font/sora_regular"
+            android:lineSpacingMultiplier="1.7"
+            android:paddingStart="52dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+
+
+
+
+

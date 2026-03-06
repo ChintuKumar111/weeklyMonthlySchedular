@@ -52,9 +52,7 @@ class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
         binding.cartPreview.setOnViewCartClickListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
-        
         handleIntent(intent)
-
         // Handle Back Press to return to SearchActivity if needed
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

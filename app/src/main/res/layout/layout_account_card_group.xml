@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="5dp"
     app:cardCornerRadius="20dp"
     android:backgroundTint="@color/white"
     app:cardElevation="2dp"
@@ -67,7 +67,7 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Subscription"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
 
@@ -130,7 +130,7 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Profile"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
 
@@ -191,7 +191,7 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Address"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
 
@@ -254,7 +254,7 @@
                     android:fontFamily="@font/sora_bold"
                     android:text="Payment and wallet"
                     android:textColor="@color/text_primary"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/menuSubtitle"
@@ -268,6 +268,9 @@
 
 
         </LinearLayout>
+
+
+
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -63,7 +63,7 @@
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
                         app:cardBackgroundColor="#B8E8D0"
-                        app:cardCornerRadius="28dp"
+                        app:cardCornerRadius="100dp"
                         app:cardElevation="8dp">
 
                         <ImageView
@@ -240,7 +240,6 @@
                             android:background="@null"
                             android:hint="Phone number"
                             android:inputType="phone"
-                            android:text="6868535353"
                             android:textColor="#1A2E1F"
                             android:textColorHint="#B8CFB0"
                             android:textSize="15sp" />

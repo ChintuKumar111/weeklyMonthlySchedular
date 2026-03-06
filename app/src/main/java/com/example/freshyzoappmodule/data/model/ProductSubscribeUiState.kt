@@ -12,5 +12,7 @@ data class ProductSubscribeUiState(
     val daySummaryText: String = "",
     val isDayMode: Boolean = false,
     val startDate: String = "",
-    val deliveryBeginsText: String = ""
+    val shortDate: String = "",
+    val deliveryBeginsText: String = "",
+    val footerBannerText: String = ""
 )

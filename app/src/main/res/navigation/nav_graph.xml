@@ -9,7 +9,13 @@
         android:id="@+id/nav_home"
         android:name="com.example.freshyzoappmodule.ui.Fragments.NewHome_Fragment"
         android:label="Home"
-        tools:layout="@layout/fragment_new_home" />
+        tools:layout="@layout/fragment_new_home" >
+        <action
+            android:id="@+id/action_nav_account_to_testReportFragment"
+            app:destination="@id/testReportFromAccountFragment" />
+
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_product"
@@ -51,6 +57,9 @@
         <action
             android:id="@+id/action_nav_account_to_testReportFragment"
             app:destination="@id/testReportFromAccountFragment" />
+        <action
+            android:id="@+id/action_nav_account_to_faqsFragment"
+            app:destination="@id/faqsFragment" />
     </fragment>
 
     <fragment
@@ -111,5 +120,11 @@
         android:name="com.example.freshyzoappmodule.ui.Fragments.ReferAndEarnFragment"
         android:label="Refer &amp; Earn"
         tools:layout="@layout/fragment_payment_and_wallet" />
+
+    <fragment
+        android:id="@+id/faqsFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.FAQsFragment"
+        android:label="FAQs"
+        tools:layout="@layout/fragment_f_a_qs" />
 
 </navigation>
