@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    >
 
     <!-- Fragment Container with NavHostFragment -->
     <androidx.fragment.app.FragmentContainerView
@@ -15,6 +15,7 @@
         android:layout_height="0dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
+        android:background="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/cartPreview"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +50,7 @@
             app:itemBackground="@drawable/bg_bottom_nav"
             app:itemActiveIndicatorStyle="@drawable/bg_bottom_nav"
             app:menu="@menu/bottom_nav_menu"
+            android:backgroundTint="@color/white"
             app:itemTextColor="@color/selector_nav_color"
             app:itemIconTint="@color/selector_nav_color"
             app:labelVisibilityMode="labeled" />

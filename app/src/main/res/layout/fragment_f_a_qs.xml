@@ -98,6 +98,7 @@
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_marginStart="12dp"
+                    android:tint="@color/white"
                     android:background="@drawable/bg_icon_btn_white_circle"
                     android:src="@drawable/outline_arrow_back_24"
                     android:padding="9dp"
@@ -145,7 +146,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/modern_search"
+                        android:src="@drawable/search_img"
                         app:tint="@color/text_muted" />
 
                     <EditText
@@ -168,7 +169,7 @@
                         android:id="@+id/ivClearSearch"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/close"
+                        android:src="@drawable/outline_close_24"
                         android:visibility="gone"
                         app:tint="@color/text_muted" />
 
@@ -289,16 +290,73 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-
-            <!-- ── FAQ RECYCLERVIEW ── -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvFaq"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never" />
+                android:layout_height="wrap_content">
+
+                <!-- ── FAQ RECYCLERVIEW ── -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvFaq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="40dp" />
+                <LinearLayout
+                    android:id="@+id/lytNotFound"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="40dp"
+                    android:visibility="gone"> <!-- Hidden by default -->
+
+                    <!-- Use a Lottie animation or a simple ImageView -->
+                 <com.airbnb.lottie.LottieAnimationView
+                     android:id="@+id/animNotMatch"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:lottie_rawRes="@raw/emptylistt"
+                     android:layout_gravity="center"
+                     android:gravity="center"
+                     android:orientation="vertical"
+                     android:padding="40dp"
+                     android:visibility="gone"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="No matching questions found"
+                        android:fontFamily="@font/sora_bold"
+                        android:textColor="@color/text_dark"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Try using different keywords"
+                        android:fontFamily="@font/sora_regular"
+                        android:textColor="@color/text_muted"
+                        android:textSize="13sp"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+
+
+
+            </FrameLayout>
 
 
             <!-- ── HELP BANNER ── -->
@@ -309,6 +367,7 @@
                 android:layout_marginTop="20dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
+                android:layout_gravity="bottom"
                 app:cardBackgroundColor="#0D1B0E">
 
                 <LinearLayout
@@ -374,5 +433,7 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,10 @@
 package com.example.freshyzoappmodule.ui.Fragments
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
@@ -15,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentFAQsBinding
+import com.example.freshyzoappmodule.ui.activity.ChatActivity
+import com.example.freshyzoappmodule.ui.activity.ChatListActivity
 
 class FAQsFragment : Fragment() {
 
@@ -23,6 +28,9 @@ class FAQsFragment : Fragment() {
 
     private lateinit var faqAdapter: FaqQuestionAdapter
     private var selectedCategory = "all"
+    
+    private val handler = Handler(Looper.getMainLooper())
+    private var searchRunnable: Runnable? = null
 
     // ─────────────────────────────────────────────────────────────
     //  All FAQ data
@@ -76,6 +84,7 @@ class FAQsFragment : Fragment() {
         setupCategoryChips()
         setupSearch()
         setupHelpBanner()
+
     }
 
     private fun setupToolbar() {
@@ -107,7 +116,7 @@ class FAQsFragment : Fragment() {
             chip.setOnClickListener {
                 selectedCategory = cat
                 updateChipStyles(chipMap, chip)
-                applyFilters()
+                showLoadingAndFilter()
             }
         }
     }
@@ -119,7 +128,10 @@ class FAQsFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 binding.ivClearSearch.visibility =
                     if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
-                applyFilters()
+                
+                searchRunnable?.let { handler.removeCallbacks(it) }
+                searchRunnable = Runnable { showLoadingAndFilter() }
+                handler.postDelayed(searchRunnable!!, 300) // Small debounce for typing
             }
         })
         binding.ivClearSearch.setOnClickListener {
@@ -129,20 +141,45 @@ class FAQsFragment : Fragment() {
 
     private fun setupHelpBanner() {
         binding.btnChatNow.setOnClickListener {
-            // TODO: Action for Chat
+            startActivity(Intent(requireContext(), ChatListActivity::class.java))
         }
+    }
+
+    private fun showLoadingAndFilter() {
+        // Stop any pending operations
+        handler.removeCallbacksAndMessages(null)
+        
+        binding.rvFaq.visibility = View.GONE
+        binding.animNotMatch.visibility = View.GONE // Hide "Not Found" while loading
+        binding.progressBar.visibility = View.VISIBLE
+        
+        handler.postDelayed({
+            if (_binding != null) {
+                applyFilters()
+                binding.progressBar.visibility = View.GONE
+                binding.rvFaq.visibility = View.VISIBLE
+            }
+        }, 600) // less than  second delay
     }
 
     private fun applyFilters() {
         val query = binding.etSearch.text.toString().trim().lowercase()
         val filtered = allFaqs.filter { faq ->
-            val matchesCat  = selectedCategory == "all" || faq.category == selectedCategory
+            val matchesCat = selectedCategory == "all" || faq.category == selectedCategory
             val matchesText = query.isEmpty() ||
                     faq.question.lowercase().contains(query) ||
                     faq.answer.lowercase().contains(query)
             matchesCat && matchesText
         }
-        faqAdapter.submitList(filtered)
+        if (filtered.isEmpty()) {
+            binding.rvFaq.visibility = View.GONE
+            binding.lytNotFound.visibility = View.VISIBLE
+        } else {
+            binding.rvFaq.visibility = View.VISIBLE
+            binding.lytNotFound.visibility = View.GONE
+            faqAdapter.submitList(filtered)
+
+        }
     }
 
     private fun updateChipStyles(
@@ -167,6 +204,7 @@ class FAQsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        handler.removeCallbacksAndMessages(null)
         _binding = null
     }
 }
