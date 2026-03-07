@@ -24,6 +24,8 @@ class AddressFragment : Fragment() {
     private var _binding: FragmentAddressBinding? = null
     private val binding get() = _binding!!
 
+    private var bottomSheetDialog: BottomSheetDialog? = null
+
     private val viewModel: AddressViewModel by viewModels {
         AddressViewModelFactory(AddressRepository(RetrofitClient.api))
     }
@@ -105,9 +107,10 @@ class AddressFragment : Fragment() {
     }
 
     private fun showEditAddressBottomSheet() {
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val dialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog = dialog
         val sheetBinding = BottomSheetEditAddressBinding.inflate(layoutInflater)
-        bottomSheetDialog.setContentView(sheetBinding.root)
+        dialog.setContentView(sheetBinding.root)
 
         sheetBinding.etAddress.setText(binding.tvAddress.text)
         sheetBinding.etAddress.setSelection(sheetBinding.etAddress.text?.length ?: 0)
@@ -116,13 +119,13 @@ class AddressFragment : Fragment() {
             val newAddress = sheetBinding.etAddress.text.toString().trim()
             if (newAddress.isNotEmpty()) {
                 viewModel.updateAddress(newAddress)
-                bottomSheetDialog.dismiss()
+                dialog.dismiss()
             } else {
                 sheetBinding.tilAddress.error = "Address cannot be empty"
             }
         }
 
-        bottomSheetDialog.show()
+        dialog.show()
     }
 
     private fun openMapLocationPicker() {
@@ -131,6 +134,8 @@ class AddressFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        bottomSheetDialog?.dismiss()
+        bottomSheetDialog = null
         super.onDestroyView()
         _binding = null
     }

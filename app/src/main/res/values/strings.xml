@@ -134,9 +134,43 @@
 
     <!-- Bottom Navigation -->
     <string name="nav_home">Home</string>
-    <string name="nav_alerts">Alerts</string>
+    <string name="nav_product">Product</string>
     <string name="nav_wallet">Wallet</string>
     <string name="nav_account">Account</string>
     <string name="nav_cart">Cart</string>
+
+    <!-- Product Details -->
+    <string name="freshyzo_tag">Freshyzo · Fresh Daily</string>
+    <string name="a2_gir_cow_fresh_milk">A2 Gir Cow Fresh Milk</string>
+    <string name="in_stock">● In Stock</string>
+    <string name="nutrition">Nutrition</string>
+    <string name="protein_label">PROTEIN</string>
+    <string name="organic_label">Organic</string>
+    <string name="breed_label">Breed</string>
+    <string name="description">Description</string>
+    <string name="read_more">Read more ▾</string>
+    <string name="lab_tested">🧪 Lab Tested</string>
+    <string name="glass_bottle">♻️ Glass Bottle</string>
+    <string name="comparison_title">Freshyzo vs Other Brand</string>
+    <string name="comparison_banner">We compared ourselves with top brands so you can make the best choice for your family.</string>
+    <string name="feature">Feature</string>
+    <string name="ours">⭐ Ours</string>
+    <string name="other_brands">Other Brands</string>
+    <string name="mass_market_brands">Mass Market \nBrands</string>
+    <string name="regular_dairy">Regular Dairy</string>
+    <string name="yes">✔ Yes</string>
+    <string name="no">✘ No</string>
+    <string name="partial">~ Partial</string>
+    <string name="see_all">See all →</string>
+    <string name="reviews_count">2,341 reviews</string>
+    <string name="why_choose_freshyzo">why Choose FreshyZo</string>
+    <string name="free_home_delivery">Free Home Delivery</string>
+    <string name="delivered_by">Delivered by 7:00 AM tomorrow</string>
+    <string name="free">FREE</string>
+    <string name="subscription_option">Subscription Option</string>
+    <string name="subscription_option_desc">Subscription Option for daily weely monthly</string>
+    <string name="pause_resume">Pause/Resume Anytime</string>
+    <string name="pause_resume_desc">you can pause and resume the service any time</string>
+    <string name="continue_to_subscribe">Continue to Subscribe</string>
 
 </resources>

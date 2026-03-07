@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentAccountBinding
+import com.example.freshyzoappmodule.helper.LanguageHelper
 import com.example.freshyzoappmodule.helper.PreferenceHelper
 
 class AccountFragment : Fragment() {
@@ -66,6 +68,10 @@ class AccountFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_account_to_faqsFragment)
         }
 
+        binding.root.findViewById<View>(R.id.tabLanguage)?.setOnClickListener {
+            showLanguageDialog()
+        }
+
         binding.root.findViewById<View>(R.id.tabAboutUs)?.setOnClickListener {
             val url = "https://freshyzo.com/about-us/"
             val intent = Intent(Intent.ACTION_VIEW)
@@ -74,14 +80,35 @@ class AccountFragment : Fragment() {
         }
     }
 
+    private fun showLanguageDialog() {
+        val languages = arrayOf("English", "हिन्दी (Hindi)")
+        val currentLang = LanguageHelper.getSavedLanguage(requireContext())
+        val checkedItem = if (currentLang == "hi") 1 else 0
+
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.language)
+            .setSingleChoiceItems(languages, checkedItem) { dialog, which ->
+                val langCode = if (which == 1) "hi" else "en"
+                if (langCode != currentLang) {
+                    LanguageHelper.setLocale(requireContext(), langCode)
+                    dialog.dismiss()
+                    activity?.recreate()
+                } else {
+                    dialog.dismiss()
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
     private fun updateProfileUI() {
         val savedName = PreferenceHelper.getUserName(requireContext())
         val savedImageUri = PreferenceHelper.getProfileImage(requireContext())
 
         binding.root.findViewById<TextView>(R.id.tvWelcomeUser)?.text = if (savedName != "User Name") {
-            "Welcome, $savedName 👋"
+            getString(R.string.welcome_user).replace("User", savedName ?: "")
         } else {
-            "Welcome, User 👋"
+            getString(R.string.welcome_user)
         }
 
         val ivProfile = binding.root.findViewById<ImageView>(R.id.ivAccountProfile)

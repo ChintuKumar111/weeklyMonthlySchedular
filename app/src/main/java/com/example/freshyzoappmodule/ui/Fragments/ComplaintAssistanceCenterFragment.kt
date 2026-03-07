@@ -26,6 +26,7 @@ class ComplaintAssistanceCenterFragment : Fragment() {
 
     private var selectedImageUri: Uri? = null
     private var currentSheetBinding: BottomSheetComplaintBinding? = null
+    private var currentDialog: BottomSheetDialog? = null
 
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -84,6 +85,7 @@ class ComplaintAssistanceCenterFragment : Fragment() {
 
     private fun showComplaintBottomSheet(title: String) {
         val dialog = BottomSheetDialog(requireContext())
+        currentDialog = dialog
         val sheetBinding = BottomSheetComplaintBinding.inflate(layoutInflater)
         currentSheetBinding = sheetBinding
         dialog.setContentView(sheetBinding.root)
@@ -183,6 +185,8 @@ class ComplaintAssistanceCenterFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        currentDialog?.dismiss()
+        currentDialog = null
         super.onDestroyView()
         _binding = null
         currentSheetBinding = null

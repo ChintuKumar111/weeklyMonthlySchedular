@@ -1,0 +1,175 @@
+<resources>
+    <string name="app_name">डिलीवरी शेड्यूलर</string>
+
+    <string name="title_activity_compose">कंपोज़ एक्टिविटी</string>
+    <!-- Screen Titles -->
+    <string name="product_details">उत्पाद विवरण</string>
+    <string name="cart">कार्ट</string>
+    <string name="back">पीछे</string>
+
+    <!-- Product Info -->
+    <string name="product_name">फ्रेशीज़ो A2 गाय का दूध</string>
+    <string name="product_image">उत्पाद की छवि</string>
+
+    <!-- Sections -->
+    <string name="about_product">इस उत्पाद के बारे में</string>
+    <string name="key_benefits">प्रमुख लाभ</string>
+    <string name="quantity">मात्रा</string>
+
+    <!-- Description -->
+    <string name="product_description">पेश है हमारा 100% परिरक्षक-मुक्त A2 गिर गाय का दूध! बेहतरीन भारतीय गिर गायों से प्राप्त, यह दूध प्रोटीन और कैल्शियम से भरपूर है, जो इसे सभी उम्र के व्यक्तियों के लिए एक आदर्श विकल्प बनाता है। अपने A2 बीटा-केसीन प्रोटीन के साथ, यह पाचन में आसान है, जो इसे आपके दैनिक पोषण के लिए एक बढ़िया विकल्प बनाता है।</string>
+
+    <!-- Benefits -->
+    <string name="rich_protein">प्रोटीन से भरपूर</string>
+    <string name="high_calcium">उच्च कैल्शियम</string>
+    <string name="easy_digestion">आसान पाचन</string>
+    <string name="pure_natural">शुद्ध और प्राकृतिक</string>
+
+    <!-- Actions -->
+    <string name="buy_once">एक बार खरीदें</string>
+    <string name="subscribe">सब्सक्राइब करें</string>
+    <string name="info">जानकारी</string>
+    <string name="benefits">लाभ</string>
+
+    <!-- Wallet -->
+    <string name="wallet_balance">₹0</string>
+
+    <!-- Milk Type -->
+    <string name="milk_type_title">आप किस प्रकार के दूध से परिचित हैं!</string>
+    <string name="free_grazing_title">फ्री ग्रेजिंग बनाम शेड...</string>
+    <string name="free_grazing_desc">वास्तव में क्या फर्क पड़ता है- गायों का स्वास्थ्य, गुणवत्ता...</string>
+    <string name="farm_to_door_title">फार्म से द्वार तक: कैसे Fr</string>
+    <string name="farm_to_door_desc">आपका दूध एक रहस्य नहीं होना चाहिए। जानें कैसे फ्रेशीज़ो लाता है...</string>
+    <string name="learn_more">और जानें</string>
+
+    <!-- Suggestion Card -->
+    <string name="suggestion_title">हमें बताएं कि आप क्या चाहते हैं!</string>
+    <string name="suggestion_subtitle">उन उत्पादों का सुझाव दें जिन्हें आप फ्रेशीज़ो पर खरीदारी के लिए उपलब्ध कराना चाहते हैं</string>
+    <string name="suggestion_hint">संदेश टाइप करें...</string>
+    <string name="send">भेजें</string>
+
+    <!-- Live it up -->
+    <string name="freshyZo">फ्रेशीज़ो</string>
+    <string name="freshy_means">फ्रेशीज़ो</string>
+    <string name="we_make">हम 100% शुद्ध उत्पाद बनाते हैं</string>
+    <string name="pure_product">हम 100% शुद्ध उत्पाद बनाते हैं</string>
+    <string name="selection_based">गुणवत्ता पर आधारित चयन।</string>
+
+    <!-- Combo Offers -->
+    <string name="combo_offers_title">कॉम्बो ऑफ़र</string>
+    <string name="combo_1_title">दूध + दही</string>
+    <string name="combo_1_desc">बेहतरीन नाश्ता कॉम्बो</string>
+    <string name="combo_1_price">₹150</string>
+    <string name="combo_2_title">घी + पनीर</string>
+    <string name="combo_2_desc">शुद्ध घी और ताजा पनीर</string>
+    <string name="combo_2_price">₹550</string>
+    <string name="combo_3_title">दूध + ब्रेड</string>
+    <string name="combo_3_desc">दैनिक आवश्यक कॉम्बो</string>
+    <string name="combo_3_price">₹90</string>
+    <string name="combo_4_title">दही + पनीर</string>
+    <string name="combo_4_desc">ताजा डेयरी कॉम्बो</string>
+    <string name="combo_4_price">₹200</string>
+    <string name="add_to_cart">कार्ट में जोड़ें</string>
+
+    <string name="hello_blank_fragment">नमस्ते ब्लैंक फ्रैगमेंट</string>
+
+    <!-- App Bar -->
+    <string name="account_title">खाता</string>
+
+    <!-- Hero -->
+    <string name="my_profile">मेरी प्रोफाइल</string>
+    <string name="welcome_user">स्वागत है, उपयोगकर्ता 👋</string>
+    <string name="account_subtitle">अपना खाता प्रबंधित करें और नीचे उपयोगी लिंक खोजें।</string>
+
+    <!-- Section Labels -->
+    <string name="quick_access">त्वरित पहुँच</string>
+    <string name="account_settings">खाता और सेटिंग्स</string>
+    <string name="support_info">सहायता और जानकारी</string>
+
+    <!-- Quick Access Tiles -->
+    <string name="my_orders">मेरे आदेश</string>
+    <string name="deliveries">डिलीवरी</string>
+    <string name="invoice_for_monthly_subscription">चालान</string>
+    <string name="vacation">छुट्टी</string>
+
+    <!-- Account Menu Items -->
+    <string name="subscriptions">सदस्यता</string>
+    <string name="subscriptions_sub">सदस्यता की जाँच करें और प्रबंधित करें</string>
+
+    <string name="profile">प्रोफाइल</string>
+    <string name="profile_sub">अपनी प्रोफाइल प्रबंधित और अपडेट करें</string>
+
+    <string name="address">पता</string>
+    <string name="address_sub">सहेजे गए पते प्रबंधित और अपडेट करें</string>
+
+    <string name="payments_wallet">भुगतान और वॉलेट</string>
+    <string name="payments_wallet_sub">अपना वॉलेट प्रबंधित करें</string>
+
+    <!-- Support Menu Items -->
+    <string name="test_report">टेस्ट रिपोर्ट</string>
+    <string name="test_report_sub">हमारे उत्पादों की गुणवत्ता जानें</string>
+
+    <string name="refer_earn">रेफर करें और कमाएं</string>
+    <string name="refer_earn_sub">कूपन ब्राउज़ करें, अंक अर्जित करें</string>
+
+    <string name="complaint">शिकायत सहायता</string>
+    <string name="complaint_sub">किसी समस्या का सामना कर रहे हैं? हम यहाँ मदद के लिए हैं!</string>
+
+    <string name="language">भाषा</string>
+    <string name="language_sub">अपनी भाषा प्राथमिकताएं प्रबंधित करें</string>
+
+    <string name="about_us">हमारे बारे में</string>
+    <string name="about_us_sub">हमारे बारे में जानें</string>
+
+    <!-- Footer -->
+    <string name="terms">नियम</string>
+    <string name="privacy">गोपनीयता</string>
+    <string name="return_policy">वापसी</string>
+
+    <!-- Logout -->
+    <string name="log_out">लॉग आउट</string>
+
+    <!-- App Info -->
+    <string name="app_info">रायपुर में ताज़गी के साथ बनाया गया 🌿 · v3.2.0</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">होम</string>
+    <string name="nav_product">प्रोडक्ट</string>
+    <string name="nav_wallet">वॉलेट</string>
+    <string name="nav_account">खाता</string>
+    <string name="nav_cart">कार्ट</string>
+
+    <!-- Product Details (Hindi) -->
+    <string name="freshyzo_tag">फ्रेशीज़ो · फ्रेश डेली</string>
+    <string name="a2_gir_cow_fresh_milk">A2 गिर गाय का ताज़ा दूध</string>
+    <string name="in_stock">● स्टॉक में</string>
+    <string name="nutrition">पोषण</string>
+    <string name="protein_label">प्रोटीन</string>
+    <string name="organic_label">ऑर्गेनिक</string>
+    <string name="breed_label">नस्ल</string>
+    <string name="description">विवरण</string>
+    <string name="read_more">और पढ़ें ▾</string>
+    <string name="lab_tested">🧪 लैब टेस्टेड</string>
+    <string name="glass_bottle">♻️ कांच की बोतल</string>
+    <string name="comparison_title">फ्रेशीज़ो बनाम अन्य ब्रांड</string>
+    <string name="comparison_banner">हमने अपनी तुलना शीर्ष ब्रांडों से की है ताकि आप अपने परिवार के लिए सबसे अच्छा विकल्प चुन सकें।</string>
+    <string name="feature">विशेषता</string>
+    <string name="ours">⭐ हमारा</string>
+    <string name="other_brands">अन्य ब्रांड</string>
+    <string name="mass_market_brands">मास मार्केट ब्रांड</string>
+    <string name="regular_dairy">नियमित डेयरी</string>
+    <string name="yes">✔ हाँ</string>
+    <string name="no">✘ नहीं</string>
+    <string name="partial">~ आंशिक</string>
+    <string name="see_all">सभी देखें →</string>
+    <string name="reviews_count">2,341 समीक्षाएं</string>
+    <string name="why_choose_freshyzo">फ्रेशीज़ो क्यों चुनें</string>
+    <string name="free_home_delivery">मुफ्त होम डिलीवरी</string>
+    <string name="delivered_by">कल सुबह 7:00 बजे तक डिलीवर</string>
+    <string name="free">मुफ्त</string>
+    <string name="subscription_option">सदस्यता विकल्प</string>
+    <string name="subscription_option_desc">दैनिक, साप्ताहिक, मासिक के लिए सदस्यता विकल्प</string>
+    <string name="pause_resume">कभी भी रोकें/फिर से शुरू करें</string>
+    <string name="pause_resume_desc">आप किसी भी समय सेवा को रोक सकते हैं और फिर से शुरू कर सकते हैं</string>
+    <string name="continue_to_subscribe">सदस्यता लेने के लिए जारी रखें</string>
+</resources>

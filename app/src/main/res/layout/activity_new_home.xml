@@ -49,7 +49,7 @@
             android:background="@drawable/bg_bottom_nav"
             app:itemBackground="@drawable/bg_bottom_nav"
             app:itemActiveIndicatorStyle="@drawable/bg_bottom_nav"
-            app:menu="@menu/bottom_nav_menu"
+            app:menu="@menu/menu_bottom_nav"
             android:backgroundTint="@color/white"
             app:itemTextColor="@color/selector_nav_color"
             app:itemIconTint="@color/selector_nav_color"

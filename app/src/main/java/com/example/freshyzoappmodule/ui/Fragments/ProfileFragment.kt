@@ -24,6 +24,7 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var selectedImageUri: Uri? = null
+    private var datePickerDialog: DatePickerDialog? = null
 
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -102,7 +103,7 @@ class ProfileFragment : Fragment() {
             } catch (e: Exception) {}
         }
 
-        val datePickerDialog = DatePickerDialog(
+        val dialog = DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->
                 val selectedDate = String.format(Locale.getDefault(), "%02d / %02d / %d", dayOfMonth, month + 1, year)
@@ -112,7 +113,8 @@ class ProfileFragment : Fragment() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
-        datePickerDialog.show()
+        datePickerDialog = dialog
+        dialog.show()
     }
 
     private fun openGallery() {
@@ -152,6 +154,8 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        datePickerDialog?.dismiss()
+        datePickerDialog = null
         super.onDestroyView()
         _binding = null
     }

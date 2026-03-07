@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -18,8 +17,9 @@ import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlin.concurrent.thread
 import com.example.freshyzoappmodule.extensions.sizes
+import com.example.freshyzoappmodule.helper.BaseActivityy
 
-class NewHomeActivity : AppCompatActivity() , PaymentResultListener {
+class NewHomeActivity : BaseActivityy() , PaymentResultListener {
 
     private lateinit var binding: ActivityNewHomeBinding
     private lateinit var cartRepository: CartRepository

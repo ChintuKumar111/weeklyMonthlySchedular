@@ -1,4 +1,5 @@
 package com.example.freshyzoappmodule.helper
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -9,6 +10,10 @@ open class BaseActivityy : AppCompatActivity() {
 
     protected lateinit var analytics: FirebaseAnalytics
     private var startTime = 0L
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LanguageHelper.onAttach(newBase))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

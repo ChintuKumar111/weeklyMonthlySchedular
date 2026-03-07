@@ -8,6 +8,7 @@ object PreferenceHelper {
     private const val KEY_USER_NAME = "user_name"
     private const val KEY_PROFILE_IMAGE = "profile_image_uri"
     private const val KEY_USER_DOB = "user_dob"
+    private const val KEY_LANGUAGE = "app_language"
 
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -35,5 +36,13 @@ object PreferenceHelper {
 
     fun getUserDob(context: Context): String? {
         return getPrefs(context).getString(KEY_USER_DOB, null)
+    }
+
+    fun saveLanguage(context: Context, lang: String) {
+        getPrefs(context).edit().putString(KEY_LANGUAGE, lang).apply()
+    }
+
+    fun getLanguage(context: Context): String {
+        return getPrefs(context).getString(KEY_LANGUAGE, "en") ?: "en"
     }
 }

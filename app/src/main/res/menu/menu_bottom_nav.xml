@@ -2,22 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/ic_plus"
+        android:icon="@drawable/house_bottom"
         android:title="@string/nav_home" />
     <item
-        android:id="@+id/nav_alerts"
-        android:icon="@drawable/ic_plus"
-        android:title="@string/nav_alerts" />
+        android:id="@+id/nav_product"
+        android:icon="@drawable/product_bottom"
+        android:title="@string/nav_product" />
+
     <item
         android:id="@+id/nav_wallet"
-        android:icon="@drawable/ic_plus"
+        android:icon="@drawable/wallet_bottom"
         android:title="@string/nav_wallet" />
+
     <item
         android:id="@+id/nav_account"
-        android:icon="@drawable/ic_plus"
+        android:icon="@drawable/people_bottom"
         android:title="@string/nav_account" />
     <item
         android:id="@+id/nav_cart"
-        android:icon="@drawable/ic_plus"
+        android:icon="@drawable/cart_bottom"
         android:title="@string/nav_cart" />
+
 </menu>
