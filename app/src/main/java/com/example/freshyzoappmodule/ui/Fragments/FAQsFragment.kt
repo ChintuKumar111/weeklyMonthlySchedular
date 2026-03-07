@@ -20,15 +20,11 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentFAQsBinding
 import com.example.freshyzoappmodule.ui.activity.ChatActivity
 import com.example.freshyzoappmodule.ui.activity.ChatListActivity
-
 class FAQsFragment : Fragment() {
-
     private var _binding: FragmentFAQsBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var faqAdapter: FaqQuestionAdapter
     private var selectedCategory = "all"
-    
     private val handler = Handler(Looper.getMainLooper())
     private var searchRunnable: Runnable? = null
 

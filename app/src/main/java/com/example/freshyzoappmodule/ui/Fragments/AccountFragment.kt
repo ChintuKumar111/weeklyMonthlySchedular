@@ -32,8 +32,20 @@ class AccountFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         updateProfileUI()
+        // for calling the listeners
+        setupListeners()
 
+        
+        binding.btnLogout.setOnClickListener {
+            // Handle logout
+        }
+    }
+
+    private fun setupListeners() {
         // Navigation listeners
+        binding.root.findViewById<View>(R.id.heroTab)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_profileFragment)
+        }
         binding.root.findViewById<View>(R.id.tabProfile)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_profileFragment)
         }
@@ -41,7 +53,7 @@ class AccountFragment : Fragment() {
         binding.root.findViewById<View>(R.id.tabAddress)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_addressFragment)
         }
-        
+
         binding.root.findViewById<View>(R.id.tabComplaintsNAssistance)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_complaintAssistanceFragment)
         }
@@ -59,10 +71,6 @@ class AccountFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)
-        }
-        
-        binding.btnLogout.setOnClickListener {
-            // Handle logout
         }
     }
 
