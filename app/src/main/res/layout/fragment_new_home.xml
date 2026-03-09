@@ -68,7 +68,7 @@
                         android:id="@+id/tvWalletMoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹0"
+                        android:text="@string/wallet_balance"
                         android:textColor="@android:color/black"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text="Order before 09:00 pm for delivery tomorrow!"
+            android:text="@string/order_before_msg"
             android:textStyle="bold"
             android:textSize="@dimen/_10sdp"
             android:paddingStart="12dp"/>
@@ -92,7 +92,7 @@
             android:id="@+id/t2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delivering fresh between 5 AM – 9 AM"
+            android:text="@string/delivery_time_msg"
             android:textSize="14sp"
             android:textColor="@color/gray_900"
             android:paddingStart="12dp"
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
                 android:gravity="center"
-                android:text="Shop By Category"
+                android:text="@string/shop_by_category"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
 
@@ -254,7 +254,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FreshyZo provide 100% pure Milk  "
+                        android:text="@string/freshyzo_pure_milk"
                         android:textStyle="bold"
                         android:textSize="12sp"
                         android:layout_gravity="center"
@@ -296,7 +296,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Urea free"
+                                android:text="@string/urea_free"
                                 android:textSize="@dimen/_8sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
@@ -314,7 +314,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Starch free"
+                                android:text="@string/starch_free"
                                 android:textSize="@dimen/_8sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
@@ -331,7 +331,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Detergent free"
+                                android:text="@string/detergent_free"
                                 android:textSize="@dimen/_8sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
@@ -348,7 +348,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="No antibiotics"
+                                android:text="@string/no_antibiotics"
                                 android:textSize="@dimen/_8sdp"
                                 android:layout_marginStart="8dp"/>
                         </LinearLayout>
@@ -359,7 +359,7 @@
                         android:id="@+id/btnTestReport"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="View today's milk test report"
+                        android:text="@string/view_report"
                         android:layout_marginTop="14dp"
                         app:backgroundTint="@color/primary_dark"
                         android:background="@drawable/bg" />
@@ -467,7 +467,7 @@
                             android:layout_weight="1"
                             android:minHeight="@dimen/_40sdp"
                         android:textColorHint="@color/gray_600"
-                            android:hint="Type here.."
+                            android:hint="@string/type_here"
                             android:background="@drawable/bg"
                             android:layout_marginEnd="8dp"/>
 

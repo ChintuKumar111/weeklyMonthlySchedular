@@ -30,9 +30,22 @@
     <string name="subscribe">सब्सक्राइब करें</string>
     <string name="info">जानकारी</string>
     <string name="benefits">लाभ</string>
+    <string name="submit">जमा करें</string>
 
     <!-- Wallet -->
     <string name="wallet_balance">₹0</string>
+
+    <!-- Home Header & Delivery -->
+    <string name="order_before_msg">कल की डिलीवरी के लिए रात 09:00 बजे से पहले ऑर्डर करें!</string>
+    <string name="delivery_time_msg">सुबह 5 बजे से 9 बजे के बीच ताजा डिलीवरी</string>
+    <string name="shop_by_category">कैटेगरी के अनुसार खरीदारी करें</string>
+    <string name="freshyzo_pure_milk">फ्रेशीज़ो 100% शुद्ध दूध प्रदान करता है</string>
+    <string name="urea_free">यूरिया मुक्त</string>
+    <string name="starch_free">स्टार्च मुक्त</string>
+    <string name="detergent_free">डिटर्जेंट मुक्त</string>
+    <string name="no_antibiotics">एंटीबायोटिक्स मुक्त</string>
+    <string name="view_report">आज की दूध परीक्षण रिपोर्ट देखें</string>
+    <string name="type_here">यहाँ टाइप करें..</string>
 
     <!-- Milk Type -->
     <string name="milk_type_title">आप किस प्रकार के दूध से परिचित हैं!</string>
@@ -134,12 +147,13 @@
 
     <!-- Bottom Navigation -->
     <string name="nav_home">होम</string>
-    <string name="nav_product">प्रोडक्ट</string>
+    <string name="nav_alerts">अलर्ट</string>
     <string name="nav_wallet">वॉलेट</string>
     <string name="nav_account">खाता</string>
     <string name="nav_cart">कार्ट</string>
+    <string name="nav_product">उत्पाद</string>
 
-    <!-- Product Details (Hindi) -->
+    <!-- Product Details -->
     <string name="freshyzo_tag">फ्रेशीज़ो · फ्रेश डेली</string>
     <string name="a2_gir_cow_fresh_milk">A2 गिर गाय का ताज़ा दूध</string>
     <string name="in_stock">● स्टॉक में</string>
@@ -172,4 +186,72 @@
     <string name="pause_resume">कभी भी रोकें/फिर से शुरू करें</string>
     <string name="pause_resume_desc">आप किसी भी समय सेवा को रोक सकते हैं और फिर से शुरू कर सकते हैं</string>
     <string name="continue_to_subscribe">सदस्यता लेने के लिए जारी रखें</string>
+
+    <!-- Profile Fragment (Hindi) -->
+    <string name="personal_info">व्यक्तिगत जानकारी</string>
+    <string name="save_changes">परिवर्तन सहेजें →</string>
+    <string name="name">नाम</string>
+    <string name="phone_number">फ़ोन नंबर</string>
+    <string name="dob">जन्म तिथि</string>
+    <string name="email_address">ईमेल पता</string>
+
+    <!-- Complaints Assistance (Hindi) -->
+    <string name="hello_user_greeting">नमस्ते, उपयोगकर्ता ! 👋</string>
+    <string name="complaint_assistance_desc">कृपया एक श्रेणी चुनें ताकि हम आपकी आगे सहायता कर सकें।</string>
+    <string name="app_related_issue">ऐप संबंधी समस्या</string>
+    <string name="app_related_issue_desc">ऐप या प्रदर्शन के साथ समस्याएं</string>
+    <string name="product_related_issue">उत्पाद संबंधी समस्या</string>
+    <string name="product_related_issue_desc">फ्रेशीज़ो उत्पादों के साथ समस्याएं</string>
+    <string name="recharge_related_issue">रीचार्ज संबंधी समस्या</string>
+    <string name="recharge_related_issue_desc">विफल रीचार्ज और भुगतान संबंधी समस्याएं</string>
+    <string name="delivery_related_issue">डिलीवरी संबंधी समस्या</string>
+    <string name="delivery_related_issue_desc">डिलीवरी या पार्टनर के साथ समस्याएं</string>
+    <string name="other_issue">अन्य समस्या</string>
+    <string name="other_issue_desc">कोई अन्य समस्या जो आपको हो सकती है</string>
+    <string name="previous_complaints">पिछली शिकायतें</string>
+    <string name="complaint_history">शिकायत इतिहास</string>
+    <string name="no_complaints_found">कोई शिकायत नहीं मिली</string>
+    <string name="select_issue_type">समस्या का प्रकार चुनें</string>
+    <string name="select_image">छवि चुनें</string>
+
+    <!-- Test Reports (Hindi) -->
+    <string name="lab_reports_header">फ्रेशीज़ो · लैब रिपोर्ट्स</string>
+    <string name="quality_test_report">गुणवत्ता परीक्षण रिपोर्ट</string>
+    <string name="cow_milk">फ्रेशीज़ो गाय का दूध</string>
+    <string name="buffalo_milk">फ्रेशीज़ो भैंस का दूध</string>
+    <string name="tested_on">परीक्षण किया गया — 2025-10-27</string>
+    <string name="test_pass_pure">पास: शुद्ध दूध — कोई मिलावट नहीं मिली।</string>
+    <string name="test_fail_adulterated">विफल: मिलावटी दूध — हानिकारक तत्व शामिल हैं।</string>
+    <string name="sr_no">क्र.सं.</string>
+    <string name="test_name_header">परीक्षण का नाम</string>
+    <string name="valid_range_header">मान्य सीमा</string>
+    <string name="result_header">परिणाम</string>
+
+    <!-- FAQs (Hindi) -->
+    <string name="faqs_title">अक्सर पूछे जाने वाले प्रश्न</string>
+
+    <!-- Cart Fragment (Hindi) -->
+    <string name="my_cart">मेरी कार्ट</string>
+    <string name="cart_empty">आपकी कार्ट खाली है!</string>
+    <string name="fill_freshness">इस कार्ट को ताज़गी से भरें</string>
+    <string name="shop_now">अभी खरीदारी करें</string>
+    <string name="items_in_cart">कार्ट में आइटम</string>
+    <string name="price_details">मूल्य विवरण</string>
+    <string name="total_mrp">कुल एमआरपी</string>
+    <string name="total_discount">कुल छूट</string>
+    <string name="delivery_fee">डिलीवरी शुल्क</string>
+    <string name="total_payable">कुल देय राशि</string>
+    <string name="savings_msg">🎊 आप इस ऑर्डर पर ₹25 बचा रहे हैं!</string>
+    <string name="place_order">ऑर्डर दें</string>
+    <string name="delivery_begins">डिलीवरी शुरू होती है</string>
+
+    <!-- Product Subscription Activity (Hindi) -->
+    <string name="delivery_frequency">डिलीवरी की आवृत्ति</string>
+    <string name="best_value">सर्वोत्तम मूल्य</string>
+    <string name="every_day">हर दिन</string>
+    <string name="every_other">हर दूसरे दिन</string>
+    <string name="alt_days">वैकल्पिक दिन</string>
+    <string name="save_10">10% बचाएं</string>
+    <string name="weekly">साप्ताहिक</string>
+    <string name="daily">दैनिक</string>
 </resources>

@@ -30,9 +30,22 @@
     <string name="subscribe">SUBSCRIBE</string>
     <string name="info">Info</string>
     <string name="benefits">Benefits</string>
+    <string name="submit">Submit</string>
 
     <!-- Wallet -->
     <string name="wallet_balance">₹0</string>
+
+    <!-- Home Header & Delivery -->
+    <string name="order_before_msg">Order before 09:00 pm for delivery tomorrow!</string>
+    <string name="delivery_time_msg">Delivering fresh between 5 AM – 9 AM</string>
+    <string name="shop_by_category">Shop By Category</string>
+    <string name="freshyzo_pure_milk">FreshyZo provide 100% pure Milk</string>
+    <string name="urea_free">Urea free</string>
+    <string name="starch_free">Starch free</string>
+    <string name="detergent_free">Detergent free</string>
+    <string name="no_antibiotics">No antibiotics</string>
+    <string name="view_report">View today\'s milk test report</string>
+    <string name="type_here">Type here..</string>
 
     <!-- Milk Type -->
     <string name="milk_type_title">What type of milk are you familiar with!</string>
@@ -134,10 +147,11 @@
 
     <!-- Bottom Navigation -->
     <string name="nav_home">Home</string>
-    <string name="nav_product">Product</string>
+    <string name="nav_alerts">Alerts</string>
     <string name="nav_wallet">Wallet</string>
     <string name="nav_account">Account</string>
     <string name="nav_cart">Cart</string>
+    <string name="nav_product">Product</string>
 
     <!-- Product Details -->
     <string name="freshyzo_tag">Freshyzo · Fresh Daily</string>
@@ -172,5 +186,73 @@
     <string name="pause_resume">Pause/Resume Anytime</string>
     <string name="pause_resume_desc">you can pause and resume the service any time</string>
     <string name="continue_to_subscribe">Continue to Subscribe</string>
+
+    <!-- Profile Fragment -->
+    <string name="personal_info">PERSONAL INFO</string>
+    <string name="save_changes">Save Changes  →</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="dob">Date of Birth</string>
+    <string name="email_address">Email Address</string>
+
+    <!-- Complaints Assistance -->
+    <string name="hello_user_greeting">Hello, User ! 👋</string>
+    <string name="complaint_assistance_desc">Please select a category so we can assist you further.</string>
+    <string name="app_related_issue">App Related Issue</string>
+    <string name="app_related_issue_desc">Issues with app or performance</string>
+    <string name="product_related_issue">Product Related Issue</string>
+    <string name="product_related_issue_desc">Issues with FreshyZo products</string>
+    <string name="recharge_related_issue">Recharge Related Issue</string>
+    <string name="recharge_related_issue_desc">Failed recharge &amp; payment issues</string>
+    <string name="delivery_related_issue">Delivery Related Issue</string>
+    <string name="delivery_related_issue_desc">Issues with delivery or partner</string>
+    <string name="other_issue">Other Issue</string>
+    <string name="other_issue_desc">Any other issue you may have</string>
+    <string name="previous_complaints">Previous Complaints</string>
+    <string name="complaint_history">Complaint History</string>
+    <string name="no_complaints_found">No complaints found</string>
+    <string name="select_issue_type">Select issue type</string>
+    <string name="select_image">Select image</string>
+
+    <!-- Test Reports -->
+    <string name="lab_reports_header">FRESHYZO · LAB REPORTS</string>
+    <string name="quality_test_report">QUALITY TEST REPORT</string>
+    <string name="cow_milk">FreshyZo Cow Milk</string>
+    <string name="buffalo_milk">FreshyZo Buffalo Milk</string>
+    <string name="tested_on">Tested — 2025-10-27</string>
+    <string name="test_pass_pure">Pass: Pure Milk — No adulteration detected.</string>
+    <string name="test_fail_adulterated">Fail: Adulterated Milk — Contains harmful additives.</string>
+    <string name="sr_no">SR.</string>
+    <string name="test_name_header">TEST NAME</string>
+    <string name="valid_range_header">VALID RANGE</string>
+    <string name="result_header">RESULT</string>
+
+    <!-- FAQs -->
+    <string name="faqs_title">Frequently Asked Questions</string>
+
+    <!-- Cart Fragment -->
+    <string name="my_cart">My Cart</string>
+    <string name="cart_empty">Your Cart is emtpy!</string>
+    <string name="fill_freshness">Fill this cart with freshness</string>
+    <string name="shop_now">shop now</string>
+    <string name="items_in_cart">ITEMS IN CART</string>
+    <string name="price_details">Price Details</string>
+    <string name="total_mrp">Total MRP</string>
+    <string name="total_discount">Total Discount</string>
+    <string name="delivery_fee">Delivery Fee</string>
+    <string name="total_payable">Total Payable</string>
+    <string name="savings_msg">🎊 You\'re saving ₹25 on this order!</string>
+    <string name="place_order">Place Order</string>
+    <string name="delivery_begins">Delivery begins</string>
+
+    <!-- Product Subscription Activity -->
+    <string name="delivery_frequency">DELIVERY FREQUENCY</string>
+    <string name="best_value">Best Value</string>
+    <string name="every_day">Every day</string>
+    <string name="every_other">Every other</string>
+    <string name="alt_days">Alt Days</string>
+    <string name="save_10">Save 10%</string>
+    <string name="weekly">Weekly</string>
+    <string name="daily">Daily</string>
 
 </resources>

@@ -19,6 +19,9 @@
         android:theme="@style/Base.Theme.SimpleApiCalling"
         tools:replace="android:allowBackup,android:fullBackupContent,android:dataExtractionRules,android:label,android:theme,android:supportsRtl">
         <activity
+            android:name=".featureflag.ui.featureActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.SelectLocationActivity"
             android:exported="false" />
 

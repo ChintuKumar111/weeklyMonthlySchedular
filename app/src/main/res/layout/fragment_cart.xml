@@ -28,7 +28,7 @@
             app:titleTextColor="@color/white"
             app:navigationIcon="@drawable/ic_back"
             android:background="@color/primary"
-            app:title="My Cart"
+            app:title="@string/my_cart"
             app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -55,7 +55,7 @@
         android:visibility="gone"
         android:layout_marginTop="@dimen/_5sdp"
         android:fontFamily="@font/sora_bold"
-        android:text="Your Cart is emtpy!"/>
+        android:text="@string/cart_empty"/>
 
 
     <TextView
@@ -66,14 +66,14 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:fontFamily="@font/sora_regular"
         android:visibility="gone"
-        android:text="Fill this cart with freshness"/>
+        android:text="@string/fill_freshness"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnShopNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:text="shop now"
+        android:text="@string/shop_now"
         android:visibility="gone"
         app:cornerRadius="@dimen/_5sdp"
         android:backgroundTint="@color/primary"
@@ -139,7 +139,7 @@
                             android:id="@+id/tvDeliveryBegins"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Delivery begins Tuesday"
+                            android:text="@string/delivery_begins"
                             android:textColor="#6B7280"
                             android:textSize="10sp"
                             android:layout_marginTop="1dp" />
@@ -169,7 +169,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="ITEMS IN CART"
+                    android:text="@string/items_in_cart"
                     android:textSize="11sp"
                     android:layout_weight="1"
                     android:textStyle="bold"
@@ -233,7 +233,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Price Details"
+                        android:text="@string/price_details"
                         android:textSize="15sp"
                         android:textStyle="bold"
                         android:fontFamily="serif"
@@ -252,7 +252,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Total MRP"
+                            android:text="@string/total_mrp"
                             android:textSize="13sp"
                             android:textColor="#7A7A7A" />
 
@@ -284,7 +284,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Total Discount"
+                            android:text="@string/total_discount"
                             android:textSize="13sp"
                             android:textColor="#7A7A7A" />
 
@@ -316,7 +316,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Delivery Fee"
+                            android:text="@string/delivery_fee"
                             android:textSize="13sp"
                             android:textColor="#7A7A7A" />
 
@@ -324,7 +324,7 @@
                             android:id="@+id/tvDeliveryFee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="FREE 🎉"
+                            android:text="@string/free"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="#1A7A4A" />
@@ -350,7 +350,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Total Payable"
+                            android:text="@string/total_payable"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="#1A1A1A" />
@@ -378,7 +378,7 @@
                 android:gravity="center"
                 android:padding="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="🎊 You're saving ₹25 on this order!"
+                android:text="@string/savings_msg"
                 android:textColor="@color/primary"
                 android:textSize="12sp" />
 
@@ -411,7 +411,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
-            android:text="Place Order "
+            android:text="@string/place_order"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"

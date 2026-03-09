@@ -215,7 +215,7 @@
                             android:id="@+id/tvDailyTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Daily"
+                            android:text="📅 Daily"
                             android:textColor="#2E7D32"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -229,17 +229,17 @@
                             android:layout_marginTop="2dp"
                             android:gravity="center" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Best Value"
-                            android:textColor="#FFFFFF"
-                            android:textSize="8sp"
-                            android:textStyle="bold"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/badge_green_solid" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Best Value"-->
+<!--                            android:textColor="#FFFFFF"-->
+<!--                            android:textSize="8sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:paddingHorizontal="6dp"-->
+<!--                            android:paddingVertical="2dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:background="@drawable/badge_green_solid" />-->
 
                     </LinearLayout>
 
@@ -276,17 +276,17 @@
                             android:layout_marginTop="2dp"
                             android:gravity="center" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Save 10%"
-                            android:textColor="#FFFFFF"
-                            android:textSize="8sp"
-                            android:textStyle="bold"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/badge_orange_solid" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Save 10%"-->
+<!--                            android:textColor="#FFFFFF"-->
+<!--                            android:textSize="8sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:paddingHorizontal="6dp"-->
+<!--                            android:paddingVertical="2dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:background="@drawable/badge_orange_solid" />-->
 
                     </LinearLayout>
 
@@ -324,16 +324,16 @@
                             android:gravity="center" />
 
                         <!-- invisible spacer — keeps height same as badged chips -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="spacer"
-                            android:textSize="8sp"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp"
-                            android:layout_marginTop="5dp"
-                            android:visibility="invisible"
-                            android:background="@drawable/badge_orange_solid" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="spacer"-->
+<!--                            android:textSize="8sp"-->
+<!--                            android:paddingHorizontal="6dp"-->
+<!--                            android:paddingVertical="2dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:visibility="invisible"-->
+<!--                            android:background="@drawable/badge_orange_solid" />-->
 
                     </LinearLayout>
 
@@ -369,17 +369,17 @@
                             android:layout_marginTop="2dp"
                             android:gravity="center" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Save 15%"
-                            android:textColor="#FFFFFF"
-                            android:textSize="8sp"
-                            android:textStyle="bold"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/badge_orange_solid" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Save 15%"-->
+<!--                            android:textColor="#FFFFFF"-->
+<!--                            android:textSize="8sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:paddingHorizontal="6dp"-->
+<!--                            android:paddingVertical="2dp"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:background="@drawable/badge_orange_solid" />-->
 
                     </LinearLayout>
 
