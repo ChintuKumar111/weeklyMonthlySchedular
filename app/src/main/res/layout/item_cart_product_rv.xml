@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
-        app:cardElevation="4dp"
+        app:cardElevation="2dp"
         android:layout_margin="@dimen/_3sdp"
         app:cardBackgroundColor="#FFFFFF"
         android:layout_marginBottom="14dp">
@@ -128,7 +128,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_minus"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/red_error"
+                    android:tint="@color/gray_900"
                     android:contentDescription="Decrease" />
 
                 <TextView

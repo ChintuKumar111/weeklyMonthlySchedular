@@ -18,7 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@color/white"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingTop="16dp"
@@ -31,7 +31,7 @@
                 android:layout_alignParentStart="true"
                 android:background="@drawable/circle_white_20"
                 android:src="@drawable/outline_arrow_back_24"
-                android:tint="@color/white"
+                android:tint="@color/black"
                 android:contentDescription="Back" />
 
             <androidx.cardview.widget.CardView
@@ -60,7 +60,7 @@
                 android:layout_below="@id/btnBack"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:text="FRESHYZO · FRESH DAILY"
-                android:textColor="#CCF5FF"
+                android:textColor="#5BD4F4"
                 android:textSize="10sp"
                 android:letterSpacing="0.12"
                 android:textStyle="bold" />
@@ -75,7 +75,7 @@
                 android:layout_toStartOf="@+id/cardView"
                 android:lineSpacingMultiplier="1.1"
                 android:text="Buffalo Milk\n1000 ml"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₹70"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="₹75.00"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
 
                      />
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="6% OFF"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:textSize="10sp"
                     android:textStyle="bold"
                     android:paddingStart="9dp"
@@ -215,31 +215,11 @@
                             android:id="@+id/tvDailyTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="📅 Daily"
+                            android:text="Daily"
                             android:textColor="#2E7D32"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Every day"
-                            android:textColor="#9CA3AF"
-                            android:textSize="9sp"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center" />
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Best Value"-->
-<!--                            android:textColor="#FFFFFF"-->
-<!--                            android:textSize="8sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:paddingHorizontal="6dp"-->
-<!--                            android:paddingVertical="2dp"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:background="@drawable/badge_green_solid" />-->
 
                     </LinearLayout>
 
@@ -267,26 +247,7 @@
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Every other"
-                            android:textColor="#9CA3AF"
-                            android:textSize="9sp"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center" />
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Save 10%"-->
-<!--                            android:textColor="#FFFFFF"-->
-<!--                            android:textSize="8sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:paddingHorizontal="6dp"-->
-<!--                            android:paddingVertical="2dp"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:background="@drawable/badge_orange_solid" />-->
 
                     </LinearLayout>
 
@@ -314,26 +275,7 @@
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Pick days"
-                            android:textColor="#9CA3AF"
-                            android:textSize="9sp"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center" />
 
-                        <!-- invisible spacer — keeps height same as badged chips -->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="spacer"-->
-<!--                            android:textSize="8sp"-->
-<!--                            android:paddingHorizontal="6dp"-->
-<!--                            android:paddingVertical="2dp"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:visibility="invisible"-->
-<!--                            android:background="@drawable/badge_orange_solid" />-->
 
                     </LinearLayout>
 
@@ -360,26 +302,6 @@
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Bulk once"
-                            android:textColor="#9CA3AF"
-                            android:textSize="9sp"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center" />
-
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="Save 15%"-->
-<!--                            android:textColor="#FFFFFF"-->
-<!--                            android:textSize="8sp"-->
-<!--                            android:textStyle="bold"-->
-<!--                            android:paddingHorizontal="6dp"-->
-<!--                            android:paddingVertical="2dp"-->
-<!--                            android:layout_marginTop="5dp"-->
-<!--                            android:background="@drawable/badge_orange_solid" />-->
 
                     </LinearLayout>
 
@@ -641,7 +563,7 @@
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:contentDescription="Decrease"
                             android:src="@drawable/ic_minus"
-                            android:tint="@color/red_error" />
+                            android:tint="@color/gray_900" />
 
                         <TextView
                             android:id="@+id/tvQtyValue"

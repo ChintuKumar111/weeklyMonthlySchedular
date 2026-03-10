@@ -40,7 +40,7 @@
                 android:letterSpacing="-0.02"
                 android:text="Complaints Assistance"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hello, User ! 👋"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="5dp" />
 
@@ -74,7 +74,7 @@
                 android:lineSpacingMultiplier="1.5"
                 android:text="Please select a category so we can assist you further."
                 android:textColor="#6B8578"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -131,7 +131,7 @@
                         android:textStyle="bold"
                         android:text="App Related Issue"
                         android:textColor="@color/black"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
@@ -195,7 +195,7 @@
                      android:textStyle="bold"
                         android:text="Product Related Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
@@ -261,7 +261,7 @@
                         android:textStyle="bold"
                         android:text="Recharge Related Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
@@ -328,7 +328,7 @@
                         android:textStyle="bold"
                         android:text="Delivery Related Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
@@ -392,7 +392,7 @@
                         android:textStyle="bold"
                         android:text="Other Issue"
                         android:textColor="#1A2E22"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView
@@ -457,7 +457,7 @@
                         android:textStyle="bold"
                         android:text="Previous Complaints"
                         android:textColor="#1A2E22"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:layout_marginBottom="3dp" />
 
                     <TextView

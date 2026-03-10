@@ -60,6 +60,11 @@
         <action
             android:id="@+id/action_nav_account_to_faqsFragment"
             app:destination="@id/faqsFragment" />
+
+        <action
+            android:id="@+id/action_nav_account_to_myOrdersFragment"
+            app:destination="@id/myOrdersFragment" />
+
     </fragment>
 
     <fragment
@@ -126,5 +131,11 @@
         android:name="com.example.freshyzoappmodule.ui.Fragments.FAQsFragment"
         android:label="FAQs"
         tools:layout="@layout/fragment_f_a_qs" />
+    <fragment
+        android:id="@+id/myOrdersFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.DeliveriesFragment"
+        android:label="FAQs"
+        tools:layout="@layout/fragment_my_orders" />
+
 
 </navigation>

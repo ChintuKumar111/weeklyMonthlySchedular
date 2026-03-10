@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
 
     <!-- Primary Theme -->
     <color name="primary">#17ab6f</color>        <!-- Green -->
@@ -130,5 +131,27 @@
     <color name="badge_red">#FFEBEE</color>
     <color name="badge_yellow">#FFFDE7</color>
     <color name="nav_inactive">#94A3B8</color>
+
+    <!-- Custom Theme Colors -->
+    <color name="card_bg">#FFFFFF</color>
+    <color name="card_border">#E0E0E0</color>
+    <color name="chip_inactive_bg">#F5F5F5</color>
+    <color name="emerald">#00C98D</color>
+    <color name="emerald_dim">#1A00C98D</color>
+    <color name="gold">#F5C842</color>
+    <color name="gold_dim">#1AF5C842</color>
+    <color name="amber">#FFBF00</color>
+    <color name="coral">#FF7F50</color>
+    <color name="glow_green_mid">#4D00C98D</color>
+    <color name="glow_green_end">#CC00C98D</color>
+    <color name="glow_gold_mid">#4DF5C842</color>
+    <color name="glow_gold_end">#CCF5C842</color>
+    <color name="glow_coral_mid">#4DFF7F50</color>
+    <color name="badge_placed_bg">#E8F5E9</color>
+    <color name="badge_placed_border">#57BD67</color>
+    <color name="badge_pending_bg">#FFF3E0</color>
+    <color name="badge_pending_border">#EF6C00</color>
+    <color name="badge_cancelled_bg">#FFEBEE</color>
+    <color name="badge_cancelled_border">#C62828</color>
 
 </resources>

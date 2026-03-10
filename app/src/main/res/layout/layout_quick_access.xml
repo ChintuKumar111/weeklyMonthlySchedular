@@ -22,6 +22,7 @@
 
         <!-- Orders -->
         <LinearLayout
+            android:id="@+id/tabMyOrders"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,6 +57,7 @@
 
         <!-- Deliveries -->
         <LinearLayout
+            android:id="@+id/tabDeliveries"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,6 +92,7 @@
 
         <!-- Vacation -->
         <LinearLayout
+            android:id="@+id/tabVacation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -123,6 +126,7 @@
 
         <!-- Subscription Invoice-->
         <LinearLayout
+            android:id="@+id/tabInvoice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

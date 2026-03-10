@@ -78,6 +78,10 @@ class AccountFragment : Fragment() {
             intent.data = Uri.parse(url)
             startActivity(intent)
         }
+        binding.root.findViewById<View>(R.id.tabMyOrders)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_myOrdersFragment)
+
+        }
     }
 
     private fun showLanguageDialog() {
