@@ -1,11 +1,4 @@
 package com.example.freshyzoappmodule.viewmodel
-
-
-
-// ─────────────────────────────────────────────────────────────
-// File: app/src/main/java/com/freshyzo/deliveries/viewmodel/DeliveriesViewModel.kt
-// ─────────────────────────────────────────────────────────────
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,7 +24,6 @@ class DeliveriesViewModel : ViewModel() {
             size = "500 ml",
             quantity = 2,
             amountPaid = 90.0,
-            remainingBalance = 1526.0,
             date = "Feb 26, 2026",
             status = DeliveryStatus.PLACED
         ),
@@ -45,7 +37,6 @@ class DeliveriesViewModel : ViewModel() {
             size = "1000 ml",
             quantity = 1,
             amountPaid = 890.0,
-            remainingBalance = 1436.0,
             date = "Feb 26, 2026",
             status = DeliveryStatus.PLACED
         ),
@@ -59,7 +50,6 @@ class DeliveriesViewModel : ViewModel() {
             size = "1000 ml",
             quantity = 1,
             amountPaid = 890.0,
-            remainingBalance = 546.0,
             date = "Feb 25, 2026",
             status = DeliveryStatus.PENDING
         ),
@@ -73,7 +63,6 @@ class DeliveriesViewModel : ViewModel() {
             size = "500 ml",
             quantity = 1,
             amountPaid = 45.0,
-            remainingBalance = 45.0,
             date = "Feb 24, 2026",
             status = DeliveryStatus.CANCELLED
         )
@@ -107,7 +96,7 @@ class DeliveriesViewModel : ViewModel() {
     }
 
     fun refresh() {
-        // In a real app: fetch from API / Room DB here
+        // In a real app: fetch from API here
         _filteredDeliveries.value = _filteredDeliveries.value
         _stats.value = computeStats()
     }

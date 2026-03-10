@@ -11,7 +11,6 @@ data class DeliveryModel(
     val size: String,
     val quantity: Int,
     val amountPaid: Double,
-    val remainingBalance: Double,
     val date: String,
     val status: DeliveryStatus
 )
