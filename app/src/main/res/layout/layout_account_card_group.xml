@@ -64,10 +64,10 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/subscriptions"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
 
@@ -76,7 +76,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/subscriptions_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -127,10 +127,10 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/profile"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
 
@@ -139,7 +139,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/profile_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -188,10 +188,10 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/address"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
 
@@ -200,7 +200,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/address_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -251,10 +251,10 @@
                     android:id="@+id/menuTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/payments_wallet"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/menuSubtitle"
@@ -263,14 +263,13 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/payments_wallet_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
+                    android:textSize="10dp"
+/>
 
         </LinearLayout>
 
 
-
+        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

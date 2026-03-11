@@ -65,18 +65,18 @@
                         android:layout_height="wrap_content"
                         android:text="FreshyZo Cow Milk"
                         android:textColor="#FFFFFF"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
-                        android:letterSpacing="-0.02" />
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="QUALITY TEST REPORT"
                         android:textColor="#BDECD0"
+                        android:textStyle="bold"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_bold"
-                        android:letterSpacing="0.2"
+
                         android:layout_marginTop="4dp" />
 
                 </LinearLayout>
@@ -97,7 +97,7 @@
                         android:text="SR."
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
+                       android:textStyle="bold"
                         android:letterSpacing="0.1" />
 
                     <TextView
@@ -107,8 +107,7 @@
                         android:text="TEST NAME"
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
-                        android:letterSpacing="0.1" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="90dp"
@@ -116,8 +115,7 @@
                         android:text="VALID RANGE"
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
-                        android:letterSpacing="0.1" />
+                      android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="80dp"
@@ -125,8 +123,7 @@
                         android:text="RESULT"
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
-                        android:letterSpacing="0.1"
+                        android:textStyle="bold"
                         android:gravity="center" />
 
                 </LinearLayout>
@@ -217,7 +214,7 @@
                             android:text="Tested — 2025-10-27"
                             android:textColor="#3D5A47"
                             android:textSize="12sp"
-                            android:fontFamily="@font/sora_bold" />
+                           android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -241,7 +238,7 @@
                             android:layout_height="wrap_content"
                             android:text="Pass: Pure Milk — No adulteration detected."
                             android:textColor="#3D5A47"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:fontFamily="@font/sora_regular" />
 
                     </LinearLayout>
@@ -265,8 +262,8 @@
                             android:layout_height="wrap_content"
                             android:text="Fail: Adulterated Milk — Contains harmful additives."
                             android:textColor="#3D5A47"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/sora_regular" />
+                            android:textSize="10sp"
+                           android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -310,9 +307,9 @@
                         android:layout_height="wrap_content"
                         android:text="FreshyZo Buffalo Milk"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
-                        android:letterSpacing="-0.02" />
+                         />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -320,8 +317,7 @@
                         android:text="QUALITY TEST REPORT"
                         android:textColor="#BDECD0"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_bold"
-                        android:letterSpacing="0.2"
+                        android:textStyle="bold"
                         android:layout_marginTop="4dp" />
 
                 </LinearLayout>
@@ -342,8 +338,8 @@
                         android:text="SR."
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
-                        android:letterSpacing="0.1" />
+                        android:textStyle="bold"
+                        />
 
                     <TextView
                         android:layout_width="0dp"
@@ -352,8 +348,7 @@
                         android:text="TEST NAME"
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
-                        android:letterSpacing="0.1" />
+                       android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="90dp"
@@ -361,8 +356,7 @@
                         android:text="VALID RANGE"
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
-                        android:letterSpacing="0.1" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="80dp"
@@ -370,8 +364,7 @@
                         android:text="RESULT"
                         android:textColor="#2D6A4F"
                         android:textSize="10sp"
-                        android:fontFamily="@font/sora_extrabold"
-                        android:letterSpacing="0.1"
+                        android:textStyle="bold"
                         android:gravity="center" />
 
                 </LinearLayout>
@@ -456,8 +449,9 @@
                             android:layout_height="wrap_content"
                             android:text="Tested — 2025-10-27"
                             android:textColor="#3D5A47"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/sora_bold" />
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
                     </LinearLayout>
 
                     <!-- PASS ITEM -->
@@ -549,9 +543,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Interpretation"
-                        android:textColor="#FFFFFF"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/sora_extrabold" />
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -559,8 +553,6 @@
                         android:text="UNDERSTANDING YOUR TEST RESULTS"
                         android:textColor="#BDECD0"
                         android:textSize="9sp"
-                        android:fontFamily="@font/sora_bold"
-                        android:letterSpacing="0.18"
                         android:layout_marginTop="3dp" />
 
                 </LinearLayout>
@@ -600,8 +592,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="1. FAT (Milk Fat Content)"
                                 android:textColor="#2D6A4F"
-                                android:textSize="14sp"
-                                android:fontFamily="@font/sora_extrabold"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
                                 android:layout_marginBottom="6dp" />
 
                             <TextView
@@ -647,8 +639,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="2. SNF (Solids Not Fat)"
                                 android:textColor="#2D6A4F"
-                                android:textSize="14sp"
-                                android:fontFamily="@font/sora_extrabold"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
                                 android:layout_marginBottom="6dp" />
 
                             <TextView

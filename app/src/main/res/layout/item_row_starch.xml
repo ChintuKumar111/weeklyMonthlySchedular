@@ -19,7 +19,7 @@
         android:text="4."
         android:textColor="#7A9E8A"
         android:textSize="12sp"
-        android:fontFamily="@font/sora_bold" />
+         />
 
     <!-- Test Name -->
     <TextView
@@ -29,9 +29,7 @@
         android:layout_weight="1"
         android:text="Starch"
         android:textColor="#1B2D24"
-        android:textSize="12sp"
-        android:fontFamily="@font/sora_bold" />
-
+        android:textSize="12sp"/>
     <!-- Valid Range -->
     <TextView
         android:id="@+id/tvRange"
@@ -56,7 +54,6 @@
             android:text="Pass"
             android:textColor="@color/primary_dark"
             android:textSize="10sp"
-            android:textStyle="bold"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingTop="5dp"

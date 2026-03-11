@@ -52,7 +52,7 @@
                 android:textStyle="bold"
                 android:text="@string/welcome_user"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"

@@ -173,8 +173,9 @@ class NewHome_Fragment : Fragment() {
             AppGuideManager.GuideItem(binding.offerSection,
                 "Offers",
                 "Check out exclusive deals for you!",
-                144),
-            AppGuideManager.GuideItem(binding.rvComboOffers, "Combo Offers", "Save more with our bundled products.", 144),
+                150),
+            AppGuideManager.GuideItem(binding.rvComboOffers, "Combo Offers", "Save more with our bundled products.", 150),
+            AppGuideManager.GuideItem(binding.suggestionCard, "Send Suggestion", "You can send suggestions here.", 160),
             AppGuideManager.GuideItem(binding.tvSend, "Send Suggestion", "You can send suggestions here.", 30)
         )
 

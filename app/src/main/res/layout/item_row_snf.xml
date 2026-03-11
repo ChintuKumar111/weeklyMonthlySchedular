@@ -20,7 +20,7 @@
         android:text="1."
         android:textColor="#7A9E8A"
         android:textSize="12sp"
-        android:fontFamily="@font/sora_bold" />
+         />
 
     <!-- Test Name -->
     <TextView
@@ -29,9 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="SNF"
-        android:textColor="#1B2D24"
-        android:textSize="14sp"
-        android:fontFamily="@font/sora_bold" />
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        />
 
     <!-- Valid Range -->
     <TextView
@@ -41,7 +41,7 @@
         android:text="8.5– 9.5"
         android:textColor="#7A9E8A"
         android:textSize="12sp"
-        android:fontFamily="@font/sora_regular" />
+         />
 
     <!-- Result: Green Value Badge -->
     <LinearLayout

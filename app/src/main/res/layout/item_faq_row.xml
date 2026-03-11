@@ -25,9 +25,9 @@
             android:layout_weight="1"
             android:text="Question goes here"
             android:textSize="12sp"
+            android:textStyle="bold"
             android:textColor="@color/text_dark"
-            android:fontFamily="@font/sora_bold"
-            android:lineSpacingMultiplier="1.4" />
+         />
 
         <ImageView
             android:id="@+id/ivFaqArrow"

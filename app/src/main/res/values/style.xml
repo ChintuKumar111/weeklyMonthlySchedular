@@ -30,7 +30,7 @@
     <!-- Toolbar Title -->
     <style name="ToolbarTitleStyle" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:fontFamily">@font/sora_bold</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:letterSpacing">-0.02</item>
     </style>
@@ -50,6 +50,15 @@
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/text_muted</item>
     </style>
+
+    // collapse toolbar title
+    <style name="CollapsedToolbarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 
 <!--    &lt;!&ndash; Logout Button (outlined) &ndash;&gt;-->
 <!--    <style name="LogoutButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">-->

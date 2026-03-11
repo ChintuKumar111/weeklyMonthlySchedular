@@ -20,7 +20,7 @@
         android:text="8."
         android:textColor="#7A9E8A"
         android:textSize="12sp"
-        android:fontFamily="@font/sora_bold" />
+         />
 
     <!-- Test Name -->
     <TextView
@@ -31,7 +31,7 @@
         android:text="Caustic Soda"
         android:textColor="#1B2D24"
         android:textSize="14sp"
-        android:fontFamily="@font/sora_bold" />
+        />
 
     <!-- Valid Range -->
     <TextView
@@ -57,7 +57,6 @@
             android:text="Pass"
             android:textColor="@color/primary_dark"
             android:textSize="10sp"
-            android:textStyle="bold"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingTop="5dp"

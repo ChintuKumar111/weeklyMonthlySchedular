@@ -53,7 +53,7 @@
                 android:fontFamily="@font/sora_regular"
                 android:text="@string/my_orders"
                 android:textColor="@color/text_primary"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Deliveries -->
@@ -88,7 +88,7 @@
                 android:fontFamily="@font/sora_regular"
                 android:text="@string/deliveries"
                 android:textColor="@color/text_primary"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Vacation -->
@@ -122,7 +122,7 @@
                 android:fontFamily="@font/sora_regular"
                 android:text="@string/vacation"
                 android:textColor="@color/text_primary"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Subscription Invoice-->
@@ -157,7 +157,7 @@
                 android:fontFamily="@font/sora_regular"
                 android:text="@string/invoice_for_monthly_subscription"
                 android:textColor="@color/text_primary"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
 

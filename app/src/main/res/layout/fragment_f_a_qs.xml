@@ -13,17 +13,22 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@android:color/transparent"
+        android:layout_height="200dp"
+        android:background="@color/primary"
         android:fitsSystemWindows="true"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:contentScrim="#1B5E20"
-            app:titleEnabled="false">
+            app:contentScrim="@color/primary"
+            app:title="FreshyZo Support"
+            app:collapsedTitleTextColor="@color/white"
+            app:titleEnabled="true"
+            app:collapsedTitleTextAppearance="@style/CollapsedToolbarTitle"
+            app:expandedTitleTextColor="@android:color/transparent">
 
             <!-- Green gradient background -->
             <View
@@ -47,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="60dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="20dp"
                 app:layout_collapseMode="parallax">
@@ -57,19 +62,17 @@
                     android:layout_height="wrap_content"
                     android:text="FRESHYZO SUPPORT"
                     android:textSize="10sp"
-                    android:textColor="#99FFFFFF"
-                    android:fontFamily="@font/sora_bold"
-                    android:letterSpacing="0.14"
+                    android:textColor="@color/gray_200"
                     android:textAllCaps="true"
                     android:layout_marginBottom="6dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="How can we\nhelp you? 🤝"
-                    android:textSize="26sp"
+                    android:text="How can we help you? 🤝"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/lora_bold"
+                    android:textStyle="bold"
                     android:lineSpacingMultiplier="1.15"
                     android:layout_marginBottom="8dp" />
 
@@ -88,7 +91,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="50dp"
                 android:layout_gravity="top"
                 app:layout_collapseMode="pin"
                 app:contentInsetStart="0dp">
@@ -157,10 +160,9 @@
                         android:layout_marginStart="12dp"
                         android:background="@android:color/transparent"
                         android:hint="Search questions..."
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="@color/text_dark"
                         android:textColorHint="@color/text_muted"
-                        android:fontFamily="@font/sora_regular"
                         android:maxLines="1"
                         android:inputType="text"
                         android:imeOptions="actionSearch" />
@@ -198,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:text="All Topics"
                         android:textSize="11sp"
-                        android:fontFamily="@font/sora_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:background="@drawable/bg_cat_chip_active"
                         android:paddingHorizontal="16dp"
@@ -214,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:text="🥛 Products"
                         android:textSize="11sp"
-                        android:fontFamily="@font/sora_bold"
+                       android:textStyle="bold"
                         android:textColor="@color/text_mid"
                         android:background="@drawable/bg_cat_chip_default"
                         android:paddingHorizontal="16dp"
@@ -230,7 +232,7 @@
                         android:layout_height="wrap_content"
                         android:text="🚚 Delivery"
                         android:textSize="11sp"
-                        android:fontFamily="@font/sora_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/text_mid"
                         android:background="@drawable/bg_cat_chip_default"
                         android:paddingHorizontal="16dp"
@@ -246,7 +248,7 @@
                         android:layout_height="wrap_content"
                         android:text="🔄 Subscription"
                         android:textSize="11sp"
-                        android:fontFamily="@font/sora_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/text_mid"
                         android:background="@drawable/bg_cat_chip_default"
                         android:paddingHorizontal="16dp"
@@ -262,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:text="✅ Quality"
                         android:textSize="11sp"
-                        android:fontFamily="@font/sora_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/text_mid"
                         android:background="@drawable/bg_cat_chip_default"
                         android:paddingHorizontal="16dp"
@@ -278,7 +280,7 @@
                         android:layout_height="wrap_content"
                         android:text="💳 Payment"
                         android:textSize="11sp"
-                        android:fontFamily="@font/sora_bold"
+                        android:textStyle="bold"
                         android:textColor="@color/text_mid"
                         android:background="@drawable/bg_cat_chip_default"
                         android:paddingHorizontal="16dp"
@@ -365,7 +367,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="20dp"
-                app:cardCornerRadius="20dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
                 android:layout_gravity="bottom"
                 app:cardBackgroundColor="#0D1B0E">
@@ -398,9 +400,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Still have questions?"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/sora_bold"
+                            android:textStyle="bold"
                             android:layout_marginBottom="4dp" />
 
                         <TextView
@@ -420,13 +422,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Chat Now"
-                        android:textSize="11sp"
-                        android:fontFamily="@font/sora_bold"
+                        android:textSize="10sp"
                         android:textColor="@color/white"
                         app:backgroundTint="@color/green_mid"
-                        app:cornerRadius="10dp"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="8dp" />
+                        app:cornerRadius="5dp"
+                   />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

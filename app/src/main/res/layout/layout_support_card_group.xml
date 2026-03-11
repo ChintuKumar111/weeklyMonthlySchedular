@@ -61,10 +61,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/test_report"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/test_report_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -119,10 +119,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/refer_earn"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/refer_earn_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -178,10 +178,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/complaint"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -189,7 +189,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/complaint_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -236,10 +236,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/language"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -247,7 +247,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/language_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -298,10 +298,10 @@
                     android:id="@+id/faqTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="FAQs"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/faqSubtitle"
@@ -310,7 +310,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="FreshyZo related query"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
@@ -361,10 +361,10 @@
                     android:id="@+id/aboutUsTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sora_bold"
+                    android:textStyle="bold"
                     android:text="@string/about_us"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/aboutUsSubtitle"
@@ -373,7 +373,7 @@
                     android:fontFamily="@font/sora_regular"
                     android:text="@string/about_us_sub"
                     android:textColor="@color/text_muted"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
 
