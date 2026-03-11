@@ -18,6 +18,7 @@ import com.razorpay.PaymentResultListener
 import kotlin.concurrent.thread
 import com.example.freshyzoappmodule.extensions.sizes
 import com.example.freshyzoappmodule.helper.BaseActivityy
+import com.example.freshyzoappmodule.ui.AppGuide.AppGuideManager
 
 class NewHomeActivity : BaseActivityy() , PaymentResultListener {
 
@@ -27,6 +28,9 @@ class NewHomeActivity : BaseActivityy() , PaymentResultListener {
     
     private var cachedCartState: cartStateModel? = null
     private var isFromSearch: Boolean = false
+
+    // Signal for Fragment guide
+    var onActivityGuideComplete: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,23 +57,48 @@ class NewHomeActivity : BaseActivityy() , PaymentResultListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
         handleIntent(intent)
-        // Handle Back Press to return to SearchActivity if needed
+        
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (isFromSearch && navController.currentDestination?.id == R.id.nav_cart) {
-                    finish() // Close NewHomeActivity and go back to SearchActivity
+                    finish()
                 } else {
-                    isEnabled = false // Disable this callback
-                    onBackPressedDispatcher.onBackPressed() // Perform default back action
-                    isEnabled = true // Re-enable for next time
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                    isEnabled = true
                 }
             }
         })
+        
+        // Start bottom navigation guide with Welcome Dialog
+        binding.root.post { showBottomNavGuide() }
+    }
+
+    private fun showBottomNavGuide() {
+        val guideManager = AppGuideManager(this)
+
+        val homeItem = binding.bottomNavigation.findViewById<View>(R.id.nav_home)
+        val productItem = binding.bottomNavigation.findViewById<View>(R.id.nav_product)
+        val walletItem = binding.bottomNavigation.findViewById<View>(R.id.nav_wallet)
+        val accountItem = binding.bottomNavigation.findViewById<View>(R.id.nav_account)
+        val cartItem = binding.bottomNavigation.findViewById<View>(R.id.nav_cart)
+
+        val items = listOf(
+            AppGuideManager.GuideItem(homeItem, "Home", "Access your main dashboard here.", 30),
+            AppGuideManager.GuideItem(productItem, "Products", "Browse all available categories.", 30),
+            AppGuideManager.GuideItem(walletItem, "Wallet", "Check your balance and transactions.", 30),
+            AppGuideManager.GuideItem(accountItem, "Account", "Manage your personal information.", 30),
+            AppGuideManager.GuideItem(cartItem, "Cart", "Review items you want to purchase.", 30)
+        )
+
+        // UPDATED: Call showWelcomeDialog instead of startGuide
+        guideManager.showWelcomeDialog("app_onboarding_v1", items) {
+            onActivityGuideComplete?.invoke()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        // Refresh cart state from repository in case it was changed in SearchActivity
         cachedCartState = cartRepository.getCartState()
         val currentDestinationId = try { navController.currentDestination?.id } catch (e: Exception) { null }
         updateCartPreviewVisibility(currentDestinationId)
@@ -107,14 +136,11 @@ class NewHomeActivity : BaseActivityy() , PaymentResultListener {
     fun updateSharedCart(product: Product, priceDelta: Double, countDelta: Int, onComplete: ((cartStateModel) -> Unit)? = null) {
         thread {
             val currentState = cartRepository.getCartState() ?: cartStateModel()
-            
             val newCount = currentState.itemsCount + countDelta
-            
             val productId = product.productId.toIntOrNull() ?: 0
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
-            
             val currentProducts = currentState.products.toMutableList()
 
             if (newQty <= 0) {
@@ -127,10 +153,8 @@ class NewHomeActivity : BaseActivityy() , PaymentResultListener {
                 }
             }
             
-            // Calculate Total Price and Total Discount
             var totalMRP = 0.0
             var totalSellingPrice = 0.0
-            
             currentProducts.forEach { p ->
                 val qty = newQuantities[p.productId.toIntOrNull() ?: 0] ?: 0
                 val size = p.sizes.firstOrNull()
@@ -139,9 +163,7 @@ class NewHomeActivity : BaseActivityy() , PaymentResultListener {
                     totalSellingPrice += size.price.toDouble() * qty
                 }
             }
-
             val totalDiscount = totalMRP - totalSellingPrice
-            
             val newState = cartStateModel(
                 itemsCount = if (newCount < 0) 0 else newCount, 
                 totalPrice = if (totalSellingPrice < 0.0) 0.0 else totalSellingPrice, 
@@ -150,10 +172,8 @@ class NewHomeActivity : BaseActivityy() , PaymentResultListener {
                 products = currentProducts,
                 discount = if (totalDiscount < 0.0) 0.0 else totalDiscount
             )
-            
             cachedCartState = newState
             cartRepository.saveCartState(newState)
-            
             runOnUiThread {
                 val currentId = try { navController.currentDestination?.id } catch (e: Exception) { null }
                 updateCartPreviewVisibility(currentId)

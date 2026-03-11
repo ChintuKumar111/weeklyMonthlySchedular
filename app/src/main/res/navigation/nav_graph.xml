@@ -131,11 +131,25 @@
         android:name="com.example.freshyzoappmodule.ui.Fragments.FAQsFragment"
         android:label="FAQs"
         tools:layout="@layout/fragment_f_a_qs" />
+
     <fragment
         android:id="@+id/myOrdersFragment"
-        android:name="com.example.freshyzoappmodule.ui.Fragments.DeliveriesFragment"
-        android:label="FAQs"
-        tools:layout="@layout/fragment_my_orders" />
+        android:name="com.example.freshyzoappmodule.ui.Fragments.OrderHistoryFragment"
+        android:label="My Orders"
+        tools:layout="@layout/fragment_orders_history" >
+        <action
+            android:id="@+id/action_myOrdersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.OrderDetailsFragment"
+        android:label="Order Details"
+        tools:layout="@layout/fragment_order_details" >
+        <argument
+            android:name="delivery"
+            app:argType="com.example.freshyzoappmodule.data.model.DeliveryModel" />
+    </fragment>
 
 </navigation>

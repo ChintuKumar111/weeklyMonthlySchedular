@@ -15,14 +15,12 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.DeliveryModel
 import com.example.freshyzoappmodule.data.model.DeliveryStatus
 import com.example.freshyzoappmodule.data.model.ProductType
-import com.example.freshyzoappmodule.databinding.ItemDeliveryCardBinding
-import java.text.NumberFormat
-import java.util.Locale
+import com.example.freshyzoappmodule.databinding.ItemOrderHistoryCardBinding
 
-class DeliveriesAdapter(
+class OrderHistoryAdapter(
     private val onCardClick: (DeliveryModel) -> Unit
 ) : ListAdapter<DeliveryModel,
-        DeliveriesAdapter.DeliveryViewHolder>(DiffCallback()) {
+        OrderHistoryAdapter.DeliveryViewHolder>(DiffCallback()) {
 
     // ── DiffUtil ────────────────────────────────────────────────
     class DiffCallback : DiffUtil.ItemCallback<DeliveryModel>() {
@@ -32,7 +30,7 @@ class DeliveriesAdapter(
 
     // ── ViewHolder ──────────────────────────────────────────────
     inner class DeliveryViewHolder(
-        private val binding: ItemDeliveryCardBinding
+        private val binding: ItemOrderHistoryCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: DeliveryModel) {
@@ -82,13 +80,6 @@ class DeliveriesAdapter(
                 )
             )
 
-            // ── Top glow line ────────────────────────────────────
-//            binding.cardGlowLine.setBackgroundResource(
-//                when (item.productType) {
-//                    ProductType.MILK -> R.drawable.gradient_glow_green
-//                    ProductType.GHEE -> R.drawable.gradient_glow_gold
-//                }
-//            )
 
             // ── Status badge ─────────────────────────────────────
             applyStatus(ctx, item)
@@ -141,13 +132,11 @@ class DeliveriesAdapter(
                 }
             }
         }
-
-
     }
 
     // ── Inflate ─────────────────────────────────────────────────
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeliveryViewHolder {
-        val binding = ItemDeliveryCardBinding.inflate(
+        val binding = ItemOrderHistoryCardBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
         return DeliveryViewHolder(binding)

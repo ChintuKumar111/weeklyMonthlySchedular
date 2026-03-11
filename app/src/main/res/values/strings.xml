@@ -100,7 +100,7 @@
     <string name="support_info">Support &amp; Info</string>
 
     <!-- Quick Access Tiles -->
-    <string name="my_orders">My Orders</string>
+    <string name="my_orders"> My Order</string>
     <string name="deliveries">Deliveries</string>
     <string name="invoice_for_monthly_subscription">Invoice</string>
     <string name="vacation">Vacation</string>

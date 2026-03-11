@@ -6,8 +6,8 @@ import com.example.freshyzoappmodule.data.model.DeliveryModel
 import com.example.freshyzoappmodule.data.model.DeliveryStatus
 import com.example.freshyzoappmodule.data.model.ProductType
 
-class DeliveriesViewModel : ViewModel() {
 
+class OrderHistoryViewModel : ViewModel() {
     // ── Active filter ────────────────────────────────────────
     private val _activeFilter = MutableLiveData<String>("all")
     val activeFilter: LiveData<String> = _activeFilter
@@ -65,7 +65,8 @@ class DeliveriesViewModel : ViewModel() {
             amountPaid = 45.0,
             date = "Feb 24, 2026",
             status = DeliveryStatus.CANCELLED
-        )
+        ),
+
     )
 
     // ── Filtered list ────────────────────────────────────────

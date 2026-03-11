@@ -92,7 +92,7 @@
                             android:id="@+id/tvStatAll"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4"
+                            android:text="0"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -269,6 +269,16 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        <TextView
+            android:id="@+id/emptyState"
+            android:layout_width="wrap_content"
+            android:textStyle="italic"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="No Orders Yet"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Scrollable Content -->
@@ -316,6 +326,8 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.kotlin.parcelize)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -131,5 +132,7 @@ dependencies {
     // Google Maps
     implementation("com.google.android.gms:play-services-maps:19.0.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
+
+
 
 }
