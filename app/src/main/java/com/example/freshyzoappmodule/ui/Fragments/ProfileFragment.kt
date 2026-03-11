@@ -149,7 +149,6 @@ class ProfileFragment : Fragment() {
             }
             PreferenceHelper.saveProfileImage(requireContext(), uri.toString())
         }
-
         Toast.makeText(requireContext(), "Changes saved successfully", Toast.LENGTH_SHORT).show()
     }
 

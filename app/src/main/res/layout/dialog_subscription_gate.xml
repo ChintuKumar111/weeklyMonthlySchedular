@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog_rounded"
+    android:paddingTop="32dp"
+    android:paddingBottom="24dp"
+    android:paddingHorizontal="24dp"
+    android:gravity="center">
+
+    <!-- Lock / Subscription Icon -->
+    <FrameLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_dialog_icon_circle">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="🔒"
+            android:textSize="36sp" />
+
+    </FrameLayout>
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Subscribers Only"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#1A2F3A"
+        android:gravity="center" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Vacation Mode is an exclusive feature available only for subscription customers."
+        android:textSize="14sp"
+        android:textColor="#4A6572"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="#EEF2F4" />
+
+    <!-- Info row 1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:text="✓"
+            android:textSize="14sp"
+            android:textColor="#27AE60"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/bg_check_circle" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="Pause all deliveries during travel"
+            android:textSize="13sp"
+            android:textColor="#4A6572" />
+
+    </LinearLayout>
+
+    <!-- Info row 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:text="✓"
+            android:textSize="14sp"
+            android:textColor="#27AE60"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/bg_check_circle" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="Auto-resume when you return"
+            android:textSize="13sp"
+            android:textColor="#4A6572" />
+
+    </LinearLayout>
+
+    <!-- Info row 3 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:text="✓"
+            android:textSize="14sp"
+            android:textColor="#27AE60"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@drawable/bg_check_circle" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="No charges during vacation period"
+            android:textSize="13sp"
+            android:textColor="#4A6572" />
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="#EEF2F4" />
+
+    <!-- Login Button (primary green) -->
+    <Button
+        android:id="@+id/btnDialogLogin"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:text="Login as Subscriber"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_btn_primary"
+        app:backgroundTint="@null"
+        android:stateListAnimator="@null"
+        android:elevation="0dp" />
+
+    <!-- Go Back Button (outline) -->
+    <Button
+        android:id="@+id/btnDialogGoBack"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:text="Go Back"
+        android:textSize="14sp"
+        android:textColor="#8FA9B5"
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        android:elevation="0dp" />
+
+</LinearLayout>

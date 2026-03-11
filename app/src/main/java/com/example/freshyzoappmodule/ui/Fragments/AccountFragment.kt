@@ -82,6 +82,13 @@ class AccountFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_account_to_myOrdersFragment)
 
         }
+        binding.root.findViewById<View>(R.id.tabDeliveries)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_deliveriesDetailsFragment)
+
+        }
+        binding.root.findViewById<View>(R.id.tabVacation)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_vacationFragment)
+        }
     }
 
     private fun showLanguageDialog() {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56">
+    <!-- Outer glow ring -->
+    <path android:fillColor="#33FFE566"
+        android:pathData="M28,2 A26,26 0 1,1 27.9,2 Z" />
+    <!-- Sun circle -->
+    <path android:fillColor="#FFD23F"
+        android:pathData="M28,10 A18,18 0 1,1 27.9,10 Z" />
+    <!-- Highlight -->
+    <path android:fillColor="#FFEF80"
+        android:pathData="M22,14 A8,8 0 0,1 30,14 A8,8 0 0,0 22,14 Z" />
+</vector>

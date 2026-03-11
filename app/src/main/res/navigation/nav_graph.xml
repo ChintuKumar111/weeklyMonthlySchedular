@@ -64,6 +64,12 @@
         <action
             android:id="@+id/action_nav_account_to_myOrdersFragment"
             app:destination="@id/myOrdersFragment" />
+        <action
+            android:id="@+id/action_nav_account_to_deliveriesDetailsFragment"
+            app:destination="@id/DeliveriesDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_account_to_vacationFragment"
+            app:destination="@id/vacationFragment" />
 
     </fragment>
 
@@ -149,7 +155,19 @@
         tools:layout="@layout/fragment_order_details" >
         <argument
             android:name="delivery"
-            app:argType="com.example.freshyzoappmodule.data.model.DeliveryModel" />
+            app:argType="com.example.freshyzoappmodule.data.model.OrderHistoryModel" />
     </fragment>
+
+    <fragment
+        android:id="@+id/DeliveriesDetailsFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.DeliveriesDetailsFragment"
+    android:label="DeliveriesDetails"
+        tools:layout="@layout/fragment_deliveries_details" />
+
+    <fragment
+        android:id="@+id/vacationFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.VacationFragment"
+        android:label="Vacation"
+        tools:layout="@layout/fragment_vacation" />
 
 </navigation>

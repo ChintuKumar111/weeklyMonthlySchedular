@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class DeliveryModel(
+data class OrderHistoryModel(
     val id: Int,
     val txnId: String,
     val productName: String,

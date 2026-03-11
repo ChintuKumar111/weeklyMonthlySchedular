@@ -5,45 +5,33 @@
     android:id="@+id/deliveryCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="8dp"
-    app:cardBackgroundColor="@color/card_bg"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="12dp"
     android:foreground="?attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/card_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="14dp">
 
-        <!-- Top glow accent line -->
-        <View
-            android:id="@+id/cardGlowLine"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:visibility="gone"
-            android:background="@drawable/gradient_glow_green" />
-
-        <!-- Card Head: Image + Info -->
+        <!-- Top Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:paddingBottom="12dp">
+            android:gravity="center_vertical">
 
-            <!-- Product Image Box -->
-
+            <!-- Product Image -->
             <FrameLayout
                 android:id="@+id/productImageBox"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:background="@drawable/bg_product_image_milk">
 
                 <TextView
@@ -52,167 +40,102 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="🥛"
-                    android:textSize="32sp" />
+                    android:textSize="32sp"/>
 
             </FrameLayout>
 
-            <!-- Product Info -->
+            <!-- Product Details -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginStart="14dp">
-
-
+                android:layout_marginStart="12dp">
 
                 <!-- Product Name -->
                 <TextView
                     android:id="@+id/tvProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:text="A2 Cow Milk"
-                    android:textColor="@color/text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="FreshyZo A2 Cow Milk"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"/>
 
-
-
-                <!-- Brand Name -->
+                <!-- Size + Qty -->
                 <TextView
-                    android:id="@+id/tvBrandName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FreshyZo Premium"
-                    android:textColor="@color/primary_dark"
+                    android:text="500 ml • Qty 2"
+                    android:textColor="@color/text_muted"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"/>
+
+                <!-- Status Badge -->
+                <TextView
+                    android:id="@+id/tvStatusBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status Placed"
                     android:textSize="11sp"
-                    android:visibility="gone"
-                    android:layout_marginTop="5dp" />
-
-                <!-- Tags Row: TxnID | Size | Qty -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="7dp">
-
-                    <TextView
-                        android:id="@+id/tvSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="500 ml"
-                        android:textColor="@color/emerald"
-                        android:textSize="10sp"
-                        android:textStyle="normal"
-                        android:background="@drawable/bg_tag_green"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:layout_marginEnd="6dp" />
-
-                    <TextView
-                        android:id="@+id/tvQty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="×2 units"
-                        android:textColor="@color/text_muted"
-                        android:textSize="10sp"
-                        android:textStyle="normal"
-                        android:background="@drawable/bg_tag_dark"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp" />
-
-
-                </LinearLayout>
+                    android:textStyle="bold"
+                    android:textColor="@color/emerald"
+                    android:background="@drawable/bg_badge_placed"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:layout_marginTop="6dp"/>
 
             </LinearLayout>
-            <!-- Status Badge -->
-            <TextView
-                android:id="@+id/tvStatusBadge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="● Placed"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:layout_gravity="end"
-                android:textColor="@color/emerald"
-                android:background="@drawable/bg_badge_placed"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="4dp"
-                android:layout_marginTop="6dp"
-                android:letterSpacing="0.03" />
+
+            <!-- Arrow -->
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/outline_arrow_forward_ios_24"
+                android:tint="@color/text_muted"/>
+
         </LinearLayout>
 
-        <!-- Card Footer: Date + Remark -->
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Delivery Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="@dimen/_5sdp"
-            android:paddingStart="18dp">
+            android:gravity="center_vertical">
 
-            <!-- Date -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/calendar"
+                android:layout_marginEnd="6dp"
+                android:tint="@color/text_muted"/>
 
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:src="@drawable/calendar"
-                    android:alpha="0.7"
-                    android:layout_marginEnd="5dp"
-                    android:contentDescription="Date" />
-
-                <TextView
-                    android:id="@+id/tvDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feb 26, 2026"
-                    android:textColor="@color/gray_900"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/bg_tag_dark"
-                android:orientation="horizontal">
+                android:text="Delivery by:"
+                android:textSize="12sp"
+                android:textColor="@color/text_muted"/>
 
-
-                <!-- Remark Chip -->
-                <TextView
-                    android:id="@+id/tvRemark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="More details"
-                    android:textColor="@color/primary_dark"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp" />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:tint="@color/primary_dark"
-                    android:src="@drawable/outline_arrow_forward_ios_24"/>
-
-            </LinearLayout>
-
-
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 14 Feb, 2026"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_dark"
+                android:layout_marginStart="4dp"/>
 
         </LinearLayout>
 

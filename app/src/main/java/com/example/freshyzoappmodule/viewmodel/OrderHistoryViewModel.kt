@@ -1,79 +1,30 @@
 package com.example.freshyzoappmodule.viewmodel
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.freshyzoappmodule.data.model.DeliveryModel
+import androidx.lifecycle.viewModelScope
 import com.example.freshyzoappmodule.data.model.DeliveryStatus
-import com.example.freshyzoappmodule.data.model.ProductType
+import com.example.freshyzoappmodule.data.model.OrderHistoryModel
+import com.example.freshyzoappmodule.data.repository.OrderHistoryRepository
+import kotlinx.coroutines.launch
 
+class OrderHistoryViewModel(private val repository: OrderHistoryRepository) : ViewModel() {
 
-class OrderHistoryViewModel : ViewModel() {
-    // ── Active filter ────────────────────────────────────────
     private val _activeFilter = MutableLiveData<String>("all")
     val activeFilter: LiveData<String> = _activeFilter
 
-    // ── All deliveries (replace with API/DB call) ────────────
-    private val allDeliveries = listOf(
-        DeliveryModel(
-            id = 1,
-            txnId = "370386",
-            productName = "A2 Cow Milk",
-            brandName = "FreshyZo Premium",
-            emoji = "🥛",
-            productType = ProductType.MILK,
-            size = "500 ml",
-            quantity = 2,
-            amountPaid = 90.0,
-            date = "Feb 26, 2026",
-            status = DeliveryStatus.PLACED
-        ),
-        DeliveryModel(
-            id = 2,
-            txnId = "370385",
-            productName = "Cow Ghee",
-            brandName = "FreshyZo Gold",
-            emoji = "🫙",
-            productType = ProductType.GHEE,
-            size = "1000 ml",
-            quantity = 1,
-            amountPaid = 890.0,
-            date = "Feb 26, 2026",
-            status = DeliveryStatus.PLACED
-        ),
-        DeliveryModel(
-            id = 3,
-            txnId = "370384",
-            productName = "Cow Ghee",
-            brandName = "FreshyZo Gold",
-            emoji = "🫙",
-            productType = ProductType.GHEE,
-            size = "1000 ml",
-            quantity = 1,
-            amountPaid = 890.0,
-            date = "Feb 25, 2026",
-            status = DeliveryStatus.PENDING
-        ),
-        DeliveryModel(
-            id = 4,
-            txnId = "370383",
-            productName = "A2 Cow Milk",
-            brandName = "FreshyZo Premium",
-            emoji = "🥛",
-            productType = ProductType.MILK,
-            size = "500 ml",
-            quantity = 1,
-            amountPaid = 45.0,
-            date = "Feb 24, 2026",
-            status = DeliveryStatus.CANCELLED
-        ),
+    private var allOrders: List<OrderHistoryModel> = emptyList()
 
-    )
+    private val _filteredDeliveries = MutableLiveData<List<OrderHistoryModel>>()
+    val filteredDeliveries: LiveData<List<OrderHistoryModel>> = _filteredDeliveries
 
-    // ── Filtered list ────────────────────────────────────────
-    private val _filteredDeliveries = MutableLiveData<List<DeliveryModel>>(allDeliveries)
-    val filteredDeliveries: LiveData<List<DeliveryModel>> = _filteredDeliveries
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    // ── Stats ────────────────────────────────────────────────
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?> = _error
+
     data class DeliveryStats(
         val total: Int,
         val placed: Int,
@@ -81,33 +32,39 @@ class OrderHistoryViewModel : ViewModel() {
         val cancelled: Int
     )
 
-    private val _stats = MutableLiveData(computeStats())
+    private val _stats = MutableLiveData<DeliveryStats>()
     val stats: LiveData<DeliveryStats> = _stats
 
-    // ── Public methods ───────────────────────────────────────
-
-    fun applyFilter(filter: String) {
-        _activeFilter.value = filter
-        _filteredDeliveries.value = when (filter) {
-            "Placed"    -> allDeliveries.filter { it.status == DeliveryStatus.PLACED }
-            "Pending"   -> allDeliveries.filter { it.status == DeliveryStatus.PENDING }
-            "Cancelled" -> allDeliveries.filter { it.status == DeliveryStatus.CANCELLED }
-            else        -> allDeliveries
+    fun fetchOrderHistory() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _error.value = null
+            val result = repository.getOrderHistory()
+            result.onSuccess {
+                allOrders = it
+                applyFilter(_activeFilter.value ?: "all")
+                _stats.value = computeStats()
+            }.onFailure {
+                _error.value = it.message ?: "An unknown error occurred"
+            }
+            _isLoading.value = false
         }
     }
 
-    fun refresh() {
-        // In a real app: fetch from API here
-        _filteredDeliveries.value = _filteredDeliveries.value
-        _stats.value = computeStats()
+    fun applyFilter(filter: String) {
+        _activeFilter.value = filter
+        _filteredDeliveries.value = when (filter.lowercase()) {
+            "placed"    -> allOrders.filter { it.status == DeliveryStatus.PLACED }
+            "pending"   -> allOrders.filter { it.status == DeliveryStatus.PENDING }
+            "cancelled" -> allOrders.filter { it.status == DeliveryStatus.CANCELLED }
+            else        -> allOrders
+        }
     }
 
-    // ── Private helpers ──────────────────────────────────────
-
     private fun computeStats() = DeliveryStats(
-        total     = allDeliveries.size,
-        placed    = allDeliveries.count { it.status == DeliveryStatus.PLACED },
-        pending   = allDeliveries.count { it.status == DeliveryStatus.PENDING },
-        cancelled = allDeliveries.count { it.status == DeliveryStatus.CANCELLED }
+        total     = allOrders.size,
+        placed    = allOrders.count { it.status == DeliveryStatus.PLACED },
+        pending   = allOrders.count { it.status == DeliveryStatus.PENDING },
+        cancelled = allOrders.count { it.status == DeliveryStatus.CANCELLED }
     )
 }

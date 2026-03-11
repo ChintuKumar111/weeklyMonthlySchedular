@@ -85,6 +85,7 @@
     <!-- Text -->
     <color name="text_dark">#1A1A2E</color>
     <color name="text_mid">#4B5563</color>
+    <color name="text_light">#8FA9B5</color>
     <color name="text_hintt">#9CA3AF</color>
 
     <!-- Backgrounds -->
@@ -153,5 +154,15 @@
     <color name="badge_pending_border">#EF6C00</color>
     <color name="badge_cancelled_bg">#FFEBEE</color>
     <color name="badge_cancelled_border">#C62828</color>
+    <color name="status_delivered_text">#2E7D32</color>
+    <color name="status_pending_text">#F57F17</color>
+    <color name="status_cancelled_text">#C62828</color>
 
+    <color name="badge_off_text">#1E7E34</color>
+    <color name="badge_on_text">#7A4E00</color>
+    <color name="badge_done_text">#2E7D32</color>
+    <color name="badge_active_text">#E65100</color>
+
+    <color name="toggle_card_default_bg">#E8FDF0</color>
+    <color name="toggle_card_active_bg">#FFF8E1</color>
 </resources>

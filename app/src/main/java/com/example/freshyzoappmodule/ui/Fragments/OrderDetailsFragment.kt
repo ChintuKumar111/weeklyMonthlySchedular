@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.DeliveryModel
+import com.example.freshyzoappmodule.data.model.OrderHistoryModel
 import com.example.freshyzoappmodule.data.model.DeliveryStatus
-import com.example.freshyzoappmodule.data.model.ProductType
 import com.example.freshyzoappmodule.databinding.FragmentOrderDetailsBinding
 import kotlin.getValue
 class OrderDetailsFragment : Fragment() {
@@ -33,7 +31,7 @@ class OrderDetailsFragment : Fragment() {
         //setupListeners()
     }
 
-    private fun setupUI(item: DeliveryModel) {
+    private fun setupUI(item: OrderHistoryModel) {
         val ctx = requireContext()
 
 //        // ── Header ──────────────────────────────────────────

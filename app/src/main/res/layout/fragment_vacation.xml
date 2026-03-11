@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0FBFF"
+    android:overScrollMode="never"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ── TOOLBAR ── -->
+        <LinearLayout
+            android:id="@+id/llToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:background="@color/white"
+            android:elevation="4dp">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_arrow_back"
+                android:background="@drawable/bg_back_btn"
+                android:padding="8dp"
+                android:contentDescription="Back"
+                android:tint="#1A2F3A" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Vacation Mode"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:textColor="#1A2F3A"
+                />
+
+        </LinearLayout>
+
+        <!-- ── HERO SCENE ── -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:clipChildren="false">
+
+            <!-- Sky gradient background -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_hero_sky" />
+
+            <!-- Sun -->
+            <ImageView
+                android:id="@+id/ivSun"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="52dp"
+                android:src="@drawable/ic_sun"
+                android:contentDescription="Sun" />
+
+            <!-- Cloud 1 -->
+            <ImageView
+                android:id="@+id/ivCloud1"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_gravity="top|start"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="-10dp"
+                android:src="@drawable/ic_cloud"
+                android:alpha="0.9"
+                android:contentDescription="Cloud" />
+
+            <!-- Cloud 2 -->
+            <ImageView
+                android:id="@+id/ivCloud2"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="110dp"
+                android:src="@drawable/ic_cloud"
+                android:alpha="0.75"
+                android:contentDescription="Cloud" />
+
+            <!-- Cloud 3 -->
+            <ImageView
+                android:id="@+id/ivCloud3"
+                android:layout_width="80dp"
+                android:layout_height="35dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="-5dp"
+                android:src="@drawable/ic_cloud"
+                android:alpha="0.85"
+                android:contentDescription="Cloud" />
+
+            <!-- Vacation Mode text (Pacifico style via custom font) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="18dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvHeroLine1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vacation"
+                    android:textSize="28sp"
+                    android:textColor="#FFFFFF"
+                    android:shadowColor="#40005080"
+                    android:shadowDx="0"
+                    android:shadowDy="2"
+                    android:shadowRadius="6" />
+
+                <TextView
+                    android:id="@+id/tvHeroLine2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mode 🏖️"
+                    android:textSize="24sp"
+                    android:textColor="#FFFFFF"
+                    android:shadowColor="#40005080"
+                    android:shadowDx="0"
+                    android:shadowDy="2"
+                    android:shadowRadius="6" />
+
+            </LinearLayout>
+
+            <!-- Ocean -->
+            <View
+                android:id="@+id/viewOcean"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="52dp"
+                android:background="@drawable/bg_ocean" />
+
+            <!-- Wave overlay -->
+            <View
+                android:id="@+id/viewWave"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="90dp"
+                android:background="@drawable/bg_wave"
+                android:alpha="0.6" />
+
+            <!-- Sand -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_sand" />
+
+            <!-- Left Palm -->
+            <TextView
+                android:id="@+id/tvPalmLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="30dp"
+                android:text="🌴"
+                android:textSize="52sp" />
+
+            <!-- Right Palm -->
+            <TextView
+                android:id="@+id/tvPalmRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="28dp"
+                android:text="🌴"
+                android:textSize="46sp" />
+
+            <!-- Beach items -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="14dp"
+                android:orientation="horizontal"
+                android:gravity="bottom">
+
+                <TextView
+                    android:id="@+id/tvUmbrella"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⛱️"
+                    android:textSize="30sp"
+                    android:layout_marginEnd="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🥥"
+                    android:textSize="22sp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:id="@+id/tvSurfboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏄"
+                    android:textSize="28sp" />
+
+            </LinearLayout>
+
+            <!-- Sparkles -->
+            <TextView
+                android:id="@+id/tvSparkle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="110dp"
+                android:layout_marginTop="16dp"
+                android:text="✦"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvSparkle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="48dp"
+                android:text="✦"
+                android:textSize="10sp"
+                android:textColor="#FFFFFF" />
+
+        </FrameLayout>
+
+        <!-- ── CONTENT AREA ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="30dp">
+
+            <!-- Disclaimer -->
+            <LinearLayout
+                android:id="@+id/llDisclaimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_disclaimer"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚠️"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="10dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Heads up! Enabling vacation mode will pause all your active subscriptions for the selected time period. Deliveries will resume automatically."
+                    android:textSize="13.5sp"
+                    android:textColor="#7A4F1D"
+                    android:lineSpacingMultiplier="1.4"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    />
+
+            </LinearLayout>
+
+            <!-- Active Banner (gone by default) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardActiveBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_active_banner"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏖️  Vacation is Active!"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                       />
+
+                    <TextView
+                        android:id="@+id/tvBannerEndDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:textSize="13sp"
+                        android:textColor="#F0FFFFFF"
+                         />
+
+                    <TextView
+                        android:id="@+id/tvCountdown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                      />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Vacation Toggle Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardToggle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#E8FDF0">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🌴 Vacation Mode"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#1A2F3A"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvToggleStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="OFF"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textColor="#1E7E34"
+                                android:background="@drawable/bg_badge_off"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvToggleSub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Pause all your deliveries"
+                            android:textSize="12sp"
+                            android:textColor="#4A6572"
+                         />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchVacation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        app:thumbTint="@color/white"
+                        app:trackTint="@color/switch_track_selector" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Section title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Vacation 🏖️"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#1A2F3A"
+                android:layout_marginBottom="12dp"
+                />
+
+            <!-- Date pickers row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <!-- Start Date -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="START DATE"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#4A6572"
+                        android:letterSpacing="0.1"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvStartDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center_vertical"
+                            android:paddingStart="36dp"
+                            android:paddingEnd="12dp"
+                            android:text="Select Date"
+                            android:textSize="13sp"
+                            android:textColor="#8FA9B5"
+                            android:background="@drawable/bg_date_field"
+                            />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical|start"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="#8FA9B5"
+                            android:contentDescription="Calendar" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <!-- End Date -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="END DATE"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#4A6572"
+                        android:letterSpacing="0.1"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvEndDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center_vertical"
+                            android:paddingStart="36dp"
+                            android:paddingEnd="12dp"
+                            android:text="Select Date"
+                            android:textSize="13sp"
+                            android:textColor="#8FA9B5"
+                            android:background="@drawable/bg_date_field"
+                            />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical|start"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="#8FA9B5"
+                            android:contentDescription="Calendar" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Duration Pill (gone by default) -->
+            <LinearLayout
+                android:id="@+id/llDurationPill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_duration_pill"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏱️ "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A9FD4"
+                    />
+
+            </LinearLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp">
+
+                <Button
+                    android:id="@+id/btnStartVacation"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:text="🏖️  Start Vacation"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_btn_primary"
+                    app:backgroundTint="@null"
+                    android:stateListAnimator="@null"
+                    android:elevation="0dp" />
+
+                <Button
+                    android:id="@+id/btnClearVacation"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:text="Clear Vacation"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#C0392B"
+                    android:background="@drawable/bg_btn_outline"
+                    app:backgroundTint="@null"
+                    android:stateListAnimator="@null"
+                    android:elevation="0dp" />
+
+            </LinearLayout>
+
+            <!-- Previous Vacations Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous Vacations 🗓️"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#1A2F3A"
+                android:layout_marginBottom="12dp"
+                 />
+
+            <!-- Previous Vacations List container -->
+            <LinearLayout
+                android:id="@+id/llVacationHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!-- Empty state -->
+            <LinearLayout
+                android:id="@+id/llEmptyHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="24dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏝️"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="No previous vacations"
+                    android:textSize="14sp"
+                    android:textColor="#8FA9B5"
+                   />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

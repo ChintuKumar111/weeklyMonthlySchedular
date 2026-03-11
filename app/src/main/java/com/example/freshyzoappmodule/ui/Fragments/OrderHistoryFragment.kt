@@ -6,21 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.DeliveryModel
+import com.example.freshyzoappmodule.data.api.RetrofitClient
+import com.example.freshyzoappmodule.data.model.OrderHistoryModel
+import com.example.freshyzoappmodule.data.repository.OrderHistoryRepository
 import com.example.freshyzoappmodule.databinding.FragmentOrdersHistoryBinding
 import com.example.freshyzoappmodule.ui.adapter.OrderHistoryAdapter
 import com.example.freshyzoappmodule.viewmodel.OrderHistoryViewModel
-
+import com.example.freshyzoappmodule.viewmodel.factory.OrderHistoryViewModelFactory
 class OrderHistoryFragment : Fragment() {
     private var _binding: FragmentOrdersHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: OrderHistoryViewModel by viewModels()
+    private lateinit var viewModel: OrderHistoryViewModel
     private lateinit var adapter: OrderHistoryAdapter
 
     override fun onCreateView(
@@ -34,10 +37,21 @@ class OrderHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        setupViewModel()
         setupRecyclerView()
         setupFilterChips()
         setupObservers()
         setupClickListeners()
+        
+        viewModel.fetchOrderHistory()
+    }
+
+    private fun setupViewModel() {
+        val apiService = RetrofitClient.api
+        val repository = OrderHistoryRepository(apiService)
+        val factory = OrderHistoryViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory)[OrderHistoryViewModel::class.java]
     }
 
     private fun setupRecyclerView() {
@@ -64,8 +78,8 @@ class OrderHistoryFragment : Fragment() {
     private fun setupObservers() {
         viewModel.filteredDeliveries.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
-            binding.emptyState.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
-            binding.rvDeliveries.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+            binding.emptyState.visibility = if (list.isNullOrEmpty()) View.VISIBLE else View.GONE
+            binding.rvDeliveries.visibility = if (list.isNullOrEmpty()) View.GONE else View.VISIBLE
         }
 
         viewModel.activeFilter.observe(viewLifecycleOwner) { activeFilter ->
@@ -78,6 +92,17 @@ class OrderHistoryFragment : Fragment() {
             binding.tvStatPending.text = stats.pending.toString()
             binding.tvStatCancelled.text = stats.cancelled.toString()
         }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            // You can add a progress bar here if needed
+            // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupClickListeners() {
@@ -89,7 +114,7 @@ class OrderHistoryFragment : Fragment() {
     private fun updateChipStyles(activeFilter: String) {
         val ctx = requireContext()
         chipViews.forEach { (filter, chip) ->
-            if (filter == activeFilter) {
+            if (filter.equals(activeFilter, ignoreCase = true) || (filter == "all" && activeFilter == "all")) {
                 chip.setTextColor(ContextCompat.getColor(ctx, R.color.white))
                 chip.setBackgroundResource(
                     when (filter) {
@@ -106,9 +131,10 @@ class OrderHistoryFragment : Fragment() {
         }
     }
 
-    private fun onDeliveryClicked(delivery: DeliveryModel) {
-        val action = OrderHistoryFragmentDirections.actionMyOrdersFragmentToOrderDetailsFragment(delivery)
-        findNavController().navigate(action)
+    private fun onDeliveryClicked(delivery: OrderHistoryModel) {
+        // Replace with your actual navigation action
+        // val action = OrderHistoryFragmentDirections.actionMyOrdersFragmentToOrderDetailsFragment(delivery)
+        // findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

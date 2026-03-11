@@ -257,7 +257,10 @@
 
     <!-- My Orders Fragment -->
 
-
-
+    <!-- My Deliveries Details Fragment -->
+    <string name="label_transaction_id" translatable="false">Transaction ID : </string>
+    <string name="label_date" translatable="false">Date : </string>
+    <string name="label_remaining_balance" translatable="false">Remaining Balance : </string>
+    <string name="label_remark" translatable="false">Remark: </string>
 
 </resources>

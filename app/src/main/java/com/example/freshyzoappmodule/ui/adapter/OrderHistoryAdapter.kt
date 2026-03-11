@@ -1,7 +1,4 @@
 package com.example.freshyzoappmodule.ui.adapter
-
-// ─────────────────────────────────────────────────────────────
-
 import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -12,37 +9,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.DeliveryModel
+import com.example.freshyzoappmodule.data.model.OrderHistoryModel
 import com.example.freshyzoappmodule.data.model.DeliveryStatus
 import com.example.freshyzoappmodule.data.model.ProductType
 import com.example.freshyzoappmodule.databinding.ItemOrderHistoryCardBinding
 
 class OrderHistoryAdapter(
-    private val onCardClick: (DeliveryModel) -> Unit
-) : ListAdapter<DeliveryModel,
+    private val onCardClick: (OrderHistoryModel) -> Unit
+) : ListAdapter<OrderHistoryModel,
         OrderHistoryAdapter.DeliveryViewHolder>(DiffCallback()) {
-
-    // ── DiffUtil ────────────────────────────────────────────────
-    class DiffCallback : DiffUtil.ItemCallback<DeliveryModel>() {
-        override fun areItemsTheSame(old: DeliveryModel, new: DeliveryModel) = old.id == new.id
-        override fun areContentsTheSame(old: DeliveryModel, new: DeliveryModel) = old == new
+    class DiffCallback : DiffUtil.ItemCallback<OrderHistoryModel>() {
+        override fun areItemsTheSame(old: OrderHistoryModel, new: OrderHistoryModel) = old.id == new.id
+        override fun areContentsTheSame(old: OrderHistoryModel, new: OrderHistoryModel) = old == new
     }
-
-    // ── ViewHolder ──────────────────────────────────────────────
     inner class DeliveryViewHolder(
         private val binding: ItemOrderHistoryCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: DeliveryModel) {
+        fun bind(item: OrderHistoryModel) {
             val ctx = binding.root.context
-
-            // ── Product info ────────────────────────────────────
             binding.tvProductEmoji.text = item.emoji
             binding.tvProductName.text = item.productName
-            binding.tvBrandName.text = item.brandName
-            // binding.tvTxnId.text         = "#${item.txnId}"
-            binding.tvSize.text = item.size
-            binding.tvQty.text = "×${item.quantity} unit${if (item.quantity > 1) "s" else ""}"
             binding.tvDate.text = item.date
 
 
@@ -54,37 +41,7 @@ class OrderHistoryAdapter(
                 }
             )
 
-            // ── Size tag color ───────────────────────────────────
-            binding.tvSize.setBackgroundResource(
-                when (item.productType) {
-                    ProductType.MILK -> R.drawable.bg_tag_green
-                    ProductType.GHEE -> R.drawable.bg_tag_gold
-                }
-            )
-            binding.tvSize.setTextColor(
-                ContextCompat.getColor(
-                    ctx, when (item.productType) {
-                        ProductType.MILK -> R.color.emerald
-                        ProductType.GHEE -> R.color.gold
-                    }
-                )
-            )
-
-            // ── Brand name color ─────────────────────────────────
-            binding.tvBrandName.setTextColor(
-                ContextCompat.getColor(
-                    ctx, when (item.productType) {
-                        ProductType.MILK -> R.color.emerald
-                        ProductType.GHEE -> R.color.gold
-                    }
-                )
-            )
-
-
-            // ── Status badge ─────────────────────────────────────
             applyStatus(ctx, item)
-
-            // ── Click listener ───────────────────────────────────
             binding.root.setOnClickListener {
                 it.animate()
                     .scaleX(0.97f).scaleY(0.97f).setDuration(80)
@@ -95,7 +52,7 @@ class OrderHistoryAdapter(
             }
         }
 
-        private fun applyStatus(ctx: Context, item: DeliveryModel) {
+        private fun applyStatus(ctx: Context, item: OrderHistoryModel) {
             when (item.status) {
 
                 DeliveryStatus.PLACED -> {
@@ -125,9 +82,6 @@ class OrderHistoryAdapter(
                     binding.tvStatusBadge.text = "✕ Cancelled"
                     binding.tvStatusBadge.setTextColor(ContextCompat.getColor(ctx, R.color.coral))
                     binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_cancelled)
-
-
-
 
                 }
             }

@@ -21,14 +21,14 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginBottom="20dp">
-
-            <ImageButton
+            <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/baseline_arrow_back_ios_24"
-                android:padding="8dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:tint="@color/black"
+                android:background="@drawable/bg_btn_circle"
+                android:src="@drawable/ic_back"
+                android:padding="10dp"
                 android:contentDescription="Back" />
 
             <TextView
@@ -99,8 +99,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="FreshyZo Ghee"
-                        android:textSize="15sp"
-                        android:textColor="#1A1A1A"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
@@ -217,7 +217,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Total Paid"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textColor="#1A1A1A"
                         android:textStyle="bold" />
 
@@ -318,10 +318,10 @@
         <Button
             android:id="@+id/btnHelp"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="48dp"
             android:text="Need Help?"
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:background="@drawable/bg_btn_green"
             android:layout_marginBottom="10dp" />
@@ -330,9 +330,9 @@
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="48dp"
             android:text="Cancel Order"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:textColor="#D62828"
             android:textStyle="bold"
             android:background="@drawable/badge_green_light"
