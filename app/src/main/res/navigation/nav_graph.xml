@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_nav_account_to_vacationFragment"
             app:destination="@id/vacationFragment" />
+        <action
+            android:id="@+id/action_nav_account_to_invoiceFragment"
+            app:destination="@id/invoiceFragment" />
 
     </fragment>
 
@@ -169,5 +172,10 @@
         android:name="com.example.freshyzoappmodule.ui.Fragments.VacationFragment"
         android:label="Vacation"
         tools:layout="@layout/fragment_vacation" />
+    <fragment
+        android:id="@+id/invoiceFragment"
+        android:name="com.example.freshyzoappmodule.ui.Fragments.InvoiceFragment"
+        android:label="Vacation"
+        tools:layout="@layout/fragment_invoice" />
 
 </navigation>

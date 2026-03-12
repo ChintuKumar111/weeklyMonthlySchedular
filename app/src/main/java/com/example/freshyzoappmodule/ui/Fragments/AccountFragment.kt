@@ -89,6 +89,9 @@ class AccountFragment : Fragment() {
         binding.root.findViewById<View>(R.id.tabVacation)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_vacationFragment)
         }
+        binding.root.findViewById<View>(R.id.tabInvoice)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_invoiceFragment)
+        }
     }
 
     private fun showLanguageDialog() {
