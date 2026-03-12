@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0FBFF"
+    android:background="#F0FFF7"
     android:overScrollMode="never"
     android:fillViewport="true">
 
@@ -256,37 +256,6 @@
             android:paddingTop="16dp"
             android:paddingBottom="30dp">
 
-            <!-- Disclaimer -->
-            <LinearLayout
-                android:id="@+id/llDisclaimer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_disclaimer"
-                android:padding="5dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="top">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⚠️"
-                    android:textSize="18sp"
-                    android:layout_marginEnd="10dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Heads up! Enabling vacation mode will pause all your active subscriptions for the selected time period. Deliveries will resume automatically."
-                    android:textSize="13.5sp"
-                    android:textColor="#7A4F1D"
-                    android:lineSpacingMultiplier="1.4"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    />
-
-            </LinearLayout>
-
             <!-- Active Banner (gone by default) -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardActiveBanner"
@@ -301,16 +270,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="@drawable/bg_active_banner"
+                    android:background="@drawable/bg_duration_pill"
                     android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🏖️  Vacation is Active!"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/gray_900"
                        />
 
                     <TextView
@@ -318,8 +287,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:textSize="13sp"
-                        android:textColor="#F0FFFFFF"
+                        android:textSize="10sp"
+                        android:textColor="@color/gray_700"
                          />
 
                     <TextView
@@ -327,90 +296,90 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:textSize="24sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/primary_dark"
                       />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Vacation Toggle Card -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardToggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#E8FDF0">
+<!--            &lt;!&ndash; Vacation Toggle Card &ndash;&gt;-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cardToggle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                app:cardCornerRadius="16dp"-->
+<!--                app:cardElevation="2dp"-->
+<!--                app:cardBackgroundColor="#E8FDF0">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:padding="16dp">-->
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:orientation="vertical">-->
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:gravity="center_vertical">-->
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🌴 Vacation Mode"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:textColor="#1A2F3A"
-                                />
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="🌴 Vacation Mode"-->
+<!--                                android:textSize="15sp"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:textColor="#1A2F3A"-->
+<!--                                />-->
 
-                            <TextView
-                                android:id="@+id/tvToggleStatus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:text="OFF"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:textColor="#1E7E34"
-                                android:background="@drawable/bg_badge_off"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="3dp"
-                                />
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvToggleStatus"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="8dp"-->
+<!--                                android:text="OFF"-->
+<!--                                android:textSize="11sp"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:textColor="#1E7E34"-->
+<!--                                android:background="@drawable/bg_badge_off"-->
+<!--                                android:paddingHorizontal="8dp"-->
+<!--                                android:paddingVertical="3dp"-->
+<!--                                />-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                        <TextView
-                            android:id="@+id/tvToggleSub"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="Pause all your deliveries"
-                            android:textSize="12sp"
-                            android:textColor="#4A6572"
-                         />
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvToggleSub"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="3dp"-->
+<!--                            android:text="Pause all your deliveries"-->
+<!--                            android:textSize="12sp"-->
+<!--                            android:textColor="#4A6572"-->
+<!--                         />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/switchVacation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        app:thumbTint="@color/white"
-                        app:trackTint="@color/switch_track_selector" />
+<!--                    <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--                        android:id="@+id/switchVacation"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:checked="false"-->
+<!--                        app:thumbTint="@color/white"-->
+<!--                        app:trackTint="@color/switch_track_selector" />-->
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
 
             <!-- Section title -->
             <TextView

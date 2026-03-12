@@ -15,7 +15,6 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentVacationBinding
 import java.text.SimpleDateFormat
 import java.util.*
-
 class VacationFragment : Fragment() {
 
     // ── ViewBinding ──────────────────────────────────────────────────────────
@@ -32,7 +31,7 @@ class VacationFragment : Fragment() {
     // ── MOCK: Replace with your actual session/auth check ───────────────────
     // true  = logged-in subscriber  → full access
     // false = guest / non-subscriber → show gate dialog
-    private val isSubscriptionCustomer: Boolean = false
+    private val isSubscriptionCustomer: Boolean = true
 
     // ── Lifecycle ────────────────────────────────────────────────────────────
 
@@ -387,7 +386,7 @@ class VacationFragment : Fragment() {
     private fun animateContentIn() {
         val slideUp = AnimationUtils.loadAnimation(requireContext(), R.anim.anim_slide_up_fade)
         listOf(
-            binding.llDisclaimer,
+            //binding.llDisclaimer,
             binding.btnStartVacation,
             binding.btnClearVacation,
             binding.llVacationHistory
@@ -412,3 +411,30 @@ class VacationFragment : Fragment() {
         fun newInstance() = VacationFragment()
     }
 }
+//
+//**Today’s Work Update**
+//
+//1. **Order History Module**
+//
+//* Designed and improved the UI for the order history screen.
+//* Implemented the logic for API integration to fetch and display order history data dynamically.
+//
+//2. **Deliveries Section**
+//
+//* Designed the UI for the deliveries screen.
+//* Implemented API calling logic and data binding to display delivery details in the app.
+//
+//3. **Vacation Feature**
+//
+//* Designed the UI for the vacation screen.
+//* Implemented business logic based on UI elements to handle vacation start and clear actions.
+//
+//4. **Custom Dialog Implementation**
+//
+//* Created a custom dialog box to explain the vacation feature logic.
+//* Added conditions to check whether the user is a **subscriber or non-subscriber**.
+//* Configured the dialog to appear when the user **enters the app for the first time**.
+//
+//5. **Animation Implementation**
+//
+//* Implemented custom animations to enhance the UI experience on the vacation screen.
