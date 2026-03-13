@@ -16,9 +16,9 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentAccountBinding
 import com.example.freshyzoappmodule.helper.LanguageHelper
 import com.example.freshyzoappmodule.helper.PreferenceHelper
+import com.example.freshyzoappmodule.ui.activity.InvoicesDownloadActivity
 
 class AccountFragment : Fragment() {
-
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
 
@@ -90,8 +90,9 @@ class AccountFragment : Fragment() {
             findNavController().navigate(R.id.action_nav_account_to_vacationFragment)
         }
         binding.root.findViewById<View>(R.id.tabInvoice)?.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_account_to_invoiceFragment)
+          startActivity(Intent(requireContext(), InvoicesDownloadActivity::class.java))
         }
+
     }
 
     private fun showLanguageDialog() {

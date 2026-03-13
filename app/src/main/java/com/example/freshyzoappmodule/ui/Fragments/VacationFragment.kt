@@ -214,7 +214,6 @@ class VacationFragment : Fragment() {
         binding.tvEndDate.isEnabled   = false
         binding.tvStartDate.alpha     = 0.5f
         binding.tvEndDate.alpha       = 0.5f
-
         // Hide Clear while active
         binding.btnClearVacation.visibility = View.GONE
 
@@ -294,9 +293,10 @@ class VacationFragment : Fragment() {
         val days = daysBetween(start, end) + 1
         card.findViewById<TextView>(R.id.tvVCardDates).text =
             "${displayFmt.format(start.time)} – ${displayFmt.format(end.time)}"
+
         card.findViewById<TextView>(R.id.tvVCardDuration).text =
             "$days day${if (days > 1) "s" else ""} · All subscriptions paused"
-        card.findViewById<TextView>(R.id.tvVCardIcon).text = "🏖️"
+
 
         val badge = card.findViewById<TextView>(R.id.tvVCardBadge)
         badge.text = if (isActive) "Active" else "Done"
@@ -332,9 +332,11 @@ class VacationFragment : Fragment() {
 
             val days = daysBetween(start, end) + 1
             card.findViewById<TextView>(R.id.tvVCardDates).text  = "$s – $e"
+
             card.findViewById<TextView>(R.id.tvVCardDuration).text =
+
                 "$days day${if (days > 1) "s" else ""} · Subscriptions paused"
-            card.findViewById<TextView>(R.id.tvVCardIcon).text = if (i == 0) "🌴" else "☀️"
+
 
             val badge = card.findViewById<TextView>(R.id.tvVCardBadge)
             badge.text = if (active) "Active" else "Done"
@@ -369,7 +371,7 @@ class VacationFragment : Fragment() {
             if (_binding != null)
                 binding.ivCloud3.startAnimation(AnimationUtils.loadAnimation(ctx, R.anim.anim_cloud_drift))
         }, 9000)
-        binding.viewWave.startAnimation(AnimationUtils.loadAnimation(ctx, R.anim.anim_wave))
+       // binding.viewWave.startAnimation(AnimationUtils.loadAnimation(ctx, R.anim.anim_wave))
         binding.tvPalmLeft.startAnimation(AnimationUtils.loadAnimation(ctx, R.anim.anim_sway))
         binding.tvPalmRight.startAnimation(AnimationUtils.loadAnimation(ctx, R.anim.anim_sway_reverse))
         binding.tvUmbrella.startAnimation(AnimationUtils.loadAnimation(ctx, R.anim.anim_sway))
