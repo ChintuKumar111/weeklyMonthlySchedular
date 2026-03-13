@@ -21,7 +21,6 @@ class InvoiceViewModel : ViewModel() {
     // Keep individual LiveData if needed for legacy support, but update them together
     val billSummary = MutableLiveData<BillSummaryData>()
     val transactions = MutableLiveData<List<BillTransactionRow>>()
-
     fun loadInvoice(startDate: String, endDate: String) {
         Log.d("InvoiceVM", "loadInvoice called")
 
@@ -91,7 +90,7 @@ class InvoiceViewModel : ViewModel() {
 //    )
 //}
 
-//
+
 //class InvoiceRepository {
 //
 //    suspend fun getInvoice(startDate: String, endDate: String): InvoiceResponse? {

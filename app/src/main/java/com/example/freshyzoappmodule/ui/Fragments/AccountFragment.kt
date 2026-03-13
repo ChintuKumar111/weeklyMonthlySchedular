@@ -1,5 +1,4 @@
 package com.example.freshyzoappmodule.ui.Fragments
-
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,7 +16,6 @@ import com.example.freshyzoappmodule.databinding.FragmentAccountBinding
 import com.example.freshyzoappmodule.helper.LanguageHelper
 import com.example.freshyzoappmodule.helper.PreferenceHelper
 import com.example.freshyzoappmodule.ui.activity.InvoicesDownloadActivity
-
 class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
@@ -29,7 +27,6 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -91,6 +88,9 @@ class AccountFragment : Fragment() {
         }
         binding.root.findViewById<View>(R.id.tabInvoice)?.setOnClickListener {
           startActivity(Intent(requireContext(), InvoicesDownloadActivity::class.java))
+        }
+        binding.root.findViewById<View>(R.id.tabSubscription)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_subscriptionFragment)
         }
 
     }

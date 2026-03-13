@@ -69,7 +69,11 @@
             app:destination="@id/DeliveriesDetailsFragment" />
         <action
             android:id="@+id/action_nav_account_to_vacationFragment"
-            app:destination="@id/vacationFragment" />
+            app:destination="@id/vacationFragment"
+            />
+        <action
+            android:id="@+id/action_nav_account_to_subscriptionFragment"
+            app:destination="@id/SubscriptionFragment" />
 
 
     </fragment>
@@ -110,7 +114,7 @@
 
     <!-- Other Fragments -->
     <fragment
-        android:id="@+id/SubscribeFragment"
+        android:id="@+id/SubscriptionFragment"
         android:name="com.example.freshyzoappmodule.ui.Fragments.SubscriptionFragment"
         android:label="Subscribe"
         tools:layout="@layout/fragment_subscription" />
