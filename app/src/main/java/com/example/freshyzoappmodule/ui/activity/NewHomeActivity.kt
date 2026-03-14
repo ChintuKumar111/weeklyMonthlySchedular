@@ -18,7 +18,7 @@ import com.razorpay.PaymentResultListener
 import kotlin.concurrent.thread
 import com.example.freshyzoappmodule.extensions.sizes
 import com.example.freshyzoappmodule.helper.BaseActivityy
-import com.example.freshyzoappmodule.ui.AppGuide.AppGuideManager
+import com.example.freshyzoappmodule.ui.widget.AppGuideManager
 
 class NewHomeActivity : BaseActivityy() , PaymentResultListener {
 

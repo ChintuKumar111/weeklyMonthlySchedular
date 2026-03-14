@@ -7,6 +7,7 @@ import com.example.freshyzoappmodule.data.model.DeliveryModel
 import com.example.freshyzoappmodule.data.model.OfferImageSlider
 import com.example.freshyzoappmodule.data.model.OrderHistoryModel
 import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.SubscriptionResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -40,4 +41,7 @@ interface ApiService {
 
     @GET("fetch_order_history") // Replace with your actual endpoint
     suspend fun getOrderHistory(): Response<List<OrderHistoryModel>>
+
+    @GET("subscriptions")
+    suspend fun getSubscriptions(): Response<List<SubscriptionResponse>>
 }

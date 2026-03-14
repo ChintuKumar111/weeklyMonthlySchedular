@@ -31,14 +31,31 @@
 
 
     </LinearLayout>
-    <!-- TabLayout for Active / Pause / Cancel -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"
+        android:elevation="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_2sdp"
-        app:tabGravity="fill"/>
+        app:cardCornerRadius="@dimen/_5sdp">
+
+        <!-- TabLayout for Active / Pause / Cancel -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            android:backgroundTint="@color/white"
+            app:tabTextColor="@color/gray_500"
+            app:tabSelectedTextColor="@color/primary_dark"
+            app:tabIndicatorColor="@color/primary"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorFullWidth="false"
+            />
+
+    </androidx.cardview.widget.CardView>
+
 
     <!-- ViewPager2 for swipeable content -->
     <androidx.viewpager2.widget.ViewPager2
@@ -46,4 +63,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
+
 </LinearLayout>

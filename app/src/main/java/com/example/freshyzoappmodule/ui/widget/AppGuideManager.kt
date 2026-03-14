@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.ui.AppGuide
+package com.example.freshyzoappmodule.ui.widget
 
 import android.app.Activity
 import android.content.Context
@@ -12,6 +12,7 @@ import com.example.freshyzoappmodule.R
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetView
 import com.google.android.material.button.MaterialButton
+
 /**
  * Robust App Guide Manager with Welcome Dialog, Steppers, and Global Skip logic.
  */

@@ -120,7 +120,7 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
     // Koin for Android
-    implementation("io.insert-koin:koin-android:3.5.0")
+    implementation("io.insert-koin:koin-android:3.5.3")
     implementation ("com.google.firebase:firebase-storage-ktx")
 
     // Dots Indicator
@@ -135,6 +135,8 @@ dependencies {
 
     // zoom out and zoom in functionality
     implementation("com.otaliastudios:zoomlayout:1.9.0")
+
+
 
 
 

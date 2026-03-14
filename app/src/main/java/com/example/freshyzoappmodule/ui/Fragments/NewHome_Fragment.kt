@@ -16,7 +16,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.SliderItem
 import com.example.freshyzoappmodule.databinding.FragmentNewHomeBinding
-import com.example.freshyzoappmodule.ui.AppGuide.AppGuideManager
+import com.example.freshyzoappmodule.ui.widget.AppGuideManager
 import com.example.freshyzoappmodule.ui.activity.NewHomeActivity
 import com.example.freshyzoappmodule.ui.activity.NotificationActivity
 import com.example.freshyzoappmodule.ui.adapter.BlogReportAdapter

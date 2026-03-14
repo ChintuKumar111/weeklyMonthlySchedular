@@ -234,11 +234,3 @@ class InvoicesDownloadActivity : AppCompatActivity() {
 //        previewBinding.llTransactionRows.addView(row)
 //    }
 //}
-
-//**Today's Work Update**
-//
-//• Worked on the **Vacation section** and implemented the required logic for handling vacation-related functionality.
-//
-//• Worked on the **Monthly Invoice section**, including UI design and implementing the logic for displaying invoice data.
-//
-//• Implemented **permissions for downloading PDF files** and added functionality to allow users to **print the invoice using a connected printer**.

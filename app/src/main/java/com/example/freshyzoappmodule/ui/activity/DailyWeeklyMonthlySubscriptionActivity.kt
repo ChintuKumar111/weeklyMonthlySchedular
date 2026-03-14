@@ -36,9 +36,9 @@ class DailyWeeklyMonthlySubscriptionActivity : AppCompatActivity() {
 
         dateHelper = DailyWeeklyDateHelper(viewModel, this)
         setupObservers()
+
         setupClicks()
     }
-
     @SuppressLint("SetTextI18n")
     private fun setupObservers() {
         // Observe Plan Changes to update UI
