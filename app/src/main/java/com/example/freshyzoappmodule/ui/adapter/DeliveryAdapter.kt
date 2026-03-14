@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.DeliveryModel
+import com.example.freshyzoappmodule.data.model.Delivery
 import java.util.Locale
 class DeliveryAdapter(
     private val context: Context,
-    private val onItemClick: ((DeliveryModel) -> Unit)? = null
-) : ListAdapter<DeliveryModel, DeliveryAdapter.DeliveryViewHolder>(DIFF_CALLBACK) {
+    private val onItemClick: ((Delivery) -> Unit)? = null
+) : ListAdapter<Delivery, DeliveryAdapter.DeliveryViewHolder>(DIFF_CALLBACK) {
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DeliveryModel>() {
-            override fun areItemsTheSame(old: DeliveryModel, new: DeliveryModel) =
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Delivery>() {
+            override fun areItemsTheSame(old: Delivery, new: Delivery) =
                 old.id == new.id
 
-            override fun areContentsTheSame(old: DeliveryModel, new: DeliveryModel) =
+            override fun areContentsTheSame(old: Delivery, new: Delivery) =
                 old == new
         }
     }
@@ -40,7 +40,7 @@ class DeliveryAdapter(
         val llRemark: LinearLayout        = itemView.findViewById(R.id.llRemark)
         val tvRemark: TextView            = itemView.findViewById(R.id.tvRemark)
 
-        fun bind(item: DeliveryModel) {
+        fun bind(item: Delivery) {
 
             // Product image
             if (item.productImageUrl.isNotBlank()) {

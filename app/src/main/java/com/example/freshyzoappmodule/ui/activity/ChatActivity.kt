@@ -3,7 +3,7 @@ package com.example.freshyzoappmodule.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.freshyzoappmodule.data.model.messageModel
+import com.example.freshyzoappmodule.data.model.ChatMessage
 import com.example.freshyzoappmodule.databinding.ActivityChatBinding
 import com.example.freshyzoappmodule.ui.adapter.ChatAdapter
 import com.google.firebase.firestore.DocumentChange
@@ -13,7 +13,7 @@ import com.google.firebase.firestore.SetOptions
 class ChatActivity : AppCompatActivity() {
 
     private val db = FirebaseFirestore.getInstance()
-    private val messageList = mutableListOf<messageModel>()
+    private val messageList = mutableListOf<ChatMessage>()
     private lateinit var adapter: ChatAdapter
 
     private var userId = "user1" // Current User
@@ -90,7 +90,7 @@ class ChatActivity : AppCompatActivity() {
 
                 snapshots?.documentChanges?.forEach { change ->
                     if (change.type == DocumentChange.Type.ADDED) {
-                        val message = change.document.toObject(messageModel::class.java)
+                        val message = change.document.toObject(ChatMessage::class.java)
                         if (message != null) {
                             messageList.add(message)
                             adapter.notifyItemInserted(messageList.size - 1)

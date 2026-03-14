@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.cartStateModel
+import com.example.freshyzoappmodule.data.model.CartState
 import com.example.freshyzoappmodule.data.model.PopularProductModel
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.repository.CartRepository
@@ -25,7 +25,7 @@ import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.ui.adapter.PopularProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.RecentSearchAdapter
-import com.example.freshyzoappmodule.viewmodel.SearchViewModel
+import com.example.freshyzoappmodule.ui.viewmodel.SearchViewModel
 import kotlin.concurrent.thread
 
 class SearchActivity : AppCompatActivity() {
@@ -54,7 +54,7 @@ class SearchActivity : AppCompatActivity() {
             viewModel.onSearchQueryChanged(text.toString().trim())
         }
         binding.cartPreview.setOnViewCartClickListener {
-            val intent = Intent(this, NewHomeActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra("OPEN_CART", true)
             intent.putExtra("FROM_SEARCH", true)
             startActivity(intent)
@@ -291,7 +291,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun updateCart(product: Product, priceDelta: Double, countDelta: Int) {
         thread {
-            val currentState = cartRepository.getCartState() ?: cartStateModel()
+            val currentState = cartRepository.getCartState() ?: CartState()
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
 
@@ -312,7 +312,7 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
 
-            val newState = cartStateModel(newCount, newPrice, true, newQuantities, currentProducts)
+            val newState = CartState(newCount, newPrice, true, newQuantities, currentProducts)
             cartRepository.saveCartState(newState)
 
             runOnUiThread {

@@ -269,16 +269,7 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <TextView
-            android:id="@+id/emptyState"
-            android:layout_width="wrap_content"
-            android:textStyle="italic"
-            android:textSize="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="No Orders Yet"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Scrollable Content -->
@@ -311,6 +302,7 @@
                 android:gravity="center"
                 android:paddingTop="16dp"
                 android:paddingBottom="24dp">
+
                 <View
                     android:id="@+id/liveDot"
                     android:layout_width="6dp"
@@ -324,7 +316,16 @@
                     android:textColor="@color/text_muted"
                     android:textSize="11sp" />
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/emptyState"
+                android:layout_width="wrap_content"
+                android:textStyle="italic"
+                android:textSize="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="No Orders Yet"/>
         </LinearLayout>
 
 

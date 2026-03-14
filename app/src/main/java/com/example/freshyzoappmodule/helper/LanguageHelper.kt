@@ -3,18 +3,19 @@ package com.example.freshyzoappmodule.helper
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import com.example.freshyzoappmodule.data.manager.PreferenceManager
 import java.util.Locale
 
 object LanguageHelper {
     
     fun setLocale(context: Context, languageCode: String) {
-        PreferenceHelper.saveLanguage(context, languageCode)
+        PreferenceManager.saveLanguage(context, languageCode)
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags(languageCode)
         AppCompatDelegate.setApplicationLocales(appLocale)
     }
 
     fun getSavedLanguage(context: Context): String {
-        return PreferenceHelper.getLanguage(context)
+        return PreferenceManager.getLanguage(context)
     }
 
     fun onAttach(context: Context): Context {

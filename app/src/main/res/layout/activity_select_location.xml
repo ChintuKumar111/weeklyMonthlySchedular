@@ -8,6 +8,19 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ui.activity.SelectLocationActivity">
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:tint="@color/black"
+        android:background="@drawable/bg_btn_circle"
+        android:src="@drawable/ic_back"
+        android:elevation="@dimen/_50sdp"
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="10dp"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="Back" />
 
 
     <fragment

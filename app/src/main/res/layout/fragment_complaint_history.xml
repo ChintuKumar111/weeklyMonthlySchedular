@@ -19,20 +19,26 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:tint="@color/black"
+            android:background="@drawable/bg_btn_circle"
             android:src="@drawable/ic_back"
-            app:tint="@color/white" />
+            android:elevation="@dimen/_50sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="Back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_weight="1"
-            android:fontFamily="@font/sora_bold"
+            android:textStyle="bold"
             android:text="Complaint History"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

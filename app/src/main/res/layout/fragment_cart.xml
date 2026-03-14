@@ -26,14 +26,11 @@
             android:layout_height="52dp"
             android:paddingStart="8dp"
             app:titleTextColor="@color/white"
-            app:navigationIcon="@drawable/ic_back"
             android:background="@color/primary"
             app:title="@string/my_cart"
             app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animEmptyCart"
@@ -191,19 +188,10 @@
                     android:paddingTop="3dp"
                     android:paddingBottom="3dp" />
 
-
-
             </LinearLayout>
-
-
-
-
             <!-- ─────────────────────────────── -->
             <!--       CART ITEM 1               -->
             <!-- ─────────────────────────────── -->
-
-
-
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

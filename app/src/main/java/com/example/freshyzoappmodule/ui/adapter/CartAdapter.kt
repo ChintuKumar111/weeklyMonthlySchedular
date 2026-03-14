@@ -1,9 +1,7 @@
 package com.example.freshyzoappmodule.ui.adapter
 
-import android.app.Activity
 import android.graphics.Paint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,9 +12,8 @@ import com.example.freshyzoappmodule.databinding.ItemCartProductRvBinding
 import com.example.freshyzoappmodule.extensions.discountPercent
 import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.extensions.imageUrl
-import com.example.freshyzoappmodule.extensions.price
 import com.example.freshyzoappmodule.extensions.sizes
-import com.example.freshyzoappmodule.ui.activity.NewHomeActivity
+import com.example.freshyzoappmodule.ui.activity.HomeActivity
 
 class CartAdapter(
     private var products: List<Product>,
@@ -62,7 +59,7 @@ class CartAdapter(
 
         holder.binding.btnPlus.setOnClickListener {
             val price = size?.price?.toDouble() ?: 0.0
-            (holder.itemView.context as? NewHomeActivity)?.updateSharedCart(product, price, 1) { newState ->
+            (holder.itemView.context as? HomeActivity)?.updateSharedCart(product, price, 1) { newState ->
                 products = newState.products
                 quantities = newState.productQuantities
                 notifyDataSetChanged()
@@ -72,7 +69,7 @@ class CartAdapter(
 
         holder.binding.btnMinus.setOnClickListener {
             val price = size?.price?.toDouble() ?: 0.0
-            (holder.itemView.context as? NewHomeActivity)?.updateSharedCart(product, -price, -1) { newState ->
+            (holder.itemView.context as? HomeActivity)?.updateSharedCart(product, -price, -1) { newState ->
                 products = newState.products
                 quantities = newState.productQuantities
                 notifyDataSetChanged()

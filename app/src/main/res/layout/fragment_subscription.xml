@@ -13,11 +13,16 @@
 
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingStart="@dimen/_10sdp"
-            android:tint="@color/white"
-            android:src="@drawable/baseline_arrow_back_ios_24"/>
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:tint="@color/black"
+            android:background="@drawable/bg_btn_circle"
+            android:src="@drawable/ic_back"
+            android:elevation="@dimen/_50sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="Back" />
 
         <TextView
             android:layout_width="wrap_content"

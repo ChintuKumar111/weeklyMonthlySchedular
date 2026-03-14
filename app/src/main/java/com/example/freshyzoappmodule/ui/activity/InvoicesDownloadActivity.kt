@@ -9,14 +9,12 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.BillTransactionRow
 import com.example.freshyzoappmodule.databinding.ActivityInvoicesDownloadBinding
 import com.example.freshyzoappmodule.databinding.LayoutBillPreviewBinding
-import com.example.freshyzoappmodule.helper.DateHelperr
-import com.example.freshyzoappmodule.helper.InvoiceHelper
-import com.example.freshyzoappmodule.viewmodel.InvoiceViewModel
+import com.example.freshyzoappmodule.extensions.InvoicePrintExtensions
+import com.example.freshyzoappmodule.ui.viewmodel.InvoiceViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
@@ -26,10 +24,8 @@ import java.util.Locale
 class InvoicesDownloadActivity : AppCompatActivity() {
     private var selectedStartDate: String = ""
     private var selectedEndDate: String = ""
-
     private val viewModel: InvoiceViewModel by viewModels()
-    private val invoiceHelper by lazy { InvoiceHelper(this) }
-
+    private val invoiceHelper by lazy { InvoicePrintExtensions(this) }
     private lateinit var binding: ActivityInvoicesDownloadBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

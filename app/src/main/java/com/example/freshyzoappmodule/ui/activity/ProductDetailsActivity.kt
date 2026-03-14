@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.objects.FaqManager
 import com.example.freshyzoappmodule.databinding.ActivityProductDetailsBinding
@@ -22,7 +21,7 @@ import com.example.freshyzoappmodule.extensions.sizes
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonBinder
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonData
 import com.example.freshyzoappmodule.ui.adapter.FaqAdapter
-import com.example.freshyzoappmodule.viewmodel.ProductDetailsViewModel
+import com.example.freshyzoappmodule.ui.viewmodel.ProductDetailsViewModel
 import java.io.File
 import java.io.FileOutputStream
 import android.content.Intent as AndroidIntent

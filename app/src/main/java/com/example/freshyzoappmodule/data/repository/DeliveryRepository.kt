@@ -1,12 +1,12 @@
 package com.example.freshyzoappmodule.data.repository
 
 import com.example.freshyzoappmodule.data.api.ApiService
-import com.example.freshyzoappmodule.data.model.DeliveryModel
+import com.example.freshyzoappmodule.data.model.Delivery
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class DeliveryRepository(private val apiService: ApiService) {
-    suspend fun getDeliveries(): Result<List<DeliveryModel>> = withContext(Dispatchers.IO) {
+    suspend fun getDeliveries(): Result<List<Delivery>> = withContext(Dispatchers.IO) {
         try {
             val response = apiService.getDeliveries()
             if (response.isSuccessful && response.body() != null) {

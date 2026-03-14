@@ -17,8 +17,8 @@ import com.example.freshyzoappmodule.databinding.ActivityProductSubscribeBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
 import com.example.freshyzoappmodule.extensions.sizes
 import com.example.freshyzoappmodule.helper.DayRowHolderHelper
-import com.example.freshyzoappmodule.viewmodel.ProductDetailsViewModel
-import com.example.freshyzoappmodule.viewmodel.ProductSubscribeViewModel
+import com.example.freshyzoappmodule.ui.viewmodel.ProductDetailsViewModel
+import com.example.freshyzoappmodule.ui.viewmodel.ProductSubscribeViewModel
 
 class ProductSubscribeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductSubscribeBinding

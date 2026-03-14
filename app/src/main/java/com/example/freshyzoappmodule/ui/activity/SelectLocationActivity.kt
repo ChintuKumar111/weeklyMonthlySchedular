@@ -18,7 +18,7 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.repository.GeocoderRepository
 import com.example.freshyzoappmodule.databinding.ActivitySelectLocationBinding
 import com.example.freshyzoappmodule.helper.LocationHelper
-import com.example.freshyzoappmodule.viewmodel.SelectLocationViewModel
+import com.example.freshyzoappmodule.ui.viewmodel.SelectLocationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

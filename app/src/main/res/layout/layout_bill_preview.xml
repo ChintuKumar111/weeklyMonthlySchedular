@@ -63,7 +63,7 @@
     </LinearLayout>
 
     <!-- ZOOM AREA -->
-    <com.example.freshyzoappmodule.ui.widget.ZoomLayout
+    <com.example.freshyzoappmodule.data.manager.ZoomLayout
         android:id="@+id/zoomLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -381,17 +381,32 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- DYNAMIC ROWS CONTAINER -->
+                <!-- Table Rows -->
                 <LinearLayout
                     android:id="@+id/llTransactionRows"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
             </LinearLayout>
-        </LinearLayout>
-    </com.example.freshyzoappmodule.ui.widget.ZoomLayout>
 
-    <!-- FOOTER BUTTONS -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="32dp"
+                android:background="#CCCCCC" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="This is a computer generated invoice."
+                android:textColor="#888888"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </com.example.freshyzoappmodule.data.manager.ZoomLayout>
+
+    <!-- ACTION BUTTONS -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -402,30 +417,25 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPrintInvoice"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="54dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:text="Print"
-            android:textAllCaps="false"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:textColor="#111111"
             app:cornerRadius="12dp"
-            app:strokeColor="#111111" />
+            app:strokeColor="#DDDDDD" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDownloadPdf"
             android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="54dp"
             android:layout_weight="1"
-            android:text="Download"
-            android:textAllCaps="false"
+            android:backgroundTint="#2E7D32"
+            android:text="Download PDF"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:backgroundTint="#111111"
             app:cornerRadius="12dp" />
     </LinearLayout>
+
 </LinearLayout>

@@ -25,14 +25,17 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_10sdp">
-
+            <!-- Back Button -->
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:padding="4dp"
-                android:src="@drawable/outline_arrow_back_24"
-                app:tint="@color/white" />
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:tint="@color/black"
+                android:background="@drawable/bg_btn_circle"
+                android:src="@drawable/ic_back"
+                android:padding="10dp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="Back" />
 
             <LinearLayout
                 android:id="@+id/linearLayout2"

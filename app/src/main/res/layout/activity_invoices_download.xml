@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:fitsSystemWindows="true"
         android:paddingBottom="90dp">
 
         <!-- Header -->
@@ -19,6 +20,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
+
             android:paddingEnd="16dp"
             android:paddingTop="8dp">
 

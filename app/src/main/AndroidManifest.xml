@@ -23,9 +23,7 @@
         <activity
             android:name=".ui.activity.InvoicesDownloadActivity"
             android:exported="false" />
-        <activity
-            android:name=".featureflag.ui.featureActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.activity.SelectLocationActivity"
             android:exported="false" />
@@ -50,7 +48,7 @@
             android:name=".ui.activity.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.NewHomeActivity"
+            android:name=".ui.activity.HomeActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -86,7 +84,7 @@
             android:value="AIzaSyDd97ATPjsszCQ-5T9um0y6f0tAiGoK7io" />
 
         <service
-            android:name=".data.Service.MyFirebaseService"
+            android:name=".data.service.MyFirebaseService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

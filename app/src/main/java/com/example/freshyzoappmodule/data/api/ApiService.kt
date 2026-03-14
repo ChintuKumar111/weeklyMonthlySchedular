@@ -3,8 +3,8 @@ package com.example.freshyzoappmodule.data.api
 import com.example.freshyzoappmodule.data.model.Address
 import com.example.freshyzoappmodule.data.model.BlogReport
 import com.example.freshyzoappmodule.data.model.ComboOffer
-import com.example.freshyzoappmodule.data.model.DeliveryModel
-import com.example.freshyzoappmodule.data.model.OfferImageSlider
+import com.example.freshyzoappmodule.data.model.Delivery
+import com.example.freshyzoappmodule.data.model.BannerResponse
 import com.example.freshyzoappmodule.data.model.OrderHistoryModel
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.model.SubscriptionResponse
@@ -20,7 +20,7 @@ interface ApiService {
 
     // showing image slider for active offers
     @GET("slider")
-    suspend fun getSliderImages(): Response<OfferImageSlider>
+    suspend fun getSliderImages(): Response<BannerResponse>
 
     @GET("combo_offers")
     suspend fun getComboOffers(): Response<List<ComboOffer>>
@@ -37,7 +37,7 @@ interface ApiService {
     suspend fun updateAddress(@Body address: Address): Response<Address>
 
     @GET("fetch_deliveries") // Replace with actual endpoint if known
-    suspend fun getDeliveries(): Response<List<DeliveryModel>>
+    suspend fun getDeliveries(): Response<List<Delivery>>
 
     @GET("fetch_order_history") // Replace with your actual endpoint
     suspend fun getOrderHistory(): Response<List<OrderHistoryModel>>

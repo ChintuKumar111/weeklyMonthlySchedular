@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.dayDateModel
+import com.example.freshyzoappmodule.data.model.DayAndDates
 
 class DayQuantityAdapter(
-    private val list: MutableList<dayDateModel>,
+    private val list: MutableList<DayAndDates>,
     private val onQuantityChanged: (index: Int, quantity: Int) -> Unit
 ) : RecyclerView.Adapter<DayQuantityAdapter.DateViewHolder>() {
 
@@ -63,7 +63,7 @@ class DayQuantityAdapter(
         val cardCircle: CardView = view.findViewById(R.id.cardCircle)
     }
 
-    fun updateList(newList: MutableList<dayDateModel>) {
+    fun updateList(newList: MutableList<DayAndDates>) {
         list.clear()
         list.addAll(newList)
         notifyDataSetChanged()

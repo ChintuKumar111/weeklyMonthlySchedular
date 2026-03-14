@@ -22,13 +22,17 @@
         android:elevation="4dp">
 
         <!-- Back Arrow -->
+        <!-- Back Button -->
         <ImageView
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
-            android:src="@drawable/outline_arrow_back_24"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:tint="@color/black"
+            android:background="@drawable/bg_btn_circle"
+            android:src="@drawable/ic_back"
+            android:padding="10dp"
             android:contentDescription="Back" />
+
 
         <!--        &lt;!&ndash; Avatar &ndash;&gt;-->
         <!--        <de.hdodenhof.circleimageview.CircleImageView-->

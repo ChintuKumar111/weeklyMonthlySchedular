@@ -24,12 +24,18 @@
             android:paddingEnd="20dp"
             android:elevation="4dp">
 
-            <TextView
+            <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_back"
-                />
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:tint="@color/black"
+                android:background="@drawable/bg_btn_circle"
+                android:src="@drawable/ic_back"
+                android:elevation="@dimen/_50sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="10dp"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="Back" />
 
             <TextView
                 android:layout_width="0dp"

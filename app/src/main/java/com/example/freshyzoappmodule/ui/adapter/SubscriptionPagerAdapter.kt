@@ -1,11 +1,10 @@
 package com.example.freshyzoappmodule.ui.adapter
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.freshyzoappmodule.ui.Fragments.subscriptionTab.ActiveSubscriptionFragment
-import com.example.freshyzoappmodule.ui.Fragments.subscriptionTab.CancelledSubscriptionFragment
-import com.example.freshyzoappmodule.ui.Fragments.subscriptionTab.PauseSubscriptionFragment
+import com.example.freshyzoappmodule.ui.fragments.subscriptionTab.ActiveSubscriptionFragment
+import com.example.freshyzoappmodule.ui.fragments.subscriptionTab.CancelledSubscriptionFragment
+import com.example.freshyzoappmodule.ui.fragments.subscriptionTab.PauseSubscriptionFragment
 
 class SubscriptionPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

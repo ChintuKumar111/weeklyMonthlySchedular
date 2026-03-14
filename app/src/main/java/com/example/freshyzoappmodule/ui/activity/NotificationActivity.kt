@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.freshyzoappmodule.databinding.ActivityNotificationBinding
 import com.example.freshyzoappmodule.ui.adapter.NotificationAdapter
-import com.example.freshyzoappmodule.viewmodel.NotificationViewModel
+import com.example.freshyzoappmodule.ui.viewmodel.NotificationViewModel
 
 class NotificationActivity : AppCompatActivity() {
 

@@ -4,7 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.freshyzoappmodule.data.model.chatListItem
+import com.example.freshyzoappmodule.data.model.ChatListItem
+
 import com.example.freshyzoappmodule.databinding.ActivityChatListBinding
 import com.example.freshyzoappmodule.ui.adapter.ChatListAdapter
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,7 +16,7 @@ class ChatListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatListBinding
     private lateinit var adapter: ChatListAdapter
     private val db = FirebaseFirestore.getInstance()
-    private val chatList = mutableListOf<chatListItem>()
+    private val chatList = mutableListOf<ChatListItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +47,9 @@ class ChatListActivity : AppCompatActivity() {
                 }
 
                 if (snapshots != null) {
-                    val newList = mutableListOf<chatListItem>()
+                    val newList = mutableListOf<ChatListItem>()
                     for (doc in snapshots.documents) {
-                        val chatItem = doc.toObject(chatListItem::class.java)?.apply {
+                        val chatItem = doc.toObject(ChatListItem::class.java)?.apply {
                             chatId = doc.id
                         }
                         if (chatItem != null) {
