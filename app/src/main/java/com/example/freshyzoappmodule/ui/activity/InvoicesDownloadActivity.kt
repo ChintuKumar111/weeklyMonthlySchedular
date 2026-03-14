@@ -207,30 +207,3 @@ class InvoicesDownloadActivity : AppCompatActivity() {
         picker.show(supportFragmentManager, "date_picker")
     }
 }
-//
-//private fun populateTransactions(
-//    previewBinding: LayoutBillPreviewBinding,
-//    transactions: List<BillTransactionRow>
-//) {
-//
-//    val inflater = LayoutInflater.from(this)
-//
-//    transactions.forEachIndexed { index, tx ->
-//
-//        val row = inflater.inflate(
-//            R.layout.item_preview_invoice_section,
-//            previewBinding.llTransactionRows,
-//            false
-//        )
-//
-//        row.findViewById<TextView>(R.id.tvRowSrNo).text = (index + 1).toString()
-//        row.findViewById<TextView>(R.id.tvRowDate).text = tx.date
-//        row.findViewById<TextView>(R.id.tvRowTransaction).text = tx.transaction
-//        row.findViewById<TextView>(R.id.tvRowQty).text = tx.qty
-//        row.findViewById<TextView>(R.id.tvRowSale).text = tx.totalSale
-//        row.findViewById<TextView>(R.id.tvRowRecharge).text = tx.recharge
-//        row.findViewById<TextView>(R.id.tvRowBalance).text = tx.balance
-//
-//        previewBinding.llTransactionRows.addView(row)
-//    }
-//}
