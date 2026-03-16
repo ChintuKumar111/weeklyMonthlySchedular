@@ -5,14 +5,18 @@ import com.example.freshyzoappmodule.data.model.BlogReport
 import com.example.freshyzoappmodule.data.model.ComboOffer
 import com.example.freshyzoappmodule.data.model.Delivery
 import com.example.freshyzoappmodule.data.model.BannerResponse
+import com.example.freshyzoappmodule.data.model.CalendarDay
 import com.example.freshyzoappmodule.data.model.OrderHistoryModel
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.model.SubscriptionResponse
+import com.example.freshyzoappmodule.data.model.response.CalendarResponse
+import com.example.freshyzoappmodule.data.model.response.DeliveryDetailsCalendarResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
     @GET("fetch_product")
@@ -44,4 +48,16 @@ interface ApiService {
 
     @GET("subscriptions")
     suspend fun getSubscriptions(): Response<List<SubscriptionResponse>>
+
+    @GET("delivery/calendar")
+    suspend fun getCalendar(
+        @Query("month") month: Int,
+        @Query("year") year: Int
+    ): CalendarResponse
+
+
+    @GET("delivery/details")
+    suspend fun getCalendarDeliveryDetails(
+        @Query("date") date: String
+    ): DeliveryDetailsCalendarResponse
 }

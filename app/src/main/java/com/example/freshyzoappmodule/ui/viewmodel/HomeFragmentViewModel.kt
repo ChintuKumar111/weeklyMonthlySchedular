@@ -7,13 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.freshyzoappmodule.data.model.BlogReport
 import com.example.freshyzoappmodule.data.model.ComboOffer
 import com.example.freshyzoappmodule.data.model.Banner
+import com.example.freshyzoappmodule.data.model.CalendarDay
 import com.example.freshyzoappmodule.data.repository.SliderRepository
 import kotlinx.coroutines.launch
 
-
-class HomeFragmentViewModel : ViewModel() {
-
-    private val repository = SliderRepository()
+class HomeFragmentViewModel(private val repository: SliderRepository) : ViewModel() {
 
     private val _sliderData = MutableLiveData<List<Banner>>()
     val sliderData: LiveData<List<Banner>> = _sliderData
@@ -111,5 +109,9 @@ class HomeFragmentViewModel : ViewModel() {
                 imageUrl = "android.resource://com.example.freshyzoappmodule/drawable/blog2"
             )
         )
+    }
+
+    fun getDeliveryProducts(calendarDay: String){
+        // Logic to fetch delivery products based on date
     }
 }

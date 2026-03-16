@@ -9,33 +9,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Banner
-import com.example.freshyzoappmodule.databinding.FragmentNewHomeBinding
 import com.example.freshyzoappmodule.data.manager.AppGuideManager
+import com.example.freshyzoappmodule.databinding.FragmentHomeBinding
+import com.example.freshyzoappmodule.helper.generateDates
 import com.example.freshyzoappmodule.ui.activity.HomeActivity
 import com.example.freshyzoappmodule.ui.activity.NotificationActivity
 import com.example.freshyzoappmodule.ui.adapter.BlogReportAdapter
+import com.example.freshyzoappmodule.ui.adapter.CalendarAdapter
 import com.example.freshyzoappmodule.ui.adapter.ComboOfferAdapter
 import com.example.freshyzoappmodule.ui.adapter.ImageSliderAdapter
 import com.example.freshyzoappmodule.ui.widget.PermissionManager
 import com.example.freshyzoappmodule.ui.viewmodel.HomeFragmentViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class NewHome_Fragment : Fragment() {
-    private var _binding: FragmentNewHomeBinding? = null
+class Home_Fragment : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HomeFragmentViewModel by viewModels()
+    private val viewModel: HomeFragmentViewModel by viewModel()
+    val dateList = generateDates()
 
     private lateinit var comboAdapter: ComboOfferAdapter
     private lateinit var blogAdapter: BlogReportAdapter
     private lateinit var permissionManager: PermissionManager
 
+    private lateinit var calendarAdapter: CalendarAdapter
     // For ViewPager Auto-scroll
     private val sliderHandler = Handler(Looper.getMainLooper())
     private val sliderRunnable = Runnable {
@@ -53,7 +57,7 @@ class NewHome_Fragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        _binding = FragmentNewHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -66,6 +70,7 @@ class NewHome_Fragment : Fragment() {
         setupRecyclerViews()
         observeViewModel()
         setupCategoryClicks()
+        setupRecyclerCalendar()
 
         // Wait for Activity guide to complete before showing Fragment guide
         (activity as? HomeActivity)?.onActivityGuideComplete = {
@@ -181,6 +186,20 @@ class NewHome_Fragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupRecyclerCalendar(){
+     calendarAdapter = CalendarAdapter(dateList.toMutableList()) { selectedDay ->
+
+            viewModel.getDeliveryProducts(selectedDay.fullDate)
+
+        }
+
+        binding.rvCalendar.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        binding.rvCalendar.adapter = calendarAdapter
+
     }
     private fun showFragmentGuide() {
         val guideManager = AppGuideManager(requireActivity())

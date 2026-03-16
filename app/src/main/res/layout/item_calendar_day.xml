@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutDay"
+    android:layout_width="wrap_content"
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="2dp">
+
+    <!-- MONTH STRIP -->
+    <FrameLayout
+        android:id="@+id/layoutMonth"
+        android:layout_width="15dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_month_strip"
+        android:layout_marginEnd="2dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvMonthName"
+            android:layout_width="100dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:text="March"
+            android:textColor="@android:color/white"
+            android:textSize="9sp"
+            android:textStyle="normal"
+            android:gravity="center"
+            android:rotation="-90"
+            android:singleLine="true"/>
+
+    </FrameLayout>
+
+    <!-- DATE CARD -->
+    <LinearLayout
+        android:id="@+id/innerLayout"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top|center_horizontal"
+        android:background="@drawable/bg_today_badge">
+
+        <!-- TODAY BADGE -->
+        <TextView
+            android:id="@+id/tvToday"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_today_badge"
+            android:text="Today"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:paddingBottom="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textSize="7sp"
+            android:gravity="center"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Sun"
+            android:textSize="9sp"
+            android:textColor="@color/gray_900"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01"
+            android:textColor="#1E1E1E"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/deliveryDot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/dot_amber"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +21,7 @@ import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonBinder
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonData
 import com.example.freshyzoappmodule.ui.adapter.FaqAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.ProductDetailsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
 import android.content.Intent as AndroidIntent
@@ -31,7 +31,7 @@ class ProductDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailsBinding
     private lateinit var product: Product
 
-    private val viewModel: ProductDetailsViewModel by viewModels()
+    private val viewModel: ProductDetailsViewModel by viewModel()
     private val faqAdapter = FaqAdapter()
 
     // ─────────────────────────────────────────────────────────────

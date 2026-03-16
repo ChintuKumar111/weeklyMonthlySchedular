@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.freshyzoappmodule.data.model.Product
 import com.example.freshyzoappmodule.data.repository.ProductRepository
 
-class HomeViewModel : ViewModel() {
-
-    private val repository = ProductRepository()
+class HomeViewModel(private val repository: ProductRepository) : ViewModel() {
 
     private val _productList = MutableLiveData<List<Product>>()
     val productList: LiveData<List<Product>> = _productList

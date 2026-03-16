@@ -9,7 +9,6 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,13 +25,14 @@ import com.example.freshyzoappmodule.ui.adapter.PopularProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.RecentSearchAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.concurrent.thread
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var productAdapter: ProductAdapter
     private lateinit var recentAdapter: RecentSearchAdapter
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: SearchViewModel by viewModel()
     private lateinit var cartRepository: CartRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -157,69 +157,6 @@ class SearchActivity : AppCompatActivity() {
             binding.textSwitcher.setText(viewModel.getHintText(index))
         }
     }
-    // observe view model so that the state will be maintained
-//    private fun observeViewModel() {
-
-//        viewModel.filteredList.observe(this) { list ->
-//            // Sync current quantities from cart
-//            val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
-//            productAdapter.setInitialQuantities(sharedQuantities)
-//
-//            productAdapter.submitList(list)
-//
-//            val query = binding.etSearch.text.toString().trim()
-//            if (query.isEmpty()) {
-//                binding.rvSearch.visibility = View.GONE
-//                binding.llNoMatch.visibility = View.GONE
-//                binding.llRecentSearch.visibility =
-//                    if (viewModel.recentSearches.value?.isNotEmpty() == true) View.VISIBLE else View.GONE
-//            } else if (list.isEmpty() && viewModel.isLoading.value == false) {
-//                binding.rvSearch.visibility = View.GONE
-//                binding.llNoMatch.visibility = View.VISIBLE
-//                binding.llRecentSearch.visibility = View.GONE
-//            } else {
-//                binding.rvSearch.visibility = if (list.isNotEmpty()) View.VISIBLE else View.GONE
-//                binding.llNoMatch.visibility = View.GONE
-//                binding.llRecentSearch.visibility = View.GONE
-//            }
-//        }
-//
-//        viewModel.isLoading.observe(this) { isLoading ->
-//            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-//            if (isLoading) {
-//                binding.rvSearch.visibility = View.GONE
-//                binding.llNoMatch.visibility = View.GONE
-//                binding.llRecentSearch.visibility = View.GONE
-//            }
-//        }
-//
-//        viewModel.isHintVisible.observe(this) { isVisible ->
-//            binding.textSwitcher.visibility = if (isVisible) View.VISIBLE else View.GONE
-//        }
-//
-//        viewModel.currentHintIndex.observe(this) { index ->
-//            binding.textSwitcher.setText(viewModel.getHintText(index))
-//        }
-//
-//        viewModel.showNoMatch.observe(this) { show ->
-//            if (show && binding.etSearch.text.toString().trim().isNotEmpty()) {
-//                binding.llNoMatch.visibility = View.VISIBLE
-//                binding.rvSearch.visibility = View.GONE
-//            } else {
-//                binding.llNoMatch.visibility = View.GONE
-//            }
-//        }
-//
-//        viewModel.recentSearches.observe(this) { list ->
-//            recentAdapter.updateList(list)
-//            if (binding.etSearch.text.toString().trim().isEmpty() && list.isNotEmpty()) {
-//                binding.llRecentSearch.visibility = View.VISIBLE
-//            } else {
-//                binding.llRecentSearch.visibility = View.GONE
-//            }
-//        }
-//
-//    }
 
     private fun setupTextSwitcher() {
         binding.textSwitcher.setFactory {

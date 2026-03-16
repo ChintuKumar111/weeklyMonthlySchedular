@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 class SelectLocationViewModel(
     private val repository: GeocoderRepository
 ) : ViewModel() {
-
     private val _address = MutableLiveData<String>()
     val address: LiveData<String> = _address
 

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.databinding.ActivityNotificationBinding
 import com.example.freshyzoappmodule.ui.adapter.NotificationAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.NotificationViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNotificationBinding
     private lateinit var adapter: NotificationAdapter
-    private val viewModel: NotificationViewModel by viewModels()
+    private val viewModel: NotificationViewModel by viewModel()
 
     private val notificationReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {

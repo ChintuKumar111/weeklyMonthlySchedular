@@ -178,7 +178,7 @@
     </FrameLayout>
 
     <!-- Cart Preview View -->
-    <com.example.freshyzoappmodule.helper.CartPreviewViewHelper
+    <com.example.freshyzoappmodule.helper.CartPreviewHelper
         android:id="@+id/cartPreview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

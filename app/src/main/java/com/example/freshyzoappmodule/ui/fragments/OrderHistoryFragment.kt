@@ -8,22 +8,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.api.RetrofitClient
 import com.example.freshyzoappmodule.data.model.OrderHistoryModel
-import com.example.freshyzoappmodule.data.repository.OrderHistoryRepository
 import com.example.freshyzoappmodule.databinding.FragmentOrdersHistoryBinding
 import com.example.freshyzoappmodule.ui.adapter.OrderHistoryAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.OrderHistoryViewModel
-import com.example.freshyzoappmodule.ui.viewmodel.factory.OrderHistoryViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 class OrderHistoryFragment : Fragment() {
     private var _binding: FragmentOrdersHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: OrderHistoryViewModel
+    private val viewModel: OrderHistoryViewModel by viewModel()
     private lateinit var adapter: OrderHistoryAdapter
 
     override fun onCreateView(
@@ -38,20 +36,12 @@ class OrderHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
-        setupViewModel()
         setupRecyclerView()
         setupFilterChips()
         setupObservers()
         setupClickListeners()
         
         viewModel.fetchOrderHistory()
-    }
-
-    private fun setupViewModel() {
-        val apiService = RetrofitClient.api
-        val repository = OrderHistoryRepository(apiService)
-        val factory = OrderHistoryViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory)[OrderHistoryViewModel::class.java]
     }
 
     private fun setupRecyclerView() {
@@ -94,7 +84,6 @@ class OrderHistoryFragment : Fragment() {
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            // You can add a progress bar here if needed
             // binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
@@ -132,9 +121,10 @@ class OrderHistoryFragment : Fragment() {
     }
 
     private fun onDeliveryClicked(delivery: OrderHistoryModel) {
-        // Replace with your actual navigation action
-        // val action = OrderHistoryFragmentDirections.actionMyOrdersFragmentToOrderDetailsFragment(delivery)
-        // findNavController().navigate(action)
+        val bundle = Bundle().apply {
+            putParcelable("delivery", delivery)
+        }
+        findNavController().navigate(R.id.action_myOrdersFragment_to_orderDetailsFragment, bundle)
     }
 
     override fun onDestroyView() {

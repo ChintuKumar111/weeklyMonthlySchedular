@@ -1,15 +1,15 @@
 package com.example.freshyzoappmodule.data.repository
 
-import com.example.freshyzoappmodule.data.api.RetrofitClient
+import com.example.freshyzoappmodule.data.api.ApiService
 import com.example.freshyzoappmodule.data.model.Product
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProductRepository {
+class ProductRepository(private val api: ApiService) {
     fun getProducts(callback: (List<Product>?) -> Unit) {
 
-        RetrofitClient.api.getProducts()
+        api.getProducts()
             .enqueue(object : Callback<List<Product>> {
                 override fun onResponse( call: Call<List<Product>>,
                     response: Response<List<Product>>

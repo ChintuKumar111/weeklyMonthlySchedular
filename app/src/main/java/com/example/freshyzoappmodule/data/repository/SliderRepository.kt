@@ -1,12 +1,12 @@
 package com.example.freshyzoappmodule.data.repository
 
-import com.example.freshyzoappmodule.data.api.RetrofitClient
+import com.example.freshyzoappmodule.data.api.ApiService
 
-class SliderRepository {
+class SliderRepository(private val api: ApiService) {
 
-    suspend fun getSliderImages() = RetrofitClient.api.getSliderImages()
+    suspend fun getSliderImages() = api.getSliderImages()
 
-    suspend fun getComboOffers() = RetrofitClient.api.getComboOffers()
+    suspend fun getComboOffers() = api.getComboOffers()
 
-    suspend fun getBlogReports() = RetrofitClient.api.getBlogReports()
+    suspend fun getBlogReports() = api.getBlogReports()
 }

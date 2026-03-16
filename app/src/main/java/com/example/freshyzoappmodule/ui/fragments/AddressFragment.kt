@@ -9,27 +9,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.example.freshyzoappmodule.data.api.RetrofitClient
-import com.example.freshyzoappmodule.data.repository.AddressRepository
 import com.example.freshyzoappmodule.databinding.BottomSheetEditAddressBinding
 import com.example.freshyzoappmodule.databinding.FragmentAddressBinding
 import com.example.freshyzoappmodule.ui.activity.SelectLocationActivity
 import com.example.freshyzoappmodule.ui.viewmodel.AddressViewModel
-import com.example.freshyzoappmodule.ui.viewmodel.factory.AddressViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddressFragment : Fragment() {
 
     private var _binding: FragmentAddressBinding? = null
     private val binding get() = _binding!!
-
     private var bottomSheetDialog: BottomSheetDialog? = null
-
-    private val viewModel: AddressViewModel by viewModels {
-        AddressViewModelFactory(AddressRepository(RetrofitClient.api))
-    }
-
+    private val viewModel: AddressViewModel by viewModel()
     private val selectLocationLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
