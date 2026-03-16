@@ -136,6 +136,8 @@ dependencies {
     // zoom out and zoom in functionality
     implementation("com.otaliastudios:zoomlayout:1.9.0")
 
+    // dot indicator
+    implementation("com.tbuonomo:dotsindicator:5.1.0")
 
 
 

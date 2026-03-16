@@ -8,9 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
-        android:name="com.example.freshyzoappmodule.ui.di.FreshyzoApp"
+        android:name=".ui.di.FreshyzoApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -21,9 +20,17 @@
         android:theme="@style/Base.Theme.SimpleApiCalling"
         tools:replace="android:allowBackup,android:fullBackupContent,android:dataExtractionRules,android:label,android:theme,android:supportsRtl">
         <activity
+            android:name=".ui.activity.AuthActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ui.activity.InvoicesDownloadActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.activity.SelectLocationActivity"
             android:exported="false" />
@@ -50,13 +57,7 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.activity.ProductDetailsActivity"
             android:exported="false" />
