@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Permissions for SMS Auto Detection (Testing Only) -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
     <application
         android:name=".ui.di.FreshyzoApp"
         android:allowBackup="true"
@@ -19,6 +23,16 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.SimpleApiCalling"
         tools:replace="android:allowBackup,android:fullBackupContent,android:dataExtractionRules,android:label,android:theme,android:supportsRtl">
+
+        <!-- Broadcast Receiver for SMS -->
+        <receiver
+            android:name=".helper.SmsReceiver"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ui.activity.AuthActivity"
             android:exported="true">

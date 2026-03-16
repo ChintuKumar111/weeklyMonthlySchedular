@@ -81,7 +81,7 @@
     <string name="combo_3_price">₹90</string>
     <string name="combo_4_title">Dahi + Paneer</string>
     <string name="combo_4_desc">Fresh dairy combo</string>
-    <string name="combo_4_price">₹200</string>
+    <string name="combo_4_price" translatable="false">₹200</string>
     <string name="add_to_cart">Add to cart</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -222,7 +222,7 @@
     <string name="tested_on">Tested — 2025-10-27</string>
     <string name="test_pass_pure">Pass: Pure Milk — No adulteration detected.</string>
     <string name="test_fail_adulterated">Fail: Adulterated Milk — Contains harmful additives.</string>
-    <string name="sr_no">SR.</string>
+    <string name="sr_no" translatable="false">SR.</string>
     <string name="test_name_header">TEST NAME</string>
     <string name="valid_range_header">VALID RANGE</string>
     <string name="result_header">RESULT</string>
@@ -262,5 +262,14 @@
     <string name="label_date" translatable="false">Date : </string>
     <string name="label_remaining_balance" translatable="false">Remaining Balance : </string>
     <string name="label_remark" translatable="false">Remark: </string>
+
+    <!-- OTP Screen -->
+    <string name="otp_verification">OTP Verification</string>
+    <string name="verify_phone_number">Verify Phone Number</string>
+    <string name="otp_sent_to_v2">Enter the OTP we\'ve sent to +91 %1$s</string>
+    <string name="resend_otp_in">Resend OTP in 00:%02d</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="verify_and_proceed">Verify and Proceed</string>
+    <string name="enter_6_digit_otp">Please enter 6 digit OTP</string>
 
 </resources>

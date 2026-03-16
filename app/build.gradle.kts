@@ -84,6 +84,13 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity")
+    implementation("com.google.firebase:firebase-appcheck-debug")
+
+    // Google Play Services for SMS Retriever API
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
+    implementation("com.google.android.gms:play-services-auth-api-phone:18.1.0")
 
 
     // UI Utils
@@ -139,6 +146,8 @@ dependencies {
     // dot indicator
     implementation("com.tbuonomo:dotsindicator:5.1.0")
 
+    // otp box
+    implementation("io.github.chaosleung:pinview:1.4.4")
 
 
 

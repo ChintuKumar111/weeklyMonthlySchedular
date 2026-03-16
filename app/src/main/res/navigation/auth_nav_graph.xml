@@ -31,6 +31,13 @@
         android:id="@+id/otpFragment"
         android:name="com.example.freshyzoappmodule.ui.fragments.authFragment.OtpFragment"
         android:label="OTP"
-        tools:layout="@layout/fragment_otp" />
+        tools:layout="@layout/fragment_otp">
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+        <argument
+            android:name="verificationId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
