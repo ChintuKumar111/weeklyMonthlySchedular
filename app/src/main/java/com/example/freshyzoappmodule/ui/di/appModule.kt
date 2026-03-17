@@ -38,4 +38,5 @@ val appModule = module {
     viewModel { NotificationViewModel(androidApplication()) }
     viewModel { InvoiceViewModel() }
     viewModel { SelectLocationViewModel(get()) }
+    viewModel { AuthViewModel() }
 }

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_nav_account_to_testReportFragment"
             app:destination="@id/testReportFromAccountFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_offerDetailsFragment"
+            app:destination="@id/offerDetailsFragment" />
 
 
     </fragment>
@@ -174,6 +177,12 @@
         android:name="com.example.freshyzoappmodule.ui.fragments.VacationFragment"
         android:label="Vacation"
         tools:layout="@layout/fragment_vacation" />
+
+    <fragment
+        android:id="@+id/offerDetailsFragment"
+        android:name="com.example.freshyzoappmodule.ui.fragments.OfferDetailsFragment"
+        android:label="Offer Details"
+        tools:layout="@layout/fragment_offer_details" />
 
 
 </navigation>

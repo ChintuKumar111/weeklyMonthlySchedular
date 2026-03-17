@@ -25,7 +25,6 @@ import com.example.freshyzoappmodule.ui.adapter.ComboOfferAdapter
 import com.example.freshyzoappmodule.ui.adapter.ImageSliderAdapter
 import com.example.freshyzoappmodule.ui.widget.PermissionManager
 import com.example.freshyzoappmodule.ui.viewmodel.HomeFragmentViewModel
-import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home_Fragment : Fragment() {
@@ -103,14 +102,16 @@ class Home_Fragment : Fragment() {
         }
 
 
-        binding.root.findViewById<View>(R.id.btnTestReport)?.setOnClickListener {
+        binding.root.findViewById<View>(R.id.testReportCard)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_testReportFragment)
         }
     }
 
     private fun setupSlider() {
-        binding.productSliderCart.adapter = ImageSliderAdapter(defaultImages)
-        TabLayoutMediator(binding.tabLayout, binding.productSliderCart) { _, _ -> }.attach()
+        binding.productSliderCart.adapter = ImageSliderAdapter(defaultImages) { banner ->
+            findNavController().navigate(R.id.action_nav_home_to_offerDetailsFragment)
+        }
+        binding.dotsIndicator.attachTo(binding.productSliderCart)
         binding.productSliderCart.offscreenPageLimit = 1
 
         binding.productSliderCart.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -143,7 +144,9 @@ class Home_Fragment : Fragment() {
     private fun observeViewModel() {
         viewModel.sliderData.observe(viewLifecycleOwner) { sliderList ->
             if (!sliderList.isNullOrEmpty()) {
-                binding.productSliderCart.adapter = ImageSliderAdapter(sliderList)
+                binding.productSliderCart.adapter = ImageSliderAdapter(sliderList) { banner ->
+                    findNavController().navigate(R.id.action_nav_home_to_offerDetailsFragment)
+                }
             }
         }
 
@@ -206,13 +209,7 @@ class Home_Fragment : Fragment() {
         val items = listOf(
             AppGuideManager.GuideItem(binding.iconNotification, "Notifications", "Stay updated with latest alerts.",20),
             AppGuideManager.GuideItem(binding.imgWallet, "Wallet", "You can available balance here.",20),
-            AppGuideManager.GuideItem(binding.offerSection,
-                "Offers",
-                "Check out exclusive deals for you!",
-                150),
-            AppGuideManager.GuideItem(binding.rvComboOffers, "Combo Offers", "Save more with our bundled products.", 150),
-            AppGuideManager.GuideItem(binding.suggestionCard, "Send Suggestion", "You can send suggestions here.", 160),
-            AppGuideManager.GuideItem(binding.tvSend, "Send Suggestion", "You can send suggestions here.", 30)
+
         )
 
         guideManager.startGuide("home_fragment_guide", items) {

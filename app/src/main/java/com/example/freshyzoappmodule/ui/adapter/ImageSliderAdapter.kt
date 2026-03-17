@@ -8,7 +8,8 @@ import com.example.freshyzoappmodule.data.model.Banner
 import com.example.freshyzoappmodule.databinding.ItemImageSliderBinding
 
 class ImageSliderAdapter(
-    private val images: List<Banner>)
+    private val images: List<Banner>,
+    private val onBannerClick: (Banner) -> Unit = {})
     : RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -22,15 +23,13 @@ class ImageSliderAdapter(
         Glide.with(holder.itemView.context)
             .load(item.image)
             .into(holder.binding.imageView )
+
+        holder.itemView.setOnClickListener {
+            onBannerClick(item)
+        }
     }
 
     override fun getItemCount(): Int = images.size
 
-    inner class ImageViewHolder(val binding: ItemImageSliderBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(imageUrl: String) {
-            Glide.with(binding.root.context)
-                .load(imageUrl)
-                .into(binding.imageView)
-        }
-    }
+    inner class ImageViewHolder(val binding: ItemImageSliderBinding) : RecyclerView.ViewHolder(binding.root)
 }

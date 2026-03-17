@@ -21,19 +21,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentOtpBinding
+import com.example.freshyzoappmodule.ui.viewmodel.AuthViewModel
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OtpFragment : Fragment() {
+
     private var _binding: FragmentOtpBinding? = null
     private val binding get() = _binding!!
     private val args: OtpFragmentArgs by navArgs()
     private var countDownTimer: CountDownTimer? = null
-    private lateinit var auth: FirebaseAuth
+    private val viewModel: AuthViewModel by viewModel()
+
     private val smsConsentLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -46,18 +48,16 @@ class OtpFragment : Fragment() {
 
     private val smsVerificationReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            // Handle internal broadcast from SmsReceiver.kt (Silent Auto-fill)
             if ("OTP_RECEIVED" == intent?.action) {
                 val otp = intent.getStringExtra("otp")
                 otp?.let {
                     binding.pinView.setText(it)
                     Log.d("OtpFragment", "OTP Filled from internal receiver: $it")
-                    verifyFirebaseOtp(it)
+                    verifyOtp(it)
                 }
                 return
             }
 
-            // Handle Google Play Services SMS Retriever/User Consent
             if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
                 val extras = intent.extras
                 val smsRetrieverStatus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -69,12 +69,10 @@ class OtpFragment : Fragment() {
 
                 when (smsRetrieverStatus?.statusCode) {
                     CommonStatusCodes.SUCCESS -> {
-                        // Check if it's the silent SMS Retriever API first (needs hash in SMS)
                         val message = extras?.getString(SmsRetriever.EXTRA_SMS_MESSAGE)
                         if (message != null) {
                             extractOtpAndFill(message)
                         } else {
-                            // Fallback to User Consent API (shows popup)
                             val consentIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                 extras?.getParcelable(SmsRetriever.EXTRA_CONSENT_INTENT, Intent::class.java)
                             } else {
@@ -102,23 +100,45 @@ class OtpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentOtpBinding.inflate(inflater, container, false)
-        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Start both for maximum compatibility
+        viewModel.setPhoneNumber(args.phoneNumber)
+        viewModel.setVerificationId(args.verificationId)
+
+        observeViewModel()
         startSmsRetriever()
         startSmsUserConsent()
         registerSmsReceiver()
 
-        val phoneNumber = args.phoneNumber
-        binding.tvOtpSent.text = getString(R.string.otp_sent_to_v2, phoneNumber)
+        binding.tvOtpSent.text = getString(R.string.otp_sent_to_v2, args.phoneNumber)
 
         setupClickListeners()
         startTimer()
+    }
+
+    private fun observeViewModel() {
+        viewModel.authState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is AuthViewModel.AuthState.Loading -> {
+                    binding.btnVerify.isEnabled = false
+                }
+                is AuthViewModel.AuthState.Success -> {
+                    binding.btnVerify.isEnabled = true
+                    handleLoginSuccess()
+                }
+                is AuthViewModel.AuthState.Error -> {
+                    binding.btnVerify.isEnabled = true
+                    Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    binding.btnVerify.isEnabled = true
+                }
+            }
+        }
     }
 
     private fun startSmsRetriever() {
@@ -152,13 +172,16 @@ class OtpFragment : Fragment() {
         match?.let {
             val otp = it.value
             binding.pinView.setText(otp)
-            Log.d("OtpFragment", "OTP Filled: $otp")
-            
-            if (args.verificationId == "TEST_VERIFICATION_ID") {
-                handleTestLoginSuccess()
-            } else {
-                verifyFirebaseOtp(otp)
-            }
+            verifyOtp(otp)
+        }
+    }
+
+    private fun verifyOtp(otp: String) {
+        if (args.verificationId == "TEST_VERIFICATION_ID") {
+            handleLoginSuccess()
+        } else {
+            val credential = PhoneAuthProvider.getCredential(args.verificationId, otp)
+            viewModel.signInWithCredential(credential)
         }
     }
 
@@ -178,51 +201,18 @@ class OtpFragment : Fragment() {
         binding.btnVerify.setOnClickListener {
             val otp = binding.pinView.text.toString()
             if (otp.length == 6) {
-                if (args.verificationId == "TEST_VERIFICATION_ID") {
-                    handleTestLoginSuccess()
-                } else {
-                    verifyFirebaseOtp(otp)
-                }
+                verifyOtp(otp)
             } else {
                 binding.pinView.error = getString(R.string.enter_6_digit_otp)
             }
         }
     }
 
-    private fun handleTestLoginSuccess() {
-        Log.d("OtpFragment", "Test Login Successful")
-        Toast.makeText(requireContext(), "Test Login Successful", Toast.LENGTH_SHORT).show()
+    private fun handleLoginSuccess() {
         val intent = Intent(requireActivity(), com.example.freshyzoappmodule.ui.activity.HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         requireActivity().finish()
-    }
-
-    private fun verifyFirebaseOtp(otp: String) {
-        val verificationId = args.verificationId
-        if (verificationId == "TEST_VERIFICATION_ID") return
-
-        if (verificationId.isEmpty()) {
-            Toast.makeText(requireContext(), "Verification ID not found", Toast.LENGTH_SHORT).show()
-            return
-        }
-        val credential = PhoneAuthProvider.getCredential(verificationId, otp)
-        signInWithPhoneAuthCredential(credential)
-    }
-
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(requireActivity(), com.example.freshyzoappmodule.ui.activity.HomeActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    requireActivity().finish()
-                } else {
-                    Toast.makeText(requireContext(), "Invalid OTP", Toast.LENGTH_SHORT).show()
-                }
-            }
     }
 
     private fun startTimer() {
