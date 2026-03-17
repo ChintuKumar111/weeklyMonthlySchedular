@@ -68,9 +68,6 @@ class ProductSectionFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.nav_home)
-        }
     }
 
     override fun onResume() {

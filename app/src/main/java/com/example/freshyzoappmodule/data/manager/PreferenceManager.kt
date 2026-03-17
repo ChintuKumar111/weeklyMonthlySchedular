@@ -45,4 +45,8 @@ object PreferenceManager {
     fun getLanguage(context: Context): String {
         return getPrefs(context).getString(KEY_LANGUAGE, "en") ?: "en"
     }
+
+    fun clearUserData(context: Context) {
+        getPrefs(context).edit().clear().apply()
+    }
 }

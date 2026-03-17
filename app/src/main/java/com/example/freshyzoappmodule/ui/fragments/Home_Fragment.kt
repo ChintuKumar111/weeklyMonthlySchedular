@@ -33,7 +33,6 @@ class Home_Fragment : Fragment() {
 
     private val viewModel: HomeFragmentViewModel by viewModel()
     val dateList = generateDates()
-
     private lateinit var comboAdapter: ComboOfferAdapter
     private lateinit var blogAdapter: BlogReportAdapter
     private lateinit var permissionManager: PermissionManager
@@ -71,10 +70,10 @@ class Home_Fragment : Fragment() {
         setupCategoryClicks()
         setupRecyclerCalendar()
 
-        // Wait for Activity guide to complete before showing Fragment guide
+        // Wait for Activity UI to be ready, then Fragment guide items can be accessed
         (activity as? HomeActivity)?.onActivityGuideComplete = {
             if (isAdded && _binding != null) {
-                showFragmentGuide()
+                // Now Activity knows Home Fragment is ready to provide tour views
             }
         }
 
@@ -84,7 +83,6 @@ class Home_Fragment : Fragment() {
                 viewModel.fetchComboOffers()
                 viewModel.fetchBlogReports()
 
-                // Automatically ask for notification permission on home screen
                 if (!permissionManager.isNotificationPermissionGranted()) {
                     permissionManager.askNotificationPermission()
                 }
@@ -93,18 +91,22 @@ class Home_Fragment : Fragment() {
 
         binding.iconNotification.setOnClickListener {
             if (permissionManager.isNotificationPermissionGranted()) {
-                // If already granted, just open the activity
                 startActivity(Intent(requireContext(), NotificationActivity::class.java))
             } else {
-                // If not granted, ask for permission
                 permissionManager.askNotificationPermission()
             }
         }
 
-
         binding.root.findViewById<View>(R.id.testReportCard)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_testReportFragment)
         }
+    }
+
+    fun getTourItems(): List<AppGuideManager.GuideItem> {
+        return listOf(
+            AppGuideManager.GuideItem(binding.iconNotification, "Notifications", "Stay updated with latest alerts.", 30, false),
+            AppGuideManager.GuideItem(binding.imgWallet, "Wallet", "Check your available balance here.", 30, false)
+        )
     }
 
     private fun setupSlider() {
@@ -118,7 +120,7 @@ class Home_Fragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 sliderHandler.removeCallbacks(sliderRunnable)
-                sliderHandler.postDelayed(sliderRunnable, 3000) // 3 seconds delay
+                sliderHandler.postDelayed(sliderRunnable, 3000)
             }
         })
     }
@@ -131,7 +133,6 @@ class Home_Fragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = comboAdapter
         }
-
         blogAdapter = BlogReportAdapter(emptyList()) { blog ->
             Toast.makeText(requireContext(), "Opening ${blog.title}", Toast.LENGTH_SHORT).show()
         }
@@ -149,11 +150,9 @@ class Home_Fragment : Fragment() {
                 }
             }
         }
-
         viewModel.comboOffers.observe(viewLifecycleOwner) { combos ->
             comboAdapter.updateList(combos)
         }
-
         viewModel.blogReports.observe(viewLifecycleOwner) { blogs ->
             blogAdapter.updateList(blogs)
         }
@@ -164,12 +163,10 @@ class Home_Fragment : Fragment() {
             val bundle = Bundle().apply { putInt("category_id", -1) }
             findNavController().navigate(R.id.nav_product, bundle)
         }
-
         binding.milkProductCard.setOnClickListener {
             val bundle = Bundle().apply { putInt("category_id", 2) }
             findNavController().navigate(R.id.nav_product, bundle)
         }
-
         binding.milkCard.setOnClickListener {
             val bundle = Bundle().apply { putInt("category_id", 1) }
             findNavController().navigate(R.id.nav_product, bundle)
@@ -192,28 +189,11 @@ class Home_Fragment : Fragment() {
     }
 
     private fun setupRecyclerCalendar(){
-     calendarAdapter = CalendarAdapter(dateList.toMutableList()) { selectedDay ->
-
+        calendarAdapter = CalendarAdapter(dateList.toMutableList()) { selectedDay ->
             viewModel.getDeliveryProducts(selectedDay.fullDate)
-
         }
-
         binding.rvCalendar.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
         binding.rvCalendar.adapter = calendarAdapter
-
-    }
-    private fun showFragmentGuide() {
-        val guideManager = AppGuideManager(requireActivity())
-        val items = listOf(
-            AppGuideManager.GuideItem(binding.iconNotification, "Notifications", "Stay updated with latest alerts.",20),
-            AppGuideManager.GuideItem(binding.imgWallet, "Wallet", "You can available balance here.",20),
-
-        )
-
-        guideManager.startGuide("home_fragment_guide", items) {
-             // onComplete: Ensure clicks work after guide
-        }
     }
 }

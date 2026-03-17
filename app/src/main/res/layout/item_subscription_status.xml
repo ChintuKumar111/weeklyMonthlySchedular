@@ -23,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/imgProduct"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ghee"
                 android:background="@drawable/bg_badge_green"/>
@@ -47,7 +47,7 @@
                     android:layout_gravity="end"
                     android:textStyle="bold"
                     android:backgroundTint="@color/primary_dark"
-                    android:textSize="12sp"
+                    android:textSize="8sp"
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
                     android:paddingTop="4dp"
@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="FreshyZo Cow Milk 1000 Ml"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#212121"/>
 
@@ -77,7 +77,7 @@
             android:layout_height="1dp"
             android:background="#EEEEEE"
             android:layout_marginTop="14dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <!-- Delivery Info -->
 
@@ -96,17 +96,17 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="Price per unit"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="#424242"/>
+                    android:textColor="@color/gray_700"/>
                 <TextView
                     android:id="@+id/txtPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="₹60 "
                     android:layout_weight="3"
-                    android:textSize="14sp"
-                    android:textColor="#616161"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_800"
                     android:layout_marginTop="4dp"/>
 
             </LinearLayout>
@@ -122,16 +122,16 @@
                     android:layout_height="wrap_content"
                     android:text="Delivery"
                     android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:textColor="#424242"/>
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_700"/>
                 <TextView
                     android:id="@+id/txtDeliveryType"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text=" Everyday"
-                    android:textSize="14sp"
-                    android:textColor="#424242"/>
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_800"/>
 
             </LinearLayout>
 
@@ -146,17 +146,17 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="Start Date"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="#424242"/>
+                    android:textColor="@color/gray_700"/>
                 <TextView
                     android:id="@+id/txtStartDate"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text=" 25 Feb 2026"
-                    android:textSize="14sp"
-                    android:textColor="#424242"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_800"
                     android:layout_marginTop="4dp"/>
 
             </LinearLayout>
@@ -171,9 +171,9 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="End Date"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
-                    android:textColor="#424242"/>
+                    android:textColor="@color/gray_700"/>
 
                 <TextView
                     android:id="@+id/txtEndDate"
@@ -181,8 +181,8 @@
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text=" N/A"
-                    android:textSize="14sp"
-                    android:textColor="#424242"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray_800"
                     android:layout_marginTop="4dp"/>
 
             </LinearLayout>
@@ -221,10 +221,10 @@
                 android:text="Pause"
                 android:textAllCaps="false"
                 app:cornerRadius="@dimen/_5sdp"
-                app:strokeColor="@color/orange_semi_primary"
+                app:strokeColor="@color/red_error"
                 app:strokeWidth="@dimen/_1sdp"
-                android:textColor="@color/orange_semi_primary"
-                android:backgroundTint="#F6F2EF"/>
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"/>
 
             <Space
                 android:layout_width="10dp"

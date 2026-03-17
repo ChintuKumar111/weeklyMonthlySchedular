@@ -15,13 +15,10 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
 
     private val _sliderData = MutableLiveData<List<Banner>>()
     val sliderData: LiveData<List<Banner>> = _sliderData
-
     private val _comboOffers = MutableLiveData<List<ComboOffer>>()
     val comboOffers: LiveData<List<ComboOffer>> = _comboOffers
-
     private val _blogReports = MutableLiveData<List<BlogReport>>()
     val blogReports: LiveData<List<BlogReport>> = _blogReports
-
     // image slider section on home screen
     fun fetchSlider() {
         viewModelScope.launch {
@@ -42,7 +39,6 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
             }
         }
     }
-
     fun fetchComboOffers() {
         viewModelScope.launch {
             try {
@@ -57,7 +53,6 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
             }
         }
     }
-
     fun fetchBlogReports() {
         viewModelScope.launch {
             try {
@@ -72,7 +67,6 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
             }
         }
     }
-
     private fun getFallbackComboOffers(): List<ComboOffer> {
         // These represent the hardcoded data from the "previous design"
         return listOf(

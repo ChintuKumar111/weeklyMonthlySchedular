@@ -1,4 +1,5 @@
 package com.example.freshyzoappmodule.ui.fragments
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,7 +16,9 @@ import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentAccountBinding
 import com.example.freshyzoappmodule.helper.LanguageHelper
 import com.example.freshyzoappmodule.data.manager.PreferenceManager
+import com.example.freshyzoappmodule.ui.activity.AuthActivity
 import com.example.freshyzoappmodule.ui.activity.InvoicesDownloadActivity
+
 class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
@@ -27,17 +30,87 @@ class AccountFragment : Fragment() {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         updateProfileUI()
-        // for calling the listeners
         setupListeners()
 
-        
         binding.btnLogout.setOnClickListener {
-            // Handle logout
+            showLogoutConfirmationDialog()
         }
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_logout_confirmation, null)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomDialogTheme)
+            .setView(dialogView)
+            .create()
+
+        dialogView.findViewById<View>(R.id.btn_cancel).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogView.findViewById<View>(R.id.btn_logout).setOnClickListener {
+            dialog.dismiss()
+            showFeedbackDialog()
+        }
+
+        dialog.show()
+    }
+
+    private fun showFeedbackDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_feedback, null)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomDialogTheme)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        val emojis = listOf(
+            dialogView.findViewById<TextView>(R.id.emoji_sad),
+            dialogView.findViewById<TextView>(R.id.emoji_neutral),
+            dialogView.findViewById<TextView>(R.id.emoji_happy)
+        )
+
+        // Set initial state: faded out
+        emojis.forEach { it.alpha = 0.4f }
+
+        emojis.forEach { emoji ->
+            emoji.setOnClickListener { selected ->
+                // Reset all emojis
+                emojis.forEach { 
+                    it.alpha = 0.4f
+                    it.animate().scaleX(1f).scaleY(1f).setDuration(200).start()
+                }
+                // Highlight selected emoji
+                selected.alpha = 1f
+                selected.animate().scaleX(1.3f).scaleY(1.3f).setDuration(200).start()
+            }
+        }
+
+        dialogView.findViewById<View>(R.id.btn_submit).setOnClickListener {
+            performLogout()
+            dialog.dismiss()
+        }
+
+        dialogView.findViewById<View>(R.id.btn_cancel).setOnClickListener {
+            performLogout()
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun performLogout() {
+        // Clear user data
+        PreferenceManager.clearUserData(requireContext())
+
+        // Navigate to AuthActivity and clear task
+        val intent = Intent(requireContext(), AuthActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun setupListeners() {
@@ -77,22 +150,19 @@ class AccountFragment : Fragment() {
         }
         binding.root.findViewById<View>(R.id.tabMyOrders)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_myOrdersFragment)
-
         }
         binding.root.findViewById<View>(R.id.tabDeliveries)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_deliveriesDetailsFragment)
-
         }
         binding.root.findViewById<View>(R.id.tabVacation)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_vacationFragment)
         }
         binding.root.findViewById<View>(R.id.tabInvoice)?.setOnClickListener {
-          startActivity(Intent(requireContext(), InvoicesDownloadActivity::class.java))
+            startActivity(Intent(requireContext(), InvoicesDownloadActivity::class.java))
         }
         binding.root.findViewById<View>(R.id.tabSubscription)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_subscriptionFragment)
         }
-
     }
 
     private fun showLanguageDialog() {

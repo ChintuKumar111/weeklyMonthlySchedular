@@ -13,6 +13,7 @@ import com.example.freshyzoappmodule.data.model.CartState
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivityHomeBinding
 import com.example.freshyzoappmodule.ui.fragments.WalletFragment
+import com.example.freshyzoappmodule.ui.fragments.Home_Fragment
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlin.concurrent.thread
@@ -29,7 +30,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
     private var cachedCartState: CartState? = null
     private var isFromSearch: Boolean = false
 
-    // Signal for Fragment guide
+    // Signal for Fragment guide readiness
     var onActivityGuideComplete: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,75 +50,138 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         binding.bottomNavigation.setupWithNavController(navController)
         binding.bottomNavigation.itemIconTintList = null
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            updateCartPreviewVisibility(destination.id)
-        }
+        // Initialize visibility logic
+        setupNavigationVisibility()
         
         binding.cartPreview.setOnViewCartClickListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
         handleIntent(intent)
-        
+
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (isFromSearch && navController.currentDestination?.id == R.id.nav_cart) {
                     finish()
                 } else {
-                    isEnabled = false
-                    onBackPressedDispatcher.onBackPressed()
-                    isEnabled = true
+                    if (!navController.popBackStack()) {
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                        isEnabled = true
+                    }
                 }
             }
         })
         
-        // Start bottom navigation guide with Welcome Dialog
-        binding.root.post { showBottomNavGuide() }
+        // Signal that the activity UI is ready
+        binding.root.post { onActivityGuideComplete?.invoke() }
+
+        // Start the Main App Tour with a small delay to ensure fragments are loaded
+        binding.root.postDelayed({
+            showMainAppTour()
+        }, 1500)
+    }
+    private fun showMainAppTour() {
+        val guideManager = AppGuideManager(this)
+        val prefKey = "main_app_tour_v10" // Fresh key to ensure it shows
+
+        guideManager.showWelcomeDialog(prefKey, 
+            onStart = {
+                // 1. Get items from Home Fragment (Notifications, Top Wallet)
+                val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id) as? NavHostFragment
+                val homeFragment = navHostFragment?.childFragmentManager?.fragments?.find { it is Home_Fragment } as? Home_Fragment
+                val homeItems = homeFragment?.getTourItems() ?: emptyList()
+
+                // 2. Define Bottom Navigation items
+                val homeTab = binding.bottomNavigation.findViewById<View>(R.id.nav_home)
+                val productTab = binding.bottomNavigation.findViewById<View>(R.id.nav_product)
+                val walletTab = binding.bottomNavigation.findViewById<View>(R.id.nav_wallet)
+                val accountTab = binding.bottomNavigation.findViewById<View>(R.id.nav_account)
+                val cartTab = binding.bottomNavigation.findViewById<View>(R.id.nav_cart)
+
+                val bottomNavItems = listOf(
+                    AppGuideManager.GuideItem(homeTab, "Home", "Your daily dashboard.", 35, false),
+                    AppGuideManager.GuideItem(productTab, "Products", "Browse all fresh dairy products.", 35, true),
+                    AppGuideManager.GuideItem(walletTab, "My Wallet", "Add money and check transactions.", 35, true),
+                    AppGuideManager.GuideItem(accountTab, "My Account", "Manage profile, address and orders.", 35, true),
+                    AppGuideManager.GuideItem(cartTab, "Checkout", "Review and confirm your purchases.", 35, true)
+                )
+
+                // 3. Combine and start sequence
+                guideManager.startGuide(prefKey, homeItems + bottomNavItems)
+            },
+            onSkip = {
+                // Tour skipped or already seen
+            }
+        )
     }
 
-    private fun showBottomNavGuide() {
-        val guideManager = AppGuideManager(this)
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 
-        val homeItem = binding.bottomNavigation.findViewById<View>(R.id.nav_home)
-        val productItem = binding.bottomNavigation.findViewById<View>(R.id.nav_product)
-        val walletItem = binding.bottomNavigation.findViewById<View>(R.id.nav_wallet)
-        val accountItem = binding.bottomNavigation.findViewById<View>(R.id.nav_account)
-        val cartItem = binding.bottomNavigation.findViewById<View>(R.id.nav_cart)
+    private fun setupNavigationVisibility() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            // 1. Manage Bottom Navigation Visibility with smooth transition
+            val isTopLevelDestination = when (destination.id) {
+                R.id.nav_home, R.id.nav_product, R.id.nav_wallet, R.id.nav_account, R.id.nav_cart -> true
+                else -> false
+            }
+            toggleViewVisibility(binding.bottomNavigation, isTopLevelDestination)
 
-        val items = listOf(
-            AppGuideManager.GuideItem(homeItem, "Home", "Access your main dashboard here.", 30),
-            AppGuideManager.GuideItem(productItem, "Products", "Browse all available categories.", 30),
-            AppGuideManager.GuideItem(walletItem, "Wallet", "Check your balance and transactions.", 30),
-            AppGuideManager.GuideItem(accountItem, "Account", "Manage your personal information.", 30),
-            AppGuideManager.GuideItem(cartItem, "Cart", "Review items you want to purchase.", 30)
-        )
-
-        // UPDATED: Call showWelcomeDialog instead of startGuide
-        guideManager.showWelcomeDialog("app_onboarding_v1", items) {
-            onActivityGuideComplete?.invoke()
+            // 2. Manage Cart Preview Visibility
+            updateCartPreviewVisibility(destination.id)
         }
+    }
 
+    private fun toggleViewVisibility(view: View, show: Boolean) {
+        val translationOffset = 48f * resources.displayMetrics.density // 48dp slide offset
 
+        if (show) {
+            if (view.visibility != View.VISIBLE) {
+                view.visibility = View.VISIBLE
+                view.alpha = 0f
+                view.translationY = translationOffset
+            }
+            view.animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(400)
+                .setInterpolator(android.view.animation.DecelerateInterpolator())
+                .setListener(null)
+                .start()
+        } else {
+            if (view.visibility == View.VISIBLE) {
+                view.animate()
+                    .alpha(0f)
+                    .translationY(translationOffset)
+                    .setDuration(400)
+                    .setInterpolator(android.view.animation.AccelerateInterpolator())
+                    .withEndAction {
+                        view.visibility = View.GONE
+                    }
+                    .start()
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
         cachedCartState = cartRepository.getCartState()
-        val currentDestinationId = try { navController.currentDestination?.id } catch (e: Exception) { null }
-        updateCartPreviewVisibility(currentDestinationId)
+        updateCartPreviewVisibility(navController.currentDestination?.id)
     }
 
     private fun updateCartPreviewVisibility(destinationId: Int?) {
         val state = cachedCartState
-        if (state != null && state.itemsCount > 0) {
-            when (destinationId) {
-                R.id.nav_cart, R.id.nav_account -> {
-                    binding.cartPreview.hideCart()
-                }
-                else -> {
-                    binding.cartPreview.showCart(state)
-                }
-            }
+        val shouldShowCart = state != null && state.itemsCount > 0 && when (destinationId) {
+            R.id.nav_cart, R.id.nav_account -> false
+            else -> true
+        }
+
+        if (shouldShowCart && state != null) {
+            binding.cartPreview.showCart(state)
+            toggleViewVisibility(binding.cartPreview, true)
         } else {
+            toggleViewVisibility(binding.cartPreview, false)
             binding.cartPreview.hideCart()
         }
     }
@@ -154,7 +218,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
                     currentProducts.add(product)
                 }
             }
-            
+
             var totalMRP = 0.0
             var totalSellingPrice = 0.0
             currentProducts.forEach { p ->
@@ -177,8 +241,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             cachedCartState = newState
             cartRepository.saveCartState(newState)
             runOnUiThread {
-                val currentId = try { navController.currentDestination?.id } catch (e: Exception) { null }
-                updateCartPreviewVisibility(currentId)
+                updateCartPreviewVisibility(navController.currentDestination?.id)
                 onComplete?.invoke(newState)
             }
         }
@@ -210,5 +273,4 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         super.onDestroy()
         Checkout.clearUserData(this)
     }
-
 }

@@ -22,19 +22,6 @@
             android:layout_height="?attr/actionBarSize"
             android:paddingHorizontal="8dp">
 
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:tint="@color/black"
-                android:background="@drawable/bg_btn_circle"
-                android:src="@drawable/ic_back"
-                android:elevation="@dimen/_50sdp"
-                android:layout_margin="@dimen/_5sdp"
-                android:padding="10dp"
-                android:layout_gravity="center_vertical"
-                android:contentDescription="Back" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,15 +32,6 @@
                 android:textColor="@color/text_primary"
                 android:fontFamily="@font/sora_bold" />
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/btnNotification"-->
-<!--                android:layout_width="38dp"-->
-<!--                android:layout_height="38dp"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:layout_marginEnd="4dp"-->
-<!--                android:src="@drawable/notification_"-->
-<!--                android:background="@drawable/bg_green_circle_light"-->
-<!--                />-->
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

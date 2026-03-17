@@ -15,7 +15,10 @@ import com.example.freshyzoappmodule.ui.adapter.NotificationAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.NotificationViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class NotificationActivity : AppCompatActivity() {
+class
+
+
+NotificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNotificationBinding
     private lateinit var adapter: NotificationAdapter

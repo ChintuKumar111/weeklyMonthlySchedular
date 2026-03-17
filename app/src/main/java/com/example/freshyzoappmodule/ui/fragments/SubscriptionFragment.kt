@@ -25,6 +25,9 @@ private lateinit var _binding: FragmentSubscriptionBinding
 
  binding.viewPager.adapter = SubscriptionPagerAdapter(this)
 
+        binding.btnBack?.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
 
 // Link TabLayout and ViewPager2
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

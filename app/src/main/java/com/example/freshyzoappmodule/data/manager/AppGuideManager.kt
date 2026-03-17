@@ -24,17 +24,18 @@ class AppGuideManager(private val activity: Activity) {
         val view: View,
         val title: String,
         val description: String,
-        val radius: Int = 44
+        val radius: Int = 44,
+        val performClick: Boolean = false
     )
 
     private var isGuideRunning = false
+
     /**
      * Shows a welcome dialog asking the user if they want a tour.
-     * If user skips, sets a global flag to prevent any subsequent guides.
      */
-    fun showWelcomeDialog(prefKey: String, items: List<GuideItem>, onComplete: (() -> Unit)? = null) {
+    fun showWelcomeDialog(prefKey: String, onStart: () -> Unit, onSkip: () -> Unit) {
         if (prefs.getBoolean(prefKey, false) || prefs.getBoolean(GLOBAL_SKIP_KEY, false)) {
-            onComplete?.invoke()
+            onSkip()
             return
         }
 
@@ -44,36 +45,36 @@ class AppGuideManager(private val activity: Activity) {
             .setCancelable(false)
             .create()
 
-        // Make background transparent to show card corners
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         dialogView.findViewById<MaterialButton>(R.id.btnStartGuide).setOnClickListener {
             dialog.dismiss()
-            startGuide(prefKey, items, onComplete)
+            onStart()
         }
 
         dialogView.findViewById<MaterialButton>(R.id.btnSkipGuide).setOnClickListener {
-            // SET GLOBAL SKIP FLAG
             prefs.edit().putBoolean(GLOBAL_SKIP_KEY, true).apply()
             prefs.edit().putBoolean(prefKey, true).apply()
             dialog.dismiss()
-            onComplete?.invoke()
+            onSkip()
         }
 
         dialog.show()
     }
 
     /**
-     * Starts a guide sequence. Added check for global skip.
+     * Starts a guide sequence.
      */
     fun startGuide(prefKey: String, items: List<GuideItem>, onComplete: (() -> Unit)? = null) {
-        // GLOBAL SKIP CHECK
         if (prefs.getBoolean(GLOBAL_SKIP_KEY, false) || prefs.getBoolean(prefKey, false)) {
             onComplete?.invoke()
             return
         }
 
-        if (isGuideRunning || items.isEmpty()) return
+        if (isGuideRunning || items.isEmpty()) {
+            onComplete?.invoke()
+            return
+        }
         isGuideRunning = true
         showStep(prefKey, items, 0, onComplete)
     }
@@ -86,7 +87,6 @@ class AppGuideManager(private val activity: Activity) {
             return
         }
 
-        // PREVENT FURTHER STEPS IF GLOBAL SKIP IS SET
         if (prefs.getBoolean(GLOBAL_SKIP_KEY, false)) {
             isGuideRunning = false
             onComplete?.invoke()
@@ -94,21 +94,19 @@ class AppGuideManager(private val activity: Activity) {
         }
 
         val item = items[index]
-
-        // UX: Add stepper (e.g. 1/5) and clear instructions
         val stepperTitle = "${item.title} (${index + 1}/${items.size})"
         val stepperDesc = "${item.description}\n\n[Tap circle to Continue]\n[Tap outside to Skip All]"
 
         item.view.post {
             scrollToViewIfNeeded(item.view) {
-                TapTargetView.showFor(activity,
+                TapTargetView.showFor(
+                    activity,
                     TapTarget.forView(item.view, stepperTitle, stepperDesc)
                         .transparentTarget(true)
                         .outerCircleAlpha(0.96f)
                         .targetRadius(item.radius)
                         .cancelable(true)
                         .drawShadow(true)
-                        .cancelable(false )
                         .tintTarget(true),
                     object : TapTargetView.Listener() {
                         private var isHandled = false
@@ -118,10 +116,16 @@ class AppGuideManager(private val activity: Activity) {
                             if (!isHandled) {
                                 isHandled = true
                                 if (userInitiated) {
-                                    // User clicked the target -> CONTINUE
-                                    showStep(prefKey, items, index + 1, onComplete)
+                                    if (item.performClick) {
+                                        item.view.performClick()
+                                        // Delay next step to allow UI/Fragment to react
+                                        item.view.postDelayed({
+                                            showStep(prefKey, items, index + 1, onComplete)
+                                        }, 400)
+                                    } else {
+                                        showStep(prefKey, items, index + 1, onComplete)
+                                    }
                                 } else {
-                                    // User clicked the outer circle -> SKIP ALL
                                     isGuideRunning = false
                                     prefs.edit().putBoolean(GLOBAL_SKIP_KEY, true).apply()
                                     prefs.edit().putBoolean(prefKey, true).apply()
