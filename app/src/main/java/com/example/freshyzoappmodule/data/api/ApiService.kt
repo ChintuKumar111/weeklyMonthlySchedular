@@ -8,7 +8,7 @@ import com.example.freshyzoappmodule.data.model.BannerResponse
 import com.example.freshyzoappmodule.data.model.CalendarDay
 import com.example.freshyzoappmodule.data.model.OrderHistoryModel
 import com.example.freshyzoappmodule.data.model.Product
-import com.example.freshyzoappmodule.data.model.SubscriptionResponse
+import com.example.freshyzoappmodule.data.model.response.SubscriptionResponse
 import com.example.freshyzoappmodule.data.model.response.CalendarResponse
 import com.example.freshyzoappmodule.data.model.response.DeliveryDetailsCalendarResponse
 import retrofit2.Call

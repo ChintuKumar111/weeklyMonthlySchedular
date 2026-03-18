@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.SubscriptionResponse
+import com.example.freshyzoappmodule.data.model.response.SubscriptionResponse
 import com.example.freshyzoappmodule.databinding.FragmentPauseSubscriptionBinding
 import com.example.freshyzoappmodule.ui.adapter.SubscriptionStatusAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.SubscriptionStatusViewModel

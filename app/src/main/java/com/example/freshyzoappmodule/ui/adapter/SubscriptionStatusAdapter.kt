@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.SubscriptionResponse
+import com.example.freshyzoappmodule.data.model.response.SubscriptionResponse
 class SubscriptionStatusAdapter(
     private var list: List<SubscriptionResponse>,
     private val onPauseClick: (SubscriptionResponse) -> Unit,

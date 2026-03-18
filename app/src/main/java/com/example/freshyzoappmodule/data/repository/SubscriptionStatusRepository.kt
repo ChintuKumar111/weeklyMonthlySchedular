@@ -1,7 +1,7 @@
 package com.example.freshyzoappmodule.data.repository
 
 import com.example.freshyzoappmodule.data.api.ApiService
-import com.example.freshyzoappmodule.data.model.SubscriptionResponse
+import com.example.freshyzoappmodule.data.model.response.SubscriptionResponse
 
 
 class SubscriptionRepository(private val api: ApiService) {

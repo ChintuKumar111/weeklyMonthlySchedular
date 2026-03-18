@@ -1,5 +1,6 @@
-package com.example.freshyzoappmodule.data.model
+package com.example.freshyzoappmodule.data.model.response
 
+import com.example.freshyzoappmodule.data.model.ComboOffer
 import com.google.gson.annotations.SerializedName
 
 data class ComboOfferResponse(

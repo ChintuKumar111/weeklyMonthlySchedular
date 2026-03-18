@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.data.model
+package com.example.freshyzoappmodule.data.model.response
 
 data class SubscriptionResponse(
     val productName: String,

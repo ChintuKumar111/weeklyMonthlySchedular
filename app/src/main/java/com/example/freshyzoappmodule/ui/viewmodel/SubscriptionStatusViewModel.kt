@@ -3,7 +3,7 @@ package com.example.freshyzoappmodule.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.freshyzoappmodule.data.model.SubscriptionResponse
+import com.example.freshyzoappmodule.data.model.response.SubscriptionResponse
 import com.example.freshyzoappmodule.data.repository.SubscriptionRepository
 import kotlinx.coroutines.launch
 
