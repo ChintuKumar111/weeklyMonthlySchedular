@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentAccountBinding
-import com.example.freshyzoappmodule.helper.LanguageHelper
+import com.example.freshyzoappmodule.helper.LanguageManager
 import com.example.freshyzoappmodule.data.manager.PreferenceManager
 import com.example.freshyzoappmodule.ui.activity.AuthActivity
 import com.example.freshyzoappmodule.ui.activity.InvoicesDownloadActivity
@@ -167,7 +167,7 @@ class AccountFragment : Fragment() {
 
     private fun showLanguageDialog() {
         val languages = arrayOf("English", "हिन्दी (Hindi)")
-        val currentLang = LanguageHelper.getSavedLanguage(requireContext())
+        val currentLang = LanguageManager.getSavedLanguage(requireContext())
         val checkedItem = if (currentLang == "hi") 1 else 0
 
         AlertDialog.Builder(requireContext())
@@ -175,7 +175,7 @@ class AccountFragment : Fragment() {
             .setSingleChoiceItems(languages, checkedItem) { dialog, which ->
                 val langCode = if (which == 1) "hi" else "en"
                 if (langCode != currentLang) {
-                    LanguageHelper.setLocale(requireContext(), langCode)
+                    LanguageManager.setLocale(requireContext(), langCode)
                     dialog.dismiss()
                     activity?.recreate()
                 } else {

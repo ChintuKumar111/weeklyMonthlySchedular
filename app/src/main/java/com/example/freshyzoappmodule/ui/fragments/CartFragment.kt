@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.FragmentCartBinding
-import com.example.freshyzoappmodule.helper.DateHelperr
+import com.example.freshyzoappmodule.helper.CustomDatePickerDialog
 import com.example.freshyzoappmodule.ui.adapter.CartAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.ProductSubscribeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,7 +22,7 @@ class CartFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var cartAdapter: CartAdapter
     private lateinit var cartRepository: CartRepository
-    private lateinit var dateHelperr: DateHelperr
+    private lateinit var customDatePickerDialog: CustomDatePickerDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +36,7 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         cartRepository = CartRepository(requireContext())
-        dateHelperr = DateHelperr()
+        customDatePickerDialog = CustomDatePickerDialog()
 
         setupCartList()
         setupObservers()
@@ -65,7 +65,7 @@ class CartFragment : Fragment() {
 
     private fun showDatePicker() {
         // Passing requireActivity() as AppCompatActivity fixes the type mismatch error
-        dateHelperr.showMaterialDatePicker(requireActivity() as AppCompatActivity) { formattedDate, dayName ->
+        customDatePickerDialog.showMaterialDatePicker(requireActivity() as AppCompatActivity) { formattedDate, dayName ->
             viewModel.updateDateSelection(formattedDate, dayName)
         }
     }

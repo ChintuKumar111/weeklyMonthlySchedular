@@ -6,21 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.freshyzoappmodule.data.api.RetrofitClient
 import com.example.freshyzoappmodule.data.model.Delivery
-import com.example.freshyzoappmodule.data.repository.DeliveryRepository
 import com.example.freshyzoappmodule.databinding.FragmentDeliveriesDetailsBinding
 import com.example.freshyzoappmodule.ui.adapter.DeliveryAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.DeliveryViewModel
-import com.example.freshyzoappmodule.ui.viewmodel.factory.DeliveryViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DeliveriesDetailsFragment : Fragment() {
     private var _binding: FragmentDeliveriesDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: DeliveryAdapter
-    private lateinit var viewModel: DeliveryViewModel
+    private val viewModel: DeliveryViewModel by viewModel()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +30,7 @@ class DeliveriesDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewModel()
+
         setupRecyclerView()
         observeViewModel()
         viewModel.fetchDeliveries()
@@ -40,12 +39,12 @@ class DeliveriesDetailsFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
-    private fun setupViewModel() {
-        val apiService = RetrofitClient.api
-        val repository = DeliveryRepository(apiService)
-        val factory = DeliveryViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory)[DeliveryViewModel::class.java]
-    }
+//    private fun setupViewModel() {
+//        val apiService = RetrofitClient.api
+//        val repository = DeliveryRepository(apiService)
+//        val factory = DeliveryViewModelFactory(repository)
+//        viewModel = ViewModelProvider(this, factory)[DeliveryViewModel::class.java]
+//    }
     private fun setupRecyclerView() {
         adapter = DeliveryAdapter(requireContext()) { delivery ->
             Toast.makeText(

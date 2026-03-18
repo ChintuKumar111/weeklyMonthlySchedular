@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.freshyzoappmodule.databinding.DialogFeedbackBinding
 
-class FeedbackDialogFragmentHelper : DialogFragment() {
-
+class FeedbackDialogFragment : DialogFragment() {
     private var _binding: DialogFeedbackBinding? = null
     private val binding get() = _binding!!
-
     private var feedbackListener: ((String) -> Unit)? = null
     private var selectedFeedback: String? = null
 
@@ -70,7 +68,6 @@ class FeedbackDialogFragmentHelper : DialogFragment() {
         selectedView.alpha = 1.0f
         binding.btnSubmit.isEnabled = true
     }
-
     fun setFeedbackListener(listener: (String) -> Unit) {
         feedbackListener = listener
     }

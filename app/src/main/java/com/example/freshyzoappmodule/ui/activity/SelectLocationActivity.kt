@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.repository.GeocoderRepository
 import com.example.freshyzoappmodule.databinding.ActivitySelectLocationBinding
-import com.example.freshyzoappmodule.helper.LocationHelper
+import com.example.freshyzoappmodule.helper.LocationManager
 import com.example.freshyzoappmodule.ui.viewmodel.SelectLocationViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -30,7 +30,7 @@ class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivitySelectLocationBinding
     private lateinit var mMap: GoogleMap
-    private lateinit var locationHelper: LocationHelper
+    private lateinit var locationManager: LocationManager
     private lateinit var viewModel: SelectLocationViewModel
 
     private var selectedLatLng: LatLng? = null
@@ -46,7 +46,7 @@ class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         setupMap()
         observeViewModel()
 
-        locationHelper = LocationHelper(
+        locationManager = LocationManager(
             activity = this,
             onLocationStatusChanged = { isLoading ->
                 binding.llLoadingLocation.visibility = if (isLoading) View.VISIBLE else View.GONE
@@ -114,8 +114,8 @@ class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
                 enableMyLocation()
-                locationHelper.reset()
-                locationHelper.checkLocationSettings(2001)
+                locationManager.reset()
+                locationManager.checkLocationSettings(2001)
             }
             ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 showPermissionRationaleDialog()
@@ -165,7 +165,7 @@ class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 2001) {
             if (resultCode == Activity.RESULT_OK) {
-                locationHelper.requestLocation()
+                locationManager.requestLocation()
             } else {
                 Toast.makeText(this, "Location services are required", Toast.LENGTH_SHORT).show()
             }
@@ -174,7 +174,7 @@ class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-        locationHelper.removeUpdates()
+        locationManager.removeUpdates()
     }
 
     private fun setupMap() {
@@ -187,7 +187,7 @@ class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
                 enableMyLocation()
-                locationHelper.checkLocationSettings(2001)
+                locationManager.checkLocationSettings(2001)
             } else {
                 // If it's not granted and we shouldn't show rationale, it means it's permanently denied
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {

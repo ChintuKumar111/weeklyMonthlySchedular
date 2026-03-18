@@ -9,7 +9,7 @@ import com.example.freshyzoappmodule.databinding.ItemBlogReportBinding
 
 class BlogReportAdapter(
     private var blogReports: List<BlogReport>,
-    private val onLearnMoreClick: (BlogReport) -> Unit
+    private val onBlogClick: (BlogReport) -> Unit
 ) : RecyclerView.Adapter<BlogReportAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemBlogReportBinding) : RecyclerView.ViewHolder(binding.root)
@@ -27,9 +27,14 @@ class BlogReportAdapter(
             
             Glide.with(ivBlogImage.context)
                 .load(blog.imageUrl)
+                .centerCrop()
                 .into(ivBlogImage)
 
-            btnLearnMore.setOnClickListener { onLearnMoreClick(blog) }
+            // Click listener for the "Learn More" button
+            btnLearnMore.setOnClickListener { onBlogClick(blog) }
+            
+            // Click listener for the entire card for better UX
+            root.setOnClickListener { onBlogClick(blog) }
         }
     }
 

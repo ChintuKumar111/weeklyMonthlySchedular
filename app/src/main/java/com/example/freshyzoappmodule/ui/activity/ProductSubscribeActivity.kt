@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.ui.activity
 
-import com.example.freshyzoappmodule.helper.DateHelperr
+import com.example.freshyzoappmodule.helper.CustomDatePickerDialog
 import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
@@ -16,7 +16,7 @@ import com.example.freshyzoappmodule.data.model.ProductSubscribeUiState
 import com.example.freshyzoappmodule.databinding.ActivityProductSubscribeBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
 import com.example.freshyzoappmodule.extensions.sizes
-import com.example.freshyzoappmodule.helper.DayRowHolderHelper
+import com.example.freshyzoappmodule.helper.WeeklyDaySelectorViewHolder
 import com.example.freshyzoappmodule.ui.viewmodel.ProductDetailsViewModel
 import com.example.freshyzoappmodule.ui.viewmodel.ProductSubscribeViewModel
 
@@ -26,15 +26,15 @@ class ProductSubscribeActivity : AppCompatActivity() {
     private val vm: ProductDetailsViewModel by viewModels()
     private val viewModel: ProductSubscribeViewModel by viewModels()
 
-    lateinit var dayRows: List<DayRowHolderHelper>
-    private lateinit var dateHelperr: DateHelperr
+    lateinit var dayRows: List<WeeklyDaySelectorViewHolder>
+    private lateinit var customDatePickerDialog: CustomDatePickerDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProductSubscribeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        dateHelperr = DateHelperr()
+        customDatePickerDialog = CustomDatePickerDialog()
         
         bindDayRows()
         observeViewModel()
@@ -51,13 +51,13 @@ class ProductSubscribeActivity : AppCompatActivity() {
     }
     private fun bindDayRows() {
         dayRows = listOf(
-            DayRowHolderHelper(binding.rowMonday.root),
-            DayRowHolderHelper(binding.rowTuesday.root),
-            DayRowHolderHelper(binding.rowWednesday.root),
-            DayRowHolderHelper(binding.rowThursday.root),
-            DayRowHolderHelper(binding.rowFriday.root),
-            DayRowHolderHelper(binding.rowSaturday.root),
-            DayRowHolderHelper(binding.rowSunday.root),
+            WeeklyDaySelectorViewHolder(binding.rowMonday.root),
+            WeeklyDaySelectorViewHolder(binding.rowTuesday.root),
+            WeeklyDaySelectorViewHolder(binding.rowWednesday.root),
+            WeeklyDaySelectorViewHolder(binding.rowThursday.root),
+            WeeklyDaySelectorViewHolder(binding.rowFriday.root),
+            WeeklyDaySelectorViewHolder(binding.rowSaturday.root),
+            WeeklyDaySelectorViewHolder(binding.rowSunday.root),
         )
     }
     private fun initializeProduct() {
@@ -214,7 +214,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
-        dateHelperr.showMaterialDatePicker(this) { formattedDate, dayName ->
+        customDatePickerDialog.showMaterialDatePicker(this) { formattedDate, dayName ->
             viewModel.updateDateSelection(formattedDate, dayName)
         }
     }

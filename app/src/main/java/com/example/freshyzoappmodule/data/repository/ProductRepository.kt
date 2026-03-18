@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ProductRepository(private val api: ApiService) {
+class ProductRepository(private val api: ApiService){
     fun getProducts(callback: (List<Product>?) -> Unit) {
 
         api.getProducts()

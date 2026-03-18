@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.freshyzoappmodule.R
 
-class DayRowHolderHelper(val root: View) {
+class WeeklyDaySelectorViewHolder(val root: View) {
     val dayToggle: FrameLayout = root.findViewById(R.id.dayToggle)
     val ivCheck: ImageView = root.findViewById(R.id.ivDayCheck)
     val tvDayName: TextView = root.findViewById(R.id.tvDayName)

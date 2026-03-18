@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/primary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <ImageView
+                android:id="@+id/ivBlogImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                tools:src="@drawable/blog1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_fade_white" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btnBack"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/bg_btn_circle"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_back"
+                        app:tint="@color/black" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btnShare"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/bg_btn_circle"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_share"
+                        app:tint="@color/black" />
+
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/bg_bottom_sheet"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:id="@+id/tvBlogTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                tools:text="Discover the Benefits of Organic A2 Gir Cow Milk" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/sora_bold"
+                    android:text="HEALTH &amp; WELLNESS"
+                    android:textColor="@color/primary"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.1" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvBlogDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/sora_regular"
+                android:lineSpacingMultiplier="1.6"
+                android:textColor="@color/gray_700"
+                android:textSize="15sp"
+                tools:text="Detailed blog content goes here. Freshyzo provides the best quality milk directly from our farms to your doorstep..." />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

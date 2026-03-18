@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- SHARED CART PREVIEW (Visible across all fragments) -->
-    <com.example.freshyzoappmodule.helper.CartPreviewHelper
+    <com.example.freshyzoappmodule.helper.CartBottomSheetController
         android:id="@+id/cartPreview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

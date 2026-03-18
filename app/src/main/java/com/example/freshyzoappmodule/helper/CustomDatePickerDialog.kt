@@ -1,19 +1,16 @@
 package com.example.freshyzoappmodule.helper
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
 import com.example.freshyzoappmodule.R
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-class DateHelperr {
-
+class CustomDatePickerDialog {
     fun showMaterialDatePicker(
         activity: AppCompatActivity,
         onDateSelected: (formattedDate: String, dayName: String) -> Unit

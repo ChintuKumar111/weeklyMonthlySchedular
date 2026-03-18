@@ -9,10 +9,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.ProductMedia
 import com.example.freshyzoappmodule.data.objects.FaqManager
 import com.example.freshyzoappmodule.databinding.ActivityProductDetailsBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
@@ -20,6 +22,7 @@ import com.example.freshyzoappmodule.extensions.sizes
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonBinder
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonData
 import com.example.freshyzoappmodule.ui.adapter.FaqAdapter
+import com.example.freshyzoappmodule.ui.adapter.ProductMediaAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.ProductDetailsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -30,6 +33,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductDetailsBinding
     private lateinit var product: Product
+    private var mediaAdapter: ProductMediaAdapter? = null
 
     private val viewModel: ProductDetailsViewModel by viewModel()
     private val faqAdapter = FaqAdapter()
@@ -52,6 +56,11 @@ class ProductDetailsActivity : AppCompatActivity() {
         setupClickListeners()
         observeViewModel()
         displayProductData(intentProduct)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaAdapter?.pauseAllVideos()
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -120,6 +129,35 @@ class ProductDetailsActivity : AppCompatActivity() {
     //  Display
     // ─────────────────────────────────────────────────────────────
 
+//    private fun displayProductData(product: Product) {
+//        with(binding) {
+//            tvProductName.text  = product.productName
+//            tvDescription.text  = product.description
+//            tvSellingPrice.text = "₹${product.productPrice}"
+//            tvVolume.text       = product.sizes.getOrNull(0)?.label ?: ""
+//            tvVolume.isSelected = true
+//
+//            tvMrp.apply {
+//                text       = "₹${product.dairyMrp}"
+//                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+//            }
+//
+//            bindDiscountBadge(
+//                price = product.productPrice.toDoubleOrNull() ?: 0.0,
+//                mrp   = product.dairyMrp.toDoubleOrNull()    ?: 0.0
+//            )
+//
+////            Glide.with(this@ProductDetailsActivity)
+////                .load(product.imageUrl)
+////                //.into(ivProductImage)
+//            // Assuming your Product model has an 'images' list and a 'videoUrl'
+//            val images = listOf(product.imageUrl) // Start with the main image
+//            val videoUrl = null // Replace with product.videoUrl if available in your API
+//
+//            setupMediaSlider(images, videoUrl)
+//
+//        }
+//    }
     private fun displayProductData(product: Product) {
         with(binding) {
             tvProductName.text  = product.productName
@@ -138,9 +176,47 @@ class ProductDetailsActivity : AppCompatActivity() {
                 mrp   = product.dairyMrp.toDoubleOrNull()    ?: 0.0
             )
 
-            Glide.with(this@ProductDetailsActivity)
-                .load(product.imageUrl)
-                .into(ivProductImage)
+            // Setup Media Slider with data
+            val images = listOf(product.imageUrl) // Base image
+            // Mocking a video for testing purposes as per requirement
+            val videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            
+            setupMediaSlider(images, videoUrl)
+        }
+    }
+
+    private fun setupMediaSlider(images: List<String>, videoUrl: String?) {
+        val mediaList = mutableListOf<ProductMedia>()
+
+        images.forEach { url ->
+            mediaList.add(ProductMedia(url, isVideo = false))
+        }
+
+        if (!videoUrl.isNullOrEmpty()) {
+            mediaList.add(ProductMedia(videoUrl, isVideo = true))
+        }
+
+        val adapter = ProductMediaAdapter(mediaList)
+        mediaAdapter = adapter
+        binding.vpProductMedia.adapter = adapter
+
+        binding.vpProductMedia.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val isVideoPage = mediaList[position].isVideo
+                if (isVideoPage) {
+                    adapter.playVideoAt(position)
+                } else {
+                    adapter.pauseAllVideos()
+                }
+            }
+        })
+
+        if (mediaList.size > 1) {
+            binding.dotsIndicator.visibility = View.VISIBLE
+            binding.dotsIndicator.attachTo(binding.vpProductMedia)
+        } else {
+            binding.dotsIndicator.visibility = View.GONE
         }
     }
 
@@ -219,7 +295,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             )
         } catch (e: Exception) {
             e.printStackTrace()
-            shareTextOnly(text)   // graceful fallback
+            shareTextOnly(text)
         }
     }
 
@@ -229,10 +305,6 @@ class ProductDetailsActivity : AppCompatActivity() {
         FileOutputStream(file).use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
         return file
     }
-
-    // ─────────────────────────────────────────────────────────────
-    //  Helpers
-    // ─────────────────────────────────────────────────────────────
 
     private fun animateButton(view: View) {
         view.animate()

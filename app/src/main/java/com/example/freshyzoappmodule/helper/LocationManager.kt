@@ -8,7 +8,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.CancellationTokenSource
 
-class LocationHelper(
+class LocationManager(
     private val activity: Activity,
     private val onLocationStatusChanged: ((Boolean) -> Unit)? = null,
     private val onLocationReceived: (LatLng) -> Unit

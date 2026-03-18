@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation(libs.play.services.analytics.impl)
+    implementation(libs.play.services.maps3d)
 
     // Navigation Component (Fragments)
     val nav_version = "2.7.7"
@@ -149,6 +150,9 @@ dependencies {
     // otp box
     implementation("io.github.chaosleung:pinview:1.4.4")
 
-
+    // Media3 ExoPlayer for Video support
+    implementation("androidx.media3:media3-exoplayer:1.5.1")
+    implementation("androidx.media3:media3-ui:1.5.1")
+    implementation("androidx.media3:media3-common:1.5.1")
 
 }

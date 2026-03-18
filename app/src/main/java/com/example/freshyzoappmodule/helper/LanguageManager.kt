@@ -6,7 +6,7 @@ import androidx.core.os.LocaleListCompat
 import com.example.freshyzoappmodule.data.manager.PreferenceManager
 import java.util.Locale
 
-object LanguageHelper {
+object LanguageManager {
     
     fun setLocale(context: Context, languageCode: String) {
         PreferenceManager.saveLanguage(context, languageCode)

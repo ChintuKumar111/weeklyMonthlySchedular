@@ -1,20 +1,29 @@
 package com.example.freshyzoappmodule.ui.fragments
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.Banner
 import com.example.freshyzoappmodule.data.manager.AppGuideManager
+import com.example.freshyzoappmodule.data.model.DeliveryCalendarProduct
 import com.example.freshyzoappmodule.databinding.FragmentHomeBinding
 import com.example.freshyzoappmodule.helper.generateDates
 import com.example.freshyzoappmodule.ui.activity.HomeActivity
@@ -22,6 +31,7 @@ import com.example.freshyzoappmodule.ui.activity.NotificationActivity
 import com.example.freshyzoappmodule.ui.adapter.BlogReportAdapter
 import com.example.freshyzoappmodule.ui.adapter.CalendarAdapter
 import com.example.freshyzoappmodule.ui.adapter.ComboOfferAdapter
+import com.example.freshyzoappmodule.ui.adapter.DeliveryProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.ImageSliderAdapter
 import com.example.freshyzoappmodule.ui.widget.PermissionManager
 import com.example.freshyzoappmodule.ui.viewmodel.HomeFragmentViewModel
@@ -38,6 +48,8 @@ class Home_Fragment : Fragment() {
     private lateinit var permissionManager: PermissionManager
 
     private lateinit var calendarAdapter: CalendarAdapter
+    private var deliveryDialog: Dialog? = null
+
     // For ViewPager Auto-scroll
     private val sliderHandler = Handler(Looper.getMainLooper())
     private val sliderRunnable = Runnable {
@@ -134,7 +146,10 @@ class Home_Fragment : Fragment() {
             adapter = comboAdapter
         }
         blogAdapter = BlogReportAdapter(emptyList()) { blog ->
-            Toast.makeText(requireContext(), "Opening ${blog.title}", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putParcelable("blog", blog)
+            }
+            findNavController().navigate(R.id.action_nav_home_to_blogReportFragment, bundle)
         }
         binding.rvBlogReports.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -155,6 +170,9 @@ class Home_Fragment : Fragment() {
         }
         viewModel.blogReports.observe(viewLifecycleOwner) { blogs ->
             blogAdapter.updateList(blogs)
+        }
+        viewModel.deliveryProducts.observe(viewLifecycleOwner) { products ->
+            updateDeliveryDialog(products ?: emptyList())
         }
     }
 
@@ -190,10 +208,56 @@ class Home_Fragment : Fragment() {
 
     private fun setupRecyclerCalendar(){
         calendarAdapter = CalendarAdapter(dateList.toMutableList()) { selectedDay ->
+            showDeliveryDetailsDialog(null)
             viewModel.getDeliveryProducts(selectedDay.fullDate)
         }
         binding.rvCalendar.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCalendar.adapter = calendarAdapter
+    }
+
+    private fun showDeliveryDetailsDialog(products: List<DeliveryCalendarProduct>?) {
+        deliveryDialog = Dialog(requireContext())
+        deliveryDialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        deliveryDialog?.setContentView(R.layout.dialog_delivery_details)
+        
+        deliveryDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        deliveryDialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val pbLoading = deliveryDialog?.findViewById<ProgressBar>(R.id.pbLoading)
+        val btnOk = deliveryDialog?.findViewById<Button>(R.id.btnOk)
+
+        if (products == null) {
+            pbLoading?.visibility = View.VISIBLE
+        } else {
+            updateDeliveryDialog(products)
+        }
+
+        btnOk?.setOnClickListener {
+            deliveryDialog?.dismiss()
+        }
+
+        deliveryDialog?.show()
+    }
+
+    private fun updateDeliveryDialog(products: List<DeliveryCalendarProduct>) {
+        val dialog = deliveryDialog ?: return
+        if (!dialog.isShowing) return
+
+        val pbLoading = dialog.findViewById<ProgressBar>(R.id.pbLoading)
+        val tvNoDelivery = dialog.findViewById<TextView>(R.id.tvNoDelivery)
+        val rvDeliveryProducts = dialog.findViewById<RecyclerView>(R.id.rvDeliveryProducts)
+
+        pbLoading?.visibility = View.GONE
+
+        if (products.isEmpty()) {
+            tvNoDelivery?.visibility = View.VISIBLE
+            rvDeliveryProducts?.visibility = View.GONE
+        } else {
+            tvNoDelivery?.visibility = View.GONE
+            rvDeliveryProducts?.visibility = View.VISIBLE
+            rvDeliveryProducts?.layoutManager = LinearLayoutManager(requireContext())
+            rvDeliveryProducts?.adapter = DeliveryProductAdapter(products)
+        }
     }
 }

@@ -3,37 +3,49 @@ package com.example.freshyzoappmodule.helper
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.provider.Telephony
+import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.common.api.Status
 
+/**
+ * BroadcastReceiver to wait for SMS messages. This receiver will be registered
+ * in the AndroidManifest.xml and will wait for the SMS_RETRIEVED_ACTION.
+ */
 class SmsReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        // TOAST FOR DEBUGGING - This will prove if the receiver is alive
-        Toast.makeText(context, "SmsReceiver triggered!", Toast.LENGTH_SHORT).show()
-        Log.d("SmsReceiver", "Action: ${intent?.action}")
-        
-        if (intent?.action == Telephony.Sms.Intents.SMS_RECEIVED_ACTION) {
-            val messages = Telephony.Sms.Intents.getMessagesFromIntent(intent)
-            for (sms in messages) {
-                val messageBody = sms.displayMessageBody
-                Log.d("SmsReceiver", "Body: $messageBody")
-                
-                val otpRegex = Regex("(\\d{6})")
-                val match = otpRegex.find(messageBody)
-                
-                match?.let {
-                    val otp = it.value
-                    Log.d("SmsReceiver", "OTP found: $otp")
+        if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
+            val extras: Bundle? = intent.extras
+            val status: Status? = extras?.get(SmsRetriever.EXTRA_STATUS) as? Status
+
+            when (status?.statusCode) {
+                CommonStatusCodes.SUCCESS -> {
+                    // Get SMS message contents
+                    val message = extras?.get(SmsRetriever.EXTRA_SMS_MESSAGE) as? String
+                    Log.d("SmsReceiver", "Retrieved message: $message")
                     
-                    // Trigger Internal Broadcast
-                    val otpIntent = Intent("OTP_RECEIVED")
-                    otpIntent.putExtra("otp", otp)
-                    otpIntent.setPackage(context?.packageName)
-                    context?.sendBroadcast(otpIntent)
-                    
-                    Toast.makeText(context, "OTP Detected: $otp", Toast.LENGTH_LONG).show()
+                    message?.let {
+                        // Extract OTP from message (e.g., 6 digits)
+                        val otpRegex = Regex("(\\d{6})")
+                        val match = otpRegex.find(it)
+                        
+                        match?.let { result ->
+                            val otp = result.value
+                            Log.d("SmsReceiver", "OTP found: $otp")
+                            
+                            // Send OTP to OtpFragment using a local broadcast
+                            val otpIntent = Intent("OTP_RECEIVED")
+                            otpIntent.putExtra("otp", otp)
+                            otpIntent.setPackage(context?.packageName)
+                            context?.sendBroadcast(otpIntent)
+                        }
+                    }
+                }
+                CommonStatusCodes.TIMEOUT -> {
+                    // Waiting for SMS timed out (5 minutes)
+                    Log.d("SmsReceiver", "SMS Retriever timed out")
                 }
             }
         }

@@ -2,6 +2,7 @@ package com.example.freshyzoappmodule.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
@@ -20,6 +21,7 @@ import kotlin.concurrent.thread
 import com.example.freshyzoappmodule.extensions.sizes
 import com.example.freshyzoappmodule.helper.BaseActivityy
 import com.example.freshyzoappmodule.data.manager.AppGuideManager
+import com.example.freshyzoappmodule.helper.AppHashGenerator
 
 class HomeActivity : BaseActivityy() , PaymentResultListener {
 
@@ -38,6 +40,13 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+// hash key
+        val helper = AppHashGenerator(this)
+        val hashList = helper.getAppSignatures()
+
+        for (hash in hashList) {
+            Log.d("AppHash", hash)
+        }
         cartRepository = CartRepository(this)
         cachedCartState = cartRepository.getCartState()
 
@@ -80,9 +89,10 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             showMainAppTour()
         }, 1500)
     }
+
     private fun showMainAppTour() {
         val guideManager = AppGuideManager(this)
-        val prefKey = "main_app_tour_v10" // Fresh key to ensure it shows
+        val prefKey = "main_app_tour_v11" // Incremented key
 
         guideManager.showWelcomeDialog(prefKey, 
             onStart = {
@@ -107,7 +117,10 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
                 )
 
                 // 3. Combine and start sequence
-                guideManager.startGuide(prefKey, homeItems + bottomNavItems)
+                guideManager.startGuide(prefKey, homeItems + bottomNavItems) {
+                    // ON COMPLETION: Navigate back to Home Fragment
+                    binding.bottomNavigation.selectedItemId = R.id.nav_home
+                }
             },
             onSkip = {
                 // Tour skipped or already seen

@@ -8,6 +8,7 @@ import com.example.freshyzoappmodule.data.model.BlogReport
 import com.example.freshyzoappmodule.data.model.ComboOffer
 import com.example.freshyzoappmodule.data.model.Banner
 import com.example.freshyzoappmodule.data.model.CalendarDay
+import com.example.freshyzoappmodule.data.model.DeliveryCalendarProduct
 import com.example.freshyzoappmodule.data.repository.SliderRepository
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,10 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
     val comboOffers: LiveData<List<ComboOffer>> = _comboOffers
     private val _blogReports = MutableLiveData<List<BlogReport>>()
     val blogReports: LiveData<List<BlogReport>> = _blogReports
+
+    private val _deliveryProducts = MutableLiveData<List<DeliveryCalendarProduct>?>()
+    val deliveryProducts: LiveData<List<DeliveryCalendarProduct>?> = _deliveryProducts
+
     // image slider section on home screen
     fun fetchSlider() {
         viewModelScope.launch {
@@ -105,7 +110,26 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
         )
     }
 
-    fun getDeliveryProducts(calendarDay: String){
-        // Logic to fetch delivery products based on date
+    fun getDeliveryProducts(date: String){
+        viewModelScope.launch {
+            try {
+                val response = repository.getCalendarDeliveryDetails(date)
+                if (response.products.isNullOrEmpty()) {
+                    _deliveryProducts.value = getDemoProducts()
+                } else {
+                    _deliveryProducts.value = response.products
+                }
+            } catch (e: Exception) {
+                _deliveryProducts.value = getDemoProducts()
+            }
+        }
+    }
+
+    private fun getDemoProducts(): List<DeliveryCalendarProduct> {
+        return listOf(
+            DeliveryCalendarProduct("Cow Milk", "1 Ltr", "https://img.etimg.com/thumb/msid-71119567,width-1070,height-580,imgsize-327421,overlay-etpanache/photo.jpg"),
+            DeliveryCalendarProduct("Ghee", "250 gm", "https://www.tradeindia.com/products/100-pure-cow-ghee-6433757.jpg"),
+            DeliveryCalendarProduct("Buffalow Milk", "500 ml", "https://5.imimg.com/data5/SELLER/Default/2021/3/RE/UX/YV/125232770/buffalo-milk.jpg")
+        )
     }
 }

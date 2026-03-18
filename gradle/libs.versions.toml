@@ -18,6 +18,7 @@ firebaseMessagingKtx = "25.0.1"
 firebaseFirestore = "26.1.0"
 circleimageview = "3.1.0"
 playServicesAnalyticsImpl = "18.2.0"
+playServicesMaps3d = "0.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +44,7 @@ firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messa
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
 play-services-analytics-impl = { group = "com.google.android.gms", name = "play-services-analytics-impl", version.ref = "playServicesAnalyticsImpl" }
+play-services-maps3d = { group = "com.google.android.gms", name = "play-services-maps3d", version.ref = "playServicesMaps3d" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

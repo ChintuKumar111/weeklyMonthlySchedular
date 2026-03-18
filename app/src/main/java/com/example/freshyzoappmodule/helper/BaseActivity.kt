@@ -12,7 +12,7 @@ open class BaseActivityy : AppCompatActivity() {
     private var startTime = 0L
 
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(LanguageHelper.onAttach(newBase))
+        super.attachBaseContext(LanguageManager.onAttach(newBase))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

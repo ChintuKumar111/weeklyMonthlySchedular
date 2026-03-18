@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_nav_home_to_offerDetailsFragment"
             app:destination="@id/offerDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_blogReportFragment"
+            app:destination="@id/blogReportFragment" />
 
 
     </fragment>
@@ -183,6 +186,16 @@
         android:name="com.example.freshyzoappmodule.ui.fragments.OfferDetailsFragment"
         android:label="Offer Details"
         tools:layout="@layout/fragment_offer_details" />
+
+    <fragment
+        android:id="@+id/blogReportFragment"
+        android:name="com.example.freshyzoappmodule.ui.fragments.BlogReportFragment"
+        android:label="Blog Report"
+        tools:layout="@layout/fragment_blog_report" >
+        <argument
+            android:name="blog"
+            app:argType="com.example.freshyzoappmodule.data.model.BlogReport" />
+    </fragment>
 
 
 </navigation>

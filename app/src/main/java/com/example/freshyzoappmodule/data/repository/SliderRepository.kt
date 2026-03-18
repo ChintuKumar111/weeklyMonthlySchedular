@@ -9,4 +9,6 @@ class SliderRepository(private val api: ApiService) {
     suspend fun getComboOffers() = api.getComboOffers()
 
     suspend fun getBlogReports() = api.getBlogReports()
+
+    suspend fun getCalendarDeliveryDetails(date: String) = api.getCalendarDeliveryDetails(date)
 }

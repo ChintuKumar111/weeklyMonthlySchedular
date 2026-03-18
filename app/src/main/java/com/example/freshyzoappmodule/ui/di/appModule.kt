@@ -11,7 +11,6 @@ import org.koin.android.ext.koin.androidContext
 val appModule = module {
     // ApiService
     single { RetrofitClient.api }
-    
     // Repositories
     single { SubscriptionRepository(get()) }
     single { OrderHistoryRepository(get()) }
@@ -34,6 +33,7 @@ val appModule = module {
     viewModel { ProductSubscribeViewModel() }
     viewModel { ProductDetailsViewModel() }
     viewModel { CartViewModel() }
+    //====================
     viewModel { DeliveryViewModel(get()) }
     viewModel { NotificationViewModel(androidApplication()) }
     viewModel { InvoiceViewModel() }

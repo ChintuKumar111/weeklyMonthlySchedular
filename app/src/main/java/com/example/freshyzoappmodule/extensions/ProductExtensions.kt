@@ -42,16 +42,6 @@ val Product.badgeText: String
         else -> ""
     }
 
-//val Product.categoryId: Int
-//    get() = when {
-//        productCategoryName.contains("Ghee", true) -> 2
-//        productCategoryName.contains("Milk", true) -> 1
-//        productCategoryName.contains("Dahi", true) -> 3
-//        productCategoryName.contains("Paneer", true) -> 4
-//        productCategoryName.contains("Khowa", true) -> 6
-//        else -> 1
-//    }
-
 val Product.sizeLabel: String
     get() {
         val words = productName.trim().split(" ")

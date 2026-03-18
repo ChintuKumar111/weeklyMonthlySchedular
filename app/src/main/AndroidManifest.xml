@@ -8,10 +8,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!-- Permissions for SMS Auto Detection (Testing Only) -->
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-
     <application
         android:name=".ui.di.FreshyzoApp"
         android:allowBackup="true"
@@ -24,12 +20,13 @@
         android:theme="@style/Base.Theme.SimpleApiCalling"
         tools:replace="android:allowBackup,android:fullBackupContent,android:dataExtractionRules,android:label,android:theme,android:supportsRtl">
 
-        <!-- Broadcast Receiver for SMS -->
+        <!-- Updated Broadcast Receiver for Google SMS Retriever API -->
         <receiver
             android:name=".helper.SmsReceiver"
-            android:exported="true">
-            <intent-filter android:priority="999">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            android:exported="true"
+            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
         </receiver>
 
@@ -41,6 +38,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.activity.InvoicesDownloadActivity"
@@ -71,7 +69,12 @@
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" >
+
+
+
+        </activity>
+
         <activity
             android:name=".ui.activity.ProductDetailsActivity"
             android:exported="false" />
