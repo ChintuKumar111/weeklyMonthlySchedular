@@ -1,6 +1,7 @@
 package com.example.freshyzoappmodule.helper
 import android.content.Context
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -16,6 +17,8 @@ open class BaseActivityy : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Enable edge-to-edge display
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         analytics = Firebase.analytics
 

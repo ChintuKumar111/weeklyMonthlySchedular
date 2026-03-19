@@ -9,6 +9,8 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,7 @@ import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
 import com.google.firebase.auth.PhoneAuthProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.concurrent.thread
 
 class OtpFragment : Fragment() {
 
@@ -125,17 +128,21 @@ class OtpFragment : Fragment() {
             when (state) {
                 is AuthViewModel.AuthState.Loading -> {
                     binding.btnVerify.isEnabled = false
+                    binding.loadingOverlay.visibility = View.VISIBLE
                 }
                 is AuthViewModel.AuthState.Success -> {
-                    binding.btnVerify.isEnabled = true
+                    // Keep loader visible during transition
+                    binding.loadingOverlay.visibility = View.VISIBLE
                     handleLoginSuccess()
                 }
                 is AuthViewModel.AuthState.Error -> {
                     binding.btnVerify.isEnabled = true
+                    binding.loadingOverlay.visibility = View.GONE
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                 }
                 else -> {
                     binding.btnVerify.isEnabled = true
+                    binding.loadingOverlay.visibility = View.GONE
                 }
             }
         }
@@ -178,6 +185,7 @@ class OtpFragment : Fragment() {
 
     private fun verifyOtp(otp: String) {
         if (args.verificationId == "TEST_VERIFICATION_ID") {
+            binding.loadingOverlay.visibility = View.VISIBLE
             handleLoginSuccess()
         } else {
             val credential = PhoneAuthProvider.getCredential(args.verificationId, otp)
@@ -209,10 +217,25 @@ class OtpFragment : Fragment() {
     }
 
     private fun handleLoginSuccess() {
-        val intent = Intent(requireActivity(), com.example.freshyzoappmodule.ui.activity.HomeActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        requireActivity().finish()
+        // Run navigation logic on a background thread if there's any data processing,
+        // but startActivity must be on main thread. Using thread + runOnUiThread 
+        // to simulate a non-blocking flow and ensuring the loader stays up.
+        thread {
+            // Optional: Add small artificial delay if you want the loader to be seen
+            // Thread.sleep(300) 
+            
+            activity?.runOnUiThread {
+                if (isAdded) {
+                    val intent = Intent(requireActivity(), com.example.freshyzoappmodule.ui.activity.HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    
+                    // Crossfade hides the activity switching gap
+                    requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    requireActivity().finish()
+                }
+            }
+        }
     }
 
     private fun startTimer() {
@@ -229,7 +252,6 @@ class OtpFragment : Fragment() {
             }
         }.start()
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         try {

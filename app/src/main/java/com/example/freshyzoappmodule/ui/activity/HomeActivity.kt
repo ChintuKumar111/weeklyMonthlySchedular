@@ -28,7 +28,6 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var cartRepository: CartRepository
     private lateinit var navController: NavController
-    
     private var cachedCartUiState: CartUiState? = null
     private var isFromSearch: Boolean = false
 
@@ -41,12 +40,12 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         setContentView(binding.root)
 
 // hash key
-        val helper = AppHashGenerator(this)
-        val hashList = helper.getAppSignatures()
-
-        for (hash in hashList) {
-            Log.d("AppHash", hash)
-        }
+//        val helper = AppHashGenerator(this)
+//        val hashList = helper.getAppSignatures()
+//
+//        for (hash in hashList) {
+//            Log.d("AppHash", hash)
+//        }
         cartRepository = CartRepository(this)
         cachedCartUiState = cartRepository.getCartState()
 
@@ -57,11 +56,10 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
 
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
-        binding.bottomNavigation.itemIconTintList = null
 
         // Initialize visibility logic
         setupNavigationVisibility()
-        
+
         binding.cartPreview.setOnViewCartClickListener {
             binding.bottomNavigation.selectedItemId = R.id.nav_cart
         }
@@ -80,7 +78,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
                 }
             }
         })
-        
+
         // Signal that the activity UI is ready
         binding.root.post { onActivityGuideComplete?.invoke() }
 
@@ -94,7 +92,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         val guideManager = AppGuideManager(this)
         val prefKey = "main_app_tour_v11" // Incremented key
 
-        guideManager.showWelcomeDialog(prefKey, 
+        guideManager.showWelcomeDialog(prefKey,
             onStart = {
                 // 1. Get items from Home Fragment (Notifications, Top Wallet)
                 val navHostFragment = supportFragmentManager.findFragmentById(binding.fragmentContainer.id) as? NavHostFragment
@@ -127,11 +125,9 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             }
         )
     }
-
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
-
     private fun setupNavigationVisibility() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             // 1. Manage Bottom Navigation Visibility with smooth transition
@@ -244,10 +240,10 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             }
             val totalDiscount = totalMRP - totalSellingPrice
             val newState = CartUiState(
-                itemsCount = if (newCount < 0) 0 else newCount, 
-                totalPrice = if (totalSellingPrice < 0.0) 0.0 else totalSellingPrice, 
-                isVisible = true, 
-                productQuantities = newQuantities, 
+                itemsCount = if (newCount < 0) 0 else newCount,
+                totalPrice = if (totalSellingPrice < 0.0) 0.0 else totalSellingPrice,
+                isVisible = true,
+                productQuantities = newQuantities,
                 productDetails = currentProducts,
                 discount = if (totalDiscount < 0.0) 0.0 else totalDiscount
             )

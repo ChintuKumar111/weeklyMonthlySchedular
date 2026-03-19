@@ -154,5 +154,7 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.5.1")
     implementation("androidx.media3:media3-ui:1.5.1")
     implementation("androidx.media3:media3-common:1.5.1")
-
+    // bottom navigation
+//    implementation("me.ibrahimsn:smoothbottombar:1.7.9")
+    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
 }

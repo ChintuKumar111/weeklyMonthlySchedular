@@ -21,6 +21,14 @@
 
     <style name="Theme.SimpleApiCalling" parent="Base.Theme.SimpleApiCalling" />
 
+    <!-- Enhanced Theme for HomeActivity to eliminate white flash -->
+    <style name="Theme.HomeActivity" parent="Base.Theme.SimpleApiCalling">
+        <item name="android:windowBackground">@color/white</item>
+        <!-- This makes the handover seamless by not showing a blank preview -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
     <style name="CustomCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
 
         <item name="colorPrimary">@color/primary</item>

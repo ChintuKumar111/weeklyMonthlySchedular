@@ -89,17 +89,14 @@ class Home_Fragment : Fragment() {
             }
         }
 
-        view.postDelayed({
-            if (isAdded && _binding != null) {
-                viewModel.fetchSlider()
-                viewModel.fetchComboOffers()
-                viewModel.fetchBlogReports()
+        // Start fetching data immediately instead of waiting 300ms
+        viewModel.fetchSlider()
+        viewModel.fetchComboOffers()
+        viewModel.fetchBlogReports()
 
-                if (!permissionManager.isNotificationPermissionGranted()) {
-                    permissionManager.askNotificationPermission()
-                }
-            }
-        }, 300)
+        if (!permissionManager.isNotificationPermissionGranted()) {
+            permissionManager.askNotificationPermission()
+        }
 
         binding.iconNotification.setOnClickListener {
             if (permissionManager.isNotificationPermissionGranted()) {
