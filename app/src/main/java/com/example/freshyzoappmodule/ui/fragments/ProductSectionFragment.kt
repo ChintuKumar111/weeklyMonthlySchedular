@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.Category
-import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.ProductCategory
+import com.example.freshyzoappmodule.data.model.ProductDetails
 import com.example.freshyzoappmodule.databinding.FragmentProductSectionBinding
 import com.example.freshyzoappmodule.extensions.categoryId
 import com.example.freshyzoappmodule.ui.activity.HomeActivity
@@ -21,7 +20,7 @@ import com.example.freshyzoappmodule.ui.activity.ProductDetailsActivity
 import com.example.freshyzoappmodule.ui.activity.ProductSubscribeActivity
 import com.example.freshyzoappmodule.ui.activity.SearchActivity
 import com.example.freshyzoappmodule.ui.adapter.CategoryAdapter
-import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
+import com.example.freshyzoappmodule.ui.adapter.ProductDetailsAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -30,10 +29,10 @@ class ProductSectionFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var productAdapter: ProductAdapter
+    private lateinit var productDetailsAdapter: ProductDetailsAdapter
     private val viewModel: HomeViewModel by viewModel()
 
-    private var allProducts: List<Product> = emptyList()
+    private var allProductDetails: List<ProductDetails> = emptyList()
     private var isScrollingFromCategory = false
     private var pendingCategoryId: Int = -1
 
@@ -57,7 +56,7 @@ class ProductSectionFragment : Fragment() {
         }
 
         binding.btnSearch.setOnClickListener {
-            val list = viewModel.productList.value
+            val list = viewModel.productDetailsList.value
             if (list.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "Products not loaded yet", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -77,18 +76,18 @@ class ProductSectionFragment : Fragment() {
     }
 
     private fun syncCartQuantities() {
-        if (::productAdapter.isInitialized) {
+        if (::productDetailsAdapter.isInitialized) {
             val sharedQuantities = (activity as? HomeActivity)?.getCartState()?.productQuantities ?: emptyMap()
-            productAdapter.setInitialQuantities(sharedQuantities)
+            productDetailsAdapter.setInitialQuantities(sharedQuantities)
         }
     }
     private fun setupCategories() {
         val categories = listOf(
-            Category(1, "Milk", R.drawable.milk_),
-            Category(2, "Ghee", R.drawable.ghee),
-            Category(3, "Dahi", R.drawable.dahi),
-            Category(4, "Paneer", R.drawable.paneer),
-            Category(6, "Khowa", R.drawable.khowa),
+            ProductCategory(1, "Milk", R.drawable.milk_),
+            ProductCategory(2, "Ghee", R.drawable.ghee),
+            ProductCategory(3, "Dahi", R.drawable.dahi),
+            ProductCategory(4, "Paneer", R.drawable.paneer),
+            ProductCategory(6, "Khowa", R.drawable.khowa),
         )
         categoryAdapter = CategoryAdapter(categories) { category, _ ->
             scrollToCategory(category.id)
@@ -102,7 +101,7 @@ class ProductSectionFragment : Fragment() {
     }
 
     private fun scrollToCategory(categoryId: Int) {
-        val position = allProducts.indexOfFirst { it.categoryId == categoryId }
+        val position = allProductDetails.indexOfFirst { it.categoryId == categoryId }
         if (position != -1) {
             isScrollingFromCategory = true
             (binding.rvProducts.layoutManager as LinearLayoutManager)
@@ -118,10 +117,10 @@ class ProductSectionFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.productList.observe(viewLifecycleOwner, Observer { products ->
-            allProducts = products.sortedBy { it.categoryId }
+        viewModel.productDetailsList.observe(viewLifecycleOwner, Observer { products ->
+            allProductDetails = products.sortedBy { it.categoryId }
             syncCartQuantities()
-            productAdapter.submitList(allProducts)
+            productDetailsAdapter.submitList(allProductDetails)
 
             // Auto-scroll if a category was passed via navigation
             if (pendingCategoryId != -1) {
@@ -143,7 +142,7 @@ class ProductSectionFragment : Fragment() {
     }
 
     private fun setupProductRecyclerView() {
-        productAdapter = ProductAdapter(
+        productDetailsAdapter = ProductDetailsAdapter(
             onAddClick = { product, size, qty ->
                 (activity as? HomeActivity)?.updateSharedCart(product, size.price.toDouble() * qty, qty)
             },
@@ -165,7 +164,7 @@ class ProductSectionFragment : Fragment() {
         binding.rvProducts.apply {
             val linearLayoutManager = LinearLayoutManager(requireContext())
             layoutManager = linearLayoutManager
-            adapter = productAdapter
+            adapter = productDetailsAdapter
             
             setHasFixedSize(true)
             itemAnimator = null
@@ -185,8 +184,8 @@ class ProductSectionFragment : Fragment() {
                     super.onScrolled(recyclerView, dx, dy)
                     if (!isScrollingFromCategory) {
                         val firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()
-                        if (firstVisibleItemPosition != RecyclerView.NO_POSITION && allProducts.isNotEmpty()) {
-                            val categoryId = allProducts[firstVisibleItemPosition].categoryId
+                        if (firstVisibleItemPosition != RecyclerView.NO_POSITION && allProductDetails.isNotEmpty()) {
+                            val categoryId = allProductDetails[firstVisibleItemPosition].categoryId
                             
                             if (categoryId != lastCategoryId) {
                                 lastCategoryId = categoryId

@@ -9,22 +9,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.Product
-import com.example.freshyzoappmodule.data.model.ProductSize
+import com.example.freshyzoappmodule.data.model.ProductDetails
+import com.example.freshyzoappmodule.data.model.ProductVariant
 import com.example.freshyzoappmodule.databinding.ItemProductCardBinding
 import com.example.freshyzoappmodule.extensions.badgeText
 import com.example.freshyzoappmodule.extensions.discountPercent
 import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.extensions.imageUrl
-import com.example.freshyzoappmodule.extensions.sizes
+import com.example.freshyzoappmodule.extensions.variant
 import com.example.freshyzoappmodule.extensions.tag
 
-class ProductAdapter(
-    private val onAddClick: (Product, ProductSize, Int) -> Unit,
-    private val onQtyChange: (Product, ProductSize, Int) -> Unit,
-    private val onSubscribeClick: (Product) -> Unit,
-    private val onProductClick: (Product) -> Unit
-) : ListAdapter<Product, ProductAdapter.ProductViewHolder>(ProductDiffCallback()) {
+class ProductDetailsAdapter(
+    private val onAddClick: (ProductDetails, ProductVariant, Int) -> Unit,
+    private val onQtyChange: (ProductDetails, ProductVariant, Int) -> Unit,
+    private val onSubscribeClick: (ProductDetails) -> Unit,
+    private val onProductClick: (ProductDetails) -> Unit
+) : ListAdapter<ProductDetails, ProductDetailsAdapter.ProductViewHolder>(ProductDiffCallback()) {
     private val selectedSizeMap = mutableMapOf<Int, Int>()
     private val qtyMap = mutableMapOf<Int, Int>()
     fun setInitialQuantities(quantities: Map<Int, Int>) {
@@ -36,85 +36,85 @@ class ProductAdapter(
     inner class ProductViewHolder(private val binding: ItemProductCardBinding) :
         RecyclerView.ViewHolder(binding.root)
     {
-        fun bind(product: Product) {
-            val selectedSizeIndex = selectedSizeMap[product.id] ?: 0
-            val selectedSize = product.sizes.getOrNull(selectedSizeIndex) ?: product.sizes.firstOrNull()
-            val qty = qtyMap[product.id] ?: 0
+        fun bind(productDetails: ProductDetails) {
+            val selectedSizeIndex = selectedSizeMap[productDetails.id] ?: 0
+            val selectedSize = productDetails.variant.getOrNull(selectedSizeIndex) ?: productDetails.variant.firstOrNull()
+            val qty = qtyMap[productDetails.id] ?: 0
 
-            binding.tvTag.text = product.tag
-            binding.tvProductName.text = product.productName
-            binding.tvDesc.text = product.shortDesc
+            binding.tvTag.text = productDetails.tag
+            binding.tvProductName.text = productDetails.productName
+            binding.tvDesc.text = productDetails.shortDesc
             
             Glide.with(binding.ivProduct.context)
-                .load(product.imageUrl)
+                .load(productDetails.imageUrl)
                 .placeholder(R.drawable.logo)
                 .into(binding.ivProduct)
 
-            if (product.badgeText.isNotEmpty()) {
+            if (productDetails.badgeText.isNotEmpty()) {
                 binding.tvBadge.visibility = View.VISIBLE
-                binding.tvBadge.text = product.badgeText
+                binding.tvBadge.text = productDetails.badgeText
             } else {
                 binding.tvBadge.visibility = View.GONE
             }
 
             selectedSize?.let { updatePrice(it) }
-            renderSizeChips(product, selectedSizeIndex)
-            selectedSize?.let { updateQtyUi(qty, product, it) }
+            renderSizeChips(productDetails, selectedSizeIndex)
+            selectedSize?.let { updateQtyUi(qty, productDetails, it) }
 
             binding.tvMinus.setOnClickListener {
-                val current = qtyMap[product.id] ?: 0
+                val current = qtyMap[productDetails.id] ?: 0
                 if (current > 0) {
                     val newQty = current - 1
-                    qtyMap[product.id] = newQty
+                    qtyMap[productDetails.id] = newQty
                     selectedSize?.let { s -> 
-                        updateQtyUi(newQty, product, s)
-                        onQtyChange(product, s, -1)
+                        updateQtyUi(newQty, productDetails, s)
+                        onQtyChange(productDetails, s, -1)
                     }
                 }
             }
 
             binding.tvPlus.setOnClickListener {
-                val current = qtyMap[product.id] ?: 0
+                val current = qtyMap[productDetails.id] ?: 0
                 val newQty = current + 1
-                qtyMap[product.id] = newQty
+                qtyMap[productDetails.id] = newQty
                 selectedSize?.let { s -> 
-                    updateQtyUi(newQty, product, s)
-                    onQtyChange(product, s, 1)
+                    updateQtyUi(newQty, productDetails, s)
+                    onQtyChange(productDetails, s, 1)
                 }
             }
 
             binding.btnAdd.setOnClickListener {
-                qtyMap[product.id] = 1
+                qtyMap[productDetails.id] = 1
                 selectedSize?.let { s -> 
-                    updateQtyUi(1, product, s)
-                    onAddClick(product, s, 1)
+                    updateQtyUi(1, productDetails, s)
+                    onAddClick(productDetails, s, 1)
                 }
             }
 
             binding.btnSubscribe.setOnClickListener {
-                onSubscribeClick(product)
+                onSubscribeClick(productDetails)
             }
 
             binding.root.setOnClickListener {
-                onProductClick(product)
+                onProductClick(productDetails)
             }
         }
 
-        private fun updatePrice(size: ProductSize)
+        private fun updatePrice(variant: ProductVariant)
         {
-            binding.tvPrice.text = "₹${size.price}"
+            binding.tvPrice.text = "₹${variant.price}"
             binding.tvOriginalPrice.paintFlags = binding.tvOriginalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            binding.tvDiscount.text = "${size.discountPercent}% OFF"
+            binding.tvDiscount.text = "${variant.discountPercent}% OFF"
         }
 
-        private fun renderSizeChips(product: Product, selectedIndex: Int) {
-            val sizes = product.sizes
-            binding.tvSize1.text = sizes.getOrNull(0)?.label ?: ""
+        private fun renderSizeChips(productDetails: ProductDetails, selectedIndex: Int) {
+            val variant = productDetails.variant
+            binding.tvSize1.text = variant.getOrNull(0)?.label ?: ""
             binding.tvSize1.isSelected = true 
             binding.tvSize1.setBackgroundResource(R.drawable.bg_size_chip_active)
         }
 
-        private fun updateQtyUi(qty: Int, product: Product, size: ProductSize) {
+        private fun updateQtyUi(qty: Int, productDetails: ProductDetails, size: ProductVariant) {
             if (qty > 0) {
                 binding.llQtyCtrl.visibility = View.VISIBLE
                 binding.btnAdd.visibility = View.GONE
@@ -139,10 +139,10 @@ class ProductAdapter(
     }
 }
 
-class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
-    override fun areItemsTheSame(oldItem: Product, newItem: Product) =
+class ProductDiffCallback : DiffUtil.ItemCallback<ProductDetails>() {
+    override fun areItemsTheSame(oldItem: ProductDetails, newItem: ProductDetails) =
         oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: Product, newItem: Product) =
+    override fun areContentsTheSame(oldItem: ProductDetails, newItem: ProductDetails) =
         oldItem == newItem
 }

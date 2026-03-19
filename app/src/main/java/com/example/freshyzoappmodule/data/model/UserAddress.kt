@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.data.model
 
-data class Address(
+data class UserAddress(
     val id: String = "",
     val name: String = "",
     val fullAddress: String = "",

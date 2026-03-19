@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Delivery(
+data class UserDelivery(
     val id: Int = 0,
     val productName: String = "",
     val quantity: String = "",          // e.g. "500 ml · Qty 2"

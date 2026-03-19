@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class ProductSize(
+data class ProductVariant(
     val label: String,
     val price: Int,
     val originalPrice: Int

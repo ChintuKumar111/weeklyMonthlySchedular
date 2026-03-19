@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.ProductDetails
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -15,11 +15,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
     private val sharedPrefs = application.getSharedPreferences("search_prefs", Context.MODE_PRIVATE)
 
-    private var productList: List<Product> = emptyList()
+    private var productDetailsList: List<ProductDetails> = emptyList()
     private val hints = listOf("Search for milk", "Search ghee", "Search khowa", "Search buffalo milk", "Search paneer")
 
-    private val _filteredList = MutableLiveData<List<Product>>(emptyList())
-    val filteredList: LiveData<List<Product>> = _filteredList
+    private val _filteredList = MutableLiveData<List<ProductDetails>>(emptyList())
+    val filteredList: LiveData<List<ProductDetails>> = _filteredList
 
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
@@ -44,8 +44,8 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
         startHintRotation()
     }
 
-    fun setInitialProductList(list: List<Product>) {
-        productList = list
+    fun setInitialProductList(list: List<ProductDetails>) {
+        productDetailsList = list
     }
 
     fun onSearchQueryChanged(query: String) {
@@ -60,7 +60,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
 
         searchJob = viewModelScope.launch {
             delay(1000) // debounce
-            val result = productList.filter {
+            val result = productDetailsList.filter {
                 it.productName.contains(query, ignoreCase = true)
             }
             _filteredList.value = result

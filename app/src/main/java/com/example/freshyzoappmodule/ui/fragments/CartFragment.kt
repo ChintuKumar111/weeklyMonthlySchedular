@@ -73,7 +73,7 @@ class CartFragment : Fragment() {
     private fun setupCartList() {
         val cartState = cartRepository.getCartState()
 
-        if (cartState != null && cartState.products.isNotEmpty()) {
+        if (cartState != null && cartState.productDetails.isNotEmpty()) {
             binding.rvAddedProductInCart.visibility = View.VISIBLE
             binding.cardPriceDetails.visibility = View.VISIBLE
             binding.llElements.visibility = View.VISIBLE
@@ -85,7 +85,7 @@ class CartFragment : Fragment() {
             binding.btnShopNow.visibility = View.GONE
 
             cartAdapter = CartAdapter(
-                products = cartState.products,
+                productDetails = cartState.productDetails,
                 quantities = cartState.productQuantities,
                 cartRepository = cartRepository,
                 onCartUpdated = {
@@ -122,7 +122,7 @@ class CartFragment : Fragment() {
             binding.tvSavings.text = "🎊 You're saving ₹${"%.2f".format(cartState.discount)} on this order!"
             binding.tvItemCount.text = "${cartState.itemsCount} items"
 
-            if (cartState.products.isEmpty()) {
+            if (cartState.productDetails.isEmpty()) {
                 showEmptyUI()
             }
         }

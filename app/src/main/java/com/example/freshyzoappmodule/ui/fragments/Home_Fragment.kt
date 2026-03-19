@@ -21,16 +21,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.Banner
+import com.example.freshyzoappmodule.data.model.response.Banner
 import com.example.freshyzoappmodule.data.manager.AppGuideManager
-import com.example.freshyzoappmodule.data.model.DeliveryCalendarProduct
+import com.example.freshyzoappmodule.data.model.HomeProductDeliveryCalendar
 import com.example.freshyzoappmodule.databinding.FragmentHomeBinding
 import com.example.freshyzoappmodule.helper.generateDates
 import com.example.freshyzoappmodule.ui.activity.HomeActivity
 import com.example.freshyzoappmodule.ui.activity.NotificationActivity
-import com.example.freshyzoappmodule.ui.adapter.BlogReportAdapter
+import com.example.freshyzoappmodule.ui.adapter.HomeBlogAdapter
 import com.example.freshyzoappmodule.ui.adapter.CalendarAdapter
-import com.example.freshyzoappmodule.ui.adapter.ComboOfferAdapter
+import com.example.freshyzoappmodule.ui.adapter.HomeComboOfferAdapter
 import com.example.freshyzoappmodule.ui.adapter.DeliveryProductAdapter
 import com.example.freshyzoappmodule.ui.adapter.ImageSliderAdapter
 import com.example.freshyzoappmodule.ui.widget.PermissionManager
@@ -43,8 +43,8 @@ class Home_Fragment : Fragment() {
 
     private val viewModel: HomeFragmentViewModel by viewModel()
     val dateList = generateDates()
-    private lateinit var comboAdapter: ComboOfferAdapter
-    private lateinit var blogAdapter: BlogReportAdapter
+    private lateinit var comboAdapter: HomeComboOfferAdapter
+    private lateinit var blogAdapter: HomeBlogAdapter
     private lateinit var permissionManager: PermissionManager
 
     private lateinit var calendarAdapter: CalendarAdapter
@@ -138,14 +138,14 @@ class Home_Fragment : Fragment() {
     }
 
     private fun setupRecyclerViews() {
-        comboAdapter = ComboOfferAdapter(emptyList()) { combo ->
+        comboAdapter = HomeComboOfferAdapter(emptyList()) { combo ->
             Toast.makeText(requireContext(), "Added ${combo.title} to cart", Toast.LENGTH_SHORT).show()
         }
         binding.rvComboOffers.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = comboAdapter
         }
-        blogAdapter = BlogReportAdapter(emptyList()) { blog ->
+        blogAdapter = HomeBlogAdapter(emptyList()) { blog ->
             val bundle = Bundle().apply {
                 putParcelable("blog", blog)
             }
@@ -165,7 +165,7 @@ class Home_Fragment : Fragment() {
                 }
             }
         }
-        viewModel.comboOffers.observe(viewLifecycleOwner) { combos ->
+        viewModel.homeComboOffers.observe(viewLifecycleOwner) { combos ->
             comboAdapter.updateList(combos)
         }
         viewModel.blogReports.observe(viewLifecycleOwner) { blogs ->
@@ -216,7 +216,7 @@ class Home_Fragment : Fragment() {
         binding.rvCalendar.adapter = calendarAdapter
     }
 
-    private fun showDeliveryDetailsDialog(products: List<DeliveryCalendarProduct>?) {
+    private fun showDeliveryDetailsDialog(products: List<HomeProductDeliveryCalendar>?) {
         deliveryDialog = Dialog(requireContext())
         deliveryDialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         deliveryDialog?.setContentView(R.layout.dialog_delivery_details)
@@ -240,7 +240,7 @@ class Home_Fragment : Fragment() {
         deliveryDialog?.show()
     }
 
-    private fun updateDeliveryDialog(products: List<DeliveryCalendarProduct>) {
+    private fun updateDeliveryDialog(products: List<HomeProductDeliveryCalendar>) {
         val dialog = deliveryDialog ?: return
         if (!dialog.isShowing) return
 

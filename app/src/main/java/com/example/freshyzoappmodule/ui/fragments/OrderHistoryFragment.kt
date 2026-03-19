@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.OrderHistoryModel
 import com.example.freshyzoappmodule.databinding.FragmentOrdersHistoryBinding
-import com.example.freshyzoappmodule.ui.adapter.OrderHistoryAdapter
+import com.example.freshyzoappmodule.ui.adapter.UserOrderHistoryAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.OrderHistoryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,7 +22,7 @@ class OrderHistoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: OrderHistoryViewModel by viewModel()
-    private lateinit var adapter: OrderHistoryAdapter
+    private lateinit var adapter: UserOrderHistoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +45,7 @@ class OrderHistoryFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = OrderHistoryAdapter { delivery ->
+        adapter = UserOrderHistoryAdapter { delivery ->
             onDeliveryClicked(delivery)
         }
 

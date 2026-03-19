@@ -10,19 +10,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.DayState
-import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.WeeklyDayState
+import com.example.freshyzoappmodule.data.model.ProductDetails
 import com.example.freshyzoappmodule.data.model.ProductSubscribeUiState
 import com.example.freshyzoappmodule.databinding.ActivityProductSubscribeBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
-import com.example.freshyzoappmodule.extensions.sizes
+import com.example.freshyzoappmodule.extensions.variant
 import com.example.freshyzoappmodule.helper.WeeklyDaySelectorViewHolder
 import com.example.freshyzoappmodule.ui.viewmodel.ProductDetailsViewModel
 import com.example.freshyzoappmodule.ui.viewmodel.ProductSubscribeViewModel
 
 class ProductSubscribeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductSubscribeBinding
-    private lateinit var product: Product
+    private lateinit var productDetails: ProductDetails
     private val vm: ProductDetailsViewModel by viewModels()
     private val viewModel: ProductSubscribeViewModel by viewModels()
 
@@ -41,7 +41,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
         setupClickListeners()
         initializeProduct()
         setupDayRowClicks()
-        viewModel.setBasePrice(product.productPrice.toInt())
+        viewModel.setBasePrice(productDetails.productPrice.toInt())
     }
 
     private fun observeViewModel() {
@@ -61,21 +61,21 @@ class ProductSubscribeActivity : AppCompatActivity() {
         )
     }
     private fun initializeProduct() {
-        val intentProduct = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("product", Product::class.java)
+        val intentProductDetails = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("product", ProductDetails::class.java)
 
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra<Product>("product")
+            intent.getParcelableExtra<ProductDetails>("product")
         }
 
         val quantity = intent.getIntExtra("quantity", 1)
         viewModel.setQuantity(quantity)
 
-        if (intentProduct != null) {
-            this.product = intentProduct
-            vm.setProduct(intentProduct)
-            displayProductData(intentProduct)
+        if (intentProductDetails != null) {
+            this.productDetails = intentProductDetails
+            vm.setProduct(intentProductDetails)
+            displayProductData(intentProductDetails)
         } else {
             // Handle cases where product is missing - maybe finish the activity
             finish()
@@ -84,19 +84,19 @@ class ProductSubscribeActivity : AppCompatActivity() {
     }
 
 
-    private fun displayProductData(product: Product) {
-        val sizes = product.sizes
-        binding.tvProductTitle.text = product.productName
-        binding.tvPriceMain.text = "₹${product.productPrice}"
+    private fun displayProductData(productDetails: ProductDetails) {
+        val sizes = productDetails.variant
+        binding.tvProductTitle.text = productDetails.productName
+        binding.tvPriceMain.text = "₹${productDetails.productPrice}"
 
         binding.tvPriceOld.apply {
-            text = "₹${product.dairyMrp}"
+            text = "₹${productDetails.dairyMrp}"
             paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
 
         // Calculate discount percentage
-        val price = product.productPrice.toDoubleOrNull() ?: 0.0
-        val mrp = product.dairyMrp.toDoubleOrNull() ?: 0.0
+        val price = productDetails.productPrice.toDoubleOrNull() ?: 0.0
+        val mrp = productDetails.dairyMrp.toDoubleOrNull() ?: 0.0
         if (mrp > price) {
             val discount = ((mrp - price) / mrp * 100).toInt()
             binding.tvOffBadge.text = "$discount% OFF"
@@ -106,7 +106,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
         }
 
         Glide.with(this)
-            .load(product.imageUrl)
+            .load(productDetails.imageUrl)
             .into(binding.ivProductImage)
     }
 
@@ -169,7 +169,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
         }
 
         // Update day rows (relevant for Weekly)
-        state.dayStates.forEachIndexed { index, day ->
+        state.weeklyDayStates.forEachIndexed { index, day ->
             applyDayRowUI(index, day)
         }
     }
@@ -237,7 +237,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
             )
         }
     }
-    private fun applyDayRowUI(index: Int, state: DayState) {
+    private fun applyDayRowUI(index: Int, state: WeeklyDayState) {
         val holder = dayRows[index]
         holder.tvDayName.text = state.name
 

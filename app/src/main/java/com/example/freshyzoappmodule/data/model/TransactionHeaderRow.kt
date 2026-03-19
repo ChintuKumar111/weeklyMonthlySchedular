@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.data.model
 
-data class BillTransactionRow(
+data class TransactionHeaderRow(
     val srNo: Int,
     val date: String,
     val transaction: String,

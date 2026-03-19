@@ -56,7 +56,7 @@ class AddressFragment : Fragment() {
 
     private fun setupObservers() {
         // Update UI when address data is received
-        viewModel.address.observe(viewLifecycleOwner) { address ->
+        viewModel.userAddress.observe(viewLifecycleOwner) { address ->
             binding.tvAddress.text = address.fullAddress
             binding.tvUserName.text = if (address.name.isNotEmpty()) address.name else "Levi Ackerman"
             binding.tvPhone.text = if (address.phone.isNotEmpty()) address.phone else "+91 91795 93730"

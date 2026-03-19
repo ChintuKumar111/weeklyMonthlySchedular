@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.freshyzoappmodule.data.model.ComboOffer
+import com.example.freshyzoappmodule.data.model.HomeComboOffers
 import com.example.freshyzoappmodule.databinding.ItemComboOfferBinding
 
-class ComboOfferAdapter(
-    private var comboOffers: List<ComboOffer>,
-    private val onAddClick: (ComboOffer) -> Unit
-) : RecyclerView.Adapter<ComboOfferAdapter.ViewHolder>() {
+class HomeComboOfferAdapter(
+    private var homeComboOffers: List<HomeComboOffers>,
+    private val onAddClick: (HomeComboOffers) -> Unit
+) : RecyclerView.Adapter<HomeComboOfferAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemComboOfferBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,7 +20,7 @@ class ComboOfferAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val combo = comboOffers[position]
+        val combo = homeComboOffers[position]
         holder.binding.apply {
             tvComboTitle.text = combo.title
             tvComboDesc.text = combo.description
@@ -34,10 +34,10 @@ class ComboOfferAdapter(
         }
     }
 
-    override fun getItemCount(): Int = comboOffers.size
+    override fun getItemCount(): Int = homeComboOffers.size
 
-    fun updateList(newList: List<ComboOffer>) {
-        comboOffers = newList
+    fun updateList(newList: List<HomeComboOffers>) {
+        homeComboOffers = newList
         notifyDataSetChanged()
     }
 }

@@ -13,12 +13,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.ProductDetails
 import com.example.freshyzoappmodule.data.model.ProductMedia
 import com.example.freshyzoappmodule.data.objects.FaqManager
 import com.example.freshyzoappmodule.databinding.ActivityProductDetailsBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
-import com.example.freshyzoappmodule.extensions.sizes
+import com.example.freshyzoappmodule.extensions.variant
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonBinder
 import com.example.freshyzoappmodule.ui.activity.comparison.ComparisonData
 import com.example.freshyzoappmodule.ui.adapter.FaqAdapter
@@ -32,7 +32,7 @@ import android.content.Intent as AndroidIntent
 class ProductDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductDetailsBinding
-    private lateinit var product: Product
+    private lateinit var productDetails: ProductDetails
     private var mediaAdapter: ProductMediaAdapter? = null
 
     private val viewModel: ProductDetailsViewModel by viewModel()
@@ -48,7 +48,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val intentProduct = parseProductFromIntent() ?: run { finish(); return }
-        product = intentProduct
+        productDetails = intentProduct
         viewModel.setProduct(intentProduct)
 
         setupFaq(intentProduct.productName)
@@ -67,9 +67,9 @@ class ProductDetailsActivity : AppCompatActivity() {
     //  Setup
     // ─────────────────────────────────────────────────────────────
 
-    private fun parseProductFromIntent(): Product? =
+    private fun parseProductFromIntent(): ProductDetails? =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("product", Product::class.java)
+            intent.getParcelableExtra("product", ProductDetails::class.java)
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra("product")
@@ -104,7 +104,7 @@ class ProductDetailsActivity : AppCompatActivity() {
             animateButton(binding.btnSubscribe)
             startActivity(
                 AndroidIntent(this, ProductSubscribeActivity::class.java).apply {
-                    putExtra("product", product)
+                    putExtra("product", productDetails)
                     putExtra("quantity", viewModel.qty.value)
                 }
             )
@@ -158,26 +158,26 @@ class ProductDetailsActivity : AppCompatActivity() {
 //
 //        }
 //    }
-    private fun displayProductData(product: Product) {
+    private fun displayProductData(productDetails: ProductDetails) {
         with(binding) {
-            tvProductName.text  = product.productName
-            tvDescription.text  = product.description
-            tvSellingPrice.text = "₹${product.productPrice}"
-            tvVolume.text       = product.sizes.getOrNull(0)?.label ?: ""
+            tvProductName.text  = productDetails.productName
+            tvDescription.text  = productDetails.description
+            tvSellingPrice.text = "₹${productDetails.productPrice}"
+            tvVolume.text       = productDetails.variant.getOrNull(0)?.label ?: ""
             tvVolume.isSelected = true
 
             tvMrp.apply {
-                text       = "₹${product.dairyMrp}"
+                text       = "₹${productDetails.dairyMrp}"
                 paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             }
 
             bindDiscountBadge(
-                price = product.productPrice.toDoubleOrNull() ?: 0.0,
-                mrp   = product.dairyMrp.toDoubleOrNull()    ?: 0.0
+                price = productDetails.productPrice.toDoubleOrNull() ?: 0.0,
+                mrp   = productDetails.dairyMrp.toDoubleOrNull()    ?: 0.0
             )
 
             // Setup Media Slider with data
-            val images = listOf(product.imageUrl) // Base image
+            val images = listOf(productDetails.imageUrl) // Base image
             // Mocking a video for testing purposes as per requirement
             val videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
             
@@ -239,7 +239,7 @@ class ProductDetailsActivity : AppCompatActivity() {
 
         Glide.with(this)
             .asBitmap()
-            .load(product.imageUrl)
+            .load(productDetails.imageUrl)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     shareImageAndText(resource, shareText)
@@ -254,10 +254,10 @@ class ProductDetailsActivity : AppCompatActivity() {
     private fun buildShareText(): String = """
         🛒 Check out this product on Freshyzo!
         
-        Product : ${product.productName}
-        Price   : ₹${product.productPrice}
+        Product : ${productDetails.productName}
+        Price   : ₹${productDetails.productPrice}
         
-        ${product.shortDesc}
+        ${productDetails.shortDesc}
         
         Download Freshyzo App: https://play.google.com/store/search?q=freshyzo&c=apps&hl=en_IN
     """.trimIndent()

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.freshyzoappmodule.data.model.Delivery
+import com.example.freshyzoappmodule.data.model.UserDelivery
 import com.example.freshyzoappmodule.databinding.FragmentDeliveriesDetailsBinding
 import com.example.freshyzoappmodule.ui.adapter.DeliveryAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.DeliveryViewModel
@@ -71,7 +71,7 @@ class DeliveriesDetailsFragment : Fragment() {
         }
     }
 
-    private fun submitList(list: List<Delivery>) {
+    private fun submitList(list: List<UserDelivery>) {
         adapter.submitList(list)
         val isEmpty = list.isEmpty()
         binding.llEmptyState.visibility = if (isEmpty) View.VISIBLE else View.GONE

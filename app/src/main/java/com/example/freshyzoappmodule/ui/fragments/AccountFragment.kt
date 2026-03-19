@@ -162,6 +162,14 @@ class AccountFragment : Fragment() {
         }
         binding.root.findViewById<View>(R.id.tabSubscription)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_subscriptionFragment)
+            }
+        
+        binding.root.findViewById<View>(R.id.tabPaymentsAndWallet)?.setOnClickListener {
+            findNavController().navigate(R.id.nav_wallet)
+        }
+
+        binding.root.findViewById<View>(R.id.tabReferAndEarn)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_referralFragment)
         }
     }
 

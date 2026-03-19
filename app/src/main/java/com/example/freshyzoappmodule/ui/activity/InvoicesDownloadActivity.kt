@@ -10,7 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.BillTransactionRow
+import com.example.freshyzoappmodule.data.model.TransactionHeaderRow
 import com.example.freshyzoappmodule.databinding.ActivityInvoicesDownloadBinding
 import com.example.freshyzoappmodule.databinding.LayoutBillPreviewBinding
 import com.example.freshyzoappmodule.extensions.InvoicePrintExtensions
@@ -92,7 +92,7 @@ class InvoicesDownloadActivity : AppCompatActivity() {
     private fun showBillPreview(
         billMonth: String, customerName: String, mobileNo: String,
         totalSell: String, recharges: String, balance: String,
-        transactions: List<BillTransactionRow>
+        transactions: List<TransactionHeaderRow>
     ) {
         val dialog = BottomSheetDialog(this, R.style.CardStyle)
         val previewBinding = LayoutBillPreviewBinding.inflate(LayoutInflater.from(this))
@@ -162,7 +162,7 @@ class InvoicesDownloadActivity : AppCompatActivity() {
     }
     private fun populateTransactions(
         previewBinding: LayoutBillPreviewBinding,
-        transactions: List<BillTransactionRow>
+        transactions: List<TransactionHeaderRow>
     ) {
 
         val inflater = LayoutInflater.from(this)

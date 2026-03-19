@@ -4,28 +4,28 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.freshyzoappmodule.data.model.BillSummaryData
-import com.example.freshyzoappmodule.data.model.BillTransactionRow
+import com.example.freshyzoappmodule.data.model.TransactionSummary
+import com.example.freshyzoappmodule.data.model.TransactionHeaderRow
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class InvoiceViewModel : ViewModel() {
     data class InvoiceDataState(
-        val summary: BillSummaryData,
-        val transactions: List<BillTransactionRow>
+        val summary: TransactionSummary,
+        val transactions: List<TransactionHeaderRow>
     )
     private val _invoiceData = MutableLiveData<InvoiceDataState?>()
     val invoiceData: LiveData<InvoiceDataState?> = _invoiceData
 
     // Keep individual LiveData if needed for legacy support, but update them together
-    val billSummary = MutableLiveData<BillSummaryData>()
-    val transactions = MutableLiveData<List<BillTransactionRow>>()
+    val billSummary = MutableLiveData<TransactionSummary>()
+    val transactions = MutableLiveData<List<TransactionHeaderRow>>()
     fun loadInvoice(startDate: String, endDate: String) {
         Log.d("InvoiceVM", "loadInvoice called")
 
         // can call api here===========================
-        val summary = BillSummaryData(
+        val summary = TransactionSummary(
             billMonth = extractMonthYear(startDate),
             customerName = "Sachin Baghel",
             mobileNo = "775452327",
@@ -61,16 +61,16 @@ class InvoiceViewModel : ViewModel() {
         }
     }
 
-    private fun getSampleTransactions(): List<BillTransactionRow> {
+    private fun getSampleTransactions(): List<TransactionHeaderRow> {
         return listOf(
-            BillTransactionRow(1, "11-Feb-2026", "Cash-To-Agent", "", "", "20", "-71"),
-            BillTransactionRow(2, "12-Feb-2026", "Cash-To-Agent", "", "", "100", "29"),
-            BillTransactionRow(3, "18-Feb-2026", "UPI Payment", "", "1", "", "131"),
-            BillTransactionRow(4, "18-Feb-2026", "3+3 Trial Offer", "", "", "90", "221"),
+            TransactionHeaderRow(1, "11-Feb-2026", "Cash-To-Agent", "", "", "20", "-71"),
+            TransactionHeaderRow(2, "12-Feb-2026", "Cash-To-Agent", "", "", "100", "29"),
+            TransactionHeaderRow(3, "18-Feb-2026", "UPI Payment", "", "1", "", "131"),
+            TransactionHeaderRow(4, "18-Feb-2026", "3+3 Trial Offer", "", "", "90", "221"),
           //  BillTransactionRow(5, "26-Feb-2026", "Cash-To-Agent", "", "", "123", "-546"),
           //  BillTransactionRow(6, "11-Mar-2026", "Cow Ghee 1000ml", "1", "890", "", "2980.0"),
            // BillTransactionRow(7, "11-Mar-2026", "Cow Ghee 1000ml", "1", "890", "", "2090.0"),
-            BillTransactionRow(8, "11-Mar-2026", "A2 Cow Milk 500ml", "2", "90", "", "2000.0")
+            TransactionHeaderRow(8, "11-Mar-2026", "A2 Cow Milk 500ml", "2", "90", "", "2000.0")
         )
     }
 }

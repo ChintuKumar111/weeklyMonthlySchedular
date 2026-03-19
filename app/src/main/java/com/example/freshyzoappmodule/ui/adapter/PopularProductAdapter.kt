@@ -7,11 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.PopularProductModel
+import com.example.freshyzoappmodule.data.model.PopularProductDetails
 
 class PopularProductAdapter(
-    private val list: List<PopularProductModel>,
-    private val onItemClick: (PopularProductModel) -> Unit
+    private val list: List<PopularProductDetails>,
+    private val onItemClick: (PopularProductDetails) -> Unit
 ) : RecyclerView.Adapter<PopularProductAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

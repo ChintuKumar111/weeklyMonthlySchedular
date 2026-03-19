@@ -14,10 +14,10 @@ import com.example.freshyzoappmodule.data.model.DeliveryStatus
 import com.example.freshyzoappmodule.data.model.ProductType
 import com.example.freshyzoappmodule.databinding.ItemOrderHistoryCardBinding
 
-class OrderHistoryAdapter(
+class UserOrderHistoryAdapter(
     private val onCardClick: (OrderHistoryModel) -> Unit
 ) : ListAdapter<OrderHistoryModel,
-        OrderHistoryAdapter.DeliveryViewHolder>(DiffCallback()) {
+        UserOrderHistoryAdapter.DeliveryViewHolder>(DiffCallback()) {
     class DiffCallback : DiffUtil.ItemCallback<OrderHistoryModel>() {
         override fun areItemsTheSame(old: OrderHistoryModel, new: OrderHistoryModel) = old.id == new.id
         override fun areContentsTheSame(old: OrderHistoryModel, new: OrderHistoryModel) = old == new

@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.NotificationItem
+import com.example.freshyzoappmodule.data.model.Notification
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
 class NotificationAdapter(
-    private var list: List<NotificationItem>
+    private var list: List<Notification>
 ) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
 
 
@@ -54,7 +54,7 @@ class NotificationAdapter(
         }
     }
 
-    fun updateList(newList: List<NotificationItem>) {
+    fun updateList(newList: List<Notification>) {
         list = newList
         notifyDataSetChanged()
     }

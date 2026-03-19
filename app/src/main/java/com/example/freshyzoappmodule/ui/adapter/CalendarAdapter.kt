@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.CalendarDay
+import com.example.freshyzoappmodule.data.model.HomeCalendarDays
 class CalendarAdapter(
-    private val list: MutableList<CalendarDay>,
-    private val click: (CalendarDay) -> Unit
+    private val list: MutableList<HomeCalendarDays>,
+    private val click: (HomeCalendarDays) -> Unit
 ) : RecyclerView.Adapter<CalendarAdapter.VH>() {
     var selectedPosition = -1
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {

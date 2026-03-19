@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Product(
+data class ProductDetails(
     @SerializedName("product_id") val productId: String,
     @SerializedName("product_name") val productName: String,
     @SerializedName("dairy_product_image") val dairyProductImage: String,

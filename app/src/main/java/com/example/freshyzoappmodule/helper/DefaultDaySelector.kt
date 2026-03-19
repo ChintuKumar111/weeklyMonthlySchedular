@@ -1,15 +1,15 @@
 package com.example.freshyzoappmodule.helper
 
-import com.example.freshyzoappmodule.data.model.DayState
+import com.example.freshyzoappmodule.data.model.WeeklyDayState
 
-fun defaultDays(): List<DayState> {
+fun defaultDays(): List<WeeklyDayState> {
     return listOf(
-        DayState("Mon", true, 1),
-        DayState("Tue", false, 0),
-        DayState("Wed", false, 0),
-        DayState("Thu", false, 0),
-        DayState("Fri", false, 0),
-        DayState("Sat", true, 2),
-        DayState("Sun", false, 0),
+        WeeklyDayState("Mon", true, 1),
+        WeeklyDayState("Tue", false, 0),
+        WeeklyDayState("Wed", false, 0),
+        WeeklyDayState("Thu", false, 0),
+        WeeklyDayState("Fri", false, 0),
+        WeeklyDayState("Sat", true, 2),
+        WeeklyDayState("Sun", false, 0),
     )
 }

@@ -8,17 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.OnboardingItem
+import com.example.freshyzoappmodule.data.model.OnboardingItems
 import com.example.freshyzoappmodule.databinding.FragmentOnboardingBinding
-import com.example.freshyzoappmodule.ui.adapter.OnboardingAdapter
-import com.google.android.material.tabs.TabLayoutMediator
+import com.example.freshyzoappmodule.ui.adapter.OnboardingScreenAdapter
 
 class OnboardingFragment : Fragment() {
 
     private var _binding: FragmentOnboardingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var onboardingItems: List<OnboardingItem>
+    private lateinit var onboardingItems: List<OnboardingItems>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,22 +36,22 @@ class OnboardingFragment : Fragment() {
 
     private fun setupOnboardingData() {
         onboardingItems = listOf(
-            OnboardingItem(
+            OnboardingItems(
                 R.drawable.logo,
                 "Easily track your orders",
                 "Track deliveries, manage subscriptions, and order on the go with our user-friendly app."
             ),
-            OnboardingItem(
+            OnboardingItems(
                 R.drawable.logo,
                 "Subscription service",
                 "Plan and schedule custom deliveries of the products you love. Stay consistent and stress-free!"
             ),
-            OnboardingItem(
+            OnboardingItems(
                 R.drawable.logo,
                 "Quality assurance",
                 "Committed to delivering only the best-quality milk and dairy products for your family's health."
             ),
-            OnboardingItem(
+            OnboardingItems(
                 R.drawable.logo,
                 "Door-step delivery",
                 "Enjoy freshly produced milk delivered to your doorstep, fast and hassle-free."
@@ -61,7 +60,7 @@ class OnboardingFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = OnboardingAdapter(onboardingItems)
+        val adapter = OnboardingScreenAdapter(onboardingItems)
         binding.viewPager.adapter = adapter
 
         binding.dotsIndicator.attachTo(binding.viewPager)

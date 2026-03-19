@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.freshyzoappmodule.data.model.Delivery
+import com.example.freshyzoappmodule.data.model.UserDelivery
 import com.example.freshyzoappmodule.data.repository.DeliveryRepository
 import kotlinx.coroutines.launch
 
 class DeliveryViewModel(private val repository: DeliveryRepository) : ViewModel() {
-    private val _deliveries = MutableLiveData<List<Delivery>>()
-    val deliveries: LiveData<List<Delivery>> get() = _deliveries
+    private val _deliveries = MutableLiveData<List<UserDelivery>>()
+    val deliveries: LiveData<List<UserDelivery>> get() = _deliveries
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
     private val _error = MutableLiveData<String?>()
@@ -38,8 +38,8 @@ class DeliveryViewModel(private val repository: DeliveryRepository) : ViewModel(
         }
     }
 
-    private fun getDummyDeliveries(): List<Delivery> = listOf(
-        Delivery(
+    private fun getDummyDeliveries(): List<UserDelivery> = listOf(
+        UserDelivery(
             id               = 1,
             productName      = "FreshyZo A2 Cow Milk",
             quantity         = "500 ml · Qty 2",
@@ -51,7 +51,7 @@ class DeliveryViewModel(private val repository: DeliveryRepository) : ViewModel(
             remainingBalance = -1526.0,
             remark           = ""
         ),
-        Delivery(
+        UserDelivery(
             id               = 2,
             productName      = "FreshyZo Cow Ghee",
             quantity         = "1000 ml · Qty 1",

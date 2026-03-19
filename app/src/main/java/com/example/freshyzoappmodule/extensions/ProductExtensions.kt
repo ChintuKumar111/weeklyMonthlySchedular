@@ -1,28 +1,28 @@
 package com.example.freshyzoappmodule.extensions
 
-import com.example.freshyzoappmodule.data.model.Product
-import com.example.freshyzoappmodule.data.model.ProductSize
+import com.example.freshyzoappmodule.data.model.ProductDetails
+import com.example.freshyzoappmodule.data.model.ProductVariant
 
-val Product.id: Int
+val ProductDetails.id: Int
     get() = productId.toIntOrNull() ?: 0
 
-val Product.imageUrl: String
+val ProductDetails.imageUrl: String
     get() = "https://freshyzo.com/admin/uploads/product_image/$dairyProductImage"
 
-val Product.price: Int
+val ProductDetails.price: Int
     get() = productPrice.toDoubleOrNull()?.toInt() ?: 0
 
-val Product.originalPrice: Int
+val ProductDetails.originalPrice: Int
     get() = dairyMrp.toDoubleOrNull()?.toInt() ?: 0
 
 
-val ProductSize.discountPercent: Int
+val ProductVariant.discountPercent: Int
     get() = if (originalPrice > 0)
           ((originalPrice - price) * 100 / originalPrice)
              else 0
 
 
-val Product.tag: String
+val ProductDetails.tag: String
     get() = when {
         productName.contains("Buffalo Milk", true) -> "Rich & Creamy"
         productName.contains("A2 Cow Milk", true) -> "100% Natural"
@@ -34,7 +34,7 @@ val Product.tag: String
         else -> "100% Natural"
     }
 
-val Product.badgeText: String
+val ProductDetails.badgeText: String
     get() = when {
         productName.contains("A2 Cow Milk", true) -> "A2"
         productName.contains("Pure Cow Ghee", true) -> "PURE"
@@ -42,7 +42,7 @@ val Product.badgeText: String
         else -> ""
     }
 
-val Product.sizeLabel: String
+val ProductDetails.sizeLabel: String
     get() {
         val words = productName.trim().split(" ")
         return if (words.size > 2)
@@ -50,10 +50,10 @@ val Product.sizeLabel: String
         else unit
     }
 
-val Product.sizes: List<ProductSize>
-    get() = listOf(ProductSize(sizeLabel, price, originalPrice))
+val ProductDetails.variant: List<ProductVariant>
+    get() = listOf(ProductVariant(sizeLabel, price, originalPrice))
 
-val Product.categoryId: Int
+val ProductDetails.categoryId: Int
     get() {
         val name = productName.lowercase()
 

@@ -15,14 +15,14 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.CartState
-import com.example.freshyzoappmodule.data.model.PopularProductModel
-import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.CartUiState
+import com.example.freshyzoappmodule.data.model.PopularProductDetails
+import com.example.freshyzoappmodule.data.model.ProductDetails
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivitySearchBinding
 import com.example.freshyzoappmodule.extensions.id
 import com.example.freshyzoappmodule.ui.adapter.PopularProductAdapter
-import com.example.freshyzoappmodule.ui.adapter.ProductAdapter
+import com.example.freshyzoappmodule.ui.adapter.ProductDetailsAdapter
 import com.example.freshyzoappmodule.ui.adapter.RecentSearchAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.SearchViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +30,7 @@ import kotlin.concurrent.thread
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
-    private lateinit var productAdapter: ProductAdapter
+    private lateinit var productDetailsAdapter: ProductDetailsAdapter
     private lateinit var recentAdapter: RecentSearchAdapter
     private val viewModel: SearchViewModel by viewModel()
     private lateinit var cartRepository: CartRepository
@@ -69,11 +69,11 @@ class SearchActivity : AppCompatActivity() {
 
     private fun syncProductQuantities() {
         val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
-        productAdapter.setInitialQuantities(sharedQuantities)
+        productDetailsAdapter.setInitialQuantities(sharedQuantities)
     }
 
     private fun updateUIState(
-        list: List<Product>,
+        list: List<ProductDetails>,
         isLoading: Boolean,
         query: String,
         recentList: List<String>
@@ -116,9 +116,9 @@ class SearchActivity : AppCompatActivity() {
 
             val sharedQuantities =
                 cartRepository.getCartState()?.productQuantities ?: emptyMap()
-            productAdapter.setInitialQuantities(sharedQuantities)
+            productDetailsAdapter.setInitialQuantities(sharedQuantities)
 
-            productAdapter.submitList(list)
+            productDetailsAdapter.submitList(list)
 
             updateUIState(
                 list = list,
@@ -174,11 +174,11 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupPopularProducts() {
         val products = listOf(
-            PopularProductModel("Milk", R.drawable.milk),
-            PopularProductModel("dahi", R.drawable.dahi),
-            PopularProductModel("Paneer", R.drawable.paneer),
-            PopularProductModel("ghee", R.drawable.ghee),
-            PopularProductModel("khowa", R.drawable.khowa)
+            PopularProductDetails("Milk", R.drawable.milk),
+            PopularProductDetails("dahi", R.drawable.dahi),
+            PopularProductDetails("Paneer", R.drawable.paneer),
+            PopularProductDetails("ghee", R.drawable.ghee),
+            PopularProductDetails("khowa", R.drawable.khowa)
         )
 
         binding.rvPopularProducts.layoutManager =
@@ -206,7 +206,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupSearchProducts() {
-        productAdapter = ProductAdapter(
+        productDetailsAdapter = ProductDetailsAdapter(
             onAddClick = { product, size, qty ->
                 updateCart(product, size.price.toDouble() * qty, qty)
             },
@@ -223,21 +223,21 @@ class SearchActivity : AppCompatActivity() {
             }
         )
         binding.rvSearch.layoutManager = LinearLayoutManager(this)
-        binding.rvSearch.adapter = productAdapter
+        binding.rvSearch.adapter = productDetailsAdapter
     }
 
-    private fun updateCart(product: Product, priceDelta: Double, countDelta: Int) {
+    private fun updateCart(productDetails: ProductDetails, priceDelta: Double, countDelta: Int) {
         thread {
-            val currentState = cartRepository.getCartState() ?: CartState()
+            val currentState = cartRepository.getCartState() ?: CartUiState()
             val newCount = currentState.itemsCount + countDelta
             val newPrice = currentState.totalPrice + priceDelta
 
-            val productId = product.id
+            val productId = productDetails.id
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
 
-            val currentProducts = currentState.products.toMutableList()
+            val currentProducts = currentState.productDetails.toMutableList()
 
             if (newQty <= 0) {
                 newQuantities.remove(productId)
@@ -245,11 +245,11 @@ class SearchActivity : AppCompatActivity() {
             } else {
                 newQuantities[productId] = newQty
                 if (!currentProducts.any { it.id == productId }) {
-                    currentProducts.add(product)
+                    currentProducts.add(productDetails)
                 }
             }
 
-            val newState = CartState(newCount, newPrice, true, newQuantities, currentProducts)
+            val newState = CartUiState(newCount, newPrice, true, newQuantities, currentProducts)
             cartRepository.saveCartState(newState)
 
             runOnUiThread {
@@ -276,7 +276,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun loadInitialData() {
-        val incomingList = intent.getParcelableArrayListExtra<Product>("product_list")
+        val incomingList = intent.getParcelableArrayListExtra<ProductDetails>("product_list")
         incomingList?.let { viewModel.setInitialProductList(it) }
     }
 

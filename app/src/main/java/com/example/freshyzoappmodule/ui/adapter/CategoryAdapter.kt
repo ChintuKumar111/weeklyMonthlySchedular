@@ -3,12 +3,12 @@ package com.example.freshyzoappmodule.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.freshyzoappmodule.data.model.Category
+import com.example.freshyzoappmodule.data.model.ProductCategory
 import com.example.freshyzoappmodule.databinding.ItemCategorySidebarBinding
 
 class CategoryAdapter(
-    private val categories: List<Category>,
-    private val onCategoryClick: (Category, Int) -> Unit
+    private val categories: List<ProductCategory>,
+    private val onCategoryClick: (ProductCategory, Int) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     private var selectedPosition = 0
@@ -17,9 +17,9 @@ class CategoryAdapter(
         private val binding: ItemCategorySidebarBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(category: Category, isSelected: Boolean) {
-            binding.tvCatName.text = category.name
-            binding.ivCatIcon.setImageResource(category.iconRes)
+        fun bind(productCategory: ProductCategory, isSelected: Boolean) {
+            binding.tvCatName.text = productCategory.name
+            binding.ivCatIcon.setImageResource(productCategory.iconRes)
 
             // Toggle active state — drives selector_cat_item.xml drawable
             binding.llCatItem.isActivated = isSelected
@@ -29,7 +29,7 @@ class CategoryAdapter(
                 if (currentPosition == RecyclerView.NO_POSITION) return@setOnClickListener
                 
                 updateSelection(currentPosition)
-                onCategoryClick(category, currentPosition)
+                onCategoryClick(productCategory, currentPosition)
             }
         }
     }

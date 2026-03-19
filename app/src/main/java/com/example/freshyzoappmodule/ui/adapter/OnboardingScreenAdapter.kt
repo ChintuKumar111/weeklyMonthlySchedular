@@ -3,15 +3,15 @@ package com.example.freshyzoappmodule.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.freshyzoappmodule.data.model.OnboardingItem
+import com.example.freshyzoappmodule.data.model.OnboardingItems
 import com.example.freshyzoappmodule.databinding.ItemOnboardingBinding
 
-class OnboardingAdapter(private val items: List<OnboardingItem>) :
-    RecyclerView.Adapter<OnboardingAdapter.OnboardingViewHolder>() {
+class OnboardingScreenAdapter(private val items: List<OnboardingItems>) :
+    RecyclerView.Adapter<OnboardingScreenAdapter.OnboardingViewHolder>() {
 
     inner class OnboardingViewHolder(private val binding: ItemOnboardingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: OnboardingItem) {
+        fun bind(item: OnboardingItems) {
             binding.ivOnboarding.setImageResource(item.image)
             binding.tvTitle.text = item.title
             binding.tvDescription.text = item.description

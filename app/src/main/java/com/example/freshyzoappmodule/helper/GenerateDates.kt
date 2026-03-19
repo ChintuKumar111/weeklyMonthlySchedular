@@ -1,17 +1,17 @@
 package com.example.freshyzoappmodule.helper
 
-import com.example.freshyzoappmodule.data.model.CalendarDay
+import com.example.freshyzoappmodule.data.model.HomeCalendarDays
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-fun generateDates(): List<CalendarDay> {
+fun generateDates(): List<HomeCalendarDays> {
 
     val calendar = Calendar.getInstance()
     val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         .format(calendar.time)
 
-    val list = mutableListOf<CalendarDay>()
+    val list = mutableListOf<HomeCalendarDays>()
     var currentMonth = -1
 
     for (i in 0 until 730) {
@@ -34,7 +34,7 @@ fun generateDates(): List<CalendarDay> {
         val dateNumber = calendar.get(Calendar.DAY_OF_MONTH)
 
         list.add(
-            CalendarDay(
+            HomeCalendarDays(
                 dayName = dayName,
                 dateNumber = dateNumber,
                 fullDate = fullDate,

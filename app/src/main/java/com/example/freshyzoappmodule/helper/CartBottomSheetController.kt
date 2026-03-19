@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import com.example.freshyzoappmodule.data.model.CartState
+import com.example.freshyzoappmodule.data.model.CartUiState
 import com.example.freshyzoappmodule.databinding.BottomSheetCartPreviewBinding
 
 class CartBottomSheetController @JvmOverloads constructor(
@@ -27,7 +27,7 @@ class CartBottomSheetController @JvmOverloads constructor(
         viewCartClick = listener
     }
 
-    fun showCart(cartData: CartState) {
+    fun showCart(cartData: CartUiState) {
         // Update labels first
         binding.tvAddedItemCount.text = "${cartData.itemsCount} items"
         binding.tvItemAddedPrice.text = "₹${cartData.totalPrice}"

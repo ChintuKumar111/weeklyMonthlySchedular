@@ -3,13 +3,13 @@ package com.example.freshyzoappmodule.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.ProductDetails
 import com.example.freshyzoappmodule.data.repository.ProductRepository
 
 class HomeViewModel(private val repository: ProductRepository) : ViewModel() {
 
-    private val _productList = MutableLiveData<List<Product>>()
-    val productList: LiveData<List<Product>> = _productList
+    private val _productDetailsList = MutableLiveData<List<ProductDetails>>()
+    val productDetailsList: LiveData<List<ProductDetails>> = _productDetailsList
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -18,7 +18,7 @@ class HomeViewModel(private val repository: ProductRepository) : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     fun loadProducts() {
-        if (!_productList.value.isNullOrEmpty()) {
+        if (!_productDetailsList.value.isNullOrEmpty()) {
             return
         }
 
@@ -26,7 +26,7 @@ class HomeViewModel(private val repository: ProductRepository) : ViewModel() {
         repository.getProducts { results ->
             _isLoading.value = false
             if (results != null) {
-                _productList.value = results
+                _productDetailsList.value = results
             } else {
                 _errorMessage.value = "Failed to load products. Please check your connection."
             }

@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.data.model
 
-data class PopularProductModel(
+data class PopularProductDetails(
     val name: String,
     val image: Int
 )

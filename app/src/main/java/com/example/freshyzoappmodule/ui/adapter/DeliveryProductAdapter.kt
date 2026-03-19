@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.DeliveryCalendarProduct
+import com.example.freshyzoappmodule.data.model.HomeProductDeliveryCalendar
 
-class DeliveryProductAdapter(private val products: List<DeliveryCalendarProduct>) :
+class DeliveryProductAdapter(private val products: List<HomeProductDeliveryCalendar>) :
     RecyclerView.Adapter<DeliveryProductAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.data.model
 
-data class CalendarDay(
+data class HomeCalendarDays(
     val dayName: String = "",
     val dateNumber: Int = 0,
     val fullDate: String = "",
@@ -9,5 +9,5 @@ data class CalendarDay(
     var isSelected: Boolean = false,
     var isMonthHeader: Boolean = false,
     var monthName: String = "",
-    var products: List<DeliveryCalendarProduct>? = null
+    var products: List<HomeProductDeliveryCalendar>? = null
 )

@@ -1,6 +1,6 @@
 package com.example.freshyzoappmodule.data.model
 
-data class BillSummaryData(
+data class TransactionSummary(
     val billMonth: String,
     val customerName: String,
     val mobileNo: String,

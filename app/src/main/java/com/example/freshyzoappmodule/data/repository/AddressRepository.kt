@@ -1,16 +1,16 @@
 package com.example.freshyzoappmodule.data.repository
 
 import com.example.freshyzoappmodule.data.api.ApiService
-import com.example.freshyzoappmodule.data.model.Address
+import com.example.freshyzoappmodule.data.model.UserAddress
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 // In AddressRepository.kt
 class AddressRepository(private val apiService: ApiService) {
 
-    suspend fun updateAddress(address: Address): Result<Address> = withContext(Dispatchers.IO) {
+    suspend fun updateAddress(userAddress: UserAddress): Result<UserAddress> = withContext(Dispatchers.IO) {
         try {
             //make changes for actual api response
-            val response = apiService.updateAddress(address)
+            val response = apiService.updateAddress(userAddress)
             if (response.isSuccessful && response.body() != null) {
                 Result.success(response.body()!!)
             } else {
@@ -21,7 +21,7 @@ class AddressRepository(private val apiService: ApiService) {
         }
     }
 
-    suspend fun getSavedAddress(): Result<Address> =
+    suspend fun getSavedAddress(): Result<UserAddress> =
         withContext(Dispatchers.IO) {
         try {
             val response = apiService.getSavedAddress()

@@ -3,12 +3,11 @@ package com.example.freshyzoappmodule.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import com.example.freshyzoappmodule.data.model.Product
+import com.example.freshyzoappmodule.data.model.ProductDetails
 
 class ProductDetailsViewModel : ViewModel() {
-    private val _product = MutableLiveData<Product>()
-    val product: LiveData<Product> = _product
+    private val _productDetails = MutableLiveData<ProductDetails>()
+    val productDetails: LiveData<ProductDetails> = _productDetails
 
     private val _qty = MutableLiveData<Int>()
     val qty: LiveData<Int> = _qty
@@ -16,8 +15,8 @@ class ProductDetailsViewModel : ViewModel() {
     private var count = 1
 
 
-    fun setProduct(product: Product) {
-        _product.value = product
+    fun setProduct(productDetails: ProductDetails) {
+        _productDetails.value = productDetails
     }
 
 

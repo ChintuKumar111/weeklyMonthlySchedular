@@ -17,8 +17,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
+import com.example.freshyzoappmodule.data.model.FaqQuestion
 import com.example.freshyzoappmodule.databinding.FragmentFAQsBinding
+import com.example.freshyzoappmodule.ui.activity.ChatActivity
 import com.example.freshyzoappmodule.ui.activity.ChatListActivity
+import com.example.freshyzoappmodule.ui.adapter.FaqQuestionAdapter
+
 class FAQsFragment : Fragment() {
     private var _binding: FragmentFAQsBinding? = null
     private val binding get() = _binding!!
@@ -31,8 +35,10 @@ class FAQsFragment : Fragment() {
     //  All FAQ data
     // ─────────────────────────────────────────────────────────────
     private val allFaqs = listOf(
-        FaqQuestion(1,  "products",     "What is A2 Gir Cow milk and why is it better?",
-            "A2 milk comes from purebred Gir cows that produce only the A2 beta-casein protein — unlike regular milk which has A1 protein. It is naturally easier to digest, richer in Omega-3 fatty acids, and free from synthetic hormones or antibiotics. Our cows are raised on natural grass feed at our partner farms."),
+        FaqQuestion(
+            1, "products", "What is A2 Gir Cow milk and why is it better?",
+            "A2 milk comes from purebred Gir cows that produce only the A2 beta-casein protein — unlike regular milk which has A1 protein. It is naturally easier to digest, richer in Omega-3 fatty acids, and free from synthetic hormones or antibiotics. Our cows are raised on natural grass feed at our partner farms."
+        ),
         FaqQuestion(2,  "products",     "Is Freshyzo milk safe for children and elderly?",
             "Absolutely. Our A2 Gir cow milk is gentle on the stomach and suitable for all age groups — from infants (6 months+) to the elderly. It is free from preservatives, artificial whiteners, and synthetic hormones, making it one of the safest dairy choices for the whole family."),
         FaqQuestion(3,  "products",     "Why does the milk look slightly yellow or have a cream layer?",
@@ -136,7 +142,11 @@ class FAQsFragment : Fragment() {
 
     private fun setupHelpBanner() {
         binding.btnChatNow.setOnClickListener {
-            startActivity(Intent(requireContext(), ChatListActivity::class.java))
+            val intent = Intent(requireContext(), ChatActivity::class.java).apply {
+                putExtra("CHAT_ID", "default_support_chat") // You might want to generate a unique ID here
+                putExtra("OTHER_USER_NAME", "Customer Support")
+            }
+            startActivity(intent)
         }
     }
 
@@ -201,110 +211,5 @@ class FAQsFragment : Fragment() {
         super.onDestroyView()
         handler.removeCallbacksAndMessages(null)
         _binding = null
-    }
-}
-
-data class FaqQuestion(
-    val number:   Int,
-    val category: String,
-    val question: String,
-    val answer:   String
-)
-
-class FaqQuestionAdapter : RecyclerView.Adapter<FaqQuestionAdapter.FaqVH>() {
-
-    private val items = mutableListOf<FaqQuestion>()
-    private val expandedPositions = mutableSetOf<Int>()
-
-    fun submitList(list: List<FaqQuestion>) {
-        expandedPositions.clear()
-        items.clear()
-        items.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FaqVH {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_faq_question, parent, false)
-        return FaqVH(view)
-    }
-
-    override fun getItemCount() = items.size
-
-    override fun onBindViewHolder(holder: FaqVH, position: Int) {
-        holder.bind(items[position], expandedPositions.contains(position))
-        holder.questionRow.setOnClickListener {
-            val pos = holder.adapterPosition
-            if (pos == RecyclerView.NO_POSITION) return@setOnClickListener
-            val expanding = !expandedPositions.contains(pos)
-            if (expanding) expandedPositions.add(pos) else expandedPositions.remove(pos)
-            holder.animateToggle(expanding)
-        }
-    }
-
-    inner class FaqVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val questionRow: View         = itemView.findViewById(R.id.faqQuestionRow)
-        private val tvNum: TextView   = itemView.findViewById(R.id.tvFaqNumber)
-        private val tvQ: TextView     = itemView.findViewById(R.id.tvFaqQuestion)
-        private val tvA: TextView     = itemView.findViewById(R.id.tvFaqAnswer)
-        private val ivArrow: ImageView= itemView.findViewById(R.id.ivFaqArrow)
-        private val divider: View     = itemView.findViewById(R.id.faqDivider)
-
-        fun bind(item: FaqQuestion, isExpanded: Boolean) {
-            tvNum.text = item.number.toString()
-            tvQ.text   = item.question
-            tvA.text   = item.answer
-
-            tvA.visibility    = if (isExpanded) View.VISIBLE else View.GONE
-            divider.visibility= if (isExpanded) View.VISIBLE else View.GONE
-
-            ivArrow.rotation = if (isExpanded) 180f else 0f
-            applyExpandedStyle(isExpanded)
-        }
-
-        fun animateToggle(expanding: Boolean) {
-            ObjectAnimator.ofFloat(
-                ivArrow, "rotation",
-                if (expanding) 0f else 180f,
-                if (expanding) 180f else 0f
-            ).apply { duration = 250; start() }
-
-            if (expanding) {
-                divider.visibility = View.VISIBLE
-                tvA.alpha          = 0f
-                tvA.visibility     = View.VISIBLE
-                tvA.animate().alpha(1f).setDuration(200).start()
-            } else {
-                tvA.animate().alpha(0f).setDuration(150).withEndAction {
-                    tvA.visibility     = View.GONE
-                    divider.visibility = View.GONE
-                }.start()
-            }
-
-            applyExpandedStyle(expanding)
-        }
-
-        private fun applyExpandedStyle(expanded: Boolean) {
-            val ctx = itemView.context
-
-            tvNum.background = ContextCompat.getDrawable(
-                ctx,
-                if (expanded) R.drawable.bg_faq_number_active
-                else          R.drawable.bg_faq_number_default
-            )
-            tvNum.setTextColor(
-                ContextCompat.getColor(ctx,
-                    if (expanded) R.color.white else R.color.green_mid)
-            )
-            ivArrow.background = ContextCompat.getDrawable(
-                ctx,
-                if (expanded) R.drawable.bg_faq_arrow_active
-                else          R.drawable.bg_faq_arrow_default
-            )
-            ivArrow.imageTintList = android.content.res.ColorStateList.valueOf(
-                ContextCompat.getColor(ctx,
-                    if (expanded) R.color.green_mid else R.color.text_muted)
-            )
-        }
     }
 }

@@ -81,6 +81,10 @@
             android:id="@+id/action_nav_account_to_subscriptionFragment"
             app:destination="@id/SubscriptionFragment" />
 
+        <action
+            android:id="@+id/action_nav_account_to_referralFragment"
+            app:destination="@id/referralFragment" />
+
 
     </fragment>
 
@@ -141,7 +145,7 @@
         android:id="@+id/referralFragment"
         android:name="com.example.freshyzoappmodule.ui.fragments.ReferAndEarnFragment"
         android:label="Refer &amp; Earn"
-        tools:layout="@layout/fragment_payment_and_wallet" />
+        tools:layout="@layout/fragment_refer_and_earn" />
 
     <fragment
         android:id="@+id/faqsFragment"
@@ -194,7 +198,7 @@
         tools:layout="@layout/fragment_blog_report" >
         <argument
             android:name="blog"
-            app:argType="com.example.freshyzoappmodule.data.model.BlogReport" />
+            app:argType="com.example.freshyzoappmodule.data.model.HomeBlogs" />
     </fragment>
 
 

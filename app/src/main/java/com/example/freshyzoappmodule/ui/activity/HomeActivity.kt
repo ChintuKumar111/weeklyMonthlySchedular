@@ -9,8 +9,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.freshyzoappmodule.R
-import com.example.freshyzoappmodule.data.model.Product
-import com.example.freshyzoappmodule.data.model.CartState
+import com.example.freshyzoappmodule.data.model.ProductDetails
+import com.example.freshyzoappmodule.data.model.CartUiState
 import com.example.freshyzoappmodule.data.repository.CartRepository
 import com.example.freshyzoappmodule.databinding.ActivityHomeBinding
 import com.example.freshyzoappmodule.ui.fragments.WalletFragment
@@ -18,7 +18,7 @@ import com.example.freshyzoappmodule.ui.fragments.Home_Fragment
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import kotlin.concurrent.thread
-import com.example.freshyzoappmodule.extensions.sizes
+import com.example.freshyzoappmodule.extensions.variant
 import com.example.freshyzoappmodule.helper.BaseActivityy
 import com.example.freshyzoappmodule.data.manager.AppGuideManager
 import com.example.freshyzoappmodule.helper.AppHashGenerator
@@ -29,7 +29,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
     private lateinit var cartRepository: CartRepository
     private lateinit var navController: NavController
     
-    private var cachedCartState: CartState? = null
+    private var cachedCartUiState: CartUiState? = null
     private var isFromSearch: Boolean = false
 
     // Signal for Fragment guide readiness
@@ -48,7 +48,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             Log.d("AppHash", hash)
         }
         cartRepository = CartRepository(this)
-        cachedCartState = cartRepository.getCartState()
+        cachedCartUiState = cartRepository.getCartState()
 
         Checkout.preload(applicationContext)
 
@@ -179,12 +179,12 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
 
     override fun onResume() {
         super.onResume()
-        cachedCartState = cartRepository.getCartState()
+        cachedCartUiState = cartRepository.getCartState()
         updateCartPreviewVisibility(navController.currentDestination?.id)
     }
 
     private fun updateCartPreviewVisibility(destinationId: Int?) {
-        val state = cachedCartState
+        val state = cachedCartUiState
         val shouldShowCart = state != null && state.itemsCount > 0 && when (destinationId) {
             R.id.nav_cart, R.id.nav_account -> false
             else -> true
@@ -212,15 +212,15 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         }
     }
 
-    fun updateSharedCart(product: Product, priceDelta: Double, countDelta: Int, onComplete: ((CartState) -> Unit)? = null) {
+    fun updateSharedCart(productDetails: ProductDetails, priceDelta: Double, countDelta: Int, onComplete: ((CartUiState) -> Unit)? = null) {
         thread {
-            val currentState = cartRepository.getCartState() ?: CartState()
+            val currentState = cartRepository.getCartState() ?: CartUiState()
             val newCount = currentState.itemsCount + countDelta
-            val productId = product.productId.toIntOrNull() ?: 0
+            val productId = productDetails.productId.toIntOrNull() ?: 0
             val newQuantities = currentState.productQuantities.toMutableMap()
             val currentQty = newQuantities[productId] ?: 0
             val newQty = currentQty + countDelta
-            val currentProducts = currentState.products.toMutableList()
+            val currentProducts = currentState.productDetails.toMutableList()
 
             if (newQty <= 0) {
                 newQuantities.remove(productId)
@@ -228,7 +228,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             } else {
                 newQuantities[productId] = newQty
                 if (!currentProducts.any { (it.productId.toIntOrNull() ?: 0) == productId }) {
-                    currentProducts.add(product)
+                    currentProducts.add(productDetails)
                 }
             }
 
@@ -236,22 +236,22 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             var totalSellingPrice = 0.0
             currentProducts.forEach { p ->
                 val qty = newQuantities[p.productId.toIntOrNull() ?: 0] ?: 0
-                val size = p.sizes.firstOrNull()
+                val size = p.variant.firstOrNull()
                 if (size != null) {
                     totalMRP += size.originalPrice.toDouble() * qty
                     totalSellingPrice += size.price.toDouble() * qty
                 }
             }
             val totalDiscount = totalMRP - totalSellingPrice
-            val newState = CartState(
+            val newState = CartUiState(
                 itemsCount = if (newCount < 0) 0 else newCount, 
                 totalPrice = if (totalSellingPrice < 0.0) 0.0 else totalSellingPrice, 
                 isVisible = true, 
                 productQuantities = newQuantities, 
-                products = currentProducts,
+                productDetails = currentProducts,
                 discount = if (totalDiscount < 0.0) 0.0 else totalDiscount
             )
-            cachedCartState = newState
+            cachedCartUiState = newState
             cartRepository.saveCartState(newState)
             runOnUiThread {
                 updateCartPreviewVisibility(navController.currentDestination?.id)
@@ -260,8 +260,8 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         }
     }
 
-    fun getCartState(): CartState {
-        return cachedCartState ?: cartRepository.getCartState() ?: CartState()
+    fun getCartState(): CartUiState {
+        return cachedCartUiState ?: cartRepository.getCartState() ?: CartUiState()
     }
 
     override fun onPaymentSuccess(razorpayPaymentID: String?) {

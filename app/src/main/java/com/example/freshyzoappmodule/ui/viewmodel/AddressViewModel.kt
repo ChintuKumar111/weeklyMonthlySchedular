@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.freshyzoappmodule.data.model.Address
+import com.example.freshyzoappmodule.data.model.UserAddress
 import com.example.freshyzoappmodule.data.repository.AddressRepository
 import kotlinx.coroutines.launch
 
@@ -16,8 +16,8 @@ class AddressViewModel(private val repository: AddressRepository) : ViewModel() 
 
 
 
-    private val _address = MutableLiveData<Address>()
-    val address: LiveData<Address> = _address
+    private val _User_address = MutableLiveData<UserAddress>()
+    val userAddress: LiveData<UserAddress> = _User_address
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -29,7 +29,7 @@ class AddressViewModel(private val repository: AddressRepository) : ViewModel() 
         viewModelScope.launch {
             _isLoading.value = true
             repository.getSavedAddress().onSuccess {
-                _address.value = it
+                _User_address.value = it
             }.onFailure {
                 _error.value = it.message ?: "Failed to load address"
             }
@@ -37,11 +37,11 @@ class AddressViewModel(private val repository: AddressRepository) : ViewModel() 
         }
     }
 
-    fun updateAddress(newAddress: Address) {
+    fun updateAddress(newUserAddress: UserAddress) {
         viewModelScope.launch {
             _isLoading.value = true
-            repository.updateAddress(newAddress).onSuccess {
-                _address.value = it
+            repository.updateAddress(newUserAddress).onSuccess {
+                _User_address.value = it
             }.onFailure {
                 _error.value = it.message ?: "Failed to update address"
             }
@@ -50,7 +50,7 @@ class AddressViewModel(private val repository: AddressRepository) : ViewModel() 
     }
 
     fun updateAddress(fullAddress: String, lat: Double = 0.0, lng: Double = 0.0) {
-        val current = _address.value ?: Address()
+        val current = _User_address.value ?: UserAddress()
         val updated = current.copy(fullAddress = fullAddress, lat = lat, lng = lng)
         updateAddress(updated)
     }
