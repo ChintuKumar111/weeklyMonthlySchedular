@@ -4,9 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.response.SubscriptionResponse
+import java.util.Locale
+
 class SubscriptionStatusAdapter(
     private var list: List<SubscriptionResponse>,
     private val onPauseClick: (SubscriptionResponse) -> Unit,
@@ -47,6 +50,8 @@ class SubscriptionStatusAdapter(
         holder.end.text = "End: ${item.endDate}"
         holder.status.text = item.status
 
+        applyStatusStyle(holder, item.status)
+
         holder.btnPause.setOnClickListener {
             onPauseClick(item)
         }
@@ -60,4 +65,31 @@ class SubscriptionStatusAdapter(
         list = newList
         notifyDataSetChanged()
     }
+
+    private fun applyStatusStyle(holder: ViewHolder, status: String) {
+        val context = holder.itemView.context
+        when (status.lowercase(Locale.getDefault())) {
+            "active" -> {
+                holder.status.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.status.setBackgroundResource(R.drawable.bg_status_active)
+                holder.status.backgroundTintList = ContextCompat.getColorStateList(context, R.color.primary_dark)
+            }
+            "pause" -> {
+                holder.status.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.status.setBackgroundResource(R.drawable.bg_status_active) // Reusing same drawable for shape
+                holder.status.backgroundTintList = ContextCompat.getColorStateList(context, R.color.amber)
+            }
+            "cancel" -> {
+                holder.status.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.status.setBackgroundResource(R.drawable.bg_status_active)
+                holder.status.backgroundTintList = ContextCompat.getColorStateList(context, R.color.red_error)
+            }
+            else -> {
+                holder.status.setTextColor(ContextCompat.getColor(context, R.color.white))
+                holder.status.setBackgroundResource(R.drawable.bg_status_active)
+                holder.status.backgroundTintList = ContextCompat.getColorStateList(context, R.color.gray_500)
+            }
+        }
+    }
+
 }

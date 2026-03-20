@@ -31,7 +31,7 @@ import com.example.freshyzoappmodule.ui.activity.NotificationActivity
 import com.example.freshyzoappmodule.ui.adapter.HomeBlogAdapter
 import com.example.freshyzoappmodule.ui.adapter.CalendarAdapter
 import com.example.freshyzoappmodule.ui.adapter.HomeComboOfferAdapter
-import com.example.freshyzoappmodule.ui.adapter.DeliveryProductAdapter
+import com.example.freshyzoappmodule.ui.adapter.CalendarProductDeliveryDetailsAdapter
 import com.example.freshyzoappmodule.ui.adapter.ImageSliderAdapter
 import com.example.freshyzoappmodule.ui.widget.PermissionManager
 import com.example.freshyzoappmodule.ui.viewmodel.HomeFragmentViewModel
@@ -254,7 +254,7 @@ class Home_Fragment : Fragment() {
             tvNoDelivery?.visibility = View.GONE
             rvDeliveryProducts?.visibility = View.VISIBLE
             rvDeliveryProducts?.layoutManager = LinearLayoutManager(requireContext())
-            rvDeliveryProducts?.adapter = DeliveryProductAdapter(products)
+            rvDeliveryProducts?.adapter = CalendarProductDeliveryDetailsAdapter(products)
         }
     }
 }

@@ -17,7 +17,9 @@ import com.example.freshyzoappmodule.databinding.FragmentAccountBinding
 import com.example.freshyzoappmodule.helper.LanguageManager
 import com.example.freshyzoappmodule.data.manager.PreferenceManager
 import com.example.freshyzoappmodule.ui.activity.AuthActivity
+import com.example.freshyzoappmodule.ui.activity.HomeActivity
 import com.example.freshyzoappmodule.ui.activity.InvoicesDownloadActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
@@ -165,7 +167,8 @@ class AccountFragment : Fragment() {
             }
         
         binding.root.findViewById<View>(R.id.tabPaymentsAndWallet)?.setOnClickListener {
-            findNavController().navigate(R.id.nav_wallet)
+            val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNav?.selectedItemId = R.id.nav_wallet
         }
 
         binding.root.findViewById<View>(R.id.tabReferAndEarn)?.setOnClickListener {

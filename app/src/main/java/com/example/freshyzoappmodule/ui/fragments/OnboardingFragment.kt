@@ -1,4 +1,4 @@
-package com.example.freshyzoappmodule.ui.fragments.authFragment
+package com.example.freshyzoappmodule.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

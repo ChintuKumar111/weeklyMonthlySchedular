@@ -218,13 +218,13 @@
                 android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_weight="1"
+                android:backgroundTint="#EBE1E1"
                 android:text="Pause"
                 android:textAllCaps="false"
+                android:textColor="@color/red_error"
                 app:cornerRadius="@dimen/_5sdp"
                 app:strokeColor="@color/red_error"
-                app:strokeWidth="@dimen/_1sdp"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"/>
+                app:strokeWidth="@dimen/_1sdp" />
 
             <Space
                 android:layout_width="10dp"

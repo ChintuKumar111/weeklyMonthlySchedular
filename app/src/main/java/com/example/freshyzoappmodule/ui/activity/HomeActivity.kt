@@ -24,7 +24,6 @@ import com.example.freshyzoappmodule.data.manager.AppGuideManager
 import com.example.freshyzoappmodule.helper.AppHashGenerator
 
 class HomeActivity : BaseActivityy() , PaymentResultListener {
-
     private lateinit var binding: ActivityHomeBinding
     private lateinit var cartRepository: CartRepository
     private lateinit var navController: NavController

@@ -9,14 +9,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.data.model.UserDelivery
 import com.example.freshyzoappmodule.databinding.FragmentDeliveriesDetailsBinding
-import com.example.freshyzoappmodule.ui.adapter.DeliveryAdapter
+import com.example.freshyzoappmodule.ui.adapter.UserDeliveryAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.DeliveryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DeliveriesDetailsFragment : Fragment() {
     private var _binding: FragmentDeliveriesDetailsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: DeliveryAdapter
+    private lateinit var adapter: UserDeliveryAdapter
     private val viewModel: DeliveryViewModel by viewModel()
 
 
@@ -46,7 +46,7 @@ class DeliveriesDetailsFragment : Fragment() {
 //        viewModel = ViewModelProvider(this, factory)[DeliveryViewModel::class.java]
 //    }
     private fun setupRecyclerView() {
-        adapter = DeliveryAdapter(requireContext()) { delivery ->
+        adapter = UserDeliveryAdapter(requireContext()) { delivery ->
             Toast.makeText(
                 requireContext(),
                 "Clicked: ${delivery.productName}",

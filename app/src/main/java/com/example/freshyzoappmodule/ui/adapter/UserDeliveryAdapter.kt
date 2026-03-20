@@ -14,10 +14,10 @@ import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.UserDelivery
 import java.util.Locale
-class DeliveryAdapter(
+class UserDeliveryAdapter(
     private val context: Context,
     private val onItemClick: ((UserDelivery) -> Unit)? = null
-) : ListAdapter<UserDelivery, DeliveryAdapter.DeliveryViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<UserDelivery, UserDeliveryAdapter.DeliveryViewHolder>(DIFF_CALLBACK) {
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<UserDelivery>() {
             override fun areItemsTheSame(old: UserDelivery, new: UserDelivery) =

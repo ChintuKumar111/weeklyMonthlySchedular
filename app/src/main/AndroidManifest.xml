@@ -33,11 +33,7 @@
         <activity
             android:name=".ui.activity.AuthActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -71,6 +67,11 @@
             android:exported="true"
             android:theme="@style/Theme.HomeActivity"
             android:windowSoftInputMode="adjustResize" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
 
 
@@ -82,9 +83,7 @@
         <activity
             android:name=".ui.activity.SearchActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.activity.DailyWeeklyMonthlySubscriptionActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.activity.NotificationActivity"
             android:exported="false" />

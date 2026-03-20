@@ -67,11 +67,11 @@ class AddressFragment : Fragment() {
             if (isLoading) {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.scrollView.visibility = View.GONE
-                binding.llBottomButton.visibility = View.GONE
+               // binding.llBottomButton.visibility = View.GONE
             } else {
                 binding.progressBar.visibility = View.GONE
                 binding.scrollView.visibility = View.VISIBLE
-                binding.llBottomButton.visibility = View.VISIBLE
+                //binding.llBottomButton.visibility = View.VISIBLE
             }
         }
 
@@ -93,9 +93,9 @@ class AddressFragment : Fragment() {
             openMapLocationPicker()
         }
 
-        binding.btnCurrentLocation.setOnClickListener {
-            openMapLocationPicker()
-        }
+//        binding.btnCurrentLocation.setOnClickListener {
+//            openMapLocationPicker()
+//        }
     }
 
     private fun showEditAddressBottomSheet() {

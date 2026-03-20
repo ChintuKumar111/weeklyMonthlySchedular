@@ -10,8 +10,8 @@ import com.bumptech.glide.Glide
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.HomeProductDeliveryCalendar
 
-class DeliveryProductAdapter(private val products: List<HomeProductDeliveryCalendar>) :
-    RecyclerView.Adapter<DeliveryProductAdapter.ViewHolder>() {
+class CalendarProductDeliveryDetailsAdapter(private val products: List<HomeProductDeliveryCalendar>) :
+    RecyclerView.Adapter<CalendarProductDeliveryDetailsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivProductImage: ImageView = view.findViewById(R.id.ivProductImage)
