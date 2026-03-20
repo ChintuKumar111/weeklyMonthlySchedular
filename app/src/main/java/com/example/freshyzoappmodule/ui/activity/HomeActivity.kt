@@ -39,12 +39,12 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         setContentView(binding.root)
 
 // hash key
-//        val helper = AppHashGenerator(this)
-//        val hashList = helper.getAppSignatures()
-//
-//        for (hash in hashList) {
-//            Log.d("AppHash", hash)
-//        }
+        val helper = AppHashGenerator(this)
+        val hashList = helper.getAppSignatures()
+
+        for (hash in hashList) {
+            Log.d("AppHash", hash)
+        }
         cartRepository = CartRepository(this)
         cachedCartUiState = cartRepository.getCartState()
 

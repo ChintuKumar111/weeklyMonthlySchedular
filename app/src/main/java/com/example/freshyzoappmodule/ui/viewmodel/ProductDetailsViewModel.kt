@@ -12,8 +12,11 @@ class ProductDetailsViewModel : ViewModel() {
     private val _qty = MutableLiveData<Int>()
     val qty: LiveData<Int> = _qty
 
-    private var count = 1
+    private var count = 2
 
+    init {
+        _qty.value = count
+    }
 
     fun setProduct(productDetails: ProductDetails) {
         _productDetails.value = productDetails
@@ -26,7 +29,7 @@ class ProductDetailsViewModel : ViewModel() {
     }
 
     fun decreaseQuantity() {
-        if (count > 1) {
+        if (count > 2) {
             count--
             _qty.value = count
         }

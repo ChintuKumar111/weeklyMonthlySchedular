@@ -37,22 +37,22 @@ class OnboardingFragment : Fragment() {
     private fun setupOnboardingData() {
         onboardingItems = listOf(
             OnboardingItems(
-                R.drawable.logo,
+                R.raw.deliveryanim, // Use your lottie animation raw files
                 "Easily track your orders",
                 "Track deliveries, manage subscriptions, and order on the go with our user-friendly app."
             ),
             OnboardingItems(
-                R.drawable.logo,
+                R.raw.deliveryanim,
                 "Subscription service",
                 "Plan and schedule custom deliveries of the products you love. Stay consistent and stress-free!"
             ),
             OnboardingItems(
-                R.drawable.logo,
+                R.raw.deliveryanim,
                 "Quality assurance",
                 "Committed to delivering only the best-quality milk and dairy products for your family's health."
             ),
             OnboardingItems(
-                R.drawable.logo,
+                R.raw.deliveryanim,
                 "Door-step delivery",
                 "Enjoy freshly produced milk delivered to your doorstep, fast and hassle-free."
             )

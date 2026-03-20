@@ -8,16 +8,14 @@ import com.example.freshyzoappmodule.databinding.ItemOnboardingBinding
 
 class OnboardingScreenAdapter(private val items: List<OnboardingItems>) :
     RecyclerView.Adapter<OnboardingScreenAdapter.OnboardingViewHolder>() {
-
     inner class OnboardingViewHolder(private val binding: ItemOnboardingBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: OnboardingItems) {
-            binding.ivOnboarding.setImageResource(item.image)
+            binding.animationView.setAnimation(item.animationRes)
             binding.tvTitle.text = item.title
             binding.tvDescription.text = item.description
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnboardingViewHolder {
         return OnboardingViewHolder(
             ItemOnboardingBinding.inflate(

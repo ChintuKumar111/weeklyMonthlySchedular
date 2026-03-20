@@ -45,9 +45,10 @@
             <ImageView
                 android:id="@+id/imgOfferBanner"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="180dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/offer_card_bg"
+                android:layout_margin="5dp"
+                android:src="@drawable/offerbg"
                 android:importantForAccessibility="no" />
 
             <LinearLayout

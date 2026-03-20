@@ -123,12 +123,12 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
             }
         }
     }
-
     private fun getDemoProducts(): List<HomeProductDeliveryCalendar> {
         return listOf(
-            HomeProductDeliveryCalendar("Cow Milk", "1 Ltr", "https://img.etimg.com/thumb/msid-71119567,width-1070,height-580,imgsize-327421,overlay-etpanache/photo.jpg"),
+            HomeProductDeliveryCalendar("Cow Milk", "1 Ltr", "https://akshayakalpa.org/wp-content/uploads/2025/06/Blogs-03-1.jpg"),
             HomeProductDeliveryCalendar("Ghee", "250 gm", "https://www.tradeindia.com/products/100-pure-cow-ghee-6433757.jpg"),
-            HomeProductDeliveryCalendar("Buffalow Milk", "500 ml", "https://5.imimg.com/data5/SELLER/Default/2021/3/RE/UX/YV/125232770/buffalo-milk.jpg")
+            HomeProductDeliveryCalendar("panner", "500 gm",
+                    "https://himalayancreamery.com/cdn/shop/files/WhatsAppImage2025-06-17at15.03.17_2_dc58008d-b4c8-44c1-8dd7-ee0a26ffe1b9.jpg?v=1751224019")
         )
     }
 }

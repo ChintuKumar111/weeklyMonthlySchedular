@@ -52,7 +52,7 @@
                         android:layout_height="38dp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="16dp"
-                        android:background="@drawable/bg_btn_circle"
+                        android:background="@drawable/bg_icon_btn_white_circle"
                         android:padding="10dp"
                         android:src="@drawable/ic_back"
                         app:tint="@color/black" />
@@ -64,7 +64,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="16dp"
-                        android:background="@drawable/bg_btn_circle"
+                        android:background="@drawable/bg_icon_btn_white_circle"
                         android:padding="10dp"
                         android:src="@drawable/ic_share"
                         app:tint="@color/black" />

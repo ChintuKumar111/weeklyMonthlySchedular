@@ -38,8 +38,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="@dimen/_130sdp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/_30sdp"
@@ -219,7 +219,7 @@
                             android:layout_height="wrap_content"
                             android:text="Daily"
                             android:textColor="#2E7D32"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:textStyle="bold" />
 
 
@@ -246,7 +246,7 @@
                             android:layout_height="wrap_content"
                             android:text="Alt Days"
                             android:textColor="#1a1a2e"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:textStyle="bold" />
 
 
@@ -274,7 +274,7 @@
                             android:layout_height="wrap_content"
                             android:text="Weekly"
                             android:textColor="#1a1a2e"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:textStyle="bold" />
 
 
@@ -301,7 +301,7 @@
                             android:layout_height="wrap_content"
                             android:text="Monthly"
                             android:textColor="#1a1a2e"
-                            android:textSize="12sp"
+                            android:textSize="10sp"
                             android:textStyle="bold" />
 
 
@@ -696,6 +696,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="14dp"
             android:padding="14dp"
+            android:visibility="gone"
             android:background="@drawable/info_banner_bg"
             android:orientation="horizontal">
 

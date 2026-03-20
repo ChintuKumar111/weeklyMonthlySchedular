@@ -119,8 +119,8 @@ class ProductDetailsActivity : AppCompatActivity() {
         viewModel.qty.observe(this) { quantity ->
             binding.tvQty.text = quantity.toString()
             binding.btnMinus.apply {
-                isEnabled = quantity > 1
-                alpha = if (quantity > 1) 1.0f else 0.5f
+                isEnabled = quantity > 2
+                alpha = if (quantity > 2) 1.0f else 0.5f
             }
         }
     }

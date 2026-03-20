@@ -40,7 +40,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class Home_Fragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: HomeFragmentViewModel by viewModel()
     val dateList = generateDates()
     private lateinit var comboAdapter: HomeComboOfferAdapter

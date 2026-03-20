@@ -39,6 +39,7 @@ NotificationActivity : AppCompatActivity() {
 
         setupUI()
         observeViewModel()
+        binding.btnBack.setOnClickListener { finish() }
     }
 
     private fun setupUI() {

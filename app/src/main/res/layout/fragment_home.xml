@@ -214,7 +214,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/cat2_" />
+                            android:src="@drawable/all_product" />
                     </androidx.cardview.widget.CardView>
 
                     <!-- CATEGORY 2 -->
@@ -231,7 +231,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/cat1_" />
+                            android:src="@drawable/milk_product" />
                     </androidx.cardview.widget.CardView>
 
                     <!-- CATEGORY 3 -->

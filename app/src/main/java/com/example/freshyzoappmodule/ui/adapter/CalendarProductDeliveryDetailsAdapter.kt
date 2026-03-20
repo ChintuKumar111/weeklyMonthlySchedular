@@ -32,7 +32,7 @@ class CalendarProductDeliveryDetailsAdapter(private val products: List<HomeProdu
 
         Glide.with(holder.itemView.context)
             .load(product.imageUrl)
-            .placeholder(R.drawable.logo)
+            .placeholder(R.drawable.bg_avatar_circle)
             .error(R.drawable.ghee)
             .into(holder.ivProductImage)
     }
