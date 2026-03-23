@@ -103,7 +103,6 @@ class CartFragment : Fragment() {
             viewModel.updateDateSelection(formattedDate, dayName)
         }
     }
-
     private fun setupCartList() {
         val cartState = cartRepository.getCartState()
 
