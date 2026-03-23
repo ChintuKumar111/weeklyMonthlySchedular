@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -14,6 +15,7 @@ import com.example.freshyzoappmodule.data.model.WeeklyDayState
 import com.example.freshyzoappmodule.data.model.ProductDetails
 import com.example.freshyzoappmodule.data.model.ProductSubscribeUiState
 import com.example.freshyzoappmodule.databinding.ActivityProductSubscribeBinding
+import com.example.freshyzoappmodule.databinding.DialogSuccessLottieBinding
 import com.example.freshyzoappmodule.extensions.imageUrl
 import com.example.freshyzoappmodule.extensions.variant
 import com.example.freshyzoappmodule.helper.WeeklyDaySelectorViewHolder
@@ -211,6 +213,28 @@ class ProductSubscribeActivity : AppCompatActivity() {
         binding.layoutDateSelector.setOnClickListener {
             showDatePicker()
         }
+
+        binding.btnSubscribeNow.setOnClickListener {
+            showSuccessDialog("Subscription Successful!", "Your subscription has been successfully created.\nFresh delivery starts from ${viewModel.uiState.value?.startDate}")
+        }
+    }
+
+    private fun showSuccessDialog(title: String, message: String) {
+        val dialogBinding = DialogSuccessLottieBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(this, R.style.CustomAlertDialog)
+            .setView(dialogBinding.root)
+            .setCancelable(false)
+            .create()
+
+        dialogBinding.tvSuccessTitle.text = title
+        dialogBinding.tvSuccessMessage.text = message
+
+        dialogBinding.btnDone.setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
+
+        dialog.show()
     }
 
     private fun showDatePicker() {

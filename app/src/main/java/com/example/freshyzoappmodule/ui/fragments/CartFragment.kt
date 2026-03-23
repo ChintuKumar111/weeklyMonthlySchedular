@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.repository.CartRepository
+import com.example.freshyzoappmodule.databinding.DialogSuccessLottieBinding
 import com.example.freshyzoappmodule.databinding.FragmentCartBinding
 import com.example.freshyzoappmodule.helper.CustomDatePickerDialog
+import com.example.freshyzoappmodule.ui.activity.HomeActivity
 import com.example.freshyzoappmodule.ui.adapter.CartAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.ProductSubscribeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -61,6 +64,37 @@ class CartFragment : Fragment() {
             val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
             bottomNav?.selectedItemId = R.id.nav_product
         }
+
+        binding.btnSubscribeNow.setOnClickListener {
+            showSuccessDialog("Order Placed!", "Your order has been successfully placed.\nThank you for shopping with us!")
+        }
+    }
+
+    private fun showSuccessDialog(title: String, message: String) {
+        val dialogBinding = DialogSuccessLottieBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+            .setView(dialogBinding.root)
+            .setCancelable(false)
+            .create()
+
+        dialogBinding.tvSuccessTitle.text = title
+        dialogBinding.tvSuccessMessage.text = message
+
+        dialogBinding.btnDone.setOnClickListener {
+            dialog.dismiss()
+            
+            // Clear cart globally through HomeActivity to sync across all screens
+            (activity as? HomeActivity)?.clearSharedCart()
+            
+            // Refresh local UI
+            showEmptyUI()
+            
+            // Navigate to home
+            val bottomNav = activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNav?.selectedItemId = R.id.nav_product
+        }
+
+        dialog.show()
     }
 
     private fun showDatePicker() {
@@ -104,6 +138,7 @@ class CartFragment : Fragment() {
 
     private fun showEmptyUI() {
         binding.llElements.visibility = View.GONE
+        binding.cardPriceDetails.visibility = View.GONE
         binding.btnSubscribeNow.visibility = View.GONE
         binding.btnShopNow.visibility = View.VISIBLE
         binding.tvCartIsEmpty.visibility = View.VISIBLE

@@ -39,12 +39,14 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         setContentView(binding.root)
 
 // hash key
-        val helper = AppHashGenerator(this)
-        val hashList = helper.getAppSignatures()
-
-        for (hash in hashList) {
-            Log.d("AppHash", hash)
-        }
+//        val helper = AppHashGenerator(this)
+//        val hashList = helper.getAppSignatures()
+//
+//        for (hash in hashList) {
+//            Log.d("AppHash", hash)
+//        }
+        
+        
         cartRepository = CartRepository(this)
         cachedCartUiState = cartRepository.getCartState()
 
@@ -181,7 +183,13 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
     private fun updateCartPreviewVisibility(destinationId: Int?) {
         val state = cachedCartUiState
         val shouldShowCart = state != null && state.itemsCount > 0 && when (destinationId) {
-            R.id.nav_cart, R.id.nav_account -> false
+            R.id.nav_cart,
+            R.id.nav_account,
+            R.id.profileFragment,
+            R.id.faqsFragment,
+            R.id.vacationFragment,
+            R.id.testReportFromAccountFragment,
+            R.id.referralFragment -> false
             else -> true
         }
 
@@ -252,6 +260,15 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
                 updateCartPreviewVisibility(navController.currentDestination?.id)
                 onComplete?.invoke(newState)
             }
+        }
+    }
+    // from cart fragment after place order
+
+    fun clearSharedCart() {
+        cartRepository.clearCart()
+        cachedCartUiState = null
+        runOnUiThread {
+            updateCartPreviewVisibility(navController.currentDestination?.id)
         }
     }
 

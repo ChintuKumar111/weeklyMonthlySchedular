@@ -22,4 +22,8 @@ class CartRepository(context: Context) {
             null
         }
     }
+
+    fun clearCart() {
+        sharedPreferences.edit().remove("cart_state").apply()
+    }
 }

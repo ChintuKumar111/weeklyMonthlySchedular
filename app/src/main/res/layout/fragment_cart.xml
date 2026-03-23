@@ -379,16 +379,13 @@
     <!-- ═══════════════════════════════════════ -->
     <!--              FOOTER SECTION             -->
     <!-- ═══════════════════════════════════════ -->
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        android:elevation="8dp">
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        >
 
 
 
@@ -408,7 +405,7 @@
             android:background="@drawable/btn_cta_green"
             android:elevation="8dp" />
 
-    </LinearLayout>
+    </FrameLayout>
 
 
     <!-- ═══════════════════════════════════════ -->
