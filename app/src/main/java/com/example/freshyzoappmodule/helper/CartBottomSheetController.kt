@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.example.freshyzoappmodule.data.model.CartUiState
-import com.example.freshyzoappmodule.databinding.BottomSheetCartPreviewBinding
+import com.example.freshyzoappmodule.databinding.BottomAddToCartControllerDesignBinding
 
 class CartBottomSheetController @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : FrameLayout(context, attrs) {
 
-    private val binding = BottomSheetCartPreviewBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = BottomAddToCartControllerDesignBinding.inflate(LayoutInflater.from(context), this, true)
     private var viewCartClick: (() -> Unit)? = null
 
     init {

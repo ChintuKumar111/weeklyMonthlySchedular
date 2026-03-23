@@ -19,8 +19,8 @@
             android:layout_height="56dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@color/primary"
             android:paddingStart="16dp"
-
             android:paddingEnd="16dp"
             android:paddingTop="8dp">
 
@@ -28,7 +28,8 @@
                 android:id="@+id/btnBack"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:background="@drawable/bg_badge_green"
+                android:tint="@color/white"
+                android:background="@drawable/bg_icon_btn_white_circle"
                 android:src="@drawable/ic_arrow_back"
                 android:contentDescription="Back" />
 
@@ -39,7 +40,7 @@
                 android:text="Billing"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="#111111"
+                android:textColor="@color/white"
                 android:gravity="center" />
 
             <View

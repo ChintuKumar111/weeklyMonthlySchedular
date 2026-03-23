@@ -44,8 +44,8 @@
                         android:id="@+id/btnBack"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
-                        android:tint="@color/black"
-                        android:background="@drawable/bg_btn_circle"
+                        android:tint="@color/white"
+                        android:background="@drawable/bg_icon_btn_white_circle"
                         android:src="@drawable/ic_back"
                         android:padding="10dp"
                         android:contentDescription="Back" />

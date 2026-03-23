@@ -60,6 +60,7 @@ class AddressFragment : Fragment() {
             binding.tvAddress.text = address.fullAddress
             binding.tvUserName.text = if (address.name.isNotEmpty()) address.name else "Levi Ackerman"
             binding.tvPhone.text = if (address.phone.isNotEmpty()) address.phone else "+91 91795 93730"
+            binding.tvLatLng.text = "${address.lat}, ${address.lng}"
         }
 
         // Handle Loading State: Hide content and show ProgressBar
@@ -67,11 +68,9 @@ class AddressFragment : Fragment() {
             if (isLoading) {
                 binding.progressBar.visibility = View.VISIBLE
                 binding.scrollView.visibility = View.GONE
-               // binding.llBottomButton.visibility = View.GONE
             } else {
                 binding.progressBar.visibility = View.GONE
                 binding.scrollView.visibility = View.VISIBLE
-                //binding.llBottomButton.visibility = View.VISIBLE
             }
         }
 
@@ -92,10 +91,6 @@ class AddressFragment : Fragment() {
         binding.cardAddNewAddress.setOnClickListener {
             openMapLocationPicker()
         }
-
-//        binding.btnCurrentLocation.setOnClickListener {
-//            openMapLocationPicker()
-//        }
     }
 
     private fun showEditAddressBottomSheet() {

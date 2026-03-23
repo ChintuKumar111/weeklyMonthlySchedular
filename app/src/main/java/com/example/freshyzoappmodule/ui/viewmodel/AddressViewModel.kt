@@ -13,9 +13,6 @@ class AddressViewModel(private val repository: AddressRepository) : ViewModel() 
 
   // for address update
 
-
-
-
     private val _User_address = MutableLiveData<UserAddress>()
     val userAddress: LiveData<UserAddress> = _User_address
 

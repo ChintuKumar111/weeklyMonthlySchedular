@@ -14,42 +14,42 @@
         android:orientation="vertical">
 
         <!-- ── TOOLBAR ── -->
+
+        <!-- ── HERO SCENE ── -->
         <LinearLayout
             android:id="@+id/llToolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:orientation="horizontal"
+            android:background="@color/primary"
+            android:elevation="4dp"
             android:gravity="center_vertical"
-            android:paddingHorizontal="16dp"
-            android:background="@color/white"
-            android:elevation="4dp">
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
 
             <ImageView
                 android:id="@+id/ivBack"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:tint="@color/black"
-                android:background="@drawable/bg_btn_circle"
-                android:src="@drawable/ic_back"
-                android:elevation="@dimen/_50sdp"
-                android:layout_margin="@dimen/_5sdp"
-                android:padding="10dp"
                 android:layout_gravity="center_vertical"
-                android:contentDescription="Back" />
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/bg_icon_btn_white_circle"
+                android:contentDescription="Back"
+                android:elevation="@dimen/_50sdp"
+                android:padding="10dp"
+                android:src="@drawable/ic_back"
+                android:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:text="Vacation Mode"
+                android:textColor="@color/white"
                 android:textSize="19sp"
-                android:textStyle="bold"
-                android:textColor="#1A2F3A"
-                />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <!-- ── HERO SCENE ── -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="220dp"

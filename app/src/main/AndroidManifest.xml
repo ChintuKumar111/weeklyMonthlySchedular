@@ -39,14 +39,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
         </activity>
+
         <activity
             android:name=".ui.activity.InvoicesDownloadActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.SelectLocationActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

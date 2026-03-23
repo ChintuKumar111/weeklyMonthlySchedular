@@ -97,12 +97,15 @@ class SelectLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap.setOnCameraMoveStartedListener {
             binding.tvSelectedAddress.text = "Fetching address..."
+            binding.tvLatLng.visibility = View.GONE
         }
 
         mMap.setOnCameraIdleListener {
             selectedLatLng = mMap.cameraPosition.target
             selectedLatLng?.let {
                 viewModel.fetchAddress(it)
+                binding.tvLatLng.text = "${String.format("%.6f", it.latitude)}, ${String.format("%.6f", it.longitude)}"
+                binding.tvLatLng.visibility = View.VISIBLE
             }
         }
     }

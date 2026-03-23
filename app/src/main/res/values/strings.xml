@@ -189,7 +189,7 @@
 
     <!-- Profile Fragment -->
     <string name="personal_info">PERSONAL INFO</string>
-    <string name="save_changes">Save Changes  →</string>
+    <string name="save_changes">Save Changes </string>
     <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="dob">Date of Birth</string>
