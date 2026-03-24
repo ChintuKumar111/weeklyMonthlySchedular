@@ -17,8 +17,8 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
     val sliderData: LiveData<List<Banner>> = _sliderData
     private val _Home_comboOffers = MutableLiveData<List<HomeComboOffers>>()
     val homeComboOffers: LiveData<List<HomeComboOffers>> = _Home_comboOffers
-    private val _blogReports = MutableLiveData<List<HomeBlogs>>()
-    val blogReports: LiveData<List<HomeBlogs>> = _blogReports
+    private val _homeBlogReports = MutableLiveData<List<HomeBlogs>>()
+    val homeBlogReports: LiveData<List<HomeBlogs>> = _homeBlogReports
 
     private val _deliveryProducts = MutableLiveData<List<HomeProductDeliveryCalendar>?>()
     val deliveryProducts: LiveData<List<HomeProductDeliveryCalendar>?> = _deliveryProducts
@@ -62,12 +62,12 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
             try {
                 val response = repository.getBlogReports()
                 if (response.isSuccessful && !response.body().isNullOrEmpty()) {
-                    _blogReports.value = response.body()
+                    _homeBlogReports.value = response.body()
                 } else {
-                    _blogReports.value = getFallbackBlogReports()
+                    _homeBlogReports.value = getFallbackBlogReports()
                 }
             } catch (e: Exception) {
-                _blogReports.value = getFallbackBlogReports()
+                _homeBlogReports.value = getFallbackBlogReports()
             }
         }
     }

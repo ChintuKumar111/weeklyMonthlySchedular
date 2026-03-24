@@ -6,13 +6,16 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.data.model.ProductDetails
 import com.example.freshyzoappmodule.data.model.ProductMedia
 import com.example.freshyzoappmodule.data.objects.FaqManager
@@ -56,6 +59,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         setupClickListeners()
         observeViewModel()
         displayProductData(intentProduct)
+        setupReviews()
     }
 
     override fun onPause() {
@@ -129,35 +133,6 @@ class ProductDetailsActivity : AppCompatActivity() {
     //  Display
     // ─────────────────────────────────────────────────────────────
 
-//    private fun displayProductData(product: Product) {
-//        with(binding) {
-//            tvProductName.text  = product.productName
-//            tvDescription.text  = product.description
-//            tvSellingPrice.text = "₹${product.productPrice}"
-//            tvVolume.text       = product.sizes.getOrNull(0)?.label ?: ""
-//            tvVolume.isSelected = true
-//
-//            tvMrp.apply {
-//                text       = "₹${product.dairyMrp}"
-//                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-//            }
-//
-//            bindDiscountBadge(
-//                price = product.productPrice.toDoubleOrNull() ?: 0.0,
-//                mrp   = product.dairyMrp.toDoubleOrNull()    ?: 0.0
-//            )
-//
-////            Glide.with(this@ProductDetailsActivity)
-////                .load(product.imageUrl)
-////                //.into(ivProductImage)
-//            // Assuming your Product model has an 'images' list and a 'videoUrl'
-//            val images = listOf(product.imageUrl) // Start with the main image
-//            val videoUrl = null // Replace with product.videoUrl if available in your API
-//
-//            setupMediaSlider(images, videoUrl)
-//
-//        }
-//    }
     private fun displayProductData(productDetails: ProductDetails) {
         with(binding) {
             tvProductName.text  = productDetails.productName
@@ -229,6 +204,42 @@ class ProductDetailsActivity : AppCompatActivity() {
             binding.tvDiscount.visibility = View.GONE
         }
     }
+
+    private fun setupReviews() {
+        val reviews = listOf(
+            ReviewData("Sachin", "S", "Highly recommended! The quality is top-notch and the delivery is always on time. Best A2 milk in town.", "Feb 18, 2026", "★ 5.0", "18"),
+            ReviewData("Jay", "J", "Very fresh and creamy. I've switched from regular packets to Freshyzo and the difference is amazing.", "Feb 16, 2026", "★ 4.9", "12"),
+            ReviewData("Prakash", "P", "Great service! The app is easy to use and the subscription model is very convenient for daily needs.", "Feb 14, 2026", "★ 4.8", "9")
+        )
+
+        val reviewContainers = listOf(
+            binding.root.findViewById<View>(R.id.llReviewContainer).run {
+                val linearLayout = this as android.widget.LinearLayout
+                listOf(linearLayout.getChildAt(0), linearLayout.getChildAt(1), linearLayout.getChildAt(2))
+            }
+        ).flatten()
+
+        reviews.forEachIndexed { index, review ->
+            if (index < reviewContainers.size) {
+                val view = reviewContainers[index]
+                view.findViewById<TextView>(R.id.tvReviewerName).text = review.name
+                view.findViewById<TextView>(R.id.tvAvatar).text = review.avatar
+                view.findViewById<TextView>(R.id.tvReviewText).text = review.text
+                view.findViewById<TextView>(R.id.tvReviewDate).text = review.date
+                view.findViewById<TextView>(R.id.tvStarRating).text = review.rating
+                view.findViewById<TextView>(R.id.btnHelpfulYes).text = "👍 ${review.helpfulCount}"
+            }
+        }
+    }
+
+    data class ReviewData(
+        val name: String,
+        val avatar: String,
+        val text: String,
+        val date: String,
+        val rating: String,
+        val helpfulCount: String
+    )
 
     // ─────────────────────────────────────────────────────────────
     //  Share

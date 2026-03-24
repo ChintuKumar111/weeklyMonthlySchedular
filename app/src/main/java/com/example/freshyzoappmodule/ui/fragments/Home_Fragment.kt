@@ -35,6 +35,7 @@ import com.example.freshyzoappmodule.ui.adapter.CalendarProductDeliveryDetailsAd
 import com.example.freshyzoappmodule.ui.adapter.ImageSliderAdapter
 import com.example.freshyzoappmodule.ui.widget.PermissionManager
 import com.example.freshyzoappmodule.ui.viewmodel.HomeFragmentViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class Home_Fragment : Fragment() {
@@ -105,6 +106,19 @@ class Home_Fragment : Fragment() {
             }
         }
 
+        binding.llWallet.setOnClickListener {
+             val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            bottomNav?.selectedItemId = R.id.nav_wallet
+        }
+
+        binding.imgWallet.setOnClickListener {
+            findNavController().navigate(R.id.nav_wallet)
+        }
+
+        binding.tvWalletMoney.setOnClickListener {
+            findNavController().navigate(R.id.nav_wallet)
+        }
+
         binding.root.findViewById<View>(R.id.testReportCard)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_testReportFragment)
         }
@@ -164,7 +178,7 @@ class Home_Fragment : Fragment() {
         viewModel.homeComboOffers.observe(viewLifecycleOwner) { combos ->
             comboAdapter.updateList(combos)
         }
-        viewModel.blogReports.observe(viewLifecycleOwner) { blogs ->
+        viewModel.homeBlogReports.observe(viewLifecycleOwner) { blogs ->
             blogAdapter.updateList(blogs)
         }
         viewModel.deliveryProducts.observe(viewLifecycleOwner) { products ->

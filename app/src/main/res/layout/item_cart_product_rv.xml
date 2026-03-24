@@ -117,15 +117,15 @@
             <LinearLayout
                 android:id="@+id/layoutQty3"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="25dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="@drawable/bg">
 
                 <ImageButton
                     android:id="@+id/btnMinus"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/ic_minus"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/gray_900"
@@ -143,8 +143,8 @@
 
                 <ImageButton
                     android:id="@+id/btnPlus"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:src="@drawable/ic_plus"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/primary"
