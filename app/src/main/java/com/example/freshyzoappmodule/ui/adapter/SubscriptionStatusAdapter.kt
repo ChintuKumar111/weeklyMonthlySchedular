@@ -52,6 +52,16 @@ class SubscriptionStatusAdapter(
 
         applyStatusStyle(holder, item.status)
 
+        // Show/Hide buttons based on status
+        val status = item.status.lowercase(Locale.getDefault())
+        if (status == "active") {
+            holder.btnPause.visibility = View.VISIBLE
+            holder.btnCancel.visibility = View.VISIBLE
+        } else {
+            holder.btnPause.visibility = View.GONE
+            holder.btnCancel.visibility = View.GONE
+        }
+
         holder.btnPause.setOnClickListener {
             onPauseClick(item)
         }

@@ -106,17 +106,9 @@ class Home_Fragment : Fragment() {
             }
         }
 
+        // Use the activity's helper to ensure Bottom Navigation syncs correctly
         binding.llWallet.setOnClickListener {
-             val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
-            bottomNav?.selectedItemId = R.id.nav_wallet
-        }
-
-        binding.imgWallet.setOnClickListener {
-            findNavController().navigate(R.id.nav_wallet)
-        }
-
-        binding.tvWalletMoney.setOnClickListener {
-            findNavController().navigate(R.id.nav_wallet)
+            (activity as? HomeActivity)?.navigateToTab(R.id.nav_wallet)
         }
 
         binding.root.findViewById<View>(R.id.testReportCard)?.setOnClickListener {
@@ -189,15 +181,15 @@ class Home_Fragment : Fragment() {
     private fun setupCategoryClicks() {
         binding.allProductCard.setOnClickListener {
             val bundle = Bundle().apply { putInt("category_id", -1) }
-            findNavController().navigate(R.id.nav_product, bundle)
+            (activity as? HomeActivity)?.navigateToTab(R.id.nav_product, bundle)
         }
         binding.milkProductCard.setOnClickListener {
             val bundle = Bundle().apply { putInt("category_id", 2) }
-            findNavController().navigate(R.id.nav_product, bundle)
+            (activity as? HomeActivity)?.navigateToTab(R.id.nav_product, bundle)
         }
         binding.milkCard.setOnClickListener {
             val bundle = Bundle().apply { putInt("category_id", 1) }
-            findNavController().navigate(R.id.nav_product, bundle)
+            (activity as? HomeActivity)?.navigateToTab(R.id.nav_product, bundle)
         }
     }
 

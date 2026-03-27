@@ -1,11 +1,10 @@
 package com.example.freshyzoappmodule.ui.activity
-
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.freshyzoappmodule.R
@@ -29,7 +28,6 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
     private lateinit var navController: NavController
     private var cachedCartUiState: CartUiState? = null
     private var isFromSearch: Boolean = false
-
     // Signal for Fragment guide readiness
     var onActivityGuideComplete: (() -> Unit)? = null
 
@@ -37,16 +35,13 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 // hash key
 //        val helper = AppHashGenerator(this)
 //        val hashList = helper.getAppSignatures()
 //
 //        for (hash in hashList) {
 //            Log.d("AppHash", hash)
-//        }
-        
-        
+//
         cartRepository = CartRepository(this)
         cachedCartUiState = cartRepository.getCartState()
 
@@ -57,12 +52,11 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
 
         navController = navHostFragment.navController
         binding.bottomNavigation.setupWithNavController(navController)
-
         // Initialize visibility logic
         setupNavigationVisibility()
 
         binding.cartPreview.setOnViewCartClickListener {
-            binding.bottomNavigation.selectedItemId = R.id.nav_cart
+            navigateToTab(R.id.nav_cart)
         }
         handleIntent(intent)
 
@@ -88,7 +82,18 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             showMainAppTour()
         }, 1500)
     }
-
+    fun navigateToTab(itemId: Int, args: Bundle? = null) {
+        val options = NavOptions.Builder()
+            .setLaunchSingleTop(true)
+            .setRestoreState(true)
+            .setPopUpTo(
+                navController.graph.startDestinationId,
+                inclusive = false,
+                saveState = true
+            )
+            .build()
+        navController.navigate(itemId, args, options)
+    }
     private fun showMainAppTour() {
         val guideManager = AppGuideManager(this)
         val prefKey = "main_app_tour_v11" // Incremented key
@@ -118,7 +123,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
                 // 3. Combine and start sequence
                 guideManager.startGuide(prefKey, homeItems + bottomNavItems) {
                     // ON COMPLETION: Navigate back to Home Fragment
-                    binding.bottomNavigation.selectedItemId = R.id.nav_home
+                    navigateToTab(R.id.nav_home)
                 }
             },
             onSkip = {
@@ -142,7 +147,6 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             updateCartPreviewVisibility(destination.id)
         }
     }
-
     private fun toggleViewVisibility(view: View, show: Boolean) {
         val translationOffset = 48f * resources.displayMetrics.density // 48dp slide offset
 
@@ -173,13 +177,11 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
             }
         }
     }
-
     override fun onResume() {
         super.onResume()
         cachedCartUiState = cartRepository.getCartState()
         updateCartPreviewVisibility(navController.currentDestination?.id)
     }
-
     private fun updateCartPreviewVisibility(destinationId: Int?) {
         val state = cachedCartUiState
         val shouldShowCart = state != null && state.itemsCount > 0 && when (destinationId) {
@@ -211,7 +213,7 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
     private fun handleIntent(intent: Intent?) {
         isFromSearch = intent?.getBooleanExtra("FROM_SEARCH", false) == true
         if (intent?.getBooleanExtra("OPEN_CART", false) == true) {
-            binding.bottomNavigation.selectedItemId = R.id.nav_cart
+            navigateToTab(R.id.nav_cart)
         }
     }
 

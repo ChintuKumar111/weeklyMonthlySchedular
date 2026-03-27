@@ -162,6 +162,7 @@ class AccountFragment : Fragment() {
         binding.root.findViewById<View>(R.id.tabInvoice)?.setOnClickListener {
             startActivity(Intent(requireContext(), InvoicesDownloadActivity::class.java))
         }
+
         binding.root.findViewById<View>(R.id.tabSubscription)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_subscriptionFragment)
             }

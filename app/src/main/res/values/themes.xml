@@ -21,11 +21,11 @@
 
     <style name="Theme.SimpleApiCalling" parent="Base.Theme.SimpleApiCalling" />
 
-    <!-- Enhanced Theme for HomeActivity to eliminate white flash -->
+    <!-- Enhanced Theme for HomeActivity -->
     <style name="Theme.HomeActivity" parent="Base.Theme.SimpleApiCalling">
         <item name="android:windowBackground">@color/white</item>
-        <!-- This makes the handover seamless by not showing a blank preview -->
-        <item name="android:windowIsTranslucent">true</item>
+        <!-- Removed windowIsTranslucent to prevent layout issues with Razorpay and system bars -->
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 

@@ -198,9 +198,9 @@ class ProductSubscribeActivity : AppCompatActivity() {
             viewModel.selectFrequency(DeliveryFrequency.WEEKLY)
         }
 
-        binding.optionMonthly.setOnClickListener { 
-            viewModel.selectFrequency(DeliveryFrequency.MONTHLY)
-        }
+//        binding.optionMonthly.setOnClickListener {
+//            viewModel.selectFrequency(DeliveryFrequency.MONTHLY)
+//        }
 
         binding.btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -248,7 +248,7 @@ class ProductSubscribeActivity : AppCompatActivity() {
             DeliveryFrequency.DAILY to binding.optionDaily,
             DeliveryFrequency.ALTERNATE to binding.optionAlternate,
             DeliveryFrequency.WEEKLY to binding.optionWeekly,
-            DeliveryFrequency.MONTHLY to binding.optionMonthly
+//            DeliveryFrequency.MONTHLY to binding.optionMonthly
         )
 
         optionMap.forEach { (frequency, view) ->

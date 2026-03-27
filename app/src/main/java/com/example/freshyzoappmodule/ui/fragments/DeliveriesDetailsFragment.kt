@@ -12,13 +12,11 @@ import com.example.freshyzoappmodule.databinding.FragmentDeliveriesDetailsBindin
 import com.example.freshyzoappmodule.ui.adapter.UserDeliveryAdapter
 import com.example.freshyzoappmodule.ui.viewmodel.DeliveryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 class DeliveriesDetailsFragment : Fragment() {
     private var _binding: FragmentDeliveriesDetailsBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: UserDeliveryAdapter
     private val viewModel: DeliveryViewModel by viewModel()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +37,7 @@ class DeliveriesDetailsFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
-//    private fun setupViewModel() {
-//        val apiService = RetrofitClient.api
-//        val repository = DeliveryRepository(apiService)
-//        val factory = DeliveryViewModelFactory(repository)
-//        viewModel = ViewModelProvider(this, factory)[DeliveryViewModel::class.java]
-//    }
+
     private fun setupRecyclerView() {
         adapter = UserDeliveryAdapter(requireContext()) { delivery ->
             Toast.makeText(

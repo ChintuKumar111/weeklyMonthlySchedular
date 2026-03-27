@@ -22,7 +22,6 @@ class HomeFragmentViewModel(private val repository: SliderRepository) : ViewMode
 
     private val _deliveryProducts = MutableLiveData<List<HomeProductDeliveryCalendar>?>()
     val deliveryProducts: LiveData<List<HomeProductDeliveryCalendar>?> = _deliveryProducts
-
     // image slider section on home screen
     fun fetchSlider() {
         viewModelScope.launch {

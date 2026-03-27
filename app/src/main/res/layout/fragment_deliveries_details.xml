@@ -27,7 +27,6 @@
                 android:background="@drawable/bg_icon_btn_white_circle"
                 android:src="@drawable/ic_arrow_back"
                 android:elevation="@dimen/_50sdp"
-                android:layout_margin="@dimen/_5sdp"
                 android:padding="10dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="Back" />
