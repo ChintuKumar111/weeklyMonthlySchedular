@@ -85,6 +85,10 @@
             android:id="@+id/action_nav_account_to_referralFragment"
             app:destination="@id/referralFragment" />
 
+        <action
+            android:id="@+id/action_nav_account_to_nav_wallet"
+            app:destination="@id/nav_wallet" />
+
 
     </fragment>
 

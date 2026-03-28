@@ -169,7 +169,7 @@ class OtpFragment : Fragment() {
             requireContext(),
             smsVerificationReceiver,
             intentFilter,
-            ContextCompat.RECEIVER_EXPORTED
+            ContextCompat.RECEIVER_NOT_EXPORTED
         )
     }
 

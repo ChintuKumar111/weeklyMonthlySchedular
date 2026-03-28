@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentWalletBinding
 import com.razorpay.Checkout
@@ -33,6 +34,7 @@ class WalletFragment : Fragment(), PaymentResultListener {
 
         Checkout.preload(requireContext())
 
+        setupToolbar()
         setupRechargeButton()
         setupQuickAmountChips()
         startPulseDot()
@@ -51,6 +53,13 @@ class WalletFragment : Fragment(), PaymentResultListener {
                 binding.btnRecharge.isEnabled = false
                 binding.btnRecharge.alpha = 0.5f
             }
+        }
+    }
+
+    private fun setupToolbar() {
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back) // Ensure this drawable exists
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

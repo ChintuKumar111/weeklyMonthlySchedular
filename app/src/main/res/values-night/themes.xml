@@ -1,12 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Base.Theme.SimpleApiCalling" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.SimpleApiCalling" parent="Theme.Material3.Light.NoActionBar">
 
         <!-- Status bar color -->
         <item name="android:statusBarColor">@android:color/transparent</item>
 
-<!--        &lt;!&ndash; White icons &ndash;&gt;-->
-<!--        <item name="android:windowLightStatusBar">false</item>-->
+        <!-- Force light status bar icons even in night values if they are loaded -->
+        <item name="android:windowLightStatusBar">true</item>
 
     </style>
 

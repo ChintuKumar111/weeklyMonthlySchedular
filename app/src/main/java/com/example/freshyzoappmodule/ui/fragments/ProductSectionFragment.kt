@@ -86,8 +86,8 @@ class ProductSectionFragment : Fragment() {
             ProductCategory(1, "Milk", R.drawable.milk_),
             ProductCategory(2, "Ghee", R.drawable.ghee),
             ProductCategory(3, "Dahi", R.drawable.dahi),
-            ProductCategory(4, "Paneer", R.drawable.paneer),
-            ProductCategory(6, "Khowa", R.drawable.khowa),
+            ProductCategory(4, "Khowa", R.drawable.khowa),
+            ProductCategory(5, "Paneer", R.drawable.paneer),
         )
         categoryAdapter = CategoryAdapter(categories) { category, _ ->
             scrollToCategory(category.id)

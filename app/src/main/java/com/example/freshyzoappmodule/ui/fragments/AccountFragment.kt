@@ -168,8 +168,7 @@ class AccountFragment : Fragment() {
             }
         
         binding.root.findViewById<View>(R.id.tabPaymentsAndWallet)?.setOnClickListener {
-            val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_navigation)
-            bottomNav?.selectedItemId = R.id.nav_wallet
+            findNavController().navigate(R.id.action_nav_account_to_nav_wallet)
         }
 
         binding.root.findViewById<View>(R.id.tabReferAndEarn)?.setOnClickListener {

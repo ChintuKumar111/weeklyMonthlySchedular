@@ -61,8 +61,8 @@ val ProductDetails.categoryId: Int
             "milk" in name -> 1
             "ghee" in name -> 2
             "dahi" in name -> 3
-            "paneer" in name -> 4
-            "khoya" in name || "khowa" in name -> 6
+            "khowa" in name -> 4
+            "paneer" in name -> 5
             else -> 0   // important
         }
     }
