@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/white">
 
-    <!-- Fragment Container -->
+    <!-- Fragment Container -->z
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
         android:name="androidx.navigation.fragment.NavHostFragment"

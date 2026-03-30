@@ -3,6 +3,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
@@ -33,8 +34,13 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Enable Edge-to-Edge for consistency across all device types (notches, punch-holes, etc.)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 // hash key
 //        val helper = AppHashGenerator(this)
 //        val hashList = helper.getAppSignatures()
