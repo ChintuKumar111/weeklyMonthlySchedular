@@ -407,7 +407,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ══════════════════════════════════════ -->
         <!--    DAY-WISE QUANTITY CARD              -->
         <!--    Visible only for Weekly   -->
         <!-- ══════════════════════════════════════ -->
