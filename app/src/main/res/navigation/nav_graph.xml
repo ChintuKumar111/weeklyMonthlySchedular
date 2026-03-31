@@ -85,9 +85,10 @@
             android:id="@+id/action_nav_account_to_referralFragment"
             app:destination="@id/referralFragment" />
 
+        <!-- Navigation to Wallet as a sub-fragment from Account -->
         <action
-            android:id="@+id/action_nav_account_to_nav_wallet"
-            app:destination="@id/nav_wallet" />
+            android:id="@+id/action_nav_account_to_walletFragment_sub"
+            app:destination="@id/walletFragment_sub" />
 
 
     </fragment>
@@ -139,11 +140,12 @@
         android:label="complaintAssistance"
         tools:layout="@layout/fragment_complaints_assistance" />
 
+    <!-- wallet as sub fragment -->
     <fragment
-        android:id="@+id/paymentAndWalletFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.PaymentAndWalletFragment"
+        android:id="@+id/walletFragment_sub"
+        android:name="com.example.freshyzoappmodule.ui.fragments.WalletFragment"
         android:label="Payments &amp; Wallet"
-        tools:layout="@layout/fragment_payment_and_wallet" />
+        tools:layout="@layout/fragment_wallet" />
 
     <fragment
         android:id="@+id/referralFragment"

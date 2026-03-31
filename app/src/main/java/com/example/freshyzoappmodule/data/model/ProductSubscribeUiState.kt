@@ -14,5 +14,18 @@ data class ProductSubscribeUiState(
     val startDate: String = "",
     val shortDate: String = "",
     val deliveryBeginsText: String = "",
-    val footerBannerText: String = ""
+    val footerBannerText: String = "",
+    
+    // Price Summary Fields
+    val basePrice: Int = 0,
+    val mrpPrice: Int = 0,
+    val packetsPerDelivery: Int = 0,
+    val deliveriesPerMonth: Int = 0,
+    val subtotalMrp: Double = 0.0,
+    val productDiscount: Double = 0.0,
+    val subscriptionDiscount: Double = 0.0,
+    val totalMonthly: Double = 0.0,
+    val perDeliveryAvg: Double = 0.0,
+    val perPacketAvg: Double = 0.0,
+    val selectedInterval: Int = 1,
 )

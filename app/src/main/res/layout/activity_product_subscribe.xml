@@ -313,6 +313,100 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+
+        <!-- ══════════════════════════════════════ -->
+        <!--           START DATE CARD              -->
+        <!-- ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="START DATE"
+                    android:textColor="#6B7280"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.10"
+                    android:layout_marginBottom="10dp" />
+
+                <RelativeLayout
+                    android:id="@+id/layoutDateSelector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="13dp"
+                    android:background="@drawable/date_selector_bg"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/tvMonthDate"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/calendar" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="10dp">
+
+                            <TextView
+                                android:id="@+id/tvSelectedDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="February 24, 2026"
+                                android:textColor="#1a1a2e"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvDeliveryBegins"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Delivery begins Tuesday"
+                                android:textColor="#6B7280"
+                                android:textSize="10sp"
+                                android:layout_marginTop="1dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/btnEditDate"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/baseline_edit_24"
+                        android:tint="@color/primary"
+                        android:contentDescription="Edit" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <!-- ══════════════════════════════════════ -->
         <!--    DAY-WISE QUANTITY CARD              -->
         <!--    Visible only for Weekly   -->
@@ -327,7 +421,7 @@
             android:visibility="gone"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="#FFFFFF">
+            app:cardBackgroundColor="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -543,7 +637,7 @@
                             android:id="@+id/tvQtySub"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1 packet × daily = ~30/month"
+                            android:text="1 packet × daily"
                             android:textColor="#6B7280"
                             android:textSize="11sp"
                             android:layout_marginTop="2dp" />
@@ -595,8 +689,14 @@
         </androidx.cardview.widget.CardView>
 
         <!-- ══════════════════════════════════════ -->
-        <!--           START DATE CARD              -->
+        <!--           PRICE SUMMARY CARD           -->
         <!-- ══════════════════════════════════════ -->
+
+
+        <!-- ══════════════════════════════════════ -->
+        <!--           INFO BANNER                  -->
+        <!-- ══════════════════════════════════════ -->
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -608,88 +708,157 @@
             app:cardBackgroundColor="#FFFFFF">
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg"
+                android:backgroundTint="@color/white"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="START DATE"
-                    android:textColor="#6B7280"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.10"
-                    android:layout_marginBottom="10dp" />
-
-                <RelativeLayout
-                    android:id="@+id/layoutDateSelector"
+                <!-- ── Header Row ── -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="13dp"
-                    android:background="@drawable/date_selector_bg"
-                    android:clickable="true"
-                    android:focusable="true">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:letterSpacing="0.05"
+                        android:text="MONTHLY PRICE SUMMARY"
+                        android:textColor="#6B7280"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- ── Price per packet ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Price per packet"
+                        android:textColor="#5A7A65"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/tvPricePerPacket"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:text="₹89"
+                        android:textColor="#1A2E20"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        <ImageView
-                            android:id="@+id/tvMonthDate"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/calendar" />
+                </LinearLayout>
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginStart="10dp">
+                <!-- ── Packets per delivery ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tvSelectedDate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="February 24, 2026"
-                                android:textColor="#1a1a2e"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total Packets"
+                        android:textColor="#5A7A65"
+                        android:textSize="11sp" />
 
-                            <TextView
-                                android:id="@+id/tvDeliveryBegins"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Delivery begins Tuesday"
-                                android:textColor="#6B7280"
-                                android:textSize="10sp"
-                                android:layout_marginTop="1dp" />
+                    <TextView
+                        android:id="@+id/tvPackets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textColor="#1A2E20"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        </LinearLayout>
+                </LinearLayout>
 
-                    </LinearLayout>
+                <!-- ── Deliveries/month ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/btnEditDate"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/baseline_edit_24"
-                        android:tint="@color/primary"
-                        android:contentDescription="Edit" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total Deliveries"
+                        android:textColor="#5A7A65"
+                        android:textSize="11sp" />
 
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tvDeliveriesPerMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30 days"
+                        android:textColor="#1A2E20"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <!-- ── Divider ── -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="#DDEEE5" />
+
+                <!-- ── Total / Month Row ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_total_row"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="14dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total"
+                        android:textColor="#1A2E20"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTotalMonthly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹4,005"
+                        android:textColor="#27AE60"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ══════════════════════════════════════ -->
-        <!--           INFO BANNER                  -->
-        <!-- ══════════════════════════════════════ -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

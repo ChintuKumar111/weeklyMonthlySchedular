@@ -168,7 +168,8 @@ class AccountFragment : Fragment() {
             }
         
         binding.root.findViewById<View>(R.id.tabPaymentsAndWallet)?.setOnClickListener {
-            findNavController().navigate(R.id.action_nav_account_to_nav_wallet)
+            // Navigate to Wallet as a sub-fragment to hide BottomNav and show Back Button
+            findNavController().navigate(R.id.action_nav_account_to_walletFragment_sub)
         }
 
         binding.root.findViewById<View>(R.id.tabReferAndEarn)?.setOnClickListener {

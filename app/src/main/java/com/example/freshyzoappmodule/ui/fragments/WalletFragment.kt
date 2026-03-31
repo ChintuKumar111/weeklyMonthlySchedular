@@ -57,9 +57,23 @@ class WalletFragment : Fragment(), PaymentResultListener {
     }
 
     private fun setupToolbar() {
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back) // Ensure this drawable exists
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+        val currentDestinationId = findNavController().currentDestination?.id
+        
+        // Show back button only if we are in the "sub" destination (opened from Account)
+        if (currentDestinationId == R.id.walletFragment_sub) {
+            binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+            binding.toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+            // Adjust title margin if back icon is present
+            val titleView = binding.toolbar.getChildAt(0) as? android.widget.TextView
+            titleView?.let {
+                val params = it.layoutParams as? ViewGroup.MarginLayoutParams
+                params?.marginStart = 0
+                it.layoutParams = params
+            }
+        } else {
+            binding.toolbar.navigationIcon = null
         }
     }
 

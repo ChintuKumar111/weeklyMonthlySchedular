@@ -1,5 +1,4 @@
 package com.example.freshyzoappmodule.ui.activity
-
 import com.example.freshyzoappmodule.helper.CustomDatePickerDialog
 import android.graphics.Paint
 import android.os.Build
@@ -21,6 +20,7 @@ import com.example.freshyzoappmodule.extensions.variant
 import com.example.freshyzoappmodule.helper.WeeklyDaySelectorViewHolder
 import com.example.freshyzoappmodule.ui.viewmodel.ProductDetailsViewModel
 import com.example.freshyzoappmodule.ui.viewmodel.ProductSubscribeViewModel
+import java.util.Locale
 
 class ProductSubscribeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductSubscribeBinding
@@ -43,7 +43,6 @@ class ProductSubscribeActivity : AppCompatActivity() {
         setupClickListeners()
         initializeProduct()
         setupDayRowClicks()
-        viewModel.setBasePrice(productDetails.productPrice.toInt())
     }
 
     private fun observeViewModel() {
@@ -78,8 +77,12 @@ class ProductSubscribeActivity : AppCompatActivity() {
             this.productDetails = intentProductDetails
             vm.setProduct(intentProductDetails)
             displayProductData(intentProductDetails)
+            
+            val sellingPrice = intentProductDetails.productPrice.toIntOrNull() ?: 0
+            val mrp = intentProductDetails.dairyMrp.toIntOrNull() ?: 0
+            viewModel.setPrices(sellingPrice, mrp)
+            
         } else {
-            // Handle cases where product is missing - maybe finish the activity
             finish()
             return
         }
@@ -167,6 +170,18 @@ class ProductSubscribeActivity : AppCompatActivity() {
                 binding.cardDayQty.visibility = View.GONE
                 binding.cardSimpleQty.visibility = View.VISIBLE
                 binding.cardIntervalOptions.visibility = View.VISIBLE
+                
+                // Sync RadioGroup with state
+                val checkedId = when (state.selectedInterval) {
+                    0 -> R.id.radioEveryDay
+                    1 -> R.id.radioEveryAlternateDay
+                    2 -> R.id.radioEvery2Days
+                    3 -> R.id.radioEvery3Days
+                    else -> R.id.radioEveryAlternateDay
+                }
+                if (binding.radioGroupInterval.checkedRadioButtonId != checkedId) {
+                    binding.radioGroupInterval.check(checkedId)
+                }
             }
         }
 
@@ -174,6 +189,33 @@ class ProductSubscribeActivity : AppCompatActivity() {
         state.weeklyDayStates.forEachIndexed { index, day ->
             applyDayRowUI(index, day)
         }
+        
+        // Update Price Summary UI
+        renderPriceSummary(state)
+    }
+
+    private fun renderPriceSummary(state: ProductSubscribeUiState) {
+        val summary = binding
+
+        summary.tvPricePerPacket.text = "₹${state.basePrice}"
+
+        // Logic for total packets display
+        if (state.selectedFrequency == DeliveryFrequency.WEEKLY) {
+            // Sum up quantities of all "ON" days
+            val totalWeeklyQty = state.weeklyDayStates
+                .filter { it.isOn }
+                .sumOf { it.qty }
+
+            summary.tvPackets.text = "$totalWeeklyQty pkt/week"
+        } else {
+            // Standard behavior for Daily/Alternate
+            summary.tvPackets.text = "${state.packetsPerDelivery} pkt"
+        }
+
+        summary.tvDeliveriesPerMonth.text = "${state.deliveriesPerMonth} days"
+
+        summary.tvTotalMonthly.text =
+            "₹${String.format(Locale.getDefault(), "%,.0f", state.totalMonthly)}"
     }
 
     private fun setupClickListeners() {
@@ -198,10 +240,6 @@ class ProductSubscribeActivity : AppCompatActivity() {
             viewModel.selectFrequency(DeliveryFrequency.WEEKLY)
         }
 
-//        binding.optionMonthly.setOnClickListener {
-//            viewModel.selectFrequency(DeliveryFrequency.MONTHLY)
-//        }
-
         binding.btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
@@ -216,6 +254,17 @@ class ProductSubscribeActivity : AppCompatActivity() {
 
         binding.btnSubscribeNow.setOnClickListener {
             showSuccessDialog("Subscription Successful!", "Your subscription has been successfully created.\nFresh delivery starts from ${viewModel.uiState.value?.startDate}")
+        }
+       
+        binding.radioGroupInterval.setOnCheckedChangeListener { _, checkedId ->
+            val interval = when (checkedId) {
+                R.id.radioEveryDay -> 0
+                R.id.radioEveryAlternateDay -> 1
+                R.id.radioEvery2Days -> 2
+                R.id.radioEvery3Days -> 3
+                else -> 1
+            }
+            viewModel.setInterval(interval)
         }
     }
 
@@ -248,7 +297,6 @@ class ProductSubscribeActivity : AppCompatActivity() {
             DeliveryFrequency.DAILY to binding.optionDaily,
             DeliveryFrequency.ALTERNATE to binding.optionAlternate,
             DeliveryFrequency.WEEKLY to binding.optionWeekly,
-//            DeliveryFrequency.MONTHLY to binding.optionMonthly
         )
 
         optionMap.forEach { (frequency, view) ->
@@ -283,11 +331,11 @@ class ProductSubscribeActivity : AppCompatActivity() {
             holder.btnPlus.isEnabled = true
 
             holder.tvDayQty.text = state.qty.toString()
-            holder.tvDayPrice.text = "₹${state.qty * 70}"   // or pass basePrice
+            holder.tvDayPrice.text = "₹${state.qty * viewModel.uiState.value!!.basePrice}"
             holder.tvDayPrice.setTextColor(
                 ContextCompat.getColor(this, R.color.green_dark)
             )
-
+            
         } else {
 
             holder.dayToggle.background =
@@ -308,8 +356,6 @@ class ProductSubscribeActivity : AppCompatActivity() {
             )
         }
     }
-
-
 }
 
 enum class DeliveryFrequency(val label: String) {

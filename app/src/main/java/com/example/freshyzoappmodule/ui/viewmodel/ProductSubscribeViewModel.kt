@@ -12,10 +12,9 @@ import java.util.Locale
 
 class ProductSubscribeViewModel : ViewModel() {
     private var basePrice: Int = 0
-
+    private var mrpPrice: Int = 0
     private val _uiState = MutableLiveData(ProductSubscribeUiState())
     val uiState: LiveData<ProductSubscribeUiState> = _uiState
-
     init {
         val calendar = Calendar.getInstance()
         // ✅ 8 AM Cut-off Logic
@@ -24,7 +23,6 @@ class ProductSubscribeViewModel : ViewModel() {
         }
         updateDate(calendar.time)
     }
-
     fun updateDate(date: Date) {
         val dateFormat = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         val dayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
@@ -38,10 +36,7 @@ class ProductSubscribeViewModel : ViewModel() {
     }
 
     fun updateDateSelection(formattedDate: String, dayName: String) {
-        // Since formattedDate comes from a helper, we might need to parse it back or just update labels
         val state = _uiState.value ?: ProductSubscribeUiState()
-
-        // Extracting Day/Month from formattedDate (assuming "dd MMMM yyyy")
         var displayShort = "📅"
         try {
             val date = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).parse(formattedDate)
@@ -66,13 +61,11 @@ class ProductSubscribeViewModel : ViewModel() {
         val current = _uiState.value ?: return
 
         val newDays = when (freq) {
-            // 🔥 WEEKLY → Select all days
             DeliveryFrequency.WEEKLY -> {
                 current.weeklyDayStates.map { day ->
                     day.copy(isOn = true, qty = if (day.qty == 0) 1 else day.qty)
                 }
             }
-            // 🔥 ALTERNATE → Select Mon Wed Fri Sun (index 0, 2, 4, 6)
             DeliveryFrequency.ALTERNATE -> {
                 current.weeklyDayStates.mapIndexed { index, day ->
                     if (index % 2 == 0) {
@@ -82,7 +75,6 @@ class ProductSubscribeViewModel : ViewModel() {
                     }
                 }
             }
-            // DAILY & MONTHLY → Don't touch days
             else -> current.weeklyDayStates
         }
 
@@ -108,8 +100,9 @@ class ProductSubscribeViewModel : ViewModel() {
         }
     }
 
-    fun setBasePrice(price: Int) {
-        basePrice = price
+    fun setPrices(sellingPrice: Int, mrp: Int) {
+        this.basePrice = sellingPrice
+        this.mrpPrice = mrp
         updateState(_uiState.value ?: ProductSubscribeUiState())
     }
 
@@ -146,9 +139,64 @@ class ProductSubscribeViewModel : ViewModel() {
         updateState(state.copy(weeklyDayStates = newDays))
     }
 
+    fun setInterval(interval: Int) {
+        val state = _uiState.value ?: return
+        updateState(state.copy(selectedInterval = interval))
+    }
+
     private fun updateState(state: ProductSubscribeUiState) {
+        // ✅ Logic for deliveries per month based on Interval gaps
+        val deliveriesPerMonth = when (state.selectedFrequency) {
+            DeliveryFrequency.DAILY -> 30
+            DeliveryFrequency.ALTERNATE -> {
+                // If interval is 0 (Every Day): 30 / (0+1) = 30 days
+                // If interval is 1 (Alt): 30 / (1+1) = 15 days
+                // If interval is 2 (Every 2 days): 30 / (2+1) = 10 days
+                // If interval is 3 (Every 3 days): 30 / (3+1) = 7.5 (approx 7)
+                30 / (state.selectedInterval + 1)
+            }
+            DeliveryFrequency.WEEKLY -> state.weeklyDayStates.count { it.isOn } * 4
+            DeliveryFrequency.MONTHLY -> 1
+        }
+
+        // Calculate Total Weekly Packets (Sum of all active days)
+        val totalWeeklyPackets = state.weeklyDayStates.filter { it.isOn }.sumOf { it.qty }
+
+        // Set packetsPerDelivery based on Frequency
+        val packetsPerDelivery = if (state.selectedFrequency == DeliveryFrequency.WEEKLY) {
+            totalWeeklyPackets
+        } else {
+            state.simpleQty
+        }
+
+        // Calculate total packets for the month
+        val totalPacketsMonth = if (state.selectedFrequency == DeliveryFrequency.WEEKLY) {
+            totalWeeklyPackets * 4
+        } else {
+            state.simpleQty * deliveriesPerMonth
+        }
+
+        val subtotalMrp = (mrpPrice * totalPacketsMonth).toDouble()
+        val subtotalSelling = (basePrice * totalPacketsMonth).toDouble()
+        val productDiscount = subtotalMrp - subtotalSelling
+        val subscriptionDiscount = subtotalSelling * 0.25
+        val totalMonthly = subtotalSelling - subscriptionDiscount
+
+        val perDeliveryAvg = if (deliveriesPerMonth > 0) totalMonthly / deliveriesPerMonth else 0.0
+        val perPacketAvg = if (totalPacketsMonth > 0) totalMonthly / totalPacketsMonth else 0.0
+
         val updated = state.copy(
-            totalPriceText = calculateTotal(state),
+            basePrice = basePrice,
+            mrpPrice = mrpPrice,
+            packetsPerDelivery = packetsPerDelivery,
+            deliveriesPerMonth = deliveriesPerMonth,
+            subtotalMrp = subtotalMrp,
+            productDiscount = productDiscount,
+            subscriptionDiscount = subscriptionDiscount,
+            totalMonthly = totalMonthly,
+            perDeliveryAvg = perDeliveryAvg,
+            perPacketAvg = perPacketAvg,
+            totalPriceText = "Subscribe @ ₹${String.format(Locale.getDefault(), "%,.0f", totalMonthly)}",
             daySummaryText = calculateSummary(state),
             simpleSummaryText = calculateSimpleSummary(state)
         )
@@ -161,14 +209,20 @@ class ProductSubscribeViewModel : ViewModel() {
 
         return when (state.selectedFrequency) {
             DeliveryFrequency.DAILY -> "$qty $unit × daily = ~${qty * 30}/month"
-            DeliveryFrequency.ALTERNATE -> "$qty $unit × alternate days = ~${qty * 15}/month"
+            DeliveryFrequency.ALTERNATE -> {
+                val intervalText = when(state.selectedInterval) {
+                    0 -> "every day"
+                    1 -> "alternate days"
+                    2 -> "every 2 days"
+                    3 -> "every 3 days"
+                    else -> "alternate days"
+                }
+                val totalMonth = qty * (30 / (state.selectedInterval + 1))
+                "$qty $unit × $intervalText = ~$totalMonth/month"
+            }
             DeliveryFrequency.MONTHLY -> "$qty $unit × monthly"
             else -> ""
         }
-    }
-
-    private fun calculateTotal(state: ProductSubscribeUiState): String {
-        return "Subscribe Now "
     }
 
     private fun calculateSummary(state: ProductSubscribeUiState): String {
