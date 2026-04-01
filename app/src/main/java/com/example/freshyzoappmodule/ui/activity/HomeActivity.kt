@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
@@ -151,8 +153,26 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
 
             // 2. Manage Cart Preview Visibility
             updateCartPreviewVisibility(destination.id)
+
+            // 3. Manage System Bars (Status Bar & Navigation Tray) for Wallet Fragment
+            val isWalletDestination = destination.id == R.id.nav_wallet || destination.id == R.id.walletFragment_sub
+            toggleSystemBars(!isWalletDestination)
         }
     }
+
+    private fun toggleSystemBars(show: Boolean) {
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        if (show) {
+            windowInsetsController?.show(WindowInsetsCompat.Type.systemBars())
+            windowInsetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
+        } else {
+            // Hide both status bar and navigation bar
+            windowInsetsController?.hide(WindowInsetsCompat.Type.systemBars())
+            // Allow system bars to be shown briefly with a swipe
+            windowInsetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
     private fun toggleViewVisibility(view: View, show: Boolean) {
         val translationOffset = 48f * resources.displayMetrics.density // 48dp slide offset
 

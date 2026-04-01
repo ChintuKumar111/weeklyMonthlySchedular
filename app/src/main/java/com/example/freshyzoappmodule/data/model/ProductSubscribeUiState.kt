@@ -15,7 +15,6 @@ data class ProductSubscribeUiState(
     val shortDate: String = "",
     val deliveryBeginsText: String = "",
     val footerBannerText: String = "",
-    
     // Price Summary Fields
     val basePrice: Int = 0,
     val mrpPrice: Int = 0,
