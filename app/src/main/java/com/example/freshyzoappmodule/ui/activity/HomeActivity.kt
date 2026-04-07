@@ -153,10 +153,30 @@ class HomeActivity : BaseActivityy() , PaymentResultListener {
 
             // 2. Manage Cart Preview Visibility
             updateCartPreviewVisibility(destination.id)
+            
+            // 🔥 RESTORE: Ensure system bars are shown when navigating normally
+            toggleSystemBars(true)
+        }
+    }
 
-            // 3. Manage System Bars (Status Bar & Navigation Tray) for Wallet Fragment
-            val isWalletDestination = destination.id == R.id.nav_wallet || destination.id == R.id.walletFragment_sub
-            toggleSystemBars(!isWalletDestination)
+    /**
+     * Toggles system bars (Status Bar & Navigation Tray) and Bottom Navigation.
+     * Use this before opening Razorpay and after it finishes.
+     */
+    fun setFullScreenMode(enabled: Boolean) {
+        toggleSystemBars(!enabled)
+        
+        // Hide/Show bottom navigation with animation
+        if (enabled) {
+            toggleViewVisibility(binding.bottomNavigation, false)
+        } else {
+            // Restore bottom nav only if we are in a top-level destination
+            val currentId = navController.currentDestination?.id
+            val isTopLevel = when (currentId) {
+                R.id.nav_home, R.id.nav_product, R.id.nav_wallet, R.id.nav_account, R.id.nav_cart -> true
+                else -> false
+            }
+            toggleViewVisibility(binding.bottomNavigation, isTopLevel)
         }
     }
 

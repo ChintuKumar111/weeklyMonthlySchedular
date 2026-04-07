@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_badge_pass"
-            android:text="3.6%"
+            android:text="3.8%"
             android:textColor="@color/primary_dark"
             android:textSize="10sp"
             android:textStyle="bold"

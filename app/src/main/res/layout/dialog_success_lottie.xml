@@ -17,10 +17,11 @@
         app:lottie_rawRes="@raw/success" />
 
     <TextView
+
         android:id="@+id/tvSuccessTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_25ssp"
         android:text="Order Placed!"
         android:textColor="@color/black"
         android:textSize="20sp"

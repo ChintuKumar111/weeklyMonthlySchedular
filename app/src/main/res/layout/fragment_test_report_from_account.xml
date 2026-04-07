@@ -399,7 +399,7 @@
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F7F2" />
 
                 <!-- Row 2: SNF (Green - in range) -->
-                <include layout="@layout/item_row_snf"
+                <include layout="@layout/item_row_snf_buffalo"
                     android:id="@+id/rowBufSNF" />
                 <!-- resultText = "8.9%" -->
 

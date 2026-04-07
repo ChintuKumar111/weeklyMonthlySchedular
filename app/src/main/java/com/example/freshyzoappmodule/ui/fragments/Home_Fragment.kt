@@ -114,6 +114,10 @@ class Home_Fragment : Fragment() {
         binding.root.findViewById<View>(R.id.testReportCard)?.setOnClickListener {
             findNavController().navigate(R.id.action_nav_account_to_testReportFragment)
         }
+        binding.root.findViewById<View>(R.id.btnTestReport)?.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_account_to_testReportFragment)
+        }
+
     }
 
     fun getTourItems(): List<AppGuideManager.GuideItem> {

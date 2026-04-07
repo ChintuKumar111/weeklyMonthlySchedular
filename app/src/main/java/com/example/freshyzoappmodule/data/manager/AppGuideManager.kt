@@ -83,7 +83,7 @@ class AppGuideManager(private val activity: Activity) {
         if (index >= items.size) {
             prefs.edit().putBoolean(prefKey, true).apply()
             isGuideRunning = false
-            activity.window.decorView.postDelayed({ onComplete?.invoke() }, 300)
+            showCompletionDialog(onComplete)
             return
         }
 
@@ -137,6 +137,26 @@ class AppGuideManager(private val activity: Activity) {
                 )
             }
         }
+    }
+
+    /**
+     * Shows a beautiful completion dialog at the end of the tour.
+     */
+    private fun showCompletionDialog(onComplete: (() -> Unit)?) {
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.dialog_tour_completed, null)
+        val dialog = AlertDialog.Builder(activity)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialogView.findViewById<MaterialButton>(R.id.btnFinishTour).setOnClickListener {
+            dialog.dismiss()
+            onComplete?.invoke()
+        }
+
+        dialog.show()
     }
 
     private fun scrollToViewIfNeeded(view: View, onReady: () -> Unit) {

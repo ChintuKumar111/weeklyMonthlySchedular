@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.freshyzoappmodule.R
 import com.example.freshyzoappmodule.databinding.FragmentWalletBinding
+import com.example.freshyzoappmodule.ui.activity.HomeActivity
 import com.razorpay.Checkout
 import com.razorpay.PaymentResultListener
 import org.json.JSONObject
@@ -79,6 +80,8 @@ class WalletFragment : Fragment(), PaymentResultListener {
 
     // ✅ Razorpay Payment Start
     private fun startPayment(amount: Int) {
+        // Hide bars before opening Razorpay
+        (activity as? HomeActivity)?.setFullScreenMode(true)
 
         val checkout = Checkout()
         checkout.setKeyID("rzp_test_RiOXIkbKD9FNa9")
@@ -100,12 +103,17 @@ class WalletFragment : Fragment(), PaymentResultListener {
             checkout.open(requireActivity(), options)
 
         } catch (e: Exception) {
+            // Restore bars if there's an error opening
+            (activity as? HomeActivity)?.setFullScreenMode(false)
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
         }
     }
 
     // ✅ Payment Success Callback
     override fun onPaymentSuccess(razorpayPaymentID: String?) {
+        // Restore bars
+        (activity as? HomeActivity)?.setFullScreenMode(false)
+        
         if (!isAdded || _binding == null) return
 
         Toast.makeText(requireContext(), "Payment Successful", Toast.LENGTH_SHORT).show()
@@ -118,6 +126,9 @@ class WalletFragment : Fragment(), PaymentResultListener {
 
     // ✅ Payment Error Callback
     override fun onPaymentError(code: Int, response: String?) {
+        // Restore bars
+        (activity as? HomeActivity)?.setFullScreenMode(false)
+
         if (!isAdded || _binding == null) return
 
         if (code == Checkout.PAYMENT_CANCELED) {
@@ -163,18 +174,24 @@ class WalletFragment : Fragment(), PaymentResultListener {
                 chips.forEach { it.isSelected = false }
                 chip.isSelected = true
                 binding.etAmount.setText(amounts[index].toString())
+                
+
             }
         }
     }
-
     // ✅ Pulse Animation
     private fun startPulseDot() {
         val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.pulse)
+
+
+
         binding.pulseDot.startAnimation(anim)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Ensure bars are restored if fragment is destroyed while checkout is open
+        (activity as? HomeActivity)?.setFullScreenMode(false)
         _binding = null
     }
 }
