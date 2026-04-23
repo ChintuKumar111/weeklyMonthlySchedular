@@ -1,0 +1,14 @@
+package com.shyamdairyfarm.user.data.repository
+
+import com.shyamdairyfarm.user.data.api.ApiService
+
+class SliderRepository(private val api: ApiService) {
+
+    suspend fun getSliderImages() = api.getSliderImages()
+
+    suspend fun getComboOffers() = api.getComboOffers()
+
+    suspend fun getBlogReports() = api.getBlogReports()
+
+    suspend fun getCalendarDeliveryDetails(date: String) = api.getCalendarDeliveryDetails(date)
+}

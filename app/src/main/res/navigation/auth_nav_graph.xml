@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/onboardingFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.OnboardingFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.OnboardingFragment"
         android:label="Onboarding"
         tools:layout="@layout/fragment_onboarding">
         <action
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.authFragment.LoginFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.authFragment.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/otpFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.authFragment.OtpFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.authFragment.OtpFragment"
         android:label="OTP"
         tools:layout="@layout/fragment_otp">
         <argument

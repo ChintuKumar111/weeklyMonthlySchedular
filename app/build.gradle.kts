@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.freshyzoappmodule"
+    namespace = "com.shyamdairyfarm.user"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.freshyzoappmodule"
+        applicationId = "com.shyamdairyfarm.user"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -52,9 +52,6 @@ android {
 
 dependencies {
 
-    // analytics
-    implementation("com.google.firebase:firebase-analytics-ktx")
-
     // Android Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -81,8 +78,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.9.0"))
+   //  Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation(libs.firebase.storage.ktx)
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth-ktx")
@@ -129,7 +128,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
     // Koin for Android
     implementation("io.insert-koin:koin-android:3.5.3")
-    implementation ("com.google.firebase:firebase-storage-ktx")
 
     // Dots Indicator
     implementation("com.tbuonomo:dotsindicator:5.1.0")

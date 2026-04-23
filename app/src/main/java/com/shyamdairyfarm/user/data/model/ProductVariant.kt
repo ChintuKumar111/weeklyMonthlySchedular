@@ -1,0 +1,12 @@
+package com.shyamdairyfarm.user.data.model
+
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+
+@Parcelize
+data class ProductVariant(
+    val label: String,
+    val price: Int,
+    val originalPrice: Int
+) : Parcelable

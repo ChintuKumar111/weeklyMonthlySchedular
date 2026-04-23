@@ -1,0 +1,294 @@
+package com.shyamdairyfarm.user.ui.activity
+
+import android.content.Intent
+import android.graphics.Color
+import android.os.Bundle
+import android.view.Gravity
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.shyamdairyfarm.user.R
+import com.shyamdairyfarm.user.data.model.CartUiState
+import com.shyamdairyfarm.user.data.model.PopularProductDetails
+import com.shyamdairyfarm.user.data.model.ProductDetails
+import com.shyamdairyfarm.user.data.repository.CartRepository
+import com.shyamdairyfarm.user.databinding.ActivitySearchBinding
+import com.shyamdairyfarm.user.extensions.id
+import com.shyamdairyfarm.user.ui.adapter.PopularProductAdapter
+import com.shyamdairyfarm.user.ui.adapter.ProductDetailsAdapter
+import com.shyamdairyfarm.user.ui.adapter.RecentSearchAdapter
+import com.shyamdairyfarm.user.ui.viewmodel.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.concurrent.thread
+
+class SearchActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySearchBinding
+    private lateinit var productDetailsAdapter: ProductDetailsAdapter
+    private lateinit var recentAdapter: RecentSearchAdapter
+    private val viewModel: SearchViewModel by viewModel()
+    private lateinit var cartRepository: CartRepository
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        binding = ActivitySearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        cartRepository = CartRepository(this)
+        setUpUI()
+        setupTextSwitcher()
+        setupPopularProducts()
+        setupRecentSearches()
+        setupSearchProducts()
+        loadInitialData()
+        observeViewModel()
+
+        binding.etSearch.addTextChangedListener { text ->
+            viewModel.onSearchQueryChanged(text.toString().trim())
+        }
+        binding.cartPreview.setOnViewCartClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("OPEN_CART", true)
+            intent.putExtra("FROM_SEARCH", true)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadCartState()
+        syncProductQuantities()
+    }
+
+    private fun syncProductQuantities() {
+        val sharedQuantities = cartRepository.getCartState()?.productQuantities ?: emptyMap()
+        productDetailsAdapter.setInitialQuantities(sharedQuantities)
+    }
+
+    private fun updateUIState(
+        list: List<ProductDetails>,
+        isLoading: Boolean,
+        query: String,
+        recentList: List<String>
+    ) {
+        when {
+            isLoading -> {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.rvSearch.visibility = View.GONE
+                binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility = View.GONE
+            }
+
+            query.isEmpty() -> {
+                binding.progressBar.visibility = View.GONE
+                binding.rvSearch.visibility = View.GONE
+                binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility =
+                    if (recentList.isNotEmpty()) View.VISIBLE else View.GONE
+            }
+
+            list.isEmpty() -> {
+                binding.progressBar.visibility = View.GONE
+                binding.rvSearch.visibility = View.GONE
+                binding.llNoMatch.visibility = View.VISIBLE
+                binding.llRecentSearch.visibility = View.GONE
+            }
+
+            else -> {
+                binding.progressBar.visibility = View.GONE
+                binding.rvSearch.visibility = View.VISIBLE
+                binding.llNoMatch.visibility = View.GONE
+                binding.llRecentSearch.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun observeViewModel() {
+
+        viewModel.filteredList.observe(this) { list ->
+
+            val sharedQuantities =
+                cartRepository.getCartState()?.productQuantities ?: emptyMap()
+            productDetailsAdapter.setInitialQuantities(sharedQuantities)
+
+            productDetailsAdapter.submitList(list)
+
+            updateUIState(
+                list = list,
+                isLoading = viewModel.isLoading.value ?: false,
+                query = binding.etSearch.text.toString().trim(),
+                recentList = viewModel.recentSearches.value ?: emptyList()
+            )
+        }
+
+        viewModel.isLoading.observe(this) { isLoading ->
+            updateUIState(
+                list = viewModel.filteredList.value ?: emptyList(),
+                isLoading = isLoading,
+                query = binding.etSearch.text.toString().trim(),
+                recentList = viewModel.recentSearches.value ?: emptyList()
+            )
+        }
+
+        viewModel.recentSearches.observe(this) { list ->
+            recentAdapter.updateList(list)
+
+            updateUIState(
+                list = viewModel.filteredList.value ?: emptyList(),
+                isLoading = viewModel.isLoading.value ?: false,
+                query = binding.etSearch.text.toString().trim(),
+                recentList = list
+            )
+        }
+
+        viewModel.isHintVisible.observe(this) { isVisible ->
+            binding.textSwitcher.visibility =
+                if (isVisible) View.VISIBLE else View.GONE
+        }
+
+        viewModel.currentHintIndex.observe(this) { index ->
+            binding.textSwitcher.setText(viewModel.getHintText(index))
+        }
+    }
+
+    private fun setupTextSwitcher() {
+        binding.textSwitcher.setFactory {
+            TextView(this@SearchActivity).apply {
+                layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+                gravity = Gravity.CENTER_VERTICAL
+                setTextColor(Color.GRAY)
+                textSize = 14f
+            }
+        }
+    }
+
+    private fun setupPopularProducts() {
+        val products = listOf(
+            PopularProductDetails("Milk", R.drawable.milk),
+            PopularProductDetails("dahi", R.drawable.dahi),
+            PopularProductDetails("Paneer", R.drawable.paneer),
+            PopularProductDetails("ghee", R.drawable.ghee),
+            PopularProductDetails("khowa", R.drawable.khowa)
+        )
+
+        binding.rvPopularProducts.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.rvPopularProducts.adapter = PopularProductAdapter(products) { clickedProduct ->
+            binding.etSearch.setText(clickedProduct.name)
+            binding.etSearch.setSelection(clickedProduct.name.length)
+        }
+    }
+
+    private fun setupRecentSearches() {
+        recentAdapter = RecentSearchAdapter(
+            emptyList(),
+            onItemClick = { selectedText ->
+                binding.etSearch.setText(selectedText)
+                binding.etSearch.setSelection(selectedText.length)
+            },
+            onDeleteClick = { textToDelete ->
+                viewModel.deleteRecentSearch(textToDelete)
+            }
+        )
+        binding.rvRecentSearches.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvRecentSearches.adapter = recentAdapter
+    }
+
+    private fun setupSearchProducts() {
+        productDetailsAdapter = ProductDetailsAdapter(
+            onAddClick = { product, size, qty ->
+                updateCart(product, size.price.toDouble() * qty, qty)
+            },
+            onQtyChange = { product, size, delta ->
+                updateCart(product, size.price.toDouble() * delta, delta)
+            },
+            onSubscribeClick = { product ->
+                Toast.makeText(this, "Subscribed to ${product.productName}", Toast.LENGTH_SHORT).show()
+            },
+            onProductClick = { product ->
+               val intent = Intent(this, ProductDetailsActivity::class.java)
+                intent.putExtra("product", product)
+                startActivity(intent)
+            }
+        )
+        binding.rvSearch.layoutManager = LinearLayoutManager(this)
+        binding.rvSearch.adapter = productDetailsAdapter
+    }
+
+    private fun updateCart(productDetails: ProductDetails, priceDelta: Double, countDelta: Int) {
+        thread {
+            val currentState = cartRepository.getCartState() ?: CartUiState()
+            val newCount = currentState.itemsCount + countDelta
+            val newPrice = currentState.totalPrice + priceDelta
+
+            val productId = productDetails.id
+            val newQuantities = currentState.productQuantities.toMutableMap()
+            val currentQty = newQuantities[productId] ?: 0
+            val newQty = currentQty + countDelta
+
+            val currentProducts = currentState.productDetails.toMutableList()
+
+            if (newQty <= 0) {
+                newQuantities.remove(productId)
+                currentProducts.removeAll { it.id == productId }
+            } else {
+                newQuantities[productId] = newQty
+                if (!currentProducts.any { it.id == productId }) {
+                    currentProducts.add(productDetails)
+                }
+            }
+
+            val newState = CartUiState(newCount, newPrice, true, newQuantities, currentProducts)
+            cartRepository.saveCartState(newState)
+
+            runOnUiThread {
+                if (newState.itemsCount > 0) {
+                    binding.cartPreview.showCart(newState)
+                } else {
+                    binding.cartPreview.hideCart()
+                }
+            }
+        }
+    }
+
+    private fun loadCartState() {
+        thread {
+            val savedCartState = cartRepository.getCartState()
+            runOnUiThread {
+                if (savedCartState != null && savedCartState.itemsCount > 0) {
+                    binding.cartPreview.showCart(savedCartState)
+                } else {
+                    binding.cartPreview.hideCart()
+                }
+            }
+        }
+    }
+
+    private fun loadInitialData() {
+        val incomingList = intent.getParcelableArrayListExtra<ProductDetails>("product_list")
+        incomingList?.let { viewModel.setInitialProductList(it) }
+    }
+
+    private fun setUpUI() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
+    }
+}

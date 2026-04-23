@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.freshyzoappmodule.ui.fragments.Home_Fragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.Home_Fragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_product"
-        android:name="com.example.freshyzoappmodule.ui.fragments.ProductSectionFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.ProductSectionFragment"
         android:label="Products"
         tools:layout="@layout/fragment_product_section">
         <argument
@@ -36,19 +36,19 @@
 
     <fragment
         android:id="@+id/nav_wallet"
-        android:name="com.example.freshyzoappmodule.ui.fragments.WalletFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.WalletFragment"
         android:label="Wallet"
         tools:layout="@layout/fragment_wallet" />
 
     <fragment
         android:id="@+id/nav_cart"
-        android:name="com.example.freshyzoappmodule.ui.fragments.CartFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.CartFragment"
         android:label="Cart"
         tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/nav_account"
-        android:name="com.example.freshyzoappmodule.ui.fragments.AccountFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.AccountFragment"
         android:label="Account"
         tools:layout="@layout/fragment_account">
         <action
@@ -95,25 +95,25 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.ProfileFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/addressFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.AddressFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.AddressFragment"
         android:label="Address"
         tools:layout="@layout/fragment_address" />
 
     <fragment
         android:id="@+id/testReportFromAccountFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.TestReportFromAccountFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.TestReportFromAccountFragment"
         android:label="Test Report"
         tools:layout="@layout/fragment_test_report_from_account" />
 
     <fragment
         android:id="@+id/complaintAssistanceCenterFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.ComplaintAssistanceCenterFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.ComplaintAssistanceCenterFragment"
         android:label="Complaints Assistance"
         tools:layout="@layout/fragment_complaint_assistance_center" >
         <action
@@ -123,45 +123,45 @@
 
     <fragment
         android:id="@+id/complaintHistoryFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.ComplaintHistoryFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.ComplaintHistoryFragment"
         android:label="Complaint History"
         tools:layout="@layout/fragment_complaint_history" />
 
     <!-- Other Fragments -->
     <fragment
         android:id="@+id/SubscriptionFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.SubscriptionFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.SubscriptionFragment"
         android:label="Subscribe"
         tools:layout="@layout/fragment_subscription" />
 
     <fragment
         android:id="@+id/ComplaintsFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.ComplaintsAssistanceFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.ComplaintsAssistanceFragment"
         android:label="complaintAssistance"
         tools:layout="@layout/fragment_complaints_assistance" />
 
     <!-- wallet as sub fragment -->
     <fragment
         android:id="@+id/walletFragment_sub"
-        android:name="com.example.freshyzoappmodule.ui.fragments.WalletFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.WalletFragment"
         android:label="Payments &amp; Wallet"
         tools:layout="@layout/fragment_wallet" />
 
     <fragment
         android:id="@+id/referralFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.ReferAndEarnFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.ReferAndEarnFragment"
         android:label="Refer &amp; Earn"
         tools:layout="@layout/fragment_refer_and_earn" />
 
     <fragment
         android:id="@+id/faqsFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.FAQsFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.FAQsFragment"
         android:label="FAQs"
         tools:layout="@layout/fragment_f_a_qs" />
 
     <fragment
         android:id="@+id/myOrdersFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.OrderHistoryFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.OrderHistoryFragment"
         android:label="My Orders"
         tools:layout="@layout/fragment_orders_history" >
         <action
@@ -171,40 +171,40 @@
 
     <fragment
         android:id="@+id/orderDetailsFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.OrderDetailsFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.OrderDetailsFragment"
         android:label="Order Details"
         tools:layout="@layout/fragment_order_details" >
         <argument
             android:name="delivery"
-            app:argType="com.example.freshyzoappmodule.data.model.OrderHistoryModel" />
+            app:argType="com.shyamdairyfarm.user.data.model.OrderHistoryModel" />
     </fragment>
 
     <fragment
         android:id="@+id/DeliveriesDetailsFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.DeliveriesDetailsFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.DeliveriesDetailsFragment"
     android:label="DeliveriesDetails"
         tools:layout="@layout/fragment_deliveries_details" />
 
     <fragment
         android:id="@+id/vacationFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.VacationFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.VacationFragment"
         android:label="Vacation"
         tools:layout="@layout/fragment_vacation" />
 
     <fragment
         android:id="@+id/offerDetailsFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.OfferDetailsFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.OfferDetailsFragment"
         android:label="Offer Details"
         tools:layout="@layout/fragment_offer_details" />
 
     <fragment
         android:id="@+id/blogReportFragment"
-        android:name="com.example.freshyzoappmodule.ui.fragments.BlogReportFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.BlogReportFragment"
         android:label="Blog Report"
         tools:layout="@layout/fragment_blog_report" >
         <argument
             android:name="blog"
-            app:argType="com.example.freshyzoappmodule.data.model.HomeBlogs" />
+            app:argType="com.shyamdairyfarm.user.data.model.HomeBlogs" />
     </fragment>
 
 

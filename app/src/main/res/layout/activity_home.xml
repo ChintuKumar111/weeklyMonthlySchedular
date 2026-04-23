@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- SHARED CART PREVIEW -->
-    <com.example.freshyzoappmodule.helper.CartBottomSheetController
+    <com.shyamdairyfarm.user.helper.CartBottomSheetController
         android:id="@+id/cartPreview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

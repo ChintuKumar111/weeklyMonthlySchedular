@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "freshyzoappmodule"
+rootProject.name = "FreshyZoNew"
 include(":app")

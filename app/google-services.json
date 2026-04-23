@@ -1,40 +1,21 @@
 {
   "project_info": {
-    "project_number": "519408254546",
-    "project_id": "freshyzoappmodule",
-    "storage_bucket": "freshyzoappmodule.firebasestorage.app"
+    "project_number": "674294722051",
+    "project_id": "freshyzonew",
+    "storage_bucket": "freshyzonew.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:519408254546:android:1ea7b0961aae732ae9a98b",
+        "mobilesdk_app_id": "1:674294722051:android:1bc41938dd7559049c6836",
         "android_client_info": {
-          "package_name": "com.example.freshyzoappmodule"
+          "package_name": "com.shyamdairyfarm.user"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDB9e2tu5vUVSANA_ZJsIrrNdHdFwWitO4"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:519408254546:android:df8c64e6360845ffe9a98b",
-        "android_client_info": {
-          "package_name": "com.example.freshyzosupport"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDB9e2tu5vUVSANA_ZJsIrrNdHdFwWitO4"
+          "current_key": "AIzaSyCWgTv4BaisRTL7uXxmhdvXbkLZBsWKBtM"
         }
       ],
       "services": {
