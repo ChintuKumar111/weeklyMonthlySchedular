@@ -19,13 +19,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.shyamdairyfarm.user.R
-import com.shyamdairyfarm.user.databinding.FragmentOtpBinding
-import com.shyamdairyfarm.user.ui.viewmodel.AuthViewModel
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
-import com.google.firebase.auth.PhoneAuthProvider
+import com.razorpay.AppSignatureHelper
+import com.shyamdairyfarm.user.R
+import com.shyamdairyfarm.user.databinding.FragmentOtpBinding
+import com.shyamdairyfarm.user.ui.viewmodel.AuthViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.concurrent.thread
 
@@ -49,6 +49,8 @@ class OtpFragment : Fragment() {
 
     private val smsVerificationReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+            println("sms Received")
+            Log.d("HASH", AppSignatureHelper(requireContext()).appSignatures.toString())
             if ("OTP_RECEIVED" == intent?.action) {
                 val otp = intent.getStringExtra("otp")
                 otp?.let {
@@ -61,12 +63,13 @@ class OtpFragment : Fragment() {
 
             if (SmsRetriever.SMS_RETRIEVED_ACTION == intent?.action) {
                 val extras = intent.extras
-                val smsRetrieverStatus = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    extras?.getParcelable(SmsRetriever.EXTRA_STATUS, Status::class.java)
-                } else {
-                    @Suppress("DEPRECATION")
-                    extras?.get(SmsRetriever.EXTRA_STATUS) as? Status
-                }
+                val smsRetrieverStatus =
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        extras?.getParcelable(SmsRetriever.EXTRA_STATUS, Status::class.java)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        extras?.get(SmsRetriever.EXTRA_STATUS) as? Status
+                    }
 
                 when (smsRetrieverStatus?.statusCode) {
                     CommonStatusCodes.SUCCESS -> {
@@ -74,13 +77,17 @@ class OtpFragment : Fragment() {
                         if (message != null) {
                             extractOtpAndFill(message)
                         } else {
-                            val consentIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                                extras?.getParcelable(SmsRetriever.EXTRA_CONSENT_INTENT, Intent::class.java)
-                            } else {
-                                @Suppress("DEPRECATION")
-                                extras?.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT)
-                            }
-                            
+                            val consentIntent =
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                    extras?.getParcelable(
+                                        SmsRetriever.EXTRA_CONSENT_INTENT,
+                                        Intent::class.java
+                                    )
+                                } else {
+                                    @Suppress("DEPRECATION")
+                                    extras?.getParcelable<Intent>(SmsRetriever.EXTRA_CONSENT_INTENT)
+                                }
+
                             try {
                                 consentIntent?.let { smsConsentLauncher.launch(it) }
                             } catch (e: ActivityNotFoundException) {
@@ -88,6 +95,7 @@ class OtpFragment : Fragment() {
                             }
                         }
                     }
+
                     CommonStatusCodes.TIMEOUT -> {
                         Log.d("OtpFragment", "SMS Retriever Timeout")
                     }
@@ -109,7 +117,7 @@ class OtpFragment : Fragment() {
 
         viewModel.setPhoneNumber(args.phoneNumber)
         viewModel.setVerificationId(args.verificationId)
-
+        Log.d("HASH_DEBUG", AppSignatureHelper(requireContext()).appSignatures.toString())
         observeViewModel()
         startSmsRetriever()
         startSmsUserConsent()
@@ -128,16 +136,19 @@ class OtpFragment : Fragment() {
                     binding.btnVerify.isEnabled = false
                     binding.loadingOverlay.visibility = View.VISIBLE
                 }
+
                 is AuthViewModel.AuthState.Success -> {
                     // Keep loader visible during transition
                     binding.loadingOverlay.visibility = View.VISIBLE
                     handleLoginSuccess()
                 }
+
                 is AuthViewModel.AuthState.Error -> {
                     binding.btnVerify.isEnabled = true
                     binding.loadingOverlay.visibility = View.GONE
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                 }
+
                 else -> {
                     binding.btnVerify.isEnabled = true
                     binding.loadingOverlay.visibility = View.GONE
@@ -162,7 +173,7 @@ class OtpFragment : Fragment() {
         val intentFilter = IntentFilter()
         intentFilter.addAction(SmsRetriever.SMS_RETRIEVED_ACTION)
         intentFilter.addAction("OTP_RECEIVED")
-        
+
         ContextCompat.registerReceiver(
             requireContext(),
             smsVerificationReceiver,
@@ -182,12 +193,16 @@ class OtpFragment : Fragment() {
     }
 
     private fun verifyOtp(otp: String) {
+
+        println("Verify Otp called $otp")
         if (args.verificationId == "TEST_VERIFICATION_ID") {
             binding.loadingOverlay.visibility = View.VISIBLE
             handleLoginSuccess()
         } else {
-            val credential = PhoneAuthProvider.getCredential(args.verificationId, otp)
-            viewModel.signInWithCredential(credential)
+//            val credential = PhoneAuthProvider.getCredential(args.verificationId, otp)
+//            viewModel.signInWithCredential(credential)
+
+            viewModel.signInWithOtp(otp)
         }
     }
 
@@ -221,15 +236,21 @@ class OtpFragment : Fragment() {
         thread {
             // Optional: Add small artificial delay if you want the loader to be seen
             // Thread.sleep(300) 
-            
+
             activity?.runOnUiThread {
                 if (isAdded) {
-                    val intent = Intent(requireActivity(), com.shyamdairyfarm.user.ui.activity.HomeActivity::class.java)
+                    val intent = Intent(
+                        requireActivity(),
+                        com.shyamdairyfarm.user.ui.activity.HomeActivity::class.java
+                    )
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-                    
+
                     // Crossfade hides the activity switching gap
-                    requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    requireActivity().overridePendingTransition(
+                        android.R.anim.fade_in,
+                        android.R.anim.fade_out
+                    )
                     requireActivity().finish()
                 }
             }
@@ -250,6 +271,7 @@ class OtpFragment : Fragment() {
             }
         }.start()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         try {

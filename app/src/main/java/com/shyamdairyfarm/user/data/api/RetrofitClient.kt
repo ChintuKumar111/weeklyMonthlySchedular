@@ -4,7 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://freshyzo.com/admin/Customer_App_Api/"
+    private const val BASE_URL = "https://www.freshyzo.com/admin/"
+//    private const val BASE_URL = "https://freshyzo.com/admin/Customer_App_Api/"
     private const val OTP_BASE_URL = "https://control.msg91.com/"
 
     // For your main app APIs

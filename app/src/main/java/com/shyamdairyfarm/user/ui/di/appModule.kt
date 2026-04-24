@@ -2,6 +2,7 @@ package com.shyamdairyfarm.user.ui.di
 
 import com.shyamdairyfarm.user.data.api.RetrofitClient
 import com.shyamdairyfarm.user.data.repository.*
+import com.shyamdairyfarm.user.data.repository.session.SessionRepository
 import com.shyamdairyfarm.user.ui.viewmodel.*
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -21,7 +22,9 @@ val appModule = module {
     single { CartRepository(androidContext()) }
     single { DeliveryRepository(get()) }
     single { GeocoderRepository(androidContext()) }
-    
+    single{ SessionRepository(androidContext()) }
+
+    single{ AuthRepository(get()) }
     // ViewModels
     viewModel { SubscriptionStatusViewModel(get()) }
     viewModel { OrderHistoryViewModel(get()) }
@@ -38,5 +41,5 @@ val appModule = module {
     viewModel { NotificationViewModel(androidApplication()) }
     viewModel { InvoiceViewModel() }
     viewModel { SelectLocationViewModel(get()) }
-    viewModel { AuthViewModel() }
+    viewModel { AuthViewModel(get(), get()) }
 }

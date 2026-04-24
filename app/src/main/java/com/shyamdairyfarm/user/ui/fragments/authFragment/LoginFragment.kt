@@ -13,10 +13,15 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.shyamdairyfarm.user.R
 import com.shyamdairyfarm.user.databinding.FragmentLoginBinding
 import com.shyamdairyfarm.user.ui.viewmodel.AuthViewModel
+import com.shyamdairyfarm.user.utils.UiState
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -35,7 +40,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         observeViewModel()
         setupTermsText()
         setupClickListeners()
@@ -46,6 +51,54 @@ class LoginFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.isSignUpMode.observe(viewLifecycleOwner) { isSignUp ->
             updateUiMode(isSignUp)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.requestOtpState.collect { state ->
+                    when (state) {
+
+                        UiState.Idle -> Unit
+
+                        UiState.Loading -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Sending OTP...",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        is UiState.Success -> {
+
+                            val phone = binding.tilPhone.editText
+                                ?.text?.toString()?.trim().orEmpty()
+
+                            val action =
+                                LoginFragmentDirections
+                                    .actionLoginFragmentToOtpFragment(
+                                        phone,
+                                        viewModel.verificationId.value ?: ""
+                                    )
+
+                            findNavController().navigate(action)
+
+                            // ✅ Reset state to avoid re-trigger
+                            viewModel.resetOtpRequestState()
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                state.message,
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                            // optional reset
+                            viewModel.resetOtpRequestState()
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -71,10 +124,14 @@ class LoginFragment : Fragment() {
         binding.btnContinue.setOnClickListener {
             val phone = binding.tilPhone.editText?.text?.toString()?.trim() ?: ""
             viewModel.setPhoneNumber(phone)
-            
+
             // FOR TESTING ONLY: Skip Firebase and go straight to OtpFragment
-            val action = LoginFragmentDirections.actionLoginFragmentToOtpFragment(phone, "TEST_VERIFICATION_ID")
-            findNavController().navigate(action)
+
+//            val action =
+//                LoginFragmentDirections.actionLoginFragmentToOtpFragment(phone, "PRODUCTION_ID")
+//            val action = LoginFragmentDirections.actionLoginFragmentToOtpFragment(phone, "TEST_VERIFICATION_ID")
+            viewModel.requestOtp()
+//            findNavController().navigate(action)
         }
 
         binding.tvLogin.setOnClickListener {
@@ -102,7 +159,12 @@ class LoginFragment : Fragment() {
 
         val termsStart = fullText.indexOf("Terms")
         val termsEnd = termsStart + "Terms".length
-        spannable.setSpan(ForegroundColorSpan(primaryColor), termsStart, termsEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(
+            ForegroundColorSpan(primaryColor),
+            termsStart,
+            termsEnd,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         spannable.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 Toast.makeText(requireContext(), "Terms of Service", Toast.LENGTH_SHORT).show()
@@ -111,7 +173,12 @@ class LoginFragment : Fragment() {
 
         val privacyStart = fullText.indexOf("Privacy Policy")
         val privacyEnd = privacyStart + "Privacy Policy".length
-        spannable.setSpan(ForegroundColorSpan(primaryColor), privacyStart, privacyEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(
+            ForegroundColorSpan(primaryColor),
+            privacyStart,
+            privacyEnd,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         spannable.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 Toast.makeText(requireContext(), "Privacy Policy", Toast.LENGTH_SHORT).show()
