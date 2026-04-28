@@ -34,18 +34,10 @@ class AuthActivity : AppCompatActivity() {
                         finish()
                     }
 
-//                        val intent = Intent(this, CustomerSignUpActivity::class.java)
-//                        startActivity(intent)
-//                        finish()
-
 
                 }
 
 
-            }else{
-//                val intent = Intent(this, CustomerSignUpActivity::class.java)
-//                startActivity(intent)
-//                finish()
             }
         }
 
