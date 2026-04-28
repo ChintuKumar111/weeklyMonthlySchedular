@@ -1,0 +1,8 @@
+// login
+after getting otp verification
+if not a registered customer then begin the signup process with name and location
+else navigate to the home screen
+
+if any api gets token expire then it will receive new token ( the new token will be received with the same body as expired token response)
+if unauthorized access then directly logout the user and ask for new login by showing a dialog box for session expired
+

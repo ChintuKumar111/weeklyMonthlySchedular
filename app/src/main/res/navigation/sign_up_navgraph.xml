@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sign_up_navgraph"
+    app:startDestination="@id/signUpUserFragment">
+
+    <!-- First Screen -->
+    <fragment
+        android:id="@+id/signUpUserFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.signUp.SignUpUserFragment"
+        android:label="SignUpUserFragment">
+
+        <action
+            android:id="@+id/action_signUpUserFragment_to_signUpAddressMapsFragment"
+            app:destination="@id/signUpAddressMapsFragment" />
+    </fragment>
+
+    <!-- Second Screen -->
+    <fragment
+        android:id="@+id/signUpAddressMapsFragment"
+        android:name="com.shyamdairyfarm.user.ui.fragments.signUp.SignUpAddressMapsFragment"
+        android:label="SignUpAddressMapsFragment" />
+
+</navigation>

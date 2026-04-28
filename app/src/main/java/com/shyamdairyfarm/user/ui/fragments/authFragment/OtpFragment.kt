@@ -26,6 +26,7 @@ import com.razorpay.AppSignatureHelper
 import com.shyamdairyfarm.user.R
 import com.shyamdairyfarm.user.databinding.FragmentOtpBinding
 import com.shyamdairyfarm.user.ui.viewmodel.AuthViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.concurrent.thread
 
@@ -35,7 +36,7 @@ class OtpFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: OtpFragmentArgs by navArgs()
     private var countDownTimer: CountDownTimer? = null
-    private val viewModel: AuthViewModel by viewModel()
+    private val viewModel: AuthViewModel by sharedViewModel()
 
     private val smsConsentLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -130,6 +131,7 @@ class OtpFragment : Fragment() {
     }
 
     private fun observeViewModel() {
+
         viewModel.authState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is AuthViewModel.AuthState.Loading -> {
@@ -140,7 +142,9 @@ class OtpFragment : Fragment() {
                 is AuthViewModel.AuthState.Success -> {
                     // Keep loader visible during transition
                     binding.loadingOverlay.visibility = View.VISIBLE
-                    handleLoginSuccess()
+
+                    handleLoginSuccess(state.data.isNewCustomer)
+//                    handleLoginSuccess()
                 }
 
                 is AuthViewModel.AuthState.Error -> {
@@ -192,12 +196,14 @@ class OtpFragment : Fragment() {
         }
     }
 
+
+
     private fun verifyOtp(otp: String) {
 
         println("Verify Otp called $otp")
         if (args.verificationId == "TEST_VERIFICATION_ID") {
             binding.loadingOverlay.visibility = View.VISIBLE
-            handleLoginSuccess()
+            handleLoginSuccess(false)
         } else {
 //            val credential = PhoneAuthProvider.getCredential(args.verificationId, otp)
 //            viewModel.signInWithCredential(credential)
@@ -229,7 +235,7 @@ class OtpFragment : Fragment() {
         }
     }
 
-    private fun handleLoginSuccess() {
+    private fun handleLoginSuccess(newCustomer: Boolean = true) {
         // Run navigation logic on a background thread if there's any data processing,
         // but startActivity must be on main thread. Using thread + runOnUiThread 
         // to simulate a non-blocking flow and ensuring the loader stays up.
@@ -239,19 +245,37 @@ class OtpFragment : Fragment() {
 
             activity?.runOnUiThread {
                 if (isAdded) {
-                    val intent = Intent(
-                        requireActivity(),
-                        com.shyamdairyfarm.user.ui.activity.HomeActivity::class.java
-                    )
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
 
-                    // Crossfade hides the activity switching gap
-                    requireActivity().overridePendingTransition(
-                        android.R.anim.fade_in,
-                        android.R.anim.fade_out
-                    )
-                    requireActivity().finish()
+                    if(newCustomer){
+                        val intent = Intent(
+                            requireActivity(),
+                            com.shyamdairyfarm.user.ui.activity.CustomerSignUpActivity::class.java
+                        )
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+
+                        // Crossfade hides the activity switching gap
+                        requireActivity().overridePendingTransition(
+                            android.R.anim.fade_in,
+                            android.R.anim.fade_out
+                        )
+                        requireActivity().finish()
+                    }else{
+                        val intent = Intent(
+                            requireActivity(),
+                            com.shyamdairyfarm.user.ui.activity.HomeActivity::class.java
+                        )
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+
+                        // Crossfade hides the activity switching gap
+                        requireActivity().overridePendingTransition(
+                            android.R.anim.fade_in,
+                            android.R.anim.fade_out
+                        )
+                        requireActivity().finish()
+                    }
+
                 }
             }
         }

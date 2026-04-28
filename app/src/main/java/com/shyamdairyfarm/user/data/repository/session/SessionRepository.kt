@@ -9,6 +9,8 @@ class SessionRepository(private val context: Context) {
     companion object {
         const val PREF_NAME = "AUTH_PREF"
         const val TOKEN = "TOKEN"
+        const val PHONE = "PHONE"
+        const val IS_NEW_CUSTOMER = "IS_NEW_CUSTOMER"
     }
 
     private val pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -18,6 +20,27 @@ class SessionRepository(private val context: Context) {
             putString(TOKEN, token)
             apply() // async save
         }
+    }
+
+    fun storePhoneNumber(phone: String?) {
+        pref.edit().apply {
+            putString(PHONE, phone)
+            apply() // async save
+        }
+    }
+
+    fun getPhoneNumber(): String? {
+        return pref.getString(PHONE, null)
+    }
+
+    fun setAsNewCustomer(value: Boolean = true) {
+        pref.edit().apply {
+            putBoolean(IS_NEW_CUSTOMER, value)
+        }
+    }
+
+    fun isNewCustomer(): Boolean {
+        return pref.getBoolean(IS_NEW_CUSTOMER, true)
     }
 
     fun getToken(): String? {

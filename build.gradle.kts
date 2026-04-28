@@ -8,4 +8,5 @@ plugins {
     alias(libs.plugins.kotlin.parcelize) apply false
     // Add this line
     id("androidx.navigation.safeargs.kotlin") version "2.7.7" apply false
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin) apply false
 }

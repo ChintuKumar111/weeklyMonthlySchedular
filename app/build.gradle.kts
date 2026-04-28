@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.kotlin.parcelize)
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -52,6 +53,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.activity.ktx)
     // Android Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -115,6 +117,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // For loading images in Compose

@@ -8,8 +8,11 @@ import com.shyamdairyfarm.user.data.model.response.BannerResponse
 import com.shyamdairyfarm.user.data.model.OrderHistoryModel
 import com.shyamdairyfarm.user.data.model.ProductDetails
 import com.shyamdairyfarm.user.data.model.auth.req.GetOtpReq
+import com.shyamdairyfarm.user.data.model.auth.req.RegisterNewCustomerReq
 import com.shyamdairyfarm.user.data.model.auth.req.VerifyOtpReq
+import com.shyamdairyfarm.user.data.model.auth.res.CustomerLoginRes
 import com.shyamdairyfarm.user.data.model.auth.res.OtpRes
+import com.shyamdairyfarm.user.data.model.auth.res.RegisterNewCustomerRes
 import com.shyamdairyfarm.user.data.model.response.SubscriptionResponse
 import com.shyamdairyfarm.user.data.model.response.CalendarResponse
 import com.shyamdairyfarm.user.data.model.response.DeliveryDetailsCalendarResponse
@@ -66,10 +69,13 @@ interface   ApiService {
 
     /////////////////////////////////////////////////////////
 
-    @POST("auth/send_otp") // Replace with your actual endpoint
+    @POST("auth/send_otp")
     suspend fun requestOtp(@Body body: GetOtpReq): Response<OtpRes>
 
 
-    @POST("auth/verify_otp") // Replace with your actual endpoint
-    suspend fun verifyOtp(@Body body: VerifyOtpReq): Response<OtpRes>
+    @POST("auth/customer_login")
+    suspend fun verifyOtp(@Body body: VerifyOtpReq): Response<CustomerLoginRes>
+
+    @POST("Customer_App_Api_V1/signup")
+    suspend fun registerNewCustomer(@Body body: RegisterNewCustomerReq): Response<RegisterNewCustomerRes>
 }

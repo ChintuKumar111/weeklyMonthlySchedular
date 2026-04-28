@@ -1,5 +1,6 @@
 package com.shyamdairyfarm.user.ui.fragments.authFragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -19,16 +20,18 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.shyamdairyfarm.user.R
 import com.shyamdairyfarm.user.databinding.FragmentLoginBinding
+import com.shyamdairyfarm.user.ui.activity.AuthActivity
+import com.shyamdairyfarm.user.ui.activity.utils.DialogUtils
 import com.shyamdairyfarm.user.ui.viewmodel.AuthViewModel
 import com.shyamdairyfarm.user.utils.UiState
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AuthViewModel by viewModel()
+    private val viewModel: AuthViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +49,8 @@ class LoginFragment : Fragment() {
         setupClickListeners()
         setupTextWatchers()
         validateInput()
+
+
     }
 
     private fun observeViewModel() {
@@ -55,8 +60,17 @@ class LoginFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
                 viewModel.requestOtpState.collect { state ->
+                    if(state is UiState.Loading){
+                        setNextLoading(true)
+
+                    }else{
+                        setNextLoading(false)
+
+                    }
                     when (state) {
+
 
                         UiState.Idle -> Unit
 
@@ -66,9 +80,11 @@ class LoginFragment : Fragment() {
                                 "Sending OTP...",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            setNextLoading(true)
                         }
 
                         is UiState.Success -> {
+
 
                             val phone = binding.tilPhone.editText
                                 ?.text?.toString()?.trim().orEmpty()
@@ -80,6 +96,13 @@ class LoginFragment : Fragment() {
                                         viewModel.verificationId.value ?: ""
                                     )
 
+//                            val action =
+//                                LoginFragmentDirections
+//                                    .actionLoginFragmentToOtpFragment(
+//                                        phone,
+//                                        "TEST_VERIFICATION_ID"
+//                                    )
+
                             findNavController().navigate(action)
 
                             // ✅ Reset state to avoid re-trigger
@@ -87,14 +110,24 @@ class LoginFragment : Fragment() {
                         }
 
                         is UiState.Error -> {
-                            Toast.makeText(
-                                requireContext(),
-                                state.message,
-                                Toast.LENGTH_LONG
-                            ).show()
+                            DialogUtils.showErrorDialog(requireContext(), "Error",state.message){
+                                viewModel.logout()
+                            }
 
                             // optional reset
                             viewModel.resetOtpRequestState()
+                        }
+
+
+                        is UiState.UnauthorizedAccess -> {
+                            // show dialog for log out
+
+                            DialogUtils.showErrorDialog(requireContext(), "Session Expired",state.msg){
+                                viewModel.logout()
+                            }
+                        }
+                        else->{
+
                         }
                     }
                 }
@@ -102,6 +135,19 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun setNextLoading(isLoading: Boolean) {
+        binding.btnContinue.isEnabled = !isLoading
+
+        if (isLoading) {
+            binding.btnContinue.text = ""
+            binding.progressBarContinue.visibility = View.VISIBLE
+            binding.btnContinue.alpha = 0.7f
+        } else {
+            binding.btnContinue.text = "Continue"
+            binding.progressBarContinue.visibility = View.GONE
+            binding.btnContinue.alpha = 1f
+        }
+    }
     private fun setupTextWatchers() {
         binding.tilPhone.editText?.doAfterTextChanged { validateInput() }
         binding.tilFullName.editText?.doAfterTextChanged { validateInput() }
@@ -127,8 +173,11 @@ class LoginFragment : Fragment() {
 
             // FOR TESTING ONLY: Skip Firebase and go straight to OtpFragment
 
-//            val action =
-//                LoginFragmentDirections.actionLoginFragmentToOtpFragment(phone, "PRODUCTION_ID")
+            val action =
+                LoginFragmentDirections.actionLoginFragmentToOtpFragment(
+                    phone,
+                    viewModel.verificationId.value ?: ""
+                )
 //            val action = LoginFragmentDirections.actionLoginFragmentToOtpFragment(phone, "TEST_VERIFICATION_ID")
             viewModel.requestOtp()
 //            findNavController().navigate(action)
