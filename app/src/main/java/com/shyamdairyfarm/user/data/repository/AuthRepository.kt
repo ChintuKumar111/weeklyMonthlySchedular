@@ -119,16 +119,18 @@ class AuthRepository(private val apiService: ApiService) {
         if (response.isSuccessful && body != null) {
             if (body.status) {
 //                token expire -> true
+
+
+                    emit(UiState.Success(body))
+
+            } else {
+
                 if (body.message.contains("expire", true)) {
                     emit(UiState.ExpiredToken(body))
 
-                } else {
-
-                    emit(UiState.Success(body))
                 }
-            } else {
 
-                if (body.message.contains("unauthorized", true)) {
+               else if (body.message.contains("unauthorized", true)) {
                     emit(UiState.UnauthorizedAccess(body.message ?: "Unauthorized Access"))
                 } else {
                     emit(UiState.Error(body.message))
