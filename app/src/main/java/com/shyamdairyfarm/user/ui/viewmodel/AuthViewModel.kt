@@ -55,6 +55,7 @@ class AuthViewModel(
     fun updateName(value: String) {
         println("Name changed $value")
         _name.value = value
+        sessionRepository.storeName(value)
     }
 
     private val _isNewCustomer = MutableLiveData<Boolean>(true)
@@ -65,6 +66,7 @@ class AuthViewModel(
         _isLoggedIn.value = sessionRepository.isLoggedIn()
         _isNewCustomer.value = sessionRepository.isNewCustomer()
         _phoneNumber.value = sessionRepository.getPhoneNumber() ?: ""
+        _name.value = sessionRepository.getName() ?: ""
 
     }
 
@@ -74,6 +76,7 @@ class AuthViewModel(
 
     fun setPhoneNumber(phone: String) {
         _phoneNumber.value = phone
+        sessionRepository.storePhoneNumber(phone)
     }
 
     fun setVerificationId(id: String) {
@@ -182,6 +185,10 @@ class AuthViewModel(
 
     private val _address = MutableLiveData<String>()
     val address: LiveData<String> = _address
+
+    fun updateAddress(newAddress: String) {
+        _address.value = newAddress
+    }
     private val _newCustomerSignUpState = MutableStateFlow<UiState<RegisterNewCustomerRes>>(UiState.Idle)
     val newCustomerSignUpState = _newCustomerSignUpState.asStateFlow()
 
@@ -206,6 +213,11 @@ class AuthViewModel(
     fun registerNewCustomer() {
         viewModelScope.launch {
             _newCustomerSignUpState.value = UiState.Loading
+            if (_phoneNumber.value.isEmpty()) {
+                _newCustomerSignUpState.value =
+                    UiState.Error("Mobile number is missing...")
+                return@launch
+            }
             if (_lat.value == null || _lng.value == null || _address.value == null) {
                 _newCustomerSignUpState.value =
                     UiState.Error("Address and location  is required...")
@@ -217,6 +229,7 @@ class AuthViewModel(
             try {
                 println("Name changed ${_name.value}")
                 authRepository.registerNewCustomer(
+                    mobileNo = _phoneNumber.value,
                     firstName = _name.value.trim().substringBefore(" "),
                     lastName = _name.value.trim()
                         .substringAfter(" ", "")

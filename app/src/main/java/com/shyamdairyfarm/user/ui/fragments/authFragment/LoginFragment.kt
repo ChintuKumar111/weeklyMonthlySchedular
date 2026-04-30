@@ -28,7 +28,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : Fragment() {
-
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AuthViewModel by sharedViewModel()
@@ -70,8 +69,6 @@ class LoginFragment : Fragment() {
 
                     }
                     when (state) {
-
-
                         UiState.Idle -> Unit
 
                         UiState.Loading -> {
@@ -122,7 +119,11 @@ class LoginFragment : Fragment() {
                         is UiState.UnauthorizedAccess -> {
                             // show dialog for log out
 
-                            DialogUtils.showErrorDialog(requireContext(), "Session Expired",state.msg){
+                            DialogUtils.showErrorDialog(
+                                requireContext(),
+                                "Session Expired",
+                                state.msg
+                            ) {
                                 viewModel.logout()
                             }
                         }

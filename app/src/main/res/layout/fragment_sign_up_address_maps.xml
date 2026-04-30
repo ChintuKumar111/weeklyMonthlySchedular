@@ -103,10 +103,11 @@ tools:context=".ui.activity.SelectLocationActivity">
         android:layout_marginBottom="16dp"
         android:background="@drawable/bg_drag_handle" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Delivery Location"
+        android:text="Select Your  Location"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -134,9 +135,10 @@ tools:context=".ui.activity.SelectLocationActivity">
                 app:tint="@color/primary" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -159,6 +161,15 @@ tools:context=".ui.activity.SelectLocationActivity">
                     android:textSize="11sp"
                     android:textStyle="italic" />
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/btnEditAddress"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="6dp"
+                android:src="@drawable/baseline_edit_24"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="@color/primary" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

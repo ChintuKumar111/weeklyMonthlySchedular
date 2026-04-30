@@ -10,6 +10,7 @@ class SessionRepository(private val context: Context) {
         const val PREF_NAME = "AUTH_PREF"
         const val TOKEN = "TOKEN"
         const val PHONE = "PHONE"
+        const val NAME = "NAME"
         const val IS_NEW_CUSTOMER = "IS_NEW_CUSTOMER"
     }
 
@@ -25,8 +26,19 @@ class SessionRepository(private val context: Context) {
     fun storePhoneNumber(phone: String?) {
         pref.edit().apply {
             putString(PHONE, phone)
-            apply() // async save
+            apply()
         }
+    }
+
+    fun storeName(name: String?) {
+        pref.edit().apply {
+            putString(NAME, name)
+            apply()
+        }
+    }
+
+    fun getName(): String? {
+        return pref.getString(NAME, null)
     }
 
     fun getPhoneNumber(): String? {
@@ -36,6 +48,7 @@ class SessionRepository(private val context: Context) {
     fun setAsNewCustomer(value: Boolean = true) {
         pref.edit().apply {
             putBoolean(IS_NEW_CUSTOMER, value)
+            apply()
         }
     }
 

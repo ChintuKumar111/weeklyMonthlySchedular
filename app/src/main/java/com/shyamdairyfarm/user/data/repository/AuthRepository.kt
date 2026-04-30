@@ -54,10 +54,7 @@ class AuthRepository(private val apiService: ApiService) {
         emit(UiState.Error(errorMessage, e))
     }
 
-    fun verifyOtp(
-        phone: String,
-        otp: String
-    ): Flow<UiState<CustomerLoginRes>> = flow {
+    fun verifyOtp( phone: String,otp: String): Flow<UiState<CustomerLoginRes>> = flow {
 
         emit(UiState.Loading)
 
@@ -91,6 +88,7 @@ class AuthRepository(private val apiService: ApiService) {
 
 
     fun registerNewCustomer(
+        mobileNo: String,
         firstName: String,
         lastName: String,
         lat: String,
@@ -100,6 +98,7 @@ class AuthRepository(private val apiService: ApiService) {
 
         emit(UiState.Loading)
         val requestBody = RegisterNewCustomerReq(
+            mobile_no = mobileNo,
             first_name = firstName,
             last_name = lastName,
             lat = lat,
@@ -142,8 +141,6 @@ class AuthRepository(private val apiService: ApiService) {
 
     }
         .catch { e ->
-
-
             val errorMessage = when (e) {
                 is java.net.UnknownHostException -> "No internet connection"
                 is java.net.SocketTimeoutException -> "Connection timed out"

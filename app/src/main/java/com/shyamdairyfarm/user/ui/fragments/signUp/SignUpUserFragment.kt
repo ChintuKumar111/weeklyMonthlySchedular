@@ -37,7 +37,11 @@ class SignUpUserFragment : Fragment() {
 
         observeViewModel()
         setOnClickListener()
+        
+        // ✍️ Pre-fill if exists
+        binding.etName.setText(viewModel.name.value)
         enableButton()
+
         // ✍️ Input listener
         binding.etName.addTextChangedListener {
 
